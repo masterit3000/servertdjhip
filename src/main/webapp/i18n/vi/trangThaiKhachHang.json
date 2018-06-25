@@ -1,12 +1,12 @@
 {
     "servertdjhipApp": {
         "TrangThaiKhachHang" : {
-            "null": "",
-            "HOATDONG": "HOATDONG",
-            "DUNGHOATDONG": "DUNGHOATDONG",
-            "CAPDO1": "CAPDO1",
-            "CAPDO2": "CAPDO2",
-            "CAPDO3": "CAPDO3"
+            "null": "Lựa chọn",
+            "HOATDONG": "Hoạt động",
+            "DUNGHOATDONG": "Dừng hoạt động",
+            "CAPDO1": "Cấp độ 1",
+            "CAPDO2": "Cấp độ 2",
+            "CAPDO3": "Cấp độ 3"
         }
     }
 }

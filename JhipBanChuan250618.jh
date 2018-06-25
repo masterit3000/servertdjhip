@@ -200,7 +200,7 @@ relationship OneToMany {
 	Huyen{xa} to Xa
 }
 relationship OneToMany {
-	Xa{khachang} to KhachHang
+	Xa{khachhang} to KhachHang
 }
 relationship OneToMany {
 	Xa{nhanvien} to NhanVien

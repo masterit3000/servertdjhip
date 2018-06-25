@@ -1,11 +1,11 @@
 {
     "servertdjhipApp": {
         "TrangThaiNhanVien" : {
-            "null": "",
-            "DUNGHOATDONG": "DUNGHOATDONG",
-            "NHANVIEN": "NHANVIEN",
-            "QUANLYCUAHANG": "QUANLYCUAHANG",
-            "QUANTRI": "QUANTRI"
+            "null": "Lựa chọn",
+            "DUNGHOATDONG": "Dừng hoạt động",
+            "NHANVIEN": "Nhân viên",
+            "QUANLYCUAHANG": "Quản lý cửa hàng",
+            "QUANTRI": "Quản trị"
         }
     }
 }

@@ -3,24 +3,24 @@
     "servertdjhipApp": {
         "taiSan" : {
             "home": {
-                "title": "Tai Sans",
-                "createLabel": "Thêm mới một Tai San",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Tai San"
+                "title": "Tài Sản",
+                "createLabel": "Thêm mới một Tài Sản",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Tài Sản"
             },
-            "created": "Một Tai San mới được tạo với định danh {{ param }}",
-            "updated": "Một Tai San cập nhật với định danh {{ param }}",
-            "deleted": "Một Tai San đã xóa với định danh {{ param }}",
+            "created": "Một Tài Sản mới được tạo với định danh {{ param }}",
+            "updated": "Một Tài Sản cập nhật với định danh {{ param }}",
+            "deleted": "Một Tài Sản đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Tai San {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Tài Sản {{ id }}?"
             },
             "detail": {
-                "title": "Tai San"
+                "title": "Tài Sản"
             },
-            "mota": "Mota",
-            "sohieu": "Sohieu",
-            "noicat": "Noicat",
-            "hopDong": "Hop Dong",
-            "anh": "Anh"
+            "mota": "Mpp tả",
+            "sohieu": "Số hiệu",
+            "noicat": "Nơi cất",
+            "hopDong": "Hợp đồng",
+            "anh": "Ảnh"
         }
     }
 }

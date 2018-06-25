@@ -3,30 +3,30 @@
     "servertdjhipApp": {
         "hopDong" : {
             "home": {
-                "title": "Hop Dongs",
-                "createLabel": "Thêm mới một Hop Dong",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Hop Dong"
+                "title": "Hợp Đồng",
+                "createLabel": "Thêm mới một Hợp Đồng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Hợp Đồng"
             },
-            "created": "Một Hop Dong mới được tạo với định danh {{ param }}",
-            "updated": "Một Hop Dong cập nhật với định danh {{ param }}",
-            "deleted": "Một Hop Dong đã xóa với định danh {{ param }}",
+            "created": "Một Hợp Đồng mới được tạo với định danh {{ param }}",
+            "updated": "Một Hợp Đồng cập nhật với định danh {{ param }}",
+            "deleted": "Một Hợp Đồng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Hop Dong {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Hợp Đồng {{ id }}?"
             },
             "detail": {
-                "title": "Hop Dong"
+                "title": "Hợp Đồng"
             },
-            "ghichu": "Ghichu",
-            "loaihopdong": "Loaihopdong",
-            "ngaytao": "Ngaytao",
-            "khachHang": "Khach Hang",
-            "cuaHang": "Cua Hang",
-            "nhanVien": "Nhan Vien",
-            "hopdonggoc": "Hopdonggoc",
-            "taisan": "Taisan",
-            "ghino": "Ghino",
-            "lichsudongtien": "Lichsudongtien",
-            "lichsuthaotachd": "Lichsuthaotachd"
+            "ghichu": "Ghi chú",
+            "loaihopdong": "Loại hợp đồng",
+            "ngaytao": "Ngày tạo",
+            "khachHang": "Khách hàng",
+            "cuaHang": "Cửa hàng",
+            "nhanVien": "Nhân viên",
+            "hopdonggoc": "Hợp đồng gốc",
+            "taisan": "Tài sản",
+            "ghino": "Ghi nợ",
+            "lichsudongtien": "Lịch sử đóng tiền",
+            "lichsuthaotachd": "Lịch sử thao tác hợp đồng"
         }
     }
 }

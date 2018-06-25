@@ -3,21 +3,21 @@
     "servertdjhipApp": {
         "anhKhachHang" : {
             "home": {
-                "title": "Anh Khach Hangs",
-                "createLabel": "Thêm mới một Anh Khach Hang",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Anh Khach Hang"
+                "title": "Ảnh Khách Hàng",
+                "createLabel": "Thêm ảnh khách hàng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật ảnh khách hàng"
             },
-            "created": "Một Anh Khach Hang mới được tạo với định danh {{ param }}",
-            "updated": "Một Anh Khach Hang cập nhật với định danh {{ param }}",
-            "deleted": "Một Anh Khach Hang đã xóa với định danh {{ param }}",
+            "created": "Một ảnh khách hàng mới được tạo với định danh {{ param }}",
+            "updated": "Một ảnh khách hàng cập nhật với định danh {{ param }}",
+            "deleted": "Một ảnh khách hàng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Anh Khach Hang {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa ảnh khách hàng {{ id }}?"
             },
             "detail": {
-                "title": "Anh Khach Hang"
+                "title": "Ảnh Khách Hàng"
             },
             "url": "Url",
-            "khachHang": "Khach Hang"
+            "khachHang": "Khách hàng"
         }
     }
 }

@@ -1,23 +1,23 @@
 
 {
     "servertdjhipApp": {
-        "tinh" : {
+        "Tỉnh" : {
             "home": {
-                "title": "Tinhs",
-                "createLabel": "Thêm mới một Tinh",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Tinh"
+                "title": "Tỉnh",
+                "createLabel": "Thêm mới một Tỉnh",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Tỉnh"
             },
-            "created": "Một Tinh mới được tạo với định danh {{ param }}",
-            "updated": "Một Tinh cập nhật với định danh {{ param }}",
-            "deleted": "Một Tinh đã xóa với định danh {{ param }}",
+            "created": "Một Tỉnh mới được tạo với định danh {{ param }}",
+            "updated": "Một Tỉnh cập nhật với định danh {{ param }}",
+            "deleted": "Một Tỉnh đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Tinh {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Tỉnh {{ id }}?"
             },
             "detail": {
-                "title": "Tinh"
+                "title": "Tỉnh"
             },
-            "ten": "Ten",
-            "huyen": "Huyen"
+            "ten": "Tên",
+            "huyen": "Huyện"
         }
     }
 }

@@ -1,9 +1,9 @@
 {
     "servertdjhipApp": {
         "DONGTIEN" : {
-            "null": "",
-            "CHUADONG": "CHUADONG",
-            "DADONG": "DADONG"
+            "null": "Lựa chọn",
+            "CHUADONG": "Chưa đóng",
+            "DADONG": "Đã đóng"
         }
     }
 }

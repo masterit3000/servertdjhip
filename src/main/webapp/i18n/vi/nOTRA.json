@@ -1,9 +1,9 @@
 {
     "servertdjhipApp": {
         "NOTRA" : {
-            "null": "",
-            "NO": "NO",
-            "TRA": "TRA"
+            "null": "Lựa chọn",
+            "NO": "Nợ",
+            "TRA": "Trả"
         }
     }
 }
