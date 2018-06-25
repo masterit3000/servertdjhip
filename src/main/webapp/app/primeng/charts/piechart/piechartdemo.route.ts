@@ -6,7 +6,6 @@ export const piechartDemoRoute: Route = {
     path: 'piechart',
     component: PiechartDemoComponent,
     data: {
-         
         pageTitle: 'primeng.charts.piechart.title'
     },
     canActivate: [UserRouteAccessService]

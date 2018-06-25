@@ -6,7 +6,6 @@ export const cardDemoRoute: Route = {
     path: 'card',
     component: CardDemoComponent,
     data: {
-         
         pageTitle: 'primeng.panel.card.title'
     },
     canActivate: [UserRouteAccessService]

@@ -6,7 +6,6 @@ export const messagesDemoRoute: Route = {
     path: 'messages',
     component: MessagesDemoComponent,
     data: {
-         
         pageTitle: 'primeng.messages.messages.title'
     },
     canActivate: [UserRouteAccessService]

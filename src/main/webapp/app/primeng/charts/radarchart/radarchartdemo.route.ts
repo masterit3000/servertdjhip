@@ -6,7 +6,6 @@ export const radarchartDemoRoute: Route = {
     path: 'radarchart',
     component: RadarchartDemoComponent,
     data: {
-         
         pageTitle: 'primeng.charts.radarchart.title'
     },
     canActivate: [UserRouteAccessService]

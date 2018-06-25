@@ -6,7 +6,6 @@ export const inplaceDemoRoute: Route = {
     path: 'inplace',
     component: InplaceDemoComponent,
     data: {
-         
         pageTitle: 'primeng.misc.inplace.title'
     },
     canActivate: [UserRouteAccessService]

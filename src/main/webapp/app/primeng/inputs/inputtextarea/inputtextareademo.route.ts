@@ -6,7 +6,6 @@ export const inputTextAreaDemoRoute: Route = {
     path: 'inputtextarea',
     component: InputTextAreaDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.inputtextarea.title'
     },
     canActivate: [UserRouteAccessService]

@@ -6,7 +6,6 @@ export const splitbuttonDemoRoute: Route = {
     path: 'splitbutton',
     component: SplitbuttonDemoComponent,
     data: {
-         
         pageTitle: 'primeng.buttons.splitbutton.title'
     },
     canActivate: [UserRouteAccessService]

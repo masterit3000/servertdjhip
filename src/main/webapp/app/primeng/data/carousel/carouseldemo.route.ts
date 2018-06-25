@@ -6,7 +6,6 @@ export const carouselDemoRoute: Route = {
     path: 'carousel',
     component: CarouselDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.carousel.title'
     },
     canActivate: [UserRouteAccessService]

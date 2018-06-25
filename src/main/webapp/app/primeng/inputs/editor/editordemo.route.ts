@@ -6,7 +6,6 @@ export const editorDemoRoute: Route = {
     path: 'editor',
     component: EditorDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.editor.title'
     },
     canActivate: [UserRouteAccessService]

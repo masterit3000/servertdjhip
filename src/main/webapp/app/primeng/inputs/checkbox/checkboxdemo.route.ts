@@ -6,7 +6,6 @@ export const checkboxDemoRoute: Route = {
     path: 'checkbox',
     component: CheckboxDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.checkbox.title'
     },
     canActivate: [UserRouteAccessService]

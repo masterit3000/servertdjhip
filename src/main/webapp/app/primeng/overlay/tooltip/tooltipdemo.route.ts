@@ -6,7 +6,6 @@ export const tooltipDemoRoute: Route = {
     path: 'tooltip',
     component: TooltipDemoComponent,
     data: {
-         
         pageTitle: 'primeng.overlay.tooltip.title'
     },
     canActivate: [UserRouteAccessService]

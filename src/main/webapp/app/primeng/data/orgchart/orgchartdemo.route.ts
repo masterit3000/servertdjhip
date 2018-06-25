@@ -6,7 +6,6 @@ export const orgchartDemoRoute: Route = {
     path: 'orgchart',
     component: OrgChartDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.orgchart.title'
     },
     canActivate: [UserRouteAccessService]

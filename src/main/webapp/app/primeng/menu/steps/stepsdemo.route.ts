@@ -6,7 +6,6 @@ export const stepsDemoRoute: Route = {
     path: 'steps',
     component: StepsDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.steps.title'
     },
     canActivate: [UserRouteAccessService]

@@ -6,7 +6,6 @@ export const autocompleteDemoRoute: Route = {
     path: 'autocomplete',
     component: AutocompleteDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.autocomplete.title'
     },
     canActivate: [UserRouteAccessService]

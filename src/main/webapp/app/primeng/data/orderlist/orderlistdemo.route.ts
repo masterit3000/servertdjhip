@@ -6,7 +6,6 @@ export const orderlistDemoRoute: Route = {
     path: 'orderlist',
     component: OrderlistDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.orderlist.title'
     },
     canActivate: [UserRouteAccessService]

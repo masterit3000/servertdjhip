@@ -6,7 +6,6 @@ export const progressspinnerDemoRoute: Route = {
     path: 'progressspinner',
     component: ProgressSpinnerDemoComponent,
     data: {
-         
         pageTitle: 'primeng.misc.progressspinner.title'
     },
     canActivate: [UserRouteAccessService]

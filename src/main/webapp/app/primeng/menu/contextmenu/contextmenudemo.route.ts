@@ -6,7 +6,6 @@ export const contextmenuDemoRoute: Route = {
     path: 'contextmenu',
     component: ContextMenuDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.contextmenu.title'
     },
     canActivate: [UserRouteAccessService]

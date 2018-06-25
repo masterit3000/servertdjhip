@@ -6,7 +6,6 @@ export const growlDemoRoute: Route = {
     path: 'growl',
     component: GrowlDemoComponent,
     data: {
-         
         pageTitle: 'primeng.messages.growl.title'
     },
     canActivate: [UserRouteAccessService]

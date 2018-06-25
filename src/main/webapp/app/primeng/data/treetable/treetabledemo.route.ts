@@ -6,7 +6,6 @@ export const treetableDemoRoute: Route = {
     path: 'treetable',
     component: TreeTableDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.treetable.title'
     },
     canActivate: [UserRouteAccessService]

@@ -6,7 +6,6 @@ export const progressbarDemoRoute: Route = {
     path: 'progressbar',
     component: ProgressBarDemoComponent,
     data: {
-         
         pageTitle: 'primeng.misc.progressbar.title'
     },
     canActivate: [UserRouteAccessService]

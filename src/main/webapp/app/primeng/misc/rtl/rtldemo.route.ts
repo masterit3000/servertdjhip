@@ -6,7 +6,6 @@ export const rtlDemoRoute: Route = {
     path: 'rtl',
     component: RTLDemoComponent,
     data: {
-         
         pageTitle: 'primeng.misc.rtl.title'
     },
     canActivate: [UserRouteAccessService]

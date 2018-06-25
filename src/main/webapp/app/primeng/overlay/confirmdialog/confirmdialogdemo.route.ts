@@ -6,7 +6,6 @@ export const confirmDialogDemoRoute: Route = {
     path: 'confirmdialog',
     component: ConfirmDialogDemoComponent,
     data: {
-         
         pageTitle: 'primeng.overlay.confirmdialog.title'
     },
     canActivate: [UserRouteAccessService]

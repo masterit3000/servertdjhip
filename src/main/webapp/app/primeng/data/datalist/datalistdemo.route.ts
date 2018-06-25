@@ -6,7 +6,6 @@ export const datalistDemoRoute: Route = {
     path: 'datalist',
     component: DataListDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.datalist.title'
     },
     canActivate: [UserRouteAccessService]

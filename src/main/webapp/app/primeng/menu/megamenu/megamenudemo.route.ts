@@ -6,7 +6,6 @@ export const megamenuDemoRoute: Route = {
     path: 'megamenu',
     component: MegaMenuDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.megamenu.title'
     },
     canActivate: [UserRouteAccessService]

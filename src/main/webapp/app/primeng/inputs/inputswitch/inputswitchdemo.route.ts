@@ -6,7 +6,6 @@ export const inputswitchDemoRoute: Route = {
     path: 'inputswitch',
     component: InputSwitchDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.inputswitch.title'
     },
     canActivate: [UserRouteAccessService]

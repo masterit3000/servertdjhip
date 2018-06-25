@@ -6,7 +6,6 @@ export const dataviewDemoRoute: Route = {
     path: 'dataview',
     component: DataViewDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.dataview.title'
     },
     canActivate: [UserRouteAccessService]

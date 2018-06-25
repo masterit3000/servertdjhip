@@ -6,7 +6,6 @@ export const dragdropDemoRoute: Route = {
     path: 'dragdrop',
     component: DragdropDemoComponent,
     data: {
-         
         pageTitle: 'primeng.dragdrop.dragdrop.title'
     },
     canActivate: [UserRouteAccessService]

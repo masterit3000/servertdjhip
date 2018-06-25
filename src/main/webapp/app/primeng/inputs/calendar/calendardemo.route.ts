@@ -6,7 +6,6 @@ export const calendarDemoRoute: Route = {
     path: 'calendar',
     component: CalendarDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.calendar.title'
     },
     canActivate: [UserRouteAccessService]

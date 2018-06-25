@@ -6,7 +6,6 @@ export const tabmenuDemoRoute: Route = {
     path: 'tabmenu',
     component: TabMenuDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.tabmenu.title'
     },
     canActivate: [UserRouteAccessService]

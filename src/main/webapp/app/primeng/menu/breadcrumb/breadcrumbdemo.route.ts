@@ -6,7 +6,6 @@ export const breadcrumbDemoRoute: Route = {
     path: 'breadcrumb',
     component: BreadcrumbDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.breadcrumb.title'
     },
     canActivate: [UserRouteAccessService]

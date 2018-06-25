@@ -6,7 +6,6 @@ export const menuDemoRoute: Route = {
     path: 'menu',
     component: MenuDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.menu.title'
     },
     canActivate: [UserRouteAccessService]

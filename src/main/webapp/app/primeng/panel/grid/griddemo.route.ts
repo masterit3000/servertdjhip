@@ -6,7 +6,6 @@ export const gridDemoRoute: Route = {
     path: 'grid',
     component: GridDemoComponent,
     data: {
-         
         pageTitle: 'primeng.panel.grid.title'
     },
     canActivate: [UserRouteAccessService]

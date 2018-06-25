@@ -6,7 +6,6 @@ export const passwordindicatorDemoRoute: Route = {
     path: 'passwordindicator',
     component: PasswordIndicatorDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.passwordindicator.title'
     },
     canActivate: [UserRouteAccessService]

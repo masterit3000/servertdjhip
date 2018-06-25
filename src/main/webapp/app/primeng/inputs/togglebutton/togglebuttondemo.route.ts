@@ -6,7 +6,6 @@ export const spinnerDemoRoute: Route = {
     path: 'togglebutton',
     component: ToggleButtonDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.togglebutton.title'
     },
     canActivate: [UserRouteAccessService]

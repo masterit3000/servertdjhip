@@ -6,7 +6,6 @@ export const datagridDemoRoute: Route = {
     path: 'datagrid',
     component: DataGridDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.datagrid.title'
     },
     canActivate: [UserRouteAccessService]

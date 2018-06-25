@@ -6,7 +6,6 @@ export const ratingDemoRoute: Route = {
     path: 'rating',
     component: RatingDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.rating.title'
     },
     canActivate: [UserRouteAccessService]

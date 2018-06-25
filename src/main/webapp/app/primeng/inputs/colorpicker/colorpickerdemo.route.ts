@@ -6,7 +6,6 @@ export const colorpickerDemoRoute: Route = {
     path: 'colorpicker',
     component: ColorpickerDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.colorpicker.title'
     },
     canActivate: [UserRouteAccessService]

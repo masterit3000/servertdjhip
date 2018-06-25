@@ -6,7 +6,6 @@ export const captchaDemoRoute: Route = {
     path: 'captcha',
     component: CaptchaDemoComponent,
     data: {
-         
         pageTitle: 'primeng.misc.captcha.title'
     },
     canActivate: [UserRouteAccessService]

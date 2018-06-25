@@ -6,7 +6,6 @@ export const tableDemoRoute: Route = {
     path: 'table',
     component: TableDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.table.title'
     },
     canActivate: [UserRouteAccessService]

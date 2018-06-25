@@ -6,7 +6,6 @@ export const panelmenuDemoRoute: Route = {
     path: 'panelmenu',
     component: PanelMenuDemoComponent,
     data: {
-         
         pageTitle: 'primeng.menu.panelmenu.title'
     },
     canActivate: [UserRouteAccessService]

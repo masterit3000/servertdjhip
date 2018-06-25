@@ -6,7 +6,6 @@ export const inputGroupDemoRoute: Route = {
     path: 'inputgroup',
     component: InputGroupDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.inputgroup.title'
     },
     canActivate: [UserRouteAccessService]

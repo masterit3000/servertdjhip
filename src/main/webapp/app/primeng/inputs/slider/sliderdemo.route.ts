@@ -6,7 +6,6 @@ export const sliderDemoRoute: Route = {
     path: 'slider',
     component: SliderDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.slider.title'
     },
     canActivate: [UserRouteAccessService]

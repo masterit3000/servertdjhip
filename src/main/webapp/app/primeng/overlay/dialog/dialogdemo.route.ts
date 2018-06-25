@@ -6,7 +6,6 @@ export const dialogDemoRoute: Route = {
     path: 'dialog',
     component: DialogDemoComponent,
     data: {
-         
         pageTitle: 'primeng.overlay.dialog.title'
     },
     canActivate: [UserRouteAccessService]

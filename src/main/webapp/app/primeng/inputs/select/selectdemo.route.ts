@@ -6,7 +6,6 @@ export const selectDemoRoute: Route = {
     path: 'select',
     component: SelectDemoComponent,
     data: {
-         
         pageTitle: 'primeng.inputs.select.title'
     },
     canActivate: [UserRouteAccessService]

@@ -6,7 +6,6 @@ export const buttonDemoRoute: Route = {
     path: 'button',
     component: ButtonDemoComponent,
     data: {
-        //  
         pageTitle: 'primeng.buttons.button.title'
     },
     canActivate: [UserRouteAccessService]

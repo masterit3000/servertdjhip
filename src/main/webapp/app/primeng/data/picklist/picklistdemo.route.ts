@@ -6,7 +6,6 @@ export const picklistDemoRoute: Route = {
     path: 'picklist',
     component: PicklistDemoComponent,
     data: {
-         
         pageTitle: 'primeng.data.picklist.title'
     },
     canActivate: [UserRouteAccessService]
