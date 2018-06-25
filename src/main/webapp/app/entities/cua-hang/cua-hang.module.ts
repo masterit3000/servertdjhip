@@ -14,6 +14,10 @@ import {
     cuaHangRoute,
     cuaHangPopupRoute,
 } from './';
+import { TongQuatChuoiCuaHangComponent } from './tong-quat-chuoi-cua-hang/tong-quat-chuoi-cua-hang.component';
+import { ThongTinChiTietCuaHangComponent } from './thong-tin-chi-tiet-cua-hang/thong-tin-chi-tiet-cua-hang.component';
+import { CauHinhHangHoaComponent } from './cau-hinh-hang-hoa/cau-hinh-hang-hoa.component';
+import { NhapTienQuyDauNgayComponent } from './nhap-tien-quy-dau-ngay/nhap-tien-quy-dau-ngay.component';
 
 const ENTITY_STATES = [
     ...cuaHangRoute,
@@ -32,6 +36,10 @@ const ENTITY_STATES = [
         CuaHangDeleteDialogComponent,
         CuaHangPopupComponent,
         CuaHangDeletePopupComponent,
+        TongQuatChuoiCuaHangComponent,
+        ThongTinChiTietCuaHangComponent,
+        CauHinhHangHoaComponent,
+        NhapTienQuyDauNgayComponent,
     ],
     entryComponents: [
         CuaHangComponent,

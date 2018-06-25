@@ -19,10 +19,10 @@
                 <a routerLink="khach-hang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.danhSachKhachHang">Danh sách khách hàng</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="khachCanVay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.khachCanVay">Khách cần vay</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="checkThongTinKhachHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.checkThongTinKhachHang">Check thông tin khách hàng</span>
                 </a>
             </div>
@@ -30,19 +30,19 @@
                 <span jhiTranslate="global.menu.quanLyCuaHang">Quản lý cửa hàng</span>
             </a>
             <div [ngClass]="{submenushow: (menucuahang.id == activeMenuId), 'submenuhide': (menucuahang.id != activeMenuId)}">
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="tongQuatChuoiCuaHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.tongQuatChuoiCuaHang">Tổng quát chuỗi cửa hàng</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="thongTinChiTietCuaHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.thongTinChiTietCuaHang">Thông tin chi tiết cửa hàng</span>
                 </a>
                 <a routerLink="cua-hang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.danhSachCuaHang">Danh sách cửa hàng</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="cauHinhHangHoa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.cauHinhHangHoa">Cấu hình hàng hóa</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="nhapTienQuyDauNgay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.nhapTienQuyDauNgay">Nhập tiền quỹ đầu ngày</span>
                 </a>
             </div>
