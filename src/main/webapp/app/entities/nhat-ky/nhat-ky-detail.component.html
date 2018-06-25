@@ -1,0 +1,42 @@
+
+<div *ngIf="nhatKy">
+    <h2><span jhiTranslate="servertdjhipApp.nhatKy.detail.title">Nhat Ky</span> {{nhatKy.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.nhatKy.thoiGian">Thoi Gian</span></dt>
+        <dd>
+            <span>{{nhatKy.thoiGian | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.nhatKy.noiDung">Noi Dung</span></dt>
+        <dd>
+            <span>{{nhatKy.noiDung}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.nhatKy.cuaHang">Cua Hang</span></dt>
+        <dd>
+            <div *ngIf="nhatKy.cuaHangId">
+                <a [routerLink]="['/cua-hang', nhatKy.cuaHangId]">{{nhatKy.cuaHangId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.nhatKy.nhanVien">Nhan Vien</span></dt>
+        <dd>
+            <div *ngIf="nhatKy.nhanVienId">
+                <a [routerLink]="['/nhan-vien', nhatKy.nhanVienId]">{{nhatKy.nhanVienId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'nhat-ky/'+ nhatKy.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

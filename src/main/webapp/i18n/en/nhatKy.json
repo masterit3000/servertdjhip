@@ -1,0 +1,25 @@
+
+{
+    "servertdjhipApp": {
+        "nhatKy" : {
+            "home": {
+                "title": "Nhat Kies",
+                "createLabel": "Create a new Nhat Ky",
+                "createOrEditLabel": "Create or edit a Nhat Ky"
+            },
+            "created": "A new Nhat Ky is created with identifier {{ param }}",
+            "updated": "A Nhat Ky is updated with identifier {{ param }}",
+            "deleted": "A Nhat Ky is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Nhat Ky {{ id }}?"
+            },
+            "detail": {
+                "title": "Nhat Ky"
+            },
+            "thoiGian": "Thoi Gian",
+            "noiDung": "Noi Dung",
+            "cuaHang": "Cua Hang",
+            "nhanVien": "Nhan Vien"
+        }
+    }
+}

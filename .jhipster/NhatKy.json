@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "cuaHang",
+            "otherEntityName": "cuaHang",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "nhanVien",
+            "otherEntityName": "nhanVien",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "thoiGian",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "noiDung",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 300
+        }
+    ],
+    "changelogDate": "20180625160634",
+    "entityTableName": "nhat_ky",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

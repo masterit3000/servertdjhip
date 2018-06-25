@@ -21,6 +21,7 @@
     <include file="config/liquibase/changelog/20180625141445_added_entity_ThuChi.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625141446_added_entity_TaiSan.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625141447_added_entity_AnhTaiSan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_NhatKy.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180625141433_added_entity_constraints_Huyen.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625141434_added_entity_constraints_Xa.xml" relativeToChangelogFile="false"/>
@@ -37,5 +38,6 @@
     <include file="config/liquibase/changelog/20180625141445_added_entity_constraints_ThuChi.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625141446_added_entity_constraints_TaiSan.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625141447_added_entity_constraints_AnhTaiSan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_constraints_NhatKy.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

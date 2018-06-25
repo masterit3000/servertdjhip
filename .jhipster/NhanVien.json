@@ -23,6 +23,12 @@
         },
         {
             "relationshipType": "one-to-many",
+            "relationshipName": "nhatky",
+            "otherEntityName": "nhatKy",
+            "otherEntityRelationshipName": "nhanVien"
+        },
+        {
+            "relationshipType": "one-to-many",
             "relationshipName": "thuchi",
             "otherEntityName": "thuChi",
             "otherEntityRelationshipName": "nhanVien"

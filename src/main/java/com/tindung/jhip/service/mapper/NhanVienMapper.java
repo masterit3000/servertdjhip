@@ -19,6 +19,7 @@ public interface NhanVienMapper extends EntityMapper<NhanVienDTO, NhanVien> {
     @Mapping(source = "xaId", target = "xa")
     @Mapping(source = "cuaHangId", target = "cuaHang")
     @Mapping(source = "userId", target = "user")
+    @Mapping(target = "nhatkies", ignore = true)
     @Mapping(target = "thuchis", ignore = true)
     @Mapping(target = "lichsudongtiens", ignore = true)
     @Mapping(target = "ghinos", ignore = true)

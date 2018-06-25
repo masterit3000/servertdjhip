@@ -57,6 +57,11 @@ public class CuaHang implements Serializable {
     @OneToMany(mappedBy = "cuaHang")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<NhatKy> nhatkies = new HashSet<>();
+
+    @OneToMany(mappedBy = "cuaHang")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ThuChi> thuchis = new HashSet<>();
 
     @OneToMany(mappedBy = "cuaHang")
@@ -172,6 +177,31 @@ public class CuaHang implements Serializable {
 
     public void setXa(Xa xa) {
         this.xa = xa;
+    }
+
+    public Set<NhatKy> getNhatkies() {
+        return nhatkies;
+    }
+
+    public CuaHang nhatkies(Set<NhatKy> nhatKies) {
+        this.nhatkies = nhatKies;
+        return this;
+    }
+
+    public CuaHang addNhatky(NhatKy nhatKy) {
+        this.nhatkies.add(nhatKy);
+        nhatKy.setCuaHang(this);
+        return this;
+    }
+
+    public CuaHang removeNhatky(NhatKy nhatKy) {
+        this.nhatkies.remove(nhatKy);
+        nhatKy.setCuaHang(null);
+        return this;
+    }
+
+    public void setNhatkies(Set<NhatKy> nhatKies) {
+        this.nhatkies = nhatKies;
     }
 
     public Set<ThuChi> getThuchis() {
