@@ -5,10 +5,17 @@ import { JhiLanguageHelper } from '../../shared';
 
 @Component({
     selector: 'jhi-main',
-    templateUrl: './main.component.html'
+    templateUrl: './main.component.html',
+    styleUrls: [
+        'main.component.scss'
+    ]
 })
 export class JhiMainComponent implements OnInit {
 
+    menuActive: boolean;
+    
+    activeMenuId: string;
+    visibleSidebar1;
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
         private router: Router
