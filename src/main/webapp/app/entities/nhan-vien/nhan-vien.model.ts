@@ -20,6 +20,7 @@ export class NhanVien implements BaseEntity {
         public xaId?: number,
         public cuaHangId?: number,
         public userId?: number,
+        public nhatkies?: BaseEntity[],
         public thuchis?: BaseEntity[],
         public lichsudongtiens?: BaseEntity[],
         public ghinos?: BaseEntity[],

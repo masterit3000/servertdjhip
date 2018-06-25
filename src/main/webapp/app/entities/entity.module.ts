@@ -16,6 +16,7 @@ import { ServertdjhipLichSuThaoTacHopDongModule } from './lich-su-thao-tac-hop-d
 import { ServertdjhipThuChiModule } from './thu-chi/thu-chi.module';
 import { ServertdjhipTaiSanModule } from './tai-san/tai-san.module';
 import { ServertdjhipAnhTaiSanModule } from './anh-tai-san/anh-tai-san.module';
+import { ServertdjhipNhatKyModule } from './nhat-ky/nhat-ky.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ServertdjhipAnhTaiSanModule } from './anh-tai-san/anh-tai-san.module';
         ServertdjhipThuChiModule,
         ServertdjhipTaiSanModule,
         ServertdjhipAnhTaiSanModule,
+        ServertdjhipNhatKyModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -15,6 +15,7 @@ public interface CuaHangMapper extends EntityMapper<CuaHangDTO, CuaHang> {
     CuaHangDTO toDto(CuaHang cuaHang);
 
     @Mapping(source = "xaId", target = "xa")
+    @Mapping(target = "nhatkies", ignore = true)
     @Mapping(target = "thuchis", ignore = true)
     @Mapping(target = "khachhangs", ignore = true)
     @Mapping(target = "nhanviens", ignore = true)

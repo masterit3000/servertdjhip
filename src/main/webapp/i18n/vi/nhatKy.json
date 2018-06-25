@@ -1,0 +1,25 @@
+
+{
+    "servertdjhipApp": {
+        "nhatKy" : {
+            "home": {
+                "title": "Nhat Kies",
+                "createLabel": "Thêm mới một Nhat Ky",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Nhat Ky"
+            },
+            "created": "Một Nhat Ky mới được tạo với định danh {{ param }}",
+            "updated": "Một Nhat Ky cập nhật với định danh {{ param }}",
+            "deleted": "Một Nhat Ky đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Nhat Ky {{ id }}?"
+            },
+            "detail": {
+                "title": "Nhat Ky"
+            },
+            "thoiGian": "Thoi Gian",
+            "noiDung": "Noi Dung",
+            "cuaHang": "Cua Hang",
+            "nhanVien": "Nhan Vien"
+        }
+    }
+}

@@ -9,6 +9,12 @@
         },
         {
             "relationshipType": "one-to-many",
+            "relationshipName": "nhatky",
+            "otherEntityName": "nhatKy",
+            "otherEntityRelationshipName": "cuaHang"
+        },
+        {
+            "relationshipType": "one-to-many",
             "relationshipName": "thuchi",
             "otherEntityName": "thuChi",
             "otherEntityRelationshipName": "cuaHang"
