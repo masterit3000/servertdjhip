@@ -1,0 +1,69 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "hopdongvl",
+            "otherEntityName": "hopDong",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "vayLai"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "tienvay",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "hinhthuclai",
+            "fieldType": "HINHTHUCLAI",
+            "fieldValues": "NGAY,THANG,TUAN,NAM,THANGCODINH",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "thoigianvay",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "chukylai",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lai",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "cachtinhlai",
+            "fieldType": "TINHLAI",
+            "fieldValues": "MOTTRIEU,CHUKY,PHANTRAM",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "thulaitruoc",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180625141442",
+    "entityTableName": "vay_lai",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

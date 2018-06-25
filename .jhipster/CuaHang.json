@@ -1,0 +1,79 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "xa",
+            "otherEntityName": "xa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "thuchi",
+            "otherEntityName": "thuChi",
+            "otherEntityRelationshipName": "cuaHang"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "khachhang",
+            "otherEntityName": "khachHang",
+            "otherEntityRelationshipName": "cuaHang"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "nhanvien",
+            "otherEntityName": "nhanVien",
+            "otherEntityRelationshipName": "cuaHang"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "hopdong",
+            "otherEntityName": "hopDong",
+            "otherEntityRelationshipName": "cuaHang"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ten",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "diachi",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "dienthoai",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "trangthai",
+            "fieldType": "TrangThaiCuaHang",
+            "fieldValues": "DUNGHOATDONG,HOATDONG"
+        },
+        {
+            "fieldName": "ngayTao",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "ghiChu",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 3000
+        }
+    ],
+    "changelogDate": "20180625141436",
+    "entityTableName": "cua_hang",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

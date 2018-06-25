@@ -1,0 +1,44 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "huyen",
+            "otherEntityName": "huyen",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "khachang",
+            "otherEntityName": "khachHang",
+            "otherEntityRelationshipName": "xa"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "nhanvien",
+            "otherEntityName": "nhanVien",
+            "otherEntityRelationshipName": "xa"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cuahang",
+            "otherEntityName": "cuaHang",
+            "otherEntityRelationshipName": "xa"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ten",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180625141434",
+    "entityTableName": "xa",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

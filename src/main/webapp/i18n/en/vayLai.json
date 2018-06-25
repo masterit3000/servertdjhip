@@ -1,0 +1,29 @@
+
+{
+    "servertdjhipApp": {
+        "vayLai" : {
+            "home": {
+                "title": "Vay Lais",
+                "createLabel": "Create a new Vay Lai",
+                "createOrEditLabel": "Create or edit a Vay Lai"
+            },
+            "created": "A new Vay Lai is created with identifier {{ param }}",
+            "updated": "A Vay Lai is updated with identifier {{ param }}",
+            "deleted": "A Vay Lai is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Vay Lai {{ id }}?"
+            },
+            "detail": {
+                "title": "Vay Lai"
+            },
+            "tienvay": "Tienvay",
+            "hinhthuclai": "Hinhthuclai",
+            "thoigianvay": "Thoigianvay",
+            "chukylai": "Chukylai",
+            "lai": "Lai",
+            "cachtinhlai": "Cachtinhlai",
+            "thulaitruoc": "Thulaitruoc",
+            "hopdongvl": "Hopdongvl"
+        }
+    }
+}

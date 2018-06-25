@@ -1,0 +1,58 @@
+
+<div *ngIf="hopDong">
+    <h2><span jhiTranslate="servertdjhipApp.hopDong.detail.title">Hop Dong</span> {{hopDong.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.ghichu">Ghichu</span></dt>
+        <dd>
+            <span>{{hopDong.ghichu}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.loaihopdong">Loaihopdong</span></dt>
+        <dd>
+            <span jhiTranslate="{{'servertdjhipApp.LOAIHOPDONG.' + hopDong.loaihopdong}}">{{hopDong.loaihopdong}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.ngaytao">Ngaytao</span></dt>
+        <dd>
+            <span>{{hopDong.ngaytao | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.khachHang">Khach Hang</span></dt>
+        <dd>
+            <div *ngIf="hopDong.khachHangId">
+                <a [routerLink]="['/khach-hang', hopDong.khachHangId]">{{hopDong.khachHangId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.cuaHang">Cua Hang</span></dt>
+        <dd>
+            <div *ngIf="hopDong.cuaHangId">
+                <a [routerLink]="['/cua-hang', hopDong.cuaHangId]">{{hopDong.cuaHangId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.nhanVien">Nhan Vien</span></dt>
+        <dd>
+            <div *ngIf="hopDong.nhanVienId">
+                <a [routerLink]="['/nhan-vien', hopDong.nhanVienId]">{{hopDong.nhanVienId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.hopDong.hopdonggoc">Hopdonggoc</span></dt>
+        <dd>
+            <div *ngIf="hopDong.hopdonggocId">
+                <a [routerLink]="['/hop-dong', hopDong.hopdonggocId]">{{hopDong.hopdonggocId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'hop-dong/'+ hopDong.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

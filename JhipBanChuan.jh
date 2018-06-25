@@ -1,0 +1,207 @@
+entity Tinh {
+	ten String required
+}
+entity Huyen {
+	ten String required
+}
+
+entity Xa {
+	ten String required
+}
+enum TrangThaiKhachHang {
+    HOATDONG, DUNGHOATDONG , CAPDO1, CAPDO2, CAPDO3
+}
+entity KhachHang {
+	ten String required,
+    diachi String maxlength(200),
+    dienthoai String ,
+    cmnd String maxlength(11),
+    trangthai TrangThaiKhachHang,
+    ngayTao ZonedDateTime,
+    email String ,
+    facebook String,
+    ghiChu String maxlength(3000)
+}
+enum TrangThaiCuaHang{
+DUNGHOATDONG,HOATDONG
+}
+entity CuaHang {
+	ten String required,
+    diachi String maxlength(200),
+    dienthoai String ,
+    trangthai TrangThaiCuaHang,
+    ngayTao ZonedDateTime,
+    ghiChu String maxlength(3000)
+}
+enum TrangThaiNhanVien{
+DUNGHOATDONG,NHANVIEN,QUANLYCUAHANG,QUANTRI
+}
+entity NhanVien {
+	ten String required,
+    diachi String maxlength(200),
+    dienthoai String ,
+    cmnd String maxlength(11),
+    trangthai TrangThaiNhanVien,
+    ngayTao ZonedDateTime,
+    ghiChu String maxlength(3000)
+}
+entity AnhKhachHang {
+	url String maxlength(1000) required,
+}
+enum LOAIHOPDONG{
+	VAYLAI,BATHO,CAMDO
+}
+entity HopDong {
+    ghichu String maxlength(3000),
+    loaihopdong LOAIHOPDONG required ,
+    ngaytao ZonedDateTime required
+}
+enum DONGTIEN{
+	CHUADONG,DADONG
+}
+entity LichSuDongTien{
+	ngaybatdau ZonedDateTime required,
+    ngayketthuc ZonedDateTime required,
+    sotien Double required, 
+    trangthai DONGTIEN required,
+    ghiChu String maxlength(3000)
+}
+entity BatHo{
+	tienduakhach Double required,
+    tongtien Double required,
+    tongsongay Integer required, 
+    chuky Integer required
+    
+}
+enum HINHTHUCLAI{
+NGAY,THANG,TUAN,NAM,THANGCODINH
+}
+enum TINHLAI{
+MOTTRIEU, CHUKY,PHANTRAM
+}
+entity VayLai{
+	tienvay Double required,
+    hinhthuclai HINHTHUCLAI required, 
+    thoigianvay Integer required,
+    chukylai Integer required,
+    lai Float required,
+    cachtinhlai TINHLAI required,
+    thulaitruoc Boolean
+}
+enum NOTRA{
+NO,TRA
+}
+entity GhiNo{
+	ngayghino ZonedDateTime required,
+    sotien Double required,
+    trangthai NOTRA required,
+    ghiChu String maxlength(3000)
+   
+}
+entity LichSuThaoTacHopDong{
+	thoigian ZonedDateTime required,
+    noidung String maxlength(3000) required, 
+}
+enum THUCHI{
+THU,CHI,GOPVON,RUTVON
+}
+entity ThuChi{
+	noidung String maxlength(3000) required,
+	thoigian ZonedDateTime required, 
+    thuchi THUCHI,
+    
+}
+entity TaiSan{
+	mota String maxlength(3000) required,
+	sohieu String required,
+    noicat String maxlength(1000) required, 
+  
+}
+entity AnhTaiSan{
+	url String maxlength(1000) required,
+}
+relationship OneToMany {
+	HopDong{taisan} to TaiSan
+}
+relationship OneToMany {
+	TaiSan{anh} to AnhTaiSan
+}
+relationship OneToMany {
+	CuaHang{thuchi} to ThuChi
+}
+relationship OneToMany {
+	NhanVien{thuchi} to ThuChi
+}
+relationship OneToOne {
+	VayLai{hopdongvl} to HopDong
+}
+relationship OneToOne {
+	NhanVien{user} to User
+}
+
+relationship OneToOne {
+	BatHo{hopdongbh} to HopDong
+}
+relationship OneToOne {
+	HopDong{hopdonggoc} to HopDong
+}
+relationship OneToMany {
+	HopDong{ghino} to GhiNo
+}
+relationship OneToMany {
+	KhachHang{anh} to AnhKhachHang
+}
+relationship OneToMany {
+	HopDong{lichsudongtien} to LichSuDongTien
+}
+relationship OneToMany {
+	NhanVien{lichsudongtien} to LichSuDongTien
+}
+relationship OneToMany {
+	NhanVien{ghino} to GhiNo
+}
+relationship OneToMany {
+	NhanVien{hopdong} to HopDong
+}
+relationship OneToMany {
+	NhanVien{lichsuthaotacnv} to LichSuThaoTacHopDong
+}
+relationship OneToMany {
+	HopDong{lichsuthaotachd} to LichSuThaoTacHopDong
+}
+
+relationship OneToMany {
+	KhachHang{hopdong} to HopDong
+}
+relationship OneToMany {
+	CuaHang{khachhang} to KhachHang
+}
+relationship OneToMany {
+	CuaHang{nhanvien} to NhanVien
+}
+relationship OneToMany {
+	CuaHang{hopdong} to HopDong
+}
+relationship OneToMany {
+	Tinh{huyen} to Huyen
+}
+relationship OneToMany {
+	Huyen{xa} to Xa
+}
+relationship OneToMany {
+	Xa{khachang} to KhachHang
+}
+relationship OneToMany {
+	Xa{nhanvien} to NhanVien
+}
+relationship OneToMany {
+	Xa{cuahang} to CuaHang
+}
+
+// Set pagination options paginate KhachHang, NhanVien, LichSuDongTien, HopDong  with infinite-scroll
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+// Set an angular suffix

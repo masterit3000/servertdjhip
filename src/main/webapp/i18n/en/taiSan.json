@@ -1,0 +1,26 @@
+
+{
+    "servertdjhipApp": {
+        "taiSan" : {
+            "home": {
+                "title": "Tai Sans",
+                "createLabel": "Create a new Tai San",
+                "createOrEditLabel": "Create or edit a Tai San"
+            },
+            "created": "A new Tai San is created with identifier {{ param }}",
+            "updated": "A Tai San is updated with identifier {{ param }}",
+            "deleted": "A Tai San is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tai San {{ id }}?"
+            },
+            "detail": {
+                "title": "Tai San"
+            },
+            "mota": "Mota",
+            "sohieu": "Sohieu",
+            "noicat": "Noicat",
+            "hopDong": "Hop Dong",
+            "anh": "Anh"
+        }
+    }
+}

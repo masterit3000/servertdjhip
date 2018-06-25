@@ -1,0 +1,43 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myHuyenLabel" jhiTranslate="servertdjhipApp.huyen.home.createOrEditLabel">Create or edit a Huyen</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!huyen.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="huyen.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.huyen.ten" for="field_ten">Ten</label>
+            <input type="text" class="form-control" name="ten" id="field_ten"
+                [(ngModel)]="huyen.ten" required/>
+            <div [hidden]="!(editForm.controls.ten?.dirty && editForm.controls.ten?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ten?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.huyen.tinh" for="field_tinh">Tinh</label>
+            <select class="form-control" id="field_tinh" name="tinh" [(ngModel)]="huyen.tinhId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="tinhOption.id" *ngFor="let tinhOption of tinhs; trackBy: trackTinhById">{{tinhOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

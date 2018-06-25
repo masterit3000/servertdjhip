@@ -1,0 +1,27 @@
+
+{
+    "servertdjhipApp": {
+        "ghiNo" : {
+            "home": {
+                "title": "Ghi Nos",
+                "createLabel": "Create a new Ghi No",
+                "createOrEditLabel": "Create or edit a Ghi No"
+            },
+            "created": "A new Ghi No is created with identifier {{ param }}",
+            "updated": "A Ghi No is updated with identifier {{ param }}",
+            "deleted": "A Ghi No is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Ghi No {{ id }}?"
+            },
+            "detail": {
+                "title": "Ghi No"
+            },
+            "ngayghino": "Ngayghino",
+            "sotien": "Sotien",
+            "trangthai": "Trangthai",
+            "ghiChu": "Ghi Chu",
+            "nhanVien": "Nhan Vien",
+            "hopDong": "Hop Dong"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+
+{
+    "servertdjhipApp": {
+        "lichSuThaoTacHopDong" : {
+            "home": {
+                "title": "Lich Su Thao Tac Hop Dongs",
+                "createLabel": "Create a new Lich Su Thao Tac Hop Dong",
+                "createOrEditLabel": "Create or edit a Lich Su Thao Tac Hop Dong"
+            },
+            "created": "A new Lich Su Thao Tac Hop Dong is created with identifier {{ param }}",
+            "updated": "A Lich Su Thao Tac Hop Dong is updated with identifier {{ param }}",
+            "deleted": "A Lich Su Thao Tac Hop Dong is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Lich Su Thao Tac Hop Dong {{ id }}?"
+            },
+            "detail": {
+                "title": "Lich Su Thao Tac Hop Dong"
+            },
+            "thoigian": "Thoigian",
+            "noidung": "Noidung",
+            "nhanVien": "Nhan Vien",
+            "hopDong": "Hop Dong"
+        }
+    }
+}

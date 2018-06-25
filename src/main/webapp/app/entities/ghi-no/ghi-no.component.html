@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.ghiNo.home.title">Ghi Nos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-ghi-no" [routerLink]="['/', { outlets: { popup: ['ghi-no-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.ghiNo.home.createLabel">
+            Create new Ghi No
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="ghiNos">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.ghiNo.ngayghino">Ngayghino</span></th>
+            <th><span jhiTranslate="servertdjhipApp.ghiNo.sotien">Sotien</span></th>
+            <th><span jhiTranslate="servertdjhipApp.ghiNo.trangthai">Trangthai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.ghiNo.ghiChu">Ghi Chu</span></th>
+            <th><span jhiTranslate="servertdjhipApp.ghiNo.nhanVien">Nhan Vien</span></th>
+            <th><span jhiTranslate="servertdjhipApp.ghiNo.hopDong">Hop Dong</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ghiNo of ghiNos ;trackBy: trackId">
+                <td><a [routerLink]="['../ghi-no', ghiNo.id ]">{{ghiNo.id}}</a></td>
+                <td>{{ghiNo.ngayghino | date:'medium'}}</td>
+                <td>{{ghiNo.sotien}}</td>
+                <td jhiTranslate="{{'servertdjhipApp.NOTRA.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
+                <td>{{ghiNo.ghiChu}}</td>
+                <td>
+                    <div *ngIf="ghiNo.nhanVienId">
+                        <a [routerLink]="['../nhan-vien', ghiNo.nhanVienId  ]" >{{ghiNo.nhanVienId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="ghiNo.hopDongId">
+                        <a [routerLink]="['../hop-dong', ghiNo.hopDongId  ]" >{{ghiNo.hopDongId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../ghi-no', ghiNo.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'ghi-no/'+ ghiNo.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'ghi-no/'+ ghiNo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

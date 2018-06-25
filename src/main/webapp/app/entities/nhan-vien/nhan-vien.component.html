@@ -1,0 +1,86 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
+        <button class="btn btn-primary float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.nhanVien.home.createLabel">
+            Create new Nhan Vien
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="nhanViens">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.ten">Ten</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.diachi">Diachi</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.dienthoai">Dienthoai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.cmnd">Cmnd</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.trangthai">Trangthai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.ngayTao">Ngay Tao</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.ghiChu">Ghi Chu</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.xa">Xa</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.cuaHang">Cua Hang</span></th>
+            <th><span jhiTranslate="servertdjhipApp.nhanVien.user">User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let nhanVien of nhanViens ;trackBy: trackId">
+                <td><a [routerLink]="['../nhan-vien', nhanVien.id ]">{{nhanVien.id}}</a></td>
+                <td>{{nhanVien.ten}}</td>
+                <td>{{nhanVien.diachi}}</td>
+                <td>{{nhanVien.dienthoai}}</td>
+                <td>{{nhanVien.cmnd}}</td>
+                <td jhiTranslate="{{'servertdjhipApp.TrangThaiNhanVien.' + nhanVien.trangthai}}">{{nhanVien.trangthai}}</td>
+                <td>{{nhanVien.ngayTao | date:'medium'}}</td>
+                <td>{{nhanVien.ghiChu}}</td>
+                <td>
+                    <div *ngIf="nhanVien.xaId">
+                        <a [routerLink]="['../xa', nhanVien.xaId  ]" >{{nhanVien.xaId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="nhanVien.cuaHangId">
+                        <a [routerLink]="['../cua-hang', nhanVien.cuaHangId  ]" >{{nhanVien.cuaHangId}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{nhanVien.userId}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../nhan-vien', nhanVien.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'nhan-vien/'+ nhanVien.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'nhan-vien/'+ nhanVien.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

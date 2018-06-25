@@ -1,0 +1,25 @@
+
+{
+    "servertdjhipApp": {
+        "lichSuThaoTacHopDong" : {
+            "home": {
+                "title": "Lich Su Thao Tac Hop Dongs",
+                "createLabel": "Thêm mới một Lich Su Thao Tac Hop Dong",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Lich Su Thao Tac Hop Dong"
+            },
+            "created": "Một Lich Su Thao Tac Hop Dong mới được tạo với định danh {{ param }}",
+            "updated": "Một Lich Su Thao Tac Hop Dong cập nhật với định danh {{ param }}",
+            "deleted": "Một Lich Su Thao Tac Hop Dong đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Lich Su Thao Tac Hop Dong {{ id }}?"
+            },
+            "detail": {
+                "title": "Lich Su Thao Tac Hop Dong"
+            },
+            "thoigian": "Thoigian",
+            "noidung": "Noidung",
+            "nhanVien": "Nhan Vien",
+            "hopDong": "Hop Dong"
+        }
+    }
+}

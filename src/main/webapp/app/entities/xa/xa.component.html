@@ -1,0 +1,64 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.xa.home.title">Xas</span>
+        <button class="btn btn-primary float-right jh-create-entity create-xa" [routerLink]="['/', { outlets: { popup: ['xa-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.xa.home.createLabel">
+            Create new Xa
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="xas">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.xa.ten">Ten</span></th>
+            <th><span jhiTranslate="servertdjhipApp.xa.huyen">Huyen</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let xa of xas ;trackBy: trackId">
+                <td><a [routerLink]="['../xa', xa.id ]">{{xa.id}}</a></td>
+                <td>{{xa.ten}}</td>
+                <td>
+                    <div *ngIf="xa.huyenId">
+                        <a [routerLink]="['../huyen', xa.huyenId  ]" >{{xa.huyenId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../xa', xa.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'xa/'+ xa.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'xa/'+ xa.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

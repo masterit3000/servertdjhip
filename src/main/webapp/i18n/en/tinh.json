@@ -1,0 +1,23 @@
+
+{
+    "servertdjhipApp": {
+        "tinh" : {
+            "home": {
+                "title": "Tinhs",
+                "createLabel": "Create a new Tinh",
+                "createOrEditLabel": "Create or edit a Tinh"
+            },
+            "created": "A new Tinh is created with identifier {{ param }}",
+            "updated": "A Tinh is updated with identifier {{ param }}",
+            "deleted": "A Tinh is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tinh {{ id }}?"
+            },
+            "detail": {
+                "title": "Tinh"
+            },
+            "ten": "Ten",
+            "huyen": "Huyen"
+        }
+    }
+}

@@ -1,0 +1,73 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTaiSanLabel" jhiTranslate="servertdjhipApp.taiSan.home.createOrEditLabel">Create or edit a Tai San</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!taiSan.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="taiSan.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.taiSan.mota" for="field_mota">Mota</label>
+            <input type="text" class="form-control" name="mota" id="field_mota"
+                [(ngModel)]="taiSan.mota" required maxlength="3000"/>
+            <div [hidden]="!(editForm.controls.mota?.dirty && editForm.controls.mota?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mota?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mota?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 3000 }">
+                   This field cannot be longer than 3000 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.taiSan.sohieu" for="field_sohieu">Sohieu</label>
+            <input type="text" class="form-control" name="sohieu" id="field_sohieu"
+                [(ngModel)]="taiSan.sohieu" required/>
+            <div [hidden]="!(editForm.controls.sohieu?.dirty && editForm.controls.sohieu?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sohieu?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.taiSan.noicat" for="field_noicat">Noicat</label>
+            <input type="text" class="form-control" name="noicat" id="field_noicat"
+                [(ngModel)]="taiSan.noicat" required maxlength="1000"/>
+            <div [hidden]="!(editForm.controls.noicat?.dirty && editForm.controls.noicat?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.noicat?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.noicat?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 1000 }">
+                   This field cannot be longer than 1000 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.taiSan.hopDong" for="field_hopDong">Hop Dong</label>
+            <select class="form-control" id="field_hopDong" name="hopDong" [(ngModel)]="taiSan.hopDongId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="hopDongOption.id" *ngFor="let hopDongOption of hopdongs; trackBy: trackHopDongById">{{hopDongOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

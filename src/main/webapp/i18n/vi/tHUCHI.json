@@ -1,0 +1,26 @@
+
+{
+    "servertdjhipApp": {
+        "thuChi" : {
+            "home": {
+                "title": "Thu Chis",
+                "createLabel": "Thêm mới một Thu Chi",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Thu Chi"
+            },
+            "created": "Một Thu Chi mới được tạo với định danh {{ param }}",
+            "updated": "Một Thu Chi cập nhật với định danh {{ param }}",
+            "deleted": "Một Thu Chi đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Thu Chi {{ id }}?"
+            },
+            "detail": {
+                "title": "Thu Chi"
+            },
+            "noidung": "Noidung",
+            "thoigian": "Thoigian",
+            "thuchi": "Thuchi",
+            "cuaHang": "Cua Hang",
+            "nhanVien": "Nhan Vien"
+        }
+    }
+}

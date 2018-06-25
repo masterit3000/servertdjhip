@@ -1,0 +1,27 @@
+
+{
+    "servertdjhipApp": {
+        "ghiNo" : {
+            "home": {
+                "title": "Ghi Nos",
+                "createLabel": "Thêm mới một Ghi No",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Ghi No"
+            },
+            "created": "Một Ghi No mới được tạo với định danh {{ param }}",
+            "updated": "Một Ghi No cập nhật với định danh {{ param }}",
+            "deleted": "Một Ghi No đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Ghi No {{ id }}?"
+            },
+            "detail": {
+                "title": "Ghi No"
+            },
+            "ngayghino": "Ngayghino",
+            "sotien": "Sotien",
+            "trangthai": "Trangthai",
+            "ghiChu": "Ghi Chu",
+            "nhanVien": "Nhan Vien",
+            "hopDong": "Hop Dong"
+        }
+    }
+}

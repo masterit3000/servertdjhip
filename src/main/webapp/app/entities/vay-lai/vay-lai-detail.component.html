@@ -1,0 +1,56 @@
+
+<div *ngIf="vayLai">
+    <h2><span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span></dt>
+        <dd>
+            <span>{{vayLai.tienvay}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span></dt>
+        <dd>
+            <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span></dt>
+        <dd>
+            <span>{{vayLai.thoigianvay}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span></dt>
+        <dd>
+            <span>{{vayLai.chukylai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span></dt>
+        <dd>
+            <span>{{vayLai.lai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span></dt>
+        <dd>
+            <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span></dt>
+        <dd>
+            <span>{{vayLai.thulaitruoc}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.vayLai.hopdongvl">Hopdongvl</span></dt>
+        <dd>
+            <div *ngIf="vayLai.hopdongvlId">
+                <a [routerLink]="['/hop-dong', vayLai.hopdongvlId]">{{vayLai.hopdongvlId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

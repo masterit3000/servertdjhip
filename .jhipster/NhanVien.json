@@ -1,0 +1,107 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "xa",
+            "otherEntityName": "xa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "cuaHang",
+            "otherEntityName": "cuaHang",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "nhanVien"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "thuchi",
+            "otherEntityName": "thuChi",
+            "otherEntityRelationshipName": "nhanVien"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lichsudongtien",
+            "otherEntityName": "lichSuDongTien",
+            "otherEntityRelationshipName": "nhanVien"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ghino",
+            "otherEntityName": "ghiNo",
+            "otherEntityRelationshipName": "nhanVien"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "hopdong",
+            "otherEntityName": "hopDong",
+            "otherEntityRelationshipName": "nhanVien"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lichsuthaotacnv",
+            "otherEntityName": "lichSuThaoTacHopDong",
+            "otherEntityRelationshipName": "nhanVien"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ten",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "diachi",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "dienthoai",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cmnd",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 11
+        },
+        {
+            "fieldName": "trangthai",
+            "fieldType": "TrangThaiNhanVien",
+            "fieldValues": "DUNGHOATDONG,NHANVIEN,QUANLYCUAHANG,QUANTRI"
+        },
+        {
+            "fieldName": "ngayTao",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "ghiChu",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 3000
+        }
+    ],
+    "changelogDate": "20180625141437",
+    "entityTableName": "nhan_vien",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

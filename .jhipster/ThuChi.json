@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "cuaHang",
+            "otherEntityName": "cuaHang",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "nhanVien",
+            "otherEntityName": "nhanVien",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "noidung",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 3000
+        },
+        {
+            "fieldName": "thoigian",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "thuchi",
+            "fieldType": "THUCHI",
+            "fieldValues": "THU,CHI,GOPVON,RUTVON"
+        }
+    ],
+    "changelogDate": "20180625141445",
+    "entityTableName": "thu_chi",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

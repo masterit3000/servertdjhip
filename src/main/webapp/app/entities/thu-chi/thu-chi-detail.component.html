@@ -1,0 +1,46 @@
+
+<div *ngIf="thuChi">
+    <h2><span jhiTranslate="servertdjhipApp.thuChi.detail.title">Thu Chi</span> {{thuChi.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.thuChi.noidung">Noidung</span></dt>
+        <dd>
+            <span>{{thuChi.noidung}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.thuChi.thoigian">Thoigian</span></dt>
+        <dd>
+            <span>{{thuChi.thoigian | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.thuChi.thuchi">Thuchi</span></dt>
+        <dd>
+            <span jhiTranslate="{{'servertdjhipApp.THUCHI.' + thuChi.thuchi}}">{{thuChi.thuchi}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.thuChi.cuaHang">Cua Hang</span></dt>
+        <dd>
+            <div *ngIf="thuChi.cuaHangId">
+                <a [routerLink]="['/cua-hang', thuChi.cuaHangId]">{{thuChi.cuaHangId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.thuChi.nhanVien">Nhan Vien</span></dt>
+        <dd>
+            <div *ngIf="thuChi.nhanVienId">
+                <a [routerLink]="['/nhan-vien', thuChi.nhanVienId]">{{thuChi.nhanVienId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'thu-chi/'+ thuChi.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

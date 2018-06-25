@@ -1,0 +1,51 @@
+<form novalidate>
+    <pe-steps [(activeIndex)]="activeIndex" (change)="onChangeStep($event)">
+        <!-- Basic -->
+        <pe-step label="Basic">
+            <h3 class="first">Basic</h3>
+            <p-inplace closable="closable">
+    <span pInplaceDisplay>
+        Click to Edit
+    </span>
+                <span pInplaceContent>
+        <input type="text" value="PrimeNG" pInputText>
+    </span>
+            </p-inplace>
+        </pe-step>
+
+        <!-- Image-->
+        <pe-step label="Image">
+            <h3>Image</h3>
+            <p-inplace>
+    <span pInplaceDisplay>
+        <span class="fa fa-picture-o"></span><span style="margin-left:8px">View Picture</span>
+    </span>
+                <span pInplaceContent>
+        <img src="/content/primeng/assets/data/images/browsers/safari.png" alt="Safari">
+    </span>
+            </p-inplace>
+        </pe-step>
+
+        <!-- Data-->
+        <pe-step label="Data">
+            <h3>Data</h3>
+            <p-inplace>
+    <span pInplaceDisplay>
+        <span class="fa fa-table"></span><span style="margin-left:8px">View Data</span>
+    </span>
+                <span pInplaceContent>
+        <p-dataTable [value]="basicBrowsers">
+            <p-column field="engine" header="Engine"></p-column>
+            <p-column field="browser" header="Browser"></p-column>
+            <p-column field="platform" header="Platform"></p-column>
+            <p-column field="grade" header="Grade"></p-column>
+        </p-dataTable>
+    </span>
+            </p-inplace>
+        </pe-step>
+
+    </pe-steps>
+
+</form>
+
+<p-growl [value]="msgs"></p-growl>

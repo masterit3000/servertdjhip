@@ -1,0 +1,80 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myThuChiLabel" jhiTranslate="servertdjhipApp.thuChi.home.createOrEditLabel">Create or edit a Thu Chi</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!thuChi.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="thuChi.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.noidung" for="field_noidung">Noidung</label>
+            <input type="text" class="form-control" name="noidung" id="field_noidung"
+                [(ngModel)]="thuChi.noidung" required maxlength="3000"/>
+            <div [hidden]="!(editForm.controls.noidung?.dirty && editForm.controls.noidung?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.noidung?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.noidung?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 3000 }">
+                   This field cannot be longer than 3000 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.thoigian" for="field_thoigian">Thoigian</label>
+            <div class="d-flex">
+                <input id="field_thoigian" type="datetime-local" class="form-control" name="thoigian" [(ngModel)]="thuChi.thoigian"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.thoigian?.dirty && editForm.controls.thoigian?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.thoigian?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.thoigian?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.thuchi" for="field_thuchi">Thuchi</label>
+            <select class="form-control" name="thuchi" [(ngModel)]="thuChi.thuchi" id="field_thuchi" >
+                <option value="THU">{{'servertdjhipApp.THUCHI.THU' | translate}}</option>
+                <option value="CHI">{{'servertdjhipApp.THUCHI.CHI' | translate}}</option>
+                <option value="GOPVON">{{'servertdjhipApp.THUCHI.GOPVON' | translate}}</option>
+                <option value="RUTVON">{{'servertdjhipApp.THUCHI.RUTVON' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.cuaHang" for="field_cuaHang">Cua Hang</label>
+            <select class="form-control" id="field_cuaHang" name="cuaHang" [(ngModel)]="thuChi.cuaHangId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="cuaHangOption.id" *ngFor="let cuaHangOption of cuahangs; trackBy: trackCuaHangById">{{cuaHangOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.nhanVien" for="field_nhanVien">Nhan Vien</label>
+            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuChi.nhanVienId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens; trackBy: trackNhanVienById">{{nhanVienOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

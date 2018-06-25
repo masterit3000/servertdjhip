@@ -1,0 +1,23 @@
+
+{
+    "servertdjhipApp": {
+        "anhKhachHang" : {
+            "home": {
+                "title": "Anh Khach Hangs",
+                "createLabel": "Thêm mới một Anh Khach Hang",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Anh Khach Hang"
+            },
+            "created": "Một Anh Khach Hang mới được tạo với định danh {{ param }}",
+            "updated": "Một Anh Khach Hang cập nhật với định danh {{ param }}",
+            "deleted": "Một Anh Khach Hang đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Anh Khach Hang {{ id }}?"
+            },
+            "detail": {
+                "title": "Anh Khach Hang"
+            },
+            "url": "Url",
+            "khachHang": "Khach Hang"
+        }
+    }
+}

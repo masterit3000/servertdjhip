@@ -1,0 +1,32 @@
+
+{
+    "servertdjhipApp": {
+        "cuaHang" : {
+            "home": {
+                "title": "Cua Hangs",
+                "createLabel": "Create a new Cua Hang",
+                "createOrEditLabel": "Create or edit a Cua Hang"
+            },
+            "created": "A new Cua Hang is created with identifier {{ param }}",
+            "updated": "A Cua Hang is updated with identifier {{ param }}",
+            "deleted": "A Cua Hang is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cua Hang {{ id }}?"
+            },
+            "detail": {
+                "title": "Cua Hang"
+            },
+            "ten": "Ten",
+            "diachi": "Diachi",
+            "dienthoai": "Dienthoai",
+            "trangthai": "Trangthai",
+            "ngayTao": "Ngay Tao",
+            "ghiChu": "Ghi Chu",
+            "xa": "Xa",
+            "thuchi": "Thuchi",
+            "khachhang": "Khachhang",
+            "nhanvien": "Nhanvien",
+            "hopdong": "Hopdong"
+        }
+    }
+}

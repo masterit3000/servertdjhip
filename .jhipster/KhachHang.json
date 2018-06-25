@@ -1,0 +1,89 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "xa",
+            "otherEntityName": "xa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "anh",
+            "otherEntityName": "anhKhachHang",
+            "otherEntityRelationshipName": "khachHang"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "hopdong",
+            "otherEntityName": "hopDong",
+            "otherEntityRelationshipName": "khachHang"
+        },
+        {
+            "relationshipName": "cuaHang",
+            "otherEntityName": "cuaHang",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ten",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "diachi",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "dienthoai",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cmnd",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 11
+        },
+        {
+            "fieldName": "trangthai",
+            "fieldType": "TrangThaiKhachHang",
+            "fieldValues": "HOATDONG,DUNGHOATDONG,CAPDO1,CAPDO2,CAPDO3"
+        },
+        {
+            "fieldName": "ngayTao",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "facebook",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ghiChu",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 3000
+        }
+    ],
+    "changelogDate": "20180625141435",
+    "entityTableName": "khach_hang",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

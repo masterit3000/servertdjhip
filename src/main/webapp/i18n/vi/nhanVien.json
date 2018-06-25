@@ -1,0 +1,36 @@
+
+{
+    "servertdjhipApp": {
+        "nhanVien" : {
+            "home": {
+                "title": "Nhan Viens",
+                "createLabel": "Thêm mới một Nhan Vien",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Nhan Vien"
+            },
+            "created": "Một Nhan Vien mới được tạo với định danh {{ param }}",
+            "updated": "Một Nhan Vien cập nhật với định danh {{ param }}",
+            "deleted": "Một Nhan Vien đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Nhan Vien {{ id }}?"
+            },
+            "detail": {
+                "title": "Nhan Vien"
+            },
+            "ten": "Ten",
+            "diachi": "Diachi",
+            "dienthoai": "Dienthoai",
+            "cmnd": "Cmnd",
+            "trangthai": "Trangthai",
+            "ngayTao": "Ngay Tao",
+            "ghiChu": "Ghi Chu",
+            "xa": "Xa",
+            "cuaHang": "Cua Hang",
+            "user": "User",
+            "thuchi": "Thuchi",
+            "lichsudongtien": "Lichsudongtien",
+            "ghino": "Ghino",
+            "hopdong": "Hopdong",
+            "lichsuthaotacnv": "Lichsuthaotacnv"
+        }
+    }
+}

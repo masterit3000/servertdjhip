@@ -1,0 +1,28 @@
+
+{
+    "servertdjhipApp": {
+        "lichSuDongTien" : {
+            "home": {
+                "title": "Lich Su Dong Tiens",
+                "createLabel": "Create a new Lich Su Dong Tien",
+                "createOrEditLabel": "Create or edit a Lich Su Dong Tien"
+            },
+            "created": "A new Lich Su Dong Tien is created with identifier {{ param }}",
+            "updated": "A Lich Su Dong Tien is updated with identifier {{ param }}",
+            "deleted": "A Lich Su Dong Tien is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Lich Su Dong Tien {{ id }}?"
+            },
+            "detail": {
+                "title": "Lich Su Dong Tien"
+            },
+            "ngaybatdau": "Ngaybatdau",
+            "ngayketthuc": "Ngayketthuc",
+            "sotien": "Sotien",
+            "trangthai": "Trangthai",
+            "ghiChu": "Ghi Chu",
+            "nhanVien": "Nhan Vien",
+            "hopDong": "Hop Dong"
+        }
+    }
+}

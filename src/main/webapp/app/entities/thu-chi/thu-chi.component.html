@@ -1,0 +1,74 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.thuChi.home.title">Thu Chis</span>
+        <button class="btn btn-primary float-right jh-create-entity create-thu-chi" [routerLink]="['/', { outlets: { popup: ['thu-chi-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.thuChi.home.createLabel">
+            Create new Thu Chi
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="thuChis">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.thuChi.noidung">Noidung</span></th>
+            <th><span jhiTranslate="servertdjhipApp.thuChi.thoigian">Thoigian</span></th>
+            <th><span jhiTranslate="servertdjhipApp.thuChi.thuchi">Thuchi</span></th>
+            <th><span jhiTranslate="servertdjhipApp.thuChi.cuaHang">Cua Hang</span></th>
+            <th><span jhiTranslate="servertdjhipApp.thuChi.nhanVien">Nhan Vien</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let thuChi of thuChis ;trackBy: trackId">
+                <td><a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a></td>
+                <td>{{thuChi.noidung}}</td>
+                <td>{{thuChi.thoigian | date:'medium'}}</td>
+                <td jhiTranslate="{{'servertdjhipApp.THUCHI.' + thuChi.thuchi}}">{{thuChi.thuchi}}</td>
+                <td>
+                    <div *ngIf="thuChi.cuaHangId">
+                        <a [routerLink]="['../cua-hang', thuChi.cuaHangId  ]" >{{thuChi.cuaHangId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="thuChi.nhanVienId">
+                        <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]" >{{thuChi.nhanVienId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../thu-chi', thuChi.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'thu-chi/'+ thuChi.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'thu-chi/'+ thuChi.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

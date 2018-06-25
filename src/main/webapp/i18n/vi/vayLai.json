@@ -1,0 +1,29 @@
+
+{
+    "servertdjhipApp": {
+        "vayLai" : {
+            "home": {
+                "title": "Vay Lais",
+                "createLabel": "Thêm mới một Vay Lai",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Vay Lai"
+            },
+            "created": "Một Vay Lai mới được tạo với định danh {{ param }}",
+            "updated": "Một Vay Lai cập nhật với định danh {{ param }}",
+            "deleted": "Một Vay Lai đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Vay Lai {{ id }}?"
+            },
+            "detail": {
+                "title": "Vay Lai"
+            },
+            "tienvay": "Tienvay",
+            "hinhthuclai": "Hinhthuclai",
+            "thoigianvay": "Thoigianvay",
+            "chukylai": "Chukylai",
+            "lai": "Lai",
+            "cachtinhlai": "Cachtinhlai",
+            "thulaitruoc": "Thulaitruoc",
+            "hopdongvl": "Hopdongvl"
+        }
+    }
+}

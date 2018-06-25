@@ -1,0 +1,40 @@
+
+<div *ngIf="taiSan">
+    <h2><span jhiTranslate="servertdjhipApp.taiSan.detail.title">Tai San</span> {{taiSan.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.taiSan.mota">Mota</span></dt>
+        <dd>
+            <span>{{taiSan.mota}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.taiSan.sohieu">Sohieu</span></dt>
+        <dd>
+            <span>{{taiSan.sohieu}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.taiSan.noicat">Noicat</span></dt>
+        <dd>
+            <span>{{taiSan.noicat}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.taiSan.hopDong">Hop Dong</span></dt>
+        <dd>
+            <div *ngIf="taiSan.hopDongId">
+                <a [routerLink]="['/hop-dong', taiSan.hopDongId]">{{taiSan.hopDongId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'tai-san/'+ taiSan.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

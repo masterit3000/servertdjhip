@@ -1,0 +1,26 @@
+
+{
+    "servertdjhipApp": {
+        "batHo" : {
+            "home": {
+                "title": "Bat Hos",
+                "createLabel": "Create a new Bat Ho",
+                "createOrEditLabel": "Create or edit a Bat Ho"
+            },
+            "created": "A new Bat Ho is created with identifier {{ param }}",
+            "updated": "A Bat Ho is updated with identifier {{ param }}",
+            "deleted": "A Bat Ho is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Bat Ho {{ id }}?"
+            },
+            "detail": {
+                "title": "Bat Ho"
+            },
+            "tienduakhach": "Tienduakhach",
+            "tongtien": "Tongtien",
+            "tongsongay": "Tongsongay",
+            "chuky": "Chuky",
+            "hopdongbh": "Hopdongbh"
+        }
+    }
+}

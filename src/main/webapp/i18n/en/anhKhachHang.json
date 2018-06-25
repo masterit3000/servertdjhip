@@ -1,0 +1,23 @@
+
+{
+    "servertdjhipApp": {
+        "anhKhachHang" : {
+            "home": {
+                "title": "Anh Khach Hangs",
+                "createLabel": "Create a new Anh Khach Hang",
+                "createOrEditLabel": "Create or edit a Anh Khach Hang"
+            },
+            "created": "A new Anh Khach Hang is created with identifier {{ param }}",
+            "updated": "A Anh Khach Hang is updated with identifier {{ param }}",
+            "deleted": "A Anh Khach Hang is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Anh Khach Hang {{ id }}?"
+            },
+            "detail": {
+                "title": "Anh Khach Hang"
+            },
+            "url": "Url",
+            "khachHang": "Khach Hang"
+        }
+    }
+}

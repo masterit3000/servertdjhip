@@ -1,0 +1,86 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "khachHang",
+            "otherEntityName": "khachHang",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "cuaHang",
+            "otherEntityName": "cuaHang",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "nhanVien",
+            "otherEntityName": "nhanVien",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "hopdonggoc",
+            "otherEntityName": "hopDong",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "hopDong"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "taisan",
+            "otherEntityName": "taiSan",
+            "otherEntityRelationshipName": "hopDong"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ghino",
+            "otherEntityName": "ghiNo",
+            "otherEntityRelationshipName": "hopDong"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lichsudongtien",
+            "otherEntityName": "lichSuDongTien",
+            "otherEntityRelationshipName": "hopDong"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lichsuthaotachd",
+            "otherEntityName": "lichSuThaoTacHopDong",
+            "otherEntityRelationshipName": "hopDong"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "ghichu",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 3000
+        },
+        {
+            "fieldName": "loaihopdong",
+            "fieldType": "LOAIHOPDONG",
+            "fieldValues": "VAYLAI,BATHO,CAMDO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ngaytao",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180625141439",
+    "entityTableName": "hop_dong",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

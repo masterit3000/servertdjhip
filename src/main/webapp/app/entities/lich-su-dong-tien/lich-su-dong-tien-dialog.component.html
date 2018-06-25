@@ -1,0 +1,112 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myLichSuDongTienLabel" jhiTranslate="servertdjhipApp.lichSuDongTien.home.createOrEditLabel">Create or edit a Lich Su Dong Tien</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!lichSuDongTien.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="lichSuDongTien.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.ngaybatdau" for="field_ngaybatdau">Ngaybatdau</label>
+            <div class="d-flex">
+                <input id="field_ngaybatdau" type="datetime-local" class="form-control" name="ngaybatdau" [(ngModel)]="lichSuDongTien.ngaybatdau"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.ngaybatdau?.dirty && editForm.controls.ngaybatdau?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ngaybatdau?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.ngaybatdau?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.ngayketthuc" for="field_ngayketthuc">Ngayketthuc</label>
+            <div class="d-flex">
+                <input id="field_ngayketthuc" type="datetime-local" class="form-control" name="ngayketthuc" [(ngModel)]="lichSuDongTien.ngayketthuc"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.ngayketthuc?.dirty && editForm.controls.ngayketthuc?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ngayketthuc?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.ngayketthuc?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.sotien" for="field_sotien">Sotien</label>
+            <input type="number" class="form-control" name="sotien" id="field_sotien"
+                [(ngModel)]="lichSuDongTien.sotien" required/>
+            <div [hidden]="!(editForm.controls.sotien?.dirty && editForm.controls.sotien?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sotien?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.sotien?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.trangthai" for="field_trangthai">Trangthai</label>
+            <select class="form-control" name="trangthai" [(ngModel)]="lichSuDongTien.trangthai" id="field_trangthai"  required>
+                <option value="CHUADONG">{{'servertdjhipApp.DONGTIEN.CHUADONG' | translate}}</option>
+                <option value="DADONG">{{'servertdjhipApp.DONGTIEN.DADONG' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.trangthai?.dirty && editForm.controls.trangthai?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.trangthai?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.ghiChu" for="field_ghiChu">Ghi Chu</label>
+            <input type="text" class="form-control" name="ghiChu" id="field_ghiChu"
+                [(ngModel)]="lichSuDongTien.ghiChu" maxlength="3000"/>
+            <div [hidden]="!(editForm.controls.ghiChu?.dirty && editForm.controls.ghiChu?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ghiChu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 3000 }">
+                   This field cannot be longer than 3000 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.nhanVien" for="field_nhanVien">Nhan Vien</label>
+            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="lichSuDongTien.nhanVienId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens; trackBy: trackNhanVienById">{{nhanVienOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.lichSuDongTien.hopDong" for="field_hopDong">Hop Dong</label>
+            <select class="form-control" id="field_hopDong" name="hopDong" [(ngModel)]="lichSuDongTien.hopDongId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="hopDongOption.id" *ngFor="let hopDongOption of hopdongs; trackBy: trackHopDongById">{{hopDongOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

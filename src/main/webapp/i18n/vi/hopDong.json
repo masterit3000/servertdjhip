@@ -1,0 +1,32 @@
+
+{
+    "servertdjhipApp": {
+        "hopDong" : {
+            "home": {
+                "title": "Hop Dongs",
+                "createLabel": "Thêm mới một Hop Dong",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Hop Dong"
+            },
+            "created": "Một Hop Dong mới được tạo với định danh {{ param }}",
+            "updated": "Một Hop Dong cập nhật với định danh {{ param }}",
+            "deleted": "Một Hop Dong đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Hop Dong {{ id }}?"
+            },
+            "detail": {
+                "title": "Hop Dong"
+            },
+            "ghichu": "Ghichu",
+            "loaihopdong": "Loaihopdong",
+            "ngaytao": "Ngaytao",
+            "khachHang": "Khach Hang",
+            "cuaHang": "Cua Hang",
+            "nhanVien": "Nhan Vien",
+            "hopdonggoc": "Hopdonggoc",
+            "taisan": "Taisan",
+            "ghino": "Ghino",
+            "lichsudongtien": "Lichsudongtien",
+            "lichsuthaotachd": "Lichsuthaotachd"
+        }
+    }
+}

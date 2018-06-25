@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.batHo.home.title">Bat Hos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-bat-ho" [routerLink]="['/', { outlets: { popup: ['bat-ho-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.batHo.home.createLabel">
+            Create new Bat Ho
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="batHos">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span></th>
+            <th><span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span></th>
+            <th><span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span></th>
+            <th><span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span></th>
+            <th><span jhiTranslate="servertdjhipApp.batHo.hopdongbh">Hopdongbh</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let batHo of batHos ;trackBy: trackId">
+                <td><a [routerLink]="['../bat-ho', batHo.id ]">{{batHo.id}}</a></td>
+                <td>{{batHo.tienduakhach}}</td>
+                <td>{{batHo.tongtien}}</td>
+                <td>{{batHo.tongsongay}}</td>
+                <td>{{batHo.chuky}}</td>
+                <td>
+                    <div *ngIf="batHo.hopdongbhId">
+                        <a [routerLink]="['../hop-dong', batHo.hopdongbhId  ]" >{{batHo.hopdongbhId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../bat-ho', batHo.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

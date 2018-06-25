@@ -1,0 +1,64 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.anhKhachHang.home.title">Anh Khach Hangs</span>
+        <button class="btn btn-primary float-right jh-create-entity create-anh-khach-hang" [routerLink]="['/', { outlets: { popup: ['anh-khach-hang-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.anhKhachHang.home.createLabel">
+            Create new Anh Khach Hang
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="anhKhachHangs">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.anhKhachHang.url">Url</span></th>
+            <th><span jhiTranslate="servertdjhipApp.anhKhachHang.khachHang">Khach Hang</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let anhKhachHang of anhKhachHangs ;trackBy: trackId">
+                <td><a [routerLink]="['../anh-khach-hang', anhKhachHang.id ]">{{anhKhachHang.id}}</a></td>
+                <td>{{anhKhachHang.url}}</td>
+                <td>
+                    <div *ngIf="anhKhachHang.khachHangId">
+                        <a [routerLink]="['../khach-hang', anhKhachHang.khachHangId  ]" >{{anhKhachHang.khachHangId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../anh-khach-hang', anhKhachHang.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'anh-khach-hang/'+ anhKhachHang.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'anh-khach-hang/'+ anhKhachHang.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

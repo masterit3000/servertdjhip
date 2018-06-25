@@ -1,0 +1,127 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myVayLaiLabel" jhiTranslate="servertdjhipApp.vayLai.home.createOrEditLabel">Create or edit a Vay Lai</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!vayLai.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="vayLai.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.tienvay" for="field_tienvay">Tienvay</label>
+            <input type="number" class="form-control" name="tienvay" id="field_tienvay"
+                [(ngModel)]="vayLai.tienvay" required/>
+            <div [hidden]="!(editForm.controls.tienvay?.dirty && editForm.controls.tienvay?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.tienvay?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.tienvay?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.hinhthuclai" for="field_hinhthuclai">Hinhthuclai</label>
+            <select class="form-control" name="hinhthuclai" [(ngModel)]="vayLai.hinhthuclai" id="field_hinhthuclai"  required>
+                <option value="NGAY">{{'servertdjhipApp.HINHTHUCLAI.NGAY' | translate}}</option>
+                <option value="THANG">{{'servertdjhipApp.HINHTHUCLAI.THANG' | translate}}</option>
+                <option value="TUAN">{{'servertdjhipApp.HINHTHUCLAI.TUAN' | translate}}</option>
+                <option value="NAM">{{'servertdjhipApp.HINHTHUCLAI.NAM' | translate}}</option>
+                <option value="THANGCODINH">{{'servertdjhipApp.HINHTHUCLAI.THANGCODINH' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.hinhthuclai?.dirty && editForm.controls.hinhthuclai?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.hinhthuclai?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thoigianvay" for="field_thoigianvay">Thoigianvay</label>
+            <input type="number" class="form-control" name="thoigianvay" id="field_thoigianvay"
+                [(ngModel)]="vayLai.thoigianvay" required/>
+            <div [hidden]="!(editForm.controls.thoigianvay?.dirty && editForm.controls.thoigianvay?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.thoigianvay?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.thoigianvay?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.chukylai" for="field_chukylai">Chukylai</label>
+            <input type="number" class="form-control" name="chukylai" id="field_chukylai"
+                [(ngModel)]="vayLai.chukylai" required/>
+            <div [hidden]="!(editForm.controls.chukylai?.dirty && editForm.controls.chukylai?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.chukylai?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.chukylai?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.lai" for="field_lai">Lai</label>
+            <input type="number" class="form-control" name="lai" id="field_lai"
+                [(ngModel)]="vayLai.lai" required/>
+            <div [hidden]="!(editForm.controls.lai?.dirty && editForm.controls.lai?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lai?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lai?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.cachtinhlai" for="field_cachtinhlai">Cachtinhlai</label>
+            <select class="form-control" name="cachtinhlai" [(ngModel)]="vayLai.cachtinhlai" id="field_cachtinhlai"  required>
+                <option value="MOTTRIEU">{{'servertdjhipApp.TINHLAI.MOTTRIEU' | translate}}</option>
+                <option value="CHUKY">{{'servertdjhipApp.TINHLAI.CHUKY' | translate}}</option>
+                <option value="PHANTRAM">{{'servertdjhipApp.TINHLAI.PHANTRAM' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.cachtinhlai?.dirty && editForm.controls.cachtinhlai?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.cachtinhlai?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thulaitruoc" for="field_thulaitruoc">Thulaitruoc</label>
+            <input type="checkbox" class="form-control" name="thulaitruoc" id="field_thulaitruoc"
+                [(ngModel)]="vayLai.thulaitruoc" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.hopdongvl" for="field_hopdongvl">Hopdongvl</label>
+            <select class="form-control" id="field_hopdongvl" name="hopdongvl" [(ngModel)]="vayLai.hopdongvlId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="hopDongOption.id" *ngFor="let hopDongOption of hopdongvls; trackBy: trackHopDongById">{{hopDongOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

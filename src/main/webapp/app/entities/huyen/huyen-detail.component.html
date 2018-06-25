@@ -1,0 +1,32 @@
+
+<div *ngIf="huyen">
+    <h2><span jhiTranslate="servertdjhipApp.huyen.detail.title">Huyen</span> {{huyen.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.huyen.ten">Ten</span></dt>
+        <dd>
+            <span>{{huyen.ten}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.huyen.tinh">Tinh</span></dt>
+        <dd>
+            <div *ngIf="huyen.tinhId">
+                <a [routerLink]="['/tinh', huyen.tinhId]">{{huyen.tinhId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'huyen/'+ huyen.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

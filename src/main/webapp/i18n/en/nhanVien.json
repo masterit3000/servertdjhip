@@ -1,0 +1,36 @@
+
+{
+    "servertdjhipApp": {
+        "nhanVien" : {
+            "home": {
+                "title": "Nhan Viens",
+                "createLabel": "Create a new Nhan Vien",
+                "createOrEditLabel": "Create or edit a Nhan Vien"
+            },
+            "created": "A new Nhan Vien is created with identifier {{ param }}",
+            "updated": "A Nhan Vien is updated with identifier {{ param }}",
+            "deleted": "A Nhan Vien is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Nhan Vien {{ id }}?"
+            },
+            "detail": {
+                "title": "Nhan Vien"
+            },
+            "ten": "Ten",
+            "diachi": "Diachi",
+            "dienthoai": "Dienthoai",
+            "cmnd": "Cmnd",
+            "trangthai": "Trangthai",
+            "ngayTao": "Ngay Tao",
+            "ghiChu": "Ghi Chu",
+            "xa": "Xa",
+            "cuaHang": "Cua Hang",
+            "user": "User",
+            "thuchi": "Thuchi",
+            "lichsudongtien": "Lichsudongtien",
+            "ghino": "Ghino",
+            "hopdong": "Hopdong",
+            "lichsuthaotacnv": "Lichsuthaotacnv"
+        }
+    }
+}

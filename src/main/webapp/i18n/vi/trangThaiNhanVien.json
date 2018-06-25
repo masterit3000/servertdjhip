@@ -1,0 +1,11 @@
+{
+    "servertdjhipApp": {
+        "TrangThaiNhanVien" : {
+            "null": "",
+            "DUNGHOATDONG": "DUNGHOATDONG",
+            "NHANVIEN": "NHANVIEN",
+            "QUANLYCUAHANG": "QUANLYCUAHANG",
+            "QUANTRI": "QUANTRI"
+        }
+    }
+}

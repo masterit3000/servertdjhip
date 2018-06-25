@@ -1,0 +1,34 @@
+
+{
+    "servertdjhipApp": {
+        "khachHang" : {
+            "home": {
+                "title": "Khach Hangs",
+                "createLabel": "Create a new Khach Hang",
+                "createOrEditLabel": "Create or edit a Khach Hang"
+            },
+            "created": "A new Khach Hang is created with identifier {{ param }}",
+            "updated": "A Khach Hang is updated with identifier {{ param }}",
+            "deleted": "A Khach Hang is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Khach Hang {{ id }}?"
+            },
+            "detail": {
+                "title": "Khach Hang"
+            },
+            "ten": "Ten",
+            "diachi": "Diachi",
+            "dienthoai": "Dienthoai",
+            "cmnd": "Cmnd",
+            "trangthai": "Trangthai",
+            "ngayTao": "Ngay Tao",
+            "email": "Email",
+            "facebook": "Facebook",
+            "ghiChu": "Ghi Chu",
+            "xa": "Xa",
+            "anh": "Anh",
+            "hopdong": "Hopdong",
+            "cuaHang": "Cua Hang"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+
+{
+    "servertdjhipApp": {
+        "huyen" : {
+            "home": {
+                "title": "Huyens",
+                "createLabel": "Create a new Huyen",
+                "createOrEditLabel": "Create or edit a Huyen"
+            },
+            "created": "A new Huyen is created with identifier {{ param }}",
+            "updated": "A Huyen is updated with identifier {{ param }}",
+            "deleted": "A Huyen is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Huyen {{ id }}?"
+            },
+            "detail": {
+                "title": "Huyen"
+            },
+            "ten": "Ten",
+            "tinh": "Tinh",
+            "xa": "Xa"
+        }
+    }
+}

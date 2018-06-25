@@ -1,0 +1,54 @@
+
+<div *ngIf="lichSuDongTien">
+    <h2><span jhiTranslate="servertdjhipApp.lichSuDongTien.detail.title">Lich Su Dong Tien</span> {{lichSuDongTien.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.ngaybatdau">Ngaybatdau</span></dt>
+        <dd>
+            <span>{{lichSuDongTien.ngaybatdau | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.ngayketthuc">Ngayketthuc</span></dt>
+        <dd>
+            <span>{{lichSuDongTien.ngayketthuc | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.sotien">Sotien</span></dt>
+        <dd>
+            <span>{{lichSuDongTien.sotien}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.trangthai">Trangthai</span></dt>
+        <dd>
+            <span jhiTranslate="{{'servertdjhipApp.DONGTIEN.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.ghiChu">Ghi Chu</span></dt>
+        <dd>
+            <span>{{lichSuDongTien.ghiChu}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.nhanVien">Nhan Vien</span></dt>
+        <dd>
+            <div *ngIf="lichSuDongTien.nhanVienId">
+                <a [routerLink]="['/nhan-vien', lichSuDongTien.nhanVienId]">{{lichSuDongTien.nhanVienId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.lichSuDongTien.hopDong">Hop Dong</span></dt>
+        <dd>
+            <div *ngIf="lichSuDongTien.hopDongId">
+                <a [routerLink]="['/hop-dong', lichSuDongTien.hopDongId]">{{lichSuDongTien.hopDongId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'lich-su-dong-tien/'+ lichSuDongTien.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

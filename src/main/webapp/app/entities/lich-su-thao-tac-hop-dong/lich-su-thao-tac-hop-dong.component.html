@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.lichSuThaoTacHopDong.home.title">Lich Su Thao Tac Hop Dongs</span>
+        <button class="btn btn-primary float-right jh-create-entity create-lich-su-thao-tac-hop-dong" [routerLink]="['/', { outlets: { popup: ['lich-su-thao-tac-hop-dong-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.lichSuThaoTacHopDong.home.createLabel">
+            Create new Lich Su Thao Tac Hop Dong
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="lichSuThaoTacHopDongs">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.lichSuThaoTacHopDong.thoigian">Thoigian</span></th>
+            <th><span jhiTranslate="servertdjhipApp.lichSuThaoTacHopDong.noidung">Noidung</span></th>
+            <th><span jhiTranslate="servertdjhipApp.lichSuThaoTacHopDong.nhanVien">Nhan Vien</span></th>
+            <th><span jhiTranslate="servertdjhipApp.lichSuThaoTacHopDong.hopDong">Hop Dong</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let lichSuThaoTacHopDong of lichSuThaoTacHopDongs ;trackBy: trackId">
+                <td><a [routerLink]="['../lich-su-thao-tac-hop-dong', lichSuThaoTacHopDong.id ]">{{lichSuThaoTacHopDong.id}}</a></td>
+                <td>{{lichSuThaoTacHopDong.thoigian | date:'medium'}}</td>
+                <td>{{lichSuThaoTacHopDong.noidung}}</td>
+                <td>
+                    <div *ngIf="lichSuThaoTacHopDong.nhanVienId">
+                        <a [routerLink]="['../nhan-vien', lichSuThaoTacHopDong.nhanVienId  ]" >{{lichSuThaoTacHopDong.nhanVienId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="lichSuThaoTacHopDong.hopDongId">
+                        <a [routerLink]="['../hop-dong', lichSuThaoTacHopDong.hopDongId  ]" >{{lichSuThaoTacHopDong.hopDongId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../lich-su-thao-tac-hop-dong', lichSuThaoTacHopDong.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'lich-su-thao-tac-hop-dong/'+ lichSuThaoTacHopDong.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'lich-su-thao-tac-hop-dong/'+ lichSuThaoTacHopDong.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+
+<div *ngIf="khachHang">
+    <h2><span jhiTranslate="servertdjhipApp.khachHang.detail.title">Khach Hang</span> {{khachHang.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span></dt>
+        <dd>
+            <span>{{khachHang.ten}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span></dt>
+        <dd>
+            <span>{{khachHang.diachi}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span></dt>
+        <dd>
+            <span>{{khachHang.dienthoai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.cmnd">Cmnd</span></dt>
+        <dd>
+            <span>{{khachHang.cmnd}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span></dt>
+        <dd>
+            <span jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.ngayTao">Ngay Tao</span></dt>
+        <dd>
+            <span>{{khachHang.ngayTao | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.email">Email</span></dt>
+        <dd>
+            <span>{{khachHang.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.facebook">Facebook</span></dt>
+        <dd>
+            <span>{{khachHang.facebook}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.ghiChu">Ghi Chu</span></dt>
+        <dd>
+            <span>{{khachHang.ghiChu}}</span>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.xa">Xa</span></dt>
+        <dd>
+            <div *ngIf="khachHang.xaId">
+                <a [routerLink]="['/xa', khachHang.xaId]">{{khachHang.xaId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="servertdjhipApp.khachHang.cuaHang">Cua Hang</span></dt>
+        <dd>
+            <div *ngIf="khachHang.cuaHangId">
+                <a [routerLink]="['/cua-hang', khachHang.cuaHangId]">{{khachHang.cuaHangId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'khach-hang/'+ khachHang.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

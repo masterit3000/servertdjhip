@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity LichSuDongTien.
+    -->
+    <changeSet id="20180625141440-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="nhan_vien_id"
+                                 baseTableName="lich_su_dong_tien"
+                                 constraintName="fk_lich_su_dong_tien_nhan_vien_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="nhan_vien"/>
+
+        <addForeignKeyConstraint baseColumnNames="hop_dong_id"
+                                 baseTableName="lich_su_dong_tien"
+                                 constraintName="fk_lich_su_dong_tien_hop_dong_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hop_dong"/>
+
+    </changeSet>
+</databaseChangeLog>

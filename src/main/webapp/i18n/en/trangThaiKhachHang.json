@@ -1,0 +1,12 @@
+{
+    "servertdjhipApp": {
+        "TrangThaiKhachHang" : {
+            "null": "",
+            "HOATDONG": "HOATDONG",
+            "DUNGHOATDONG": "DUNGHOATDONG",
+            "CAPDO1": "CAPDO1",
+            "CAPDO2": "CAPDO2",
+            "CAPDO3": "CAPDO3"
+        }
+    }
+}

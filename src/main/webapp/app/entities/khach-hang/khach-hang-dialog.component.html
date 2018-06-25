@@ -1,0 +1,115 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myKhachHangLabel" jhiTranslate="servertdjhipApp.khachHang.home.createOrEditLabel">Create or edit a Khach Hang</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!khachHang.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="khachHang.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ten" for="field_ten">Ten</label>
+            <input type="text" class="form-control" name="ten" id="field_ten"
+                [(ngModel)]="khachHang.ten" required/>
+            <div [hidden]="!(editForm.controls.ten?.dirty && editForm.controls.ten?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ten?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.diachi" for="field_diachi">Diachi</label>
+            <input type="text" class="form-control" name="diachi" id="field_diachi"
+                [(ngModel)]="khachHang.diachi" maxlength="200"/>
+            <div [hidden]="!(editForm.controls.diachi?.dirty && editForm.controls.diachi?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.diachi?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 200 }">
+                   This field cannot be longer than 200 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.dienthoai" for="field_dienthoai">Dienthoai</label>
+            <input type="text" class="form-control" name="dienthoai" id="field_dienthoai"
+                [(ngModel)]="khachHang.dienthoai" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cmnd" for="field_cmnd">Cmnd</label>
+            <input type="text" class="form-control" name="cmnd" id="field_cmnd"
+                [(ngModel)]="khachHang.cmnd" maxlength="11"/>
+            <div [hidden]="!(editForm.controls.cmnd?.dirty && editForm.controls.cmnd?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.cmnd?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 11 }">
+                   This field cannot be longer than 11 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.trangthai" for="field_trangthai">Trangthai</label>
+            <select class="form-control" name="trangthai" [(ngModel)]="khachHang.trangthai" id="field_trangthai" >
+                <option value="HOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
+                <option value="DUNGHOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.DUNGHOATDONG' | translate}}</option>
+                <option value="CAPDO1">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO1' | translate}}</option>
+                <option value="CAPDO2">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO2' | translate}}</option>
+                <option value="CAPDO3">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO3' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ngayTao" for="field_ngayTao">Ngay Tao</label>
+            <div class="d-flex">
+                <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="khachHang.ngayTao"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="khachHang.email" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.facebook" for="field_facebook">Facebook</label>
+            <input type="text" class="form-control" name="facebook" id="field_facebook"
+                [(ngModel)]="khachHang.facebook" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ghiChu" for="field_ghiChu">Ghi Chu</label>
+            <input type="text" class="form-control" name="ghiChu" id="field_ghiChu"
+                [(ngModel)]="khachHang.ghiChu" maxlength="3000"/>
+            <div [hidden]="!(editForm.controls.ghiChu?.dirty && editForm.controls.ghiChu?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ghiChu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 3000 }">
+                   This field cannot be longer than 3000 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.xa" for="field_xa">Xa</label>
+            <select class="form-control" id="field_xa" name="xa" [(ngModel)]="khachHang.xaId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cuaHang" for="field_cuaHang">Cua Hang</label>
+            <select class="form-control" id="field_cuaHang" name="cuaHang" [(ngModel)]="khachHang.cuaHangId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="cuaHangOption.id" *ngFor="let cuaHangOption of cuahangs; trackBy: trackCuaHangById">{{cuaHangOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

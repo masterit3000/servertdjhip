@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.vayLai.home.title">Vay Lais</span>
+        <button class="btn btn-primary float-right jh-create-entity create-vay-lai" [routerLink]="['/', { outlets: { popup: ['vay-lai-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.vayLai.home.createLabel">
+            Create new Vay Lai
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="vayLais">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span></th>
+            <th><span jhiTranslate="servertdjhipApp.vayLai.hopdongvl">Hopdongvl</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let vayLai of vayLais ;trackBy: trackId">
+                <td><a [routerLink]="['../vay-lai', vayLai.id ]">{{vayLai.id}}</a></td>
+                <td>{{vayLai.tienvay}}</td>
+                <td jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</td>
+                <td>{{vayLai.thoigianvay}}</td>
+                <td>{{vayLai.chukylai}}</td>
+                <td>{{vayLai.lai}}</td>
+                <td jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</td>
+                <td>{{vayLai.thulaitruoc}}</td>
+                <td>
+                    <div *ngIf="vayLai.hopdongvlId">
+                        <a [routerLink]="['../hop-dong', vayLai.hopdongvlId  ]" >{{vayLai.hopdongvlId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../vay-lai', vayLai.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

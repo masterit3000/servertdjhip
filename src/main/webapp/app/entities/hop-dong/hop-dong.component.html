@@ -1,0 +1,86 @@
+<div>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.hopDong.home.title">Hop Dongs</span>
+        <button class="btn btn-primary float-right jh-create-entity create-hop-dong" [routerLink]="['/', { outlets: { popup: ['hop-dong-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="servertdjhipApp.hopDong.home.createLabel">
+            Create new Hop Dong
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="hopDongs">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.ghichu">Ghichu</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.loaihopdong">Loaihopdong</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.ngaytao">Ngaytao</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.khachHang">Khach Hang</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.cuaHang">Cua Hang</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.nhanVien">Nhan Vien</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.hopdonggoc">Hopdonggoc</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let hopDong of hopDongs ;trackBy: trackId">
+                <td><a [routerLink]="['../hop-dong', hopDong.id ]">{{hopDong.id}}</a></td>
+                <td>{{hopDong.ghichu}}</td>
+                <td jhiTranslate="{{'servertdjhipApp.LOAIHOPDONG.' + hopDong.loaihopdong}}">{{hopDong.loaihopdong}}</td>
+                <td>{{hopDong.ngaytao | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="hopDong.khachHangId">
+                        <a [routerLink]="['../khach-hang', hopDong.khachHangId  ]" >{{hopDong.khachHangId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="hopDong.cuaHangId">
+                        <a [routerLink]="['../cua-hang', hopDong.cuaHangId  ]" >{{hopDong.cuaHangId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="hopDong.nhanVienId">
+                        <a [routerLink]="['../nhan-vien', hopDong.nhanVienId  ]" >{{hopDong.nhanVienId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="hopDong.hopdonggocId">
+                        <a [routerLink]="['../hop-dong', hopDong.hopdonggocId  ]" >{{hopDong.hopdonggocId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../hop-dong', hopDong.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'hop-dong/'+ hopDong.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'hop-dong/'+ hopDong.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

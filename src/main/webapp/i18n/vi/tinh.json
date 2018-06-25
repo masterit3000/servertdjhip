@@ -1,0 +1,23 @@
+
+{
+    "servertdjhipApp": {
+        "tinh" : {
+            "home": {
+                "title": "Tinhs",
+                "createLabel": "Thêm mới một Tinh",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Tinh"
+            },
+            "created": "Một Tinh mới được tạo với định danh {{ param }}",
+            "updated": "Một Tinh cập nhật với định danh {{ param }}",
+            "deleted": "Một Tinh đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Tinh {{ id }}?"
+            },
+            "detail": {
+                "title": "Tinh"
+            },
+            "ten": "Ten",
+            "huyen": "Huyen"
+        }
+    }
+}
