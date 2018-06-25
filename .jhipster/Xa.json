@@ -9,7 +9,7 @@
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "khachang",
+            "relationshipName": "khachhang",
             "otherEntityName": "khachHang",
             "otherEntityRelationshipName": "xa"
         },

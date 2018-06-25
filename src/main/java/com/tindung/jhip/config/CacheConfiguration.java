@@ -78,6 +78,7 @@ public class CacheConfiguration {
             cm.createCache(com.tindung.jhip.domain.NhanVien.class.getName() + ".nhatkies", jcacheConfiguration);
             cm.createCache(com.tindung.jhip.domain.NhatKy.class.getName(), jcacheConfiguration);
             cm.createCache(com.tindung.jhip.domain.CuaHang.class.getName() + ".nhatkies", jcacheConfiguration);
+            cm.createCache(com.tindung.jhip.domain.Xa.class.getName() + ".khachhangs", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

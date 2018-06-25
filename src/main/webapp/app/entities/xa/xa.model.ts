@@ -5,7 +5,7 @@ export class Xa implements BaseEntity {
         public id?: number,
         public ten?: string,
         public huyenId?: number,
-        public khachangs?: BaseEntity[],
+        public khachhangs?: BaseEntity[],
         public nhanviens?: BaseEntity[],
         public cuahangs?: BaseEntity[],
     ) {

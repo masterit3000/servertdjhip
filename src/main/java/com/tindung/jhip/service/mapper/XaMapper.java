@@ -15,7 +15,7 @@ public interface XaMapper extends EntityMapper<XaDTO, Xa> {
     XaDTO toDto(Xa xa);
 
     @Mapping(source = "huyenId", target = "huyen")
-    @Mapping(target = "khachangs", ignore = true)
+    @Mapping(target = "khachhangs", ignore = true)
     @Mapping(target = "nhanviens", ignore = true)
     @Mapping(target = "cuahangs", ignore = true)
     Xa toEntity(XaDTO xaDTO);
