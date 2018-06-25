@@ -7,8 +7,11 @@
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <a id="menu_input" #inputmenutitle [class.active-menuitem]="inputmenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === inputmenutitle.id ? null : inputmenutitle.id)">
+                    <img src="icons/input-active.svg" class="layout-menu-icon-active"/>
+                    <img src="icons/input.svg" class="layout-menu-icon-inactive"/>
                 <span>Input</span>
             </a>
+
             <div [ngClass]="{submenushow: (inputmenutitle.id == activeMenuId), 'submenuhide': (inputmenutitle.id != activeMenuId)}">
                 <a [routerLink]="['/inputgroup']" (click)="menuActive = false">&#9679; InputGroup</a>
                 <a [routerLink]="['/autocomplete']" (click)="menuActive = false">&#9679; AutoComplete</a>
