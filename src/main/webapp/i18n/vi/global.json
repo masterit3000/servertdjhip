@@ -7,6 +7,22 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Thực thể",
+                "tinh": "Tinh",
+                "huyen": "Huyen",
+                "xa": "Xa",
+                "khachHang": "Khach Hang",
+                "cuaHang": "Cua Hang",
+                "nhanVien": "Nhan Vien",
+                "anhKhachHang": "Anh Khach Hang",
+                "hopDong": "Hop Dong",
+                "lichSuDongTien": "Lich Su Dong Tien",
+                "batHo": "Bat Ho",
+                "vayLai": "Vay Lai",
+                "ghiNo": "Ghi No",
+                "lichSuThaoTacHopDong": "Lich Su Thao Tac Hop Dong",
+                "thuChi": "Thu Chi",
+                "taiSan": "Tai San",
+                "anhTaiSan": "Anh Tai San",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
