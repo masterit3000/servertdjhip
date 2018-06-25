@@ -36,7 +36,7 @@
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.thongTinChiTietCuaHang">Thông tin chi tiết cửa hàng</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="cua-hang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.danhSachCuaHang">Danh sách cửa hàng</span>
                 </a>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
@@ -64,7 +64,7 @@
                 <span jhiTranslate="global.menu.quanLyNhanVien">Quản lý nhân viên</span>
             </a>
             <div [ngClass]="{submenushow: (menunhanvien.id == activeMenuId), 'submenuhide': (menunhanvien.id != activeMenuId)}">
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="nhan-vien" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.danhSachNhanVien">Danh sách nhân viên</span>
                 </a>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
@@ -117,7 +117,7 @@
                     <span jhiTranslate="global.menu.baoCaoTinNhan">Báo cáo tin nhắn</span>
                 </a>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
-                    <span jhiTranslate="global.menu.banGiaoCa">Bàn giaoc a</span>
+                    <span jhiTranslate="global.menu.banGiaoCa">Bàn giao ca</span>
                 </a>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.dongTienTheoNgay">Dòng tiền theo ngày</span>
