@@ -1,3 +1,291 @@
-<p>
-  so-quy-tien-mat works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+     
+         
+          
+
+
+<!--=== Page Header ===-->
+          <div class="row">
+            <div class="page-title" style="padding: 19px 0px;">
+              <h3>Sổ quỹ tiền mặt</h3>
+            </div>
+          </div>
+            <!-- /Page Header -->
+          <div style="border-top: 1px solid #cecece; height: 5px;"></div>
+
+          <div>
+            <form class="form-vertical" >
+              <div class="form-group">
+                <div class="row">
+
+                  <div class="col-md-2">
+                      <label class="control-label">Nhân Viên</label>
+
+                      <select class="custom-select mr-sm-2" >
+                          <option  label="Tất cả nhân viên" title="Tất cả" >Tất cả</option>
+                              <option  label="asdasd" title="asdasd" >asdasd</option>
+                              <option  label="ádasdas" title="ádasdas" >ádasdas</option>
+                      </select>
+                  </div>
+
+
+                  <div class="col-md-2" style="margin-top: 5px">
+                      <label class="control-label">
+                          Từ ngày</label>
+                      <input type="text" >
+                  </div>
+                  <div class="col-md-2" style="margin-top: 5px">
+                      <label class="control-label">
+                          Đến ngày
+                      </label>
+                      <input type="text" >
+                  </div>
+
+                  <div class="col-md-3" style="margin-top: 23px">
+                      <button class="btn btn-info btnSearch" >
+                          Tìm kiếm
+                      </button>
+                      <button class="btn btn-sm btnSearch"  style="margin-left: 20px;"><i ></i>ex</button>
+                      <span class="invoice">
+                          <span class="buttons">
+                              <a class="btn btn-default btn-sm"  style=" margin-left: 10px;"><i ></i>In</a>
+                          </span>
+                      </span>
+                  </div>
+              </div>
+
+            </div>
+            </form>
+          </div>  
+            <div class="form-group">
+                <div class="widget-content" id="result-search">
+                    <div >
+
+                        <div >
+                          <table class="table table-striped table-hover table-bordered table-calendar" style="margin-top:30px;">
+                            <thead>
+                                  <tr style="background:#3f86c3;">
+                                      <th colspan="91" style="text-align:left; padding-left:10px;font-size:16px;color:#FFF;text-align:center">Bảng Tổng Kết</th>
+                                  </tr>
+                              <tr>
+                                <th class="align-center">Quỹ tiền mặt đầu kỳ</th>
+                                      <th class="align-center">Cầm đồ</th>
+                                      <th class="align-center">Vay lãi</th>
+                                      <th class="align-center">Bát Họ</th>
+                                      <th class="align-center">Thu</th>
+                                      <th class="align-center">Chi</th>
+                                      <th class="align-center">Vốn</th>
+                                      <th class="align-center">Quỹ tiền mặt cuối kỳ</th>
+                              </tr>
+                                  
+                            </thead>
+                            <tbody>
+                                  <tr>
+                                  
+                                      <td class="align-center"><span style="color:blue">+2,132</span></td>
+                                      <td class="align-center"><span style="color:red">0</span></td>
+                                      <td class="align-center"><span style="color:red">0</span></td>
+                                      <td class="align-center"><span style="color:red">0</span></td>
+                                      <td class="align-center"><span style="color:blue">+11</span></td>
+                                      <td class="align-center"><span style="color:red">0</span></td>
+                                      <td class="align-center"><span style="color:red">0</span></td>
+                                      <td class="align-center"><span style="color:blue">+2,143</span></td>
+                                  </tr>
+                                  
+                            </tbody>
+                          </table>
+                    </div>
+              </div>
+            <!--GIAO DỊCH Cầm đồ-->
+            <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+            <thead>
+              <tr style="background:#3f86c3;">
+                  <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Giao dịch cầm đồ</th>
+              </tr>
+            <tr>
+            <th width="50px" style="text-align:center">#</th>
+                  <th class="hidden-xs" width="80px" style="text-align:center">Mã HĐ</th>
+                  <th class="hidden-xs">Nhân viên</th>
+                  <th>Khách hàng</th>
+                  <th class="hidden-xs">Tên hàng</th>
+                  <th style="text-align:center">Ngày GD</th>
+                  <th>Loại GD</th>
+                  <th style="text-align:right">Tiền cầm</th>
+                  <th style="text-align:right">Tiền chuộc</th>
+                  <th style="text-align:right">Tiền Thanh lý</th>
+                  <th style="text-align:right">Tiền lãi</th>
+            </tr>
+            </thead>
+            <tbody>
+                  <!--FOOTER-->
+            <tr>
+                      <td class="hidden-xs" style="background-color:#ECECEC"></td>
+                      <td class="hidden-xs" style="background-color:#ECECEC"></td>
+                      <td class="hidden-xs" style="background-color:#ECECEC"></td>
+              <td class="align-right" style="color:red;background-color:#ECECEC" colspan="4"><strong>Tổng</strong></td>
+              <td class="align-right" style="background-color:#ECECEC">
+                          <b><span style="color:red">0</span></b>
+                      </td>
+                      <td class="align-right" style="background-color:#ECECEC">
+                          <b><span style="color:red">0</span></b>
+                      </td>
+                        <td class="align-right" style="background-color:#ECECEC">
+                          <b><span style="color:red">0</span></b>
+                      </td>
+                      <td class="align-right" style="background-color:#ECECEC">
+                          <b><span style="color:red">0</span></b>
+                      </td>
+            </tr>
+                  <tr>
+                      <td class="hidden-xs" style="background-color:#ECECEC"></td>
+                      <td class="hidden-xs" style="background-color:#ECECEC"></td>
+                      <td class="hidden-xs" style="background-color:#ECECEC"></td>
+              <td class="align-right" style="color:red;background-color:#ECECEC" colspan="4"><strong>Tổng giao dịch cầm đồ </strong></td>
+              <td class="align-center" colspan="4" style="background-color:#ECECEC">
+                          <b><span style="color:red">0</span></b>
+                      </td>
+            </tr>
+            </tbody>
+            </table>
+
+            <!--GIAO DỊCH Vay lãi-->
+            <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+            <thead>
+              <tr style="background:#3f86c3;">
+                  <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Giao dịch vay lãi</th>
+              </tr>
+            <tr>
+            <th width="50px" style="text-align:center">#</th>
+                  <th style="text-align:center">Ngày</th>
+            <th>Nhân viên</th>
+                  <th>Khách hàng</th>
+                  <th>Loại giao dịch</th>
+                  <th style="text-align:right">Cho Vay</th>
+                  <th style="text-align:right">Tiền gốc</th>
+                  <th style="text-align:right">Tiền lãi</th>
+                  <th style="text-align:right">Tiền khác</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                  <!--FOOTER-->
+            <tr>
+              <td align="right" style="color:red;background-color:#ECECEC" colspan="5"><strong>Tổng </strong></td>
+              <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+              </td>
+                      <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+              </td>
+                      <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+              </td>
+                      <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+              </td>
+            </tr>
+            </tbody>
+            </table>
+
+            <!--GIAO DỊCH HỌ-->
+            <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+            <thead>
+              <tr style="background:#3f86c3;">
+                  <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Giao dịch vay họ</th>
+              </tr>
+            <tr>
+            <th width="50px" style="text-align:center">#</th>
+                  <th style="text-align:center">Ngày</th>
+            <th>Nhân viên</th>
+                  <th>Khách hàng</th>
+                  <th>Loại giao dịch</th>
+                  <th style="text-align:right">Cho vay</th>
+                  <th style="text-align:right">Thu về</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                  <!--FOOTER-->
+            <tr>
+              <td align="right" style="color:red;background-color:#ECECEC" colspan="5"><strong>Tổng </strong></td>
+              <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+              </td>
+                      <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+                      </td>
+            </tr>
+            </tbody>
+            </table>
+
+            <!--GIAO DỊCH THU CHI-->
+            <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+            <thead>
+              <tr style="background:#3f86c3;">
+                  <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Thu Chi</th>
+              </tr>
+            <tr>
+            <th width="50px" style="text-align:center">#</th>
+                  <th style="text-align:center">Ngày</th>
+            <th>Nhân viên</th>
+                  <th>Loại giao dịch</th>
+                  <th style="text-align:right">Số tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+                  <tr>
+              <td align="center">1</td>
+                      <td align="center">01:52 10/06/2018</td>
+              <td>asdasd</td>
+                      <td>Thu bất thường</td>
+                      <td align="right">
+                          <span style="color:blue">+11</span>
+                      </td>
+            </tr>
+                  <!--FOOTER-->
+            <tr>
+              <td align="right" style="color:red;background-color:#ECECEC" colspan="4"><strong>Tổng </strong></td>
+              <td align="right" style="background-color:#ECECEC">
+                          <span style="color:blue">+11</span>
+              </td>
+            </tr>
+            </tbody>
+            </table>
+
+            <!--GIAO DỊCH VỐN ĐẦU TƯ-->
+            <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+            <thead>
+              <tr style="background:#3f86c3;">
+                  <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Quản lý nguồn vốn</th>
+              </tr>
+            <tr>
+            <th width="50px" style="text-align:center">#</th>
+                  <th style="text-align:center">Ngày</th>
+            <th>Nhân viên</th>
+                  <th>Khách hàng</th>
+                  <th>Loại giao dịch</th>
+                  <th style="text-align:right">Số tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+                  <!--FOOTER-->
+            <tr>
+              <td align="right" style="color:red;background-color:#ECECEC" colspan="5"><strong>Tổng </strong></td>
+              <td align="right" style="background-color:#ECECEC">
+                          <span style="color:red">0</span>
+              </td>
+            </tr>
+            </tbody>
+            </table>
+
+<!--GIAO DỊCH VỐN ĐẦU TƯ-->
+
+
+          <!--FOOTER CONTENT-->
+          </div>
+        </div>
+
+    
+  </div>
+</div>
