@@ -20,7 +20,11 @@
             "thoigian": "Thời gian",
             "thuchi": "Thu chi",
             "cuaHang": "Cửa hàng",
-            "nhanVien": "Nhân viên"
+            "nhanVien": "Nhân viên",
+            "thu": "Thu",
+            "chi": "Chi",
+            "gopvon": "Góp vốn",
+            "rutvon": "Rút vốn"
         }
     }
 }
