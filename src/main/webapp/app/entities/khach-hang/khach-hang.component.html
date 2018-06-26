@@ -46,21 +46,6 @@
                         <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
                     </th>
                     <th>
-                        <span jhiTranslate="servertdjhipApp.khachHang.ngayTao">Ngay Tao</span>
-                    </th>
-                    <th>
-                        <span jhiTranslate="servertdjhipApp.khachHang.email">Email</span>
-                    </th>
-                    <th>
-                        <span jhiTranslate="servertdjhipApp.khachHang.facebook">Facebook</span>
-                    </th>
-                    <th>
-                        <span jhiTranslate="servertdjhipApp.khachHang.ghiChu">Ghi Chu</span>
-                    </th>
-                    <th>
-                        <span jhiTranslate="servertdjhipApp.khachHang.xa">Xa</span>
-                    </th>
-                    <th>
                         <span jhiTranslate="servertdjhipApp.khachHang.cuaHang">Cua Hang</span>
                     </th>
                     <th></th>
@@ -76,15 +61,6 @@
                     <td>{{khachHang.dienthoai}}</td>
                     <td>{{khachHang.cmnd}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</td>
-                    <td>{{khachHang.ngayTao | date:'medium'}}</td>
-                    <td>{{khachHang.email}}</td>
-                    <td>{{khachHang.facebook}}</td>
-                    <td>{{khachHang.ghiChu}}</td>
-                    <td>
-                        <div *ngIf="khachHang.xaId">
-                            <a [routerLink]="['../xa', khachHang.xaId  ]">{{khachHang.xaId}}</a>
-                        </div>
-                    </td>
                     <td>
                         <div *ngIf="khachHang.cuaHangId">
                             <a [routerLink]="['../cua-hang', khachHang.cuaHangId  ]">{{khachHang.cuaHangId}}</a>
