@@ -145,6 +145,7 @@
                 "taiSan": "Tài Sản",
                 "anhTaiSan": "Ảnh Tài Sản",
                 "nhatKy": "Nhật Ký",
+                "hopDong": "Hop Dong",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

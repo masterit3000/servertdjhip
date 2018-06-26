@@ -22,6 +22,10 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="mahopdong" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="ghichu" type="varchar(3000)">
                 <constraints nullable="true" />
             </column>

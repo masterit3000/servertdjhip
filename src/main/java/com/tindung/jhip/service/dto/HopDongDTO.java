@@ -16,6 +16,10 @@ public class HopDongDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
+    @Size(max = 20)
+    private String mahopdong;
+
     @Size(max = 3000)
     private String ghichu;
 
@@ -39,6 +43,14 @@ public class HopDongDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMahopdong() {
+        return mahopdong;
+    }
+
+    public void setMahopdong(String mahopdong) {
+        this.mahopdong = mahopdong;
     }
 
     public String getGhichu() {
@@ -122,6 +134,7 @@ public class HopDongDTO implements Serializable {
     public String toString() {
         return "HopDongDTO{" +
             "id=" + getId() +
+            ", mahopdong='" + getMahopdong() + "'" +
             ", ghichu='" + getGhichu() + "'" +
             ", loaihopdong='" + getLoaihopdong() + "'" +
             ", ngaytao='" + getNgaytao() + "'" +

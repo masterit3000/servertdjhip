@@ -17,6 +17,7 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="servertdjhipApp.hopDong.mahopdong">Mahopdong</span></th>
             <th><span jhiTranslate="servertdjhipApp.hopDong.ghichu">Ghichu</span></th>
             <th><span jhiTranslate="servertdjhipApp.hopDong.loaihopdong">Loaihopdong</span></th>
             <th><span jhiTranslate="servertdjhipApp.hopDong.ngaytao">Ngaytao</span></th>
@@ -30,6 +31,7 @@
             <tbody>
             <tr *ngFor="let hopDong of hopDongs ;trackBy: trackId">
                 <td><a [routerLink]="['../hop-dong', hopDong.id ]">{{hopDong.id}}</a></td>
+                <td>{{hopDong.mahopdong}}</td>
                 <td>{{hopDong.ghichu}}</td>
                 <td jhiTranslate="{{'servertdjhipApp.LOAIHOPDONG.' + hopDong.loaihopdong}}">{{hopDong.loaihopdong}}</td>
                 <td>{{hopDong.ngaytao | date:'medium'}}</td>

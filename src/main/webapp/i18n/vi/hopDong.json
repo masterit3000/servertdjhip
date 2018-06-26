@@ -16,12 +16,13 @@
             "detail": {
                 "title": "Hợp Đồng"
             },
+            "mahopdong": "Mã hợp đồng",
             "ghichu": "Ghi chú",
             "loaihopdong": "Loại hợp đồng",
             "ngaytao": "Ngày tạo",
-            "khachHang": "Khách hàng",
-            "cuaHang": "Cửa hàng",
-            "nhanVien": "Nhân viên",
+            "khachHang": "Khách Hàng",
+            "cuaHang": "Cửa Hàng",
+            "nhanVien": "Nhân Viên",
             "hopdonggoc": "Hợp đồng gốc",
             "taisan": "Tài sản",
             "ghino": "Ghi nợ",
