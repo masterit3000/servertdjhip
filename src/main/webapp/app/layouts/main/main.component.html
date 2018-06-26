@@ -39,24 +39,24 @@
                 <a routerLink="cua-hang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.danhSachCuaHang">Danh sách cửa hàng</span>
                 </a>
-                <a routerLink="cauHinhHangHoa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="tai-san" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.cauHinhHangHoa">Cấu hình hàng hóa</span>
                 </a>
                 <a routerLink="nhapTienQuyDauNgay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.nhapTienQuyDauNgay">Nhập tiền quỹ đầu ngày</span>
                 </a>
             </div>
-            <a id="thu-chi-menu" #menuthuchi [class.active-menuitem]="menuthuchi.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuthuchi.id ? null : menuthuchi.id)">
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="thu-chi">
                 <span jhiTranslate="global.menu.quanLyThuChi">Quản lý thu chi</span>
             </a>
-            <div [ngClass]="{submenushow: (menuthuchi.id == activeMenuId), 'submenuhide': (menuthuchi.id != activeMenuId)}">
+            <!-- <div [ngClass]="{submenushow: (menuthuchi.id == activeMenuId), 'submenuhide': (menuthuchi.id != activeMenuId)}">
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.thuHoatDong">Thu hoạt động</span>
                 </a>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.chiHoatDong">Chi hoạt động</span>
                 </a>
-            </div>
+            </div> -->
             <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">
                 <span jhiTranslate="global.menu.quanLyNguonVon">Quản lý nguồn vốn</span>
             </a>
@@ -86,40 +86,40 @@
                 <span jhiTranslate="global.menu.baoCao">Báo cáo</span>
             </a>
             <div [ngClass]="{submenushow: (menubaocao.id == activeMenuId), 'submenuhide': (menubaocao.id != activeMenuId)}">
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="soQuyTienMat" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.soQuyTienMat">Số quỹ tiền mặt</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="tongKetGiaoDich" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.tongKetGiaoDich">Tổng kết giao dịch</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="tongKetLoiNhuan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.tongKetLoiNhuan">Tổng kết lợi nhuận</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="chiTietTienLai" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.chiTietTienLai">Chi tiết tiền lãi</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="baoCaoDangChoVay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.baoCaoDangChoVay">Báo cáo đang cho vay</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="baoCaoHangChoThanhLy" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.baoCaoHangChoThanhLy">Báo cáo hàng chờ thanh lý</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="baoCaoChuocDoDongHD" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.baoCaoChuocDoDongHD">Báo cáo chuộc đồ, đống hợp đồng</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="baoCaoThanhLyDo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.baoCaoThanhLyDo">Báo cáo thanh lý đồ</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="baoCaoHopDongDaXoa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.baoCaoHopDongDaXoa">Báo cáo hợp đồng đã xóa</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="baoCaoTinNhan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.baoCaoTinNhan">Báo cáo tin nhắn</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="banGiaoCa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.banGiaoCa">Bàn giao ca</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="dongTienTheoNgay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.dongTienTheoNgay">Dòng tiền theo ngày</span>
                 </a>
             </div>
