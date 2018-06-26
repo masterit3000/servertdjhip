@@ -12,23 +12,12 @@
     <hr/>
     <div class="ui-g ui-fluid">
         <div class="ui-g-2">
-            <pe-step label="Float label">
-                <span class="ui-float-label">
-                    <input id="float-input" name="float" pInputText type="text" size="30">
-                    <label for="float-input">ID</label>
-                </span>
-            </pe-step>
-        </div>
-        <div class="ui-g-2">
-            <pe-step label="Float label">
-                <span class="ui-float-label">
-                    <input id="float-input" name="float" pInputText type="text" size="30">
-                    <label for="float-input">Tên khách hàng</label>
-                </span>
-            </pe-step>
-        </div>
-        <div class="ui-g-2">
-            <button class="btn btn-primary float-right">Tìm kiếm</button>
+                <pe-step label="Basic">
+                        <label for="input">Tìm bát họ theo id</label>
+                        <input id="input" name="input" type="text" size="30" pInputText [(ngModel)]="text" >
+                </pe-step>
+
+                <button type="submit" [routerLink]="['../bat-ho', text]" class="btn btn-info btn-sm">Tìm kiếm</button>
         </div>
     </div>
     <div class="row">
