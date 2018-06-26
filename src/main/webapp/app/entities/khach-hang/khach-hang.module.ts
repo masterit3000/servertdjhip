@@ -14,6 +14,9 @@ import {
     khachHangRoute,
     khachHangPopupRoute,
 } from './';
+import { CheckThongTinKhachHangComponent } from './check-thong-tin-khach-hang/check-thong-tin-khach-hang.component';
+import { KhachCanVayComponent } from './khach-can-vay/khach-can-vay.component';
+
 
 const ENTITY_STATES = [
     ...khachHangRoute,
@@ -32,6 +35,9 @@ const ENTITY_STATES = [
         KhachHangDeleteDialogComponent,
         KhachHangPopupComponent,
         KhachHangDeletePopupComponent,
+        CheckThongTinKhachHangComponent,
+        KhachCanVayComponent,
+
     ],
     entryComponents: [
         KhachHangComponent,
