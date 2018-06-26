@@ -14,6 +14,7 @@ import {
     batHoRoute,
     batHoPopupRoute
 } from './';
+import { BatHoChucNangComponent } from './bat-ho-chuc-nang/bat-ho-chuc-nang.component';
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -31,7 +32,8 @@ const ENTITY_STATES = [
         BatHoDialogComponent,
         BatHoDeleteDialogComponent,
         BatHoPopupComponent,
-        BatHoDeletePopupComponent
+        BatHoDeletePopupComponent,
+        BatHoChucNangComponent
     ],
     entryComponents: [
         BatHoComponent,
