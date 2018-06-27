@@ -14,11 +14,11 @@
         <div>
 
             <h3>Tìm khách hàng</h3>
-            <p-autoComplete [(ngModel)]="khach-hang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+            <p-autoComplete [(ngModel)]="khachHangCanTim.ten" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="ten" [size]="30" placeholder="Tên khách hàng" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="khach-hang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+            <p-autoComplete [(ngModel)]="khachHangCanTim.cmnd" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="cmnd" [size]="30" placeholder="CMND" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="khach-hang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+            <p-autoComplete [(ngModel)]="khachHangCanTim.trangthai" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
             <button type="submit" class="btn btn-primary float-right">Tìm kiếm</button>
         </div>

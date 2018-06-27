@@ -14,13 +14,13 @@
         <div>
 
             <h3>Tìm hợp đồng</h3>
-            <p-autoComplete [(ngModel)]="hop-dong" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
+            <p-autoComplete [(ngModel)]="hopDongCanTim.mahopdong" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
                 field="mahopdong" [size]="30" placeholder="Mã hợp đồng" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="hop-dong" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
+            <p-autoComplete [(ngModel)]="hopDongCanTim.loaihopdong" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
                 field="loaihopdong" [size]="30" placeholder="Loại hợp đồng" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="hop-dong" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
-                field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="hop-dong" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
+            <!-- <p-autoComplete [(ngModel)]="hopDongCanTim.trangthai" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
+                field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete> -->
+            <p-autoComplete [(ngModel)]="hopDongCanTim.khachHangId" name="basic" [suggestions]="filteredHopDongs" (completeMethod)="filterHopDongs($event)"
                 field="khachHangId" [size]="30" placeholder="Tên khách hàng" [minLength]="1"></p-autoComplete>
         </div>
 

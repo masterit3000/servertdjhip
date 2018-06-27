@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {SelectButtonModule} from 'primeng/components/selectbutton/selectbutton';
-import {WizardModule} from 'primeng-extensions/components/wizard/wizard.js';
+ 
 import { ServertdjhipSharedModule } from '../../shared';
 import { ServertdjhipAdminModule } from '../../admin/admin.module';
 import {
@@ -29,7 +29,7 @@ const ENTITY_STATES = [
         ServertdjhipAdminModule,
         AutoCompleteModule,
         SelectButtonModule,
-        WizardModule,
+          
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

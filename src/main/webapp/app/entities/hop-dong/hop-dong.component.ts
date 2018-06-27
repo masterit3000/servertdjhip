@@ -16,6 +16,7 @@ hopDongs: HopDong[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredHopDongs: HopDong[];
+    hopDongCanTim:HopDong;
     constructor(
         private hopDongService: HopDongService,
         private jhiAlertService: JhiAlertService,
