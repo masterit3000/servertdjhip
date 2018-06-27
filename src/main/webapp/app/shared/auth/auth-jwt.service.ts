@@ -18,7 +18,7 @@ export class AuthServerProvider {
     }
 
     login(credentials): Observable<any> {
-
+        console.log('url backend: '+SERVER_API_URL);
         const data = {
             username: credentials.username,
             password: credentials.password,

@@ -12,9 +12,10 @@ import { Principal } from '../../shared';
     templateUrl: './khach-hang.component.html'
 })
 export class KhachHangComponent implements OnInit, OnDestroy {
-khachHangs: KhachHang[];
+    khachHangs: KhachHang[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    text: any;
 
     constructor(
         private khachHangService: KhachHangService,
