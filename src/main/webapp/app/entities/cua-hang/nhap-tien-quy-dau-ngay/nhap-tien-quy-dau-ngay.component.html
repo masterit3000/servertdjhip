@@ -1,0 +1,103 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="widget invoice">
+          <div class="widget-header">
+                 
+              <div class="pull-left">
+                  <h3 class="cusName">Cửa hàng : abc12</h3>
+              </div>
+              
+              
+          </div>
+          <div class="widget-content">
+              <div class="row">
+                  <div class="col-md-5">
+                      <div class="widget">
+                          <div class="widget-header">
+                              <h3>
+                                  <i class="icon-calendar"></i>Thông tin vốn</h3>
+                          </div>
+                          <div class="widget-content">
+                              <div class="list-group">
+                                  <a href="javascript:void(0);" class="list-group-item">
+                                      <span class="badge cmd-money" id="s-total-money">123</span> Vốn đầu tư 
+                                  </a>
+                                  <a href="javascript:void(0);" class="list-group-item">
+                                      <span id="s-money-in-safe" class="badge cmd-money">0</span>
+                                      Quỹ tiền mặt
+                                  </a>
+                              </div>
+                              <div class="well">
+                                  <form class="form-horizontal" id="form-tranfer-rate" action="#" novalidate="novalidate">
+                                      <div class="form-group" style="color: red">
+                                          @ Lưu ý :
+                                          <br>
+                                          - Phần này được sử dụng cho những cửa hàng chốt tiền theo ngày ! Cho phép nhập lại Quỹ Tiền Mặt của cửa hàng khi sang ngày mới !
+                                      <br>
+                                          - Để hiểu rõ hơn xin liên hệ sđt : 
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-md-4 control-label">
+                                              Ngày<span class="required">*</span></label>
+                                          <div class="col-md-8">
+                                              <input type="text" value="31/05/2018" class="form-control" disabled="disabled">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-md-4 control-label">
+                                              Số tiền<span class="required">*</span></label>
+                                          <div class="col-md-8">
+                                              <input type="text" id="ip-total-money" name="TotalMoney" class="inputAmountUSD form-control" data-rule-required="true" data-msg-required="Không để trống trường này!" size="10">
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-group">
+                                          <div class="btn-toolbar btn-toolbar-demo col-md-12">
+                                              <input type="button" id="btnMoneyNewDate" value="Nhập tiền đầu ngày" class="btn btn-primary pull-right">
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--Bên Phải-->
+                  <div class="col-md-7">
+                      <div class="widget">
+                          <div class="widget-header">
+                              <h3>
+                                  <i class="icon-calendar"></i>Lịch sử nhập quỹ tiền đầu ngày</h3>
+                          </div>
+                          <div class="widget-content" id="div-history-tranfer">
+                                  <table class="table table-striped table-checkable table-hover table-bordered">
+                                      <thead>
+                                          <tr>
+                                              <th class="hidden-xs">STT</th>
+                                              <th class="align-center">Ngày</th>
+                                              <th class="align-center">Người Giao dịch</th>
+                                              <th class="align-right">Số tiền</th>                                      
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr>
+                                              <td class="hidden-xs"> 1 </td>
+                                              <td class="align-center"> 5/22/2018 6:20:23 PM</td>
+                                              <td class="align-center"> vuongthanh</td>
+                                              <td class="align-right"> <span style="color:blue">+1</span></td>
+                                          </tr>
+                                          <tr>
+                                              <td class="hidden-xs"> 2 </td>
+                                              <td class="align-center"> 5/22/2018 6:20:15 PM</td>
+                                              <td class="align-center"> vuongthanh</td>
+                                              <td class="align-right"> <span style="color:blue">+1</span></td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -9,12 +9,16 @@ import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-khach-hang',
-    templateUrl: './khach-hang.component.html'
+    templateUrl: './khach-hang.component.html',
+    styles: []
 })
 export class KhachHangComponent implements OnInit, OnDestroy {
-khachHangs: KhachHang[];
+    khachHangs: KhachHang[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    filteredKhachHangs: KhachHang[];
+    text: any;
+    khachHangCanTim: KhachHang;
 
     constructor(
         private khachHangService: KhachHangService,
@@ -53,5 +57,13 @@ khachHangs: KhachHang[];
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    
+    filterKhachHangs(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.khachHangService.getKhachHang(query).subscribe((khachHangs: any) => {
+            this.filteredKhachHangs = khachHangs;
+        });
     }
 }

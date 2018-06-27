@@ -77,4 +77,8 @@ export class KhachHangService {
         copy.ngayTao = this.dateUtils.toDate(khachHang.ngayTao);
         return copy;
     }
+    getKhachHang(query:any): Observable<KhachHang[]> {
+        return this.http.get('/api/khach-hangs')
+            .map((response) => response as KhachHang[]);
+    }
 }

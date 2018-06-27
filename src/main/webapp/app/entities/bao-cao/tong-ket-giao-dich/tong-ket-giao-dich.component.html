@@ -1,0 +1,210 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="page-title" style="padding: 19px 0px;">
+              <h3>Sổ quỹ tiền mặt</h3>
+          </div>
+      </div>
+      <div style="border-top: 1px solid #cecece; height: 5px;"></div>
+      <form class="form-vertical">
+          <div class="form-group">
+              <div class="row">
+
+                  <div class="col-md-2">
+                      <label class="control-label">Loại hình</label>
+                      <select class="custom-select mr-sm-2">
+                          <option label="Tất cả" title="Tất cả">Tất cả</option>
+                          <option label="Cầm đồ" title="Tất cả">Cầm Đồ</option>
+                          <option label="Vay lãi" title="Tất cả">Vay Lãi</option>
+                          <option label="Bát họ" title="Tất cả">Bát Họ</option>
+                          <option label="Nguồn Vốn" title="Tất cả">Nguồn Vốn</option>
+                          <option label="Thu Chi Hoạt Động" title="Tất cả">Thu Chi Hoạt Động</option>
+                      </select>
+                  </div>
+
+                  <div class="col-md-2">
+                      <label class="control-label">Nhân Viên</label>
+
+                      <select class="custom-select mr-sm-2">
+                          <option label="Tất cả nhân viên" title="Tất cả">Tất cả</option>
+                          <option label="asdasd" title="asdasd">asdasd</option>
+                          <option label="ádasdas" title="ádasdas">ádasdas</option>
+                      </select>
+                  </div>
+
+                  <div class="col-md-2" style="margin-top: 5px">
+                      <label class="control-label">
+                          Từ ngày</label>
+                      <input type="text" class="form-control ">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 5px">
+                      <label class="control-label">
+                          Đến ngày
+                      </label>
+                      <input type="text" class="form-control ">
+                  </div>
+
+                  <div class="col-md-3" style="margin-top: 23px">
+                      <button class="btn btn-info btnSearch">
+                          Tìm kiếm
+                      </button>
+
+                      <span class="invoice">
+                          <span class="buttons">
+                              <a class="btn btn-default btn-sm" style="margin-top: 6px; margin-left: 10px;">
+                                  <i></i>In</a>
+                          </span>
+                      </span>
+
+                      <span class="btn btn-sm btnSearch" title="Xuất excel" style="margin-left:20px; margin-top: 6px">
+                          <i></i>excel</span>
+
+                  </div>
+              </div>
+
+          </div>
+      </form>
+      <div class="form-group">
+          <div class="widget-content">
+              <!--- Báo cáo tổng kết -->
+              <div>
+                  <div>
+                      <table class="table table-striped table-hover table-bordered table-calendar" style="margin-top: 30px; width:50%;">
+                          <thead>
+                              <tr style="background: #3f86c3;">
+                                  <th colspan="2" style="text-align: left; padding-left: 10px; font-size: 16px; color: #FFF;">Bảng Tổng Kết</th>
+                                  <th style="text-align: right; padding-left: 10px; font-size: 16px; color: #FFF;"> Thu</th>
+                                  <th style="text-align: right; padding-left: 10px; font-size: 16px; color: #FFF;"> Chi</th>
+                              </tr>
+                          </thead>
+
+                          <tbody>
+
+                              <tr>
+                                  <th class="align-left" colspan="2">Tiền đầu ngày</th>
+                                  <th class="align-center" colspan="2">
+                                      <span style="color:blue">+2,132</span>
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <th class="align-left" colspan="2">Cầm Đồ</th>
+                                  <th class="align-right" style="color: blue;">
+                                      <span style="color:blue">0</span>
+                                  </th>
+                                  <th class="align-right" style="color: red;">
+                                      <span style="color:red">0</span>
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <th class="align-left" colspan="2">Vay Lãi</th>
+                                  <th class="align-right" style="color: blue;">
+                                      <span style="color:blue">0</span>
+                                  </th>
+                                  <th class="align-right" style="color: red;">
+                                      <span style="color:red">0</span>
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <th class="align-left" colspan="2">Bát Họ</th>
+                                  <th class="align-right" style="color: blue;">
+                                      <span style="color:blue">0</span>
+                                  </th>
+                                  <th class="align-right" style="color: red;">
+                                      <span style="color:red">0</span>
+                                  </th>
+                              </tr>
+
+                              <tr>
+                                  <th class="align-left" colspan="2">Thu Chi Hoạt Động</th>
+                                  <th class="align-right" style="color: blue;">
+                                      <span style="color:blue">+11</span>
+                                  </th>
+                                  <th class="align-right" style="color: red;">
+                                      <span style="color:red">0</span>
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <th class="align-left" colspan="2">Nguồn Vốn</th>
+                                  <th class="align-right">
+                                      <span style="color:blue">0</span>
+                                  </th>
+                                  <th class="align-right" style="color: red;">
+                                      <span style="color:red">0</span>
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <th class="align-left" colspan="2">Tiền mặt còn lại</th>
+                                  <th class="align-center" colspan="2">
+                                      <span style="color:blue">+2,143</span>
+                                  </th>
+                              </tr>
+                          </tbody>
+
+                      </table>
+                  </div>
+              </div>
+
+
+              <!--- Sổ Quỹ Tiền Mặt -->
+              <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top: 30px;">
+                  <thead>
+                      <tr style="background: #3f86c3;">
+                          <th colspan="91" style="text-align: left; padding-left: 10px; font-size: 12px; color: #FFF;">Chi tiết giao dịch</th>
+                      </tr>
+                      <tr>
+                          <th style="text-align: center">#</th>
+                          <th style="text-align: left">Loại Hình</th>
+                          <th style="text-align: center">Mã HĐ</th>
+                          <th>Người Giao Dịch</th>
+                          <th style="text-align: left">Khách Hàng</th>
+                          <th style="text-align: left">Tên Hàng</th>
+                          <th style="text-align: center">Ngày</th>
+                          <th>Diễn Giải</th>
+                          <th style="text-align: right">Thu</th>
+                          <th style="text-align: right">Chi</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td style="text-align: center">1 </td>
+                          <td style="text-align: left">Thu Chi Hoạt Động</td>
+                          <td style="text-align: center">
+                              <a style="color:brown;text-decoration:underline" href="#"> </a>
+                          </td>
+                          <td>asdasd </td>
+                          <td style="text-align:left">
+                              <a style="color:blue;" href="#"> ádasd </a>
+                          </td>
+                          <td> </td>
+                          <td style="text-align: center">10/06/2018 01:52 </td>
+                          <td>12 </td>
+                          <td style="text-align: right; color: blue;">11 </td>
+                          <td style="text-align: right; color: red;">0 </td>
+                      </tr>
+
+
+                      <!--FOOTER-->
+                      <tr>
+                          <td class="align-right" style="background-color: #ECECEC" colspan="8">
+                              <strong>Tổng Cộng</strong>
+                          </td>
+                          <td class="align-right" style="background-color: #ECECEC">
+                              <b style="color: blue;">11 </b>
+                          </td>
+                          <td class="align-right" style="background-color: #ECECEC">
+                              <b style="color: red;">0 </b>
+                          </td>
+
+                      </tr>
+
+                  </tbody>
+              </table>
+
+
+              <!--- Add Tổng kết -->
+
+
+          </div>
+      </div>
+  </div>
+</div>

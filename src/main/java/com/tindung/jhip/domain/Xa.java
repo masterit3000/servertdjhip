@@ -36,7 +36,7 @@ public class Xa implements Serializable {
     @OneToMany(mappedBy = "xa")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<KhachHang> khachangs = new HashSet<>();
+    private Set<KhachHang> khachhangs = new HashSet<>();
 
     @OneToMany(mappedBy = "xa")
     @JsonIgnore
@@ -83,29 +83,29 @@ public class Xa implements Serializable {
         this.huyen = huyen;
     }
 
-    public Set<KhachHang> getKhachangs() {
-        return khachangs;
+    public Set<KhachHang> getKhachhangs() {
+        return khachhangs;
     }
 
-    public Xa khachangs(Set<KhachHang> khachHangs) {
-        this.khachangs = khachHangs;
+    public Xa khachhangs(Set<KhachHang> khachHangs) {
+        this.khachhangs = khachHangs;
         return this;
     }
 
-    public Xa addKhachang(KhachHang khachHang) {
-        this.khachangs.add(khachHang);
+    public Xa addKhachhang(KhachHang khachHang) {
+        this.khachhangs.add(khachHang);
         khachHang.setXa(this);
         return this;
     }
 
-    public Xa removeKhachang(KhachHang khachHang) {
-        this.khachangs.remove(khachHang);
+    public Xa removeKhachhang(KhachHang khachHang) {
+        this.khachhangs.remove(khachHang);
         khachHang.setXa(null);
         return this;
     }
 
-    public void setKhachangs(Set<KhachHang> khachHangs) {
-        this.khachangs = khachHangs;
+    public void setKhachhangs(Set<KhachHang> khachHangs) {
+        this.khachhangs = khachHangs;
     }
 
     public Set<NhanVien> getNhanviens() {

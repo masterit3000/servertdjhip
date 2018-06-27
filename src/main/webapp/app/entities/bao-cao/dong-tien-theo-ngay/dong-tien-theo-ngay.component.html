@@ -1,0 +1,613 @@
+<div class="container">
+
+
+  <div class="container-fluid">
+    <div class="row" style="padding:19px 0px;">
+      <h3>Báo cáo dòng tiền lưu chuyển theo ngày</h3>
+    </div>
+  </div>
+  <!-- /Page Header -->
+  <div style="border-top:1px solid #cecece;height:5px;"></div>
+
+  <form class="form-vertical"  method="post" >
+    <div class="form-group">
+      <div class="row">
+
+
+        <div class="col-md-2" >
+          <label class="control-label">
+            Từ ngày</label>
+          <input type="date"  class="form-control " >
+        </div>
+        <div class="col-md-2" >
+          <label class="control-label">
+            Đến ngày
+          </label>
+          <input type="date"  class="form-control " >
+        </div>
+
+        <div class="col-md-2" style="padding-top: 2.7%">
+          <button class="btn btn-info btnSearch">
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <div class="form-group">
+    <div class="widget-content" >
+      <table class="table table-striped table-hover table-bordered table-calendar table-report">
+        <thead>
+          <tr>
+            <th width="50px" style="text-align:center" rowspan="2">STT
+              <br>[1]</th>
+            <th rowspan="2">Ngày
+              <br>[2]</th>
+            <th rowspan="2">Tiền
+              <br> đầu ngày
+              <br>[3]</th>
+            <th rowspan="2">Cầm đồ
+              <br>[4]</th>
+            <th rowspan="2">Vay lãi
+              <br>[5]</th>
+            <th rowspan="2">Bát họ
+              <br>[6]</th>
+            <th rowspan="2">Thu chi
+              <br>[7]</th>
+            <th rowspan="2">Vốn
+              <br>[8]</th>
+            <th rowspan="2">Tiền
+              <br>cuối ngày
+              <br>[9]=[3+4+5+6+7+8]</th>
+            <th colspan="3">Đang cho vay+Khách nợ</th>
+            <th rowspan="2">Vốn đi vay
+              <br>[13]</th>
+            <th rowspan="2">Tổng tài sản
+              <br>[14]=[9+10+11+12-13]</th>
+          </tr>
+          <tr>
+            <th>Cầm đồ
+              <br>[10]</th>
+            <th>Vay lãi
+              <br>[11]</th>
+            <th>Bát họ
+              <br>[12]</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr>
+            <td align="center">1</td>
+            <td align="center">09-06-2018</td>
+            <td align="center">2,133</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">-1</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,132</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,132</td>
+          </tr>
+          <tr>
+            <td align="center">2</td>
+            <td align="center">10-06-2018</td>
+            <td align="center">2,132</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:blue">+11</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">3</td>
+            <td align="center">11-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">4</td>
+            <td align="center">12-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">5</td>
+            <td align="center">13-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">6</td>
+            <td align="center">14-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">7</td>
+            <td align="center">15-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">8</td>
+            <td align="center">16-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">9</td>
+            <td align="center">17-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">10</td>
+            <td align="center">18-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">11</td>
+            <td align="center">19-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">12</td>
+            <td align="center">20-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">13</td>
+            <td align="center">21-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">14</td>
+            <td align="center">22-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">15</td>
+            <td align="center">23-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">16</td>
+            <td align="center">24-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">17</td>
+            <td align="center">25-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">2,143</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">2,143</td>
+          </tr>
+          <tr>
+            <td align="center">18</td>
+            <td align="center">26-06-2018</td>
+            <td align="center">2,143</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">-3</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:blue">+321,312,313,213</span>
+            </td>
+            <td align="center" class="reporthightlight">321,312,315,353</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">121,113,213</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">321,433,428,566</td>
+          </tr>
+          <tr>
+            <td align="center">19</td>
+            <td align="center">27-06-2018</td>
+            <td align="center">321,312,315,353</td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center">
+              <span style="color:red">0</span>
+            </td>
+            <td align="center" class="reporthightlight">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center">0</td>
+            <td align="center" class="bold reporthightlight">0</td>
+          </tr>
+          <tr class="tr_footer">
+            <td colspan="2" align="right">
+              <a class="label-footer">Quỹ tiền đầu kỳ</a>
+            </td>
+            <td align="center" style="color:blue;" class="bold">2,133</td>
+            <td align="right" colspan="2">
+              <a class="label-footer">Quỹ tiền cuối kỳ </a>
+            </td>
+            <td align="center" style="color:blue;" class="bold">0</td>
+            <td></td>
+            <td></td>
+            <td align="right" colspan="2">
+              <a class="label-footer">Tài sản đầu kỳ</a>
+            </td>
+            <td align="center" class="bold" style="color:blue;">2,133</td>
+            <td align="right" colspan="2">
+              <a class="label-footer">Tài sản cuối kỳ</a>
+            </td>
+            <td align="center" class="bold" style="color:blue;">0</td>
+          </tr>
+          <tr class="tr_footer">
+            <td align="right" colspan="2">
+              <a class="label-footer">Chênh lệch</a>
+            </td>
+            <td colspan="4" align="center" class="bold" style="color:red">-2,133</td>
+            <td></td>
+            <td></td>
+            <td align="right" colspan="2">
+              <a class="label-footer">Lợi nhuận</a>
+            </td>
+            <td colspan="4" align="center" class="bold" style="color:blue">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  
+</div>

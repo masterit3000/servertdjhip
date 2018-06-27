@@ -3,31 +3,31 @@
     "servertdjhipApp": {
         "cuaHang" : {
             "home": {
-                "title": "Cua Hangs",
-                "createLabel": "Thêm mới một Cua Hang",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Cua Hang"
+                "title": "Cửa Hàng",
+                "createLabel": "Thêm mới một Cửa Hàng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Cửa Hàng"
             },
-            "created": "Một Cua Hang mới được tạo với định danh {{ param }}",
-            "updated": "Một Cua Hang cập nhật với định danh {{ param }}",
-            "deleted": "Một Cua Hang đã xóa với định danh {{ param }}",
+            "created": "Một Cửa Hàng mới được tạo với định danh {{ param }}",
+            "updated": "Một Cửa Hàng cập nhật với định danh {{ param }}",
+            "deleted": "Một Cửa Hàng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Cua Hang {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Cửa Hàng {{ id }}?"
             },
             "detail": {
-                "title": "Cua Hang"
+                "title": "Cửa Hàng"
             },
-            "ten": "Ten",
-            "diachi": "Diachi",
-            "dienthoai": "Dienthoai",
-            "trangthai": "Trangthai",
-            "ngayTao": "Ngay Tao",
-            "ghiChu": "Ghi Chu",
-            "xa": "Xa",
-            "nhatky": "Nhatky",
-            "thuchi": "Thuchi",
-            "khachhang": "Khachhang",
-            "nhanvien": "Nhanvien",
-            "hopdong": "Hopdong"
+            "ten": "Tên",
+            "diachi": "Địa chỉ",
+            "dienthoai": "Điện thoại",
+            "trangthai": "Trạng thái",
+            "ngayTao": "Ngày tạo",
+            "ghiChu": "Ghi chú",
+            "xa": "Xã",
+            "nhatky": "Nhật ký",
+            "thuchi": "Thu chi",
+            "khachhang": "Khách hàng",
+            "nhanvien": "Nhân viên",
+            "hopdong": "Hợp đồng"
         }
     }
 }

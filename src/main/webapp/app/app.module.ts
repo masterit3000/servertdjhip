@@ -17,7 +17,7 @@ import { ServertdjhipAdminModule } from './admin/admin.module';
 import { ServertdjhipAccountModule } from './account/account.module';
 import { ServertdjhipEntityModule } from './entities/entity.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
-import { ServertdjhipprimengModule } from './primeng/primeng.module';
+// import { ServertdjhipprimengModule } from './primeng/primeng.module';
 import { ServertdjhipAppHiThereModule } from './hi-there/hi-there.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
@@ -41,7 +41,7 @@ import { SidebarModule } from 'primeng/primeng';
         ServertdjhipAdminModule,
         ServertdjhipAccountModule,
         ServertdjhipEntityModule,
-        ServertdjhipprimengModule,
+        // ServertdjhipprimengModule,
         ServertdjhipAppHiThereModule,
         SidebarModule
         // jhipster-needle-angular-add-module JHipster will add new module here

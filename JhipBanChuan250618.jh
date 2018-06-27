@@ -52,6 +52,7 @@ enum LOAIHOPDONG{
 	VAYLAI,BATHO,CAMDO
 }
 entity HopDong {
+	mahopdong String maxlength(20) required ,
     ghichu String maxlength(3000),
     loaihopdong LOAIHOPDONG required ,
     ngaytao ZonedDateTime required
@@ -200,7 +201,7 @@ relationship OneToMany {
 	Huyen{xa} to Xa
 }
 relationship OneToMany {
-	Xa{khachang} to KhachHang
+	Xa{khachhang} to KhachHang
 }
 relationship OneToMany {
 	Xa{nhanvien} to NhanVien

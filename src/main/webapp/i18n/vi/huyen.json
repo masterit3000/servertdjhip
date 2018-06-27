@@ -3,22 +3,22 @@
     "servertdjhipApp": {
         "huyen" : {
             "home": {
-                "title": "Huyens",
-                "createLabel": "Thêm mới một Huyen",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Huyen"
+                "title": "Huyện",
+                "createLabel": "Thêm mới một Huyện",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Huyện"
             },
-            "created": "Một Huyen mới được tạo với định danh {{ param }}",
-            "updated": "Một Huyen cập nhật với định danh {{ param }}",
-            "deleted": "Một Huyen đã xóa với định danh {{ param }}",
+            "created": "Một Huyện mới được tạo với định danh {{ param }}",
+            "updated": "Một Huyện cập nhật với định danh {{ param }}",
+            "deleted": "Một Huyện đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Huyen {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Huyện {{ id }}?"
             },
             "detail": {
-                "title": "Huyen"
+                "title": "Huyện"
             },
-            "ten": "Ten",
-            "tinh": "Tinh",
-            "xa": "Xa"
+            "ten": "Tên",
+            "tinh": "Tỉnh",
+            "xa": "Xã"
         }
     }
 }

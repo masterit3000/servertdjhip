@@ -3,35 +3,35 @@
     "servertdjhipApp": {
         "nhanVien" : {
             "home": {
-                "title": "Nhan Viens",
-                "createLabel": "Thêm mới một Nhan Vien",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Nhan Vien"
+                "title": "Nhân Viên",
+                "createLabel": "Thêm mới một Nhân Viên",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Nhân Viên"
             },
-            "created": "Một Nhan Vien mới được tạo với định danh {{ param }}",
-            "updated": "Một Nhan Vien cập nhật với định danh {{ param }}",
-            "deleted": "Một Nhan Vien đã xóa với định danh {{ param }}",
+            "created": "Một Nhân Viên mới được tạo với định danh {{ param }}",
+            "updated": "Một Nhân Viên cập nhật với định danh {{ param }}",
+            "deleted": "Một Nhân Viên đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Nhan Vien {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Nhân Viên {{ id }}?"
             },
             "detail": {
-                "title": "Nhan Vien"
+                "title": "Nhân Viên"
             },
-            "ten": "Ten",
-            "diachi": "Diachi",
-            "dienthoai": "Dienthoai",
-            "cmnd": "Cmnd",
-            "trangthai": "Trangthai",
-            "ngayTao": "Ngay Tao",
-            "ghiChu": "Ghi Chu",
-            "xa": "Xa",
-            "cuaHang": "Cua Hang",
+            "ten": "Tên",
+            "diachi": "Địa chỉ",
+            "dienthoai": "Điện thoại",
+            "cmnd": "CMND",
+            "trangthai": "Trạng thái",
+            "ngayTao": "Ngày tạo",
+            "ghiChu": "Ghi chú",
+            "xa": "Xã",
+            "cuaHang": "Cửa hàng",
             "user": "User",
-            "nhatky": "Nhatky",
-            "thuchi": "Thuchi",
-            "lichsudongtien": "Lichsudongtien",
-            "ghino": "Ghino",
-            "hopdong": "Hopdong",
-            "lichsuthaotacnv": "Lichsuthaotacnv"
+            "nhatky": "Nhật ký",
+            "thuchi": "Thu chi",
+            "lichsudongtien": "Lịch sử đóng tiền",
+            "ghino": "Ghi nợ",
+            "hopdong": "Hợp đồng",
+            "lichsuthaotacnv": "Lịch sử thao tác nhân viên"
         }
     }
 }

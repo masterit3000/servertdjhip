@@ -9,6 +9,7 @@ export const enum LOAIHOPDONG {
 export class HopDong implements BaseEntity {
     constructor(
         public id?: number,
+        public mahopdong?: string,
         public ghichu?: string,
         public loaihopdong?: LOAIHOPDONG,
         public ngaytao?: any,

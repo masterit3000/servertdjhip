@@ -3,24 +3,24 @@
     "servertdjhipApp": {
         "batHo" : {
             "home": {
-                "title": "Bat Hos",
-                "createLabel": "Thêm mới một Bat Ho",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Bat Ho"
+                "title": "Bát Họ",
+                "createLabel": "Thêm mới một Bát Họ",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Bát Họ"
             },
-            "created": "Một Bat Ho mới được tạo với định danh {{ param }}",
-            "updated": "Một Bat Ho cập nhật với định danh {{ param }}",
-            "deleted": "Một Bat Ho đã xóa với định danh {{ param }}",
+            "created": "Một Bát Họ mới được tạo với định danh {{ param }}",
+            "updated": "Một Bát Họ cập nhật với định danh {{ param }}",
+            "deleted": "Một Bát Họ đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Bat Ho {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Bát Họ {{ id }}?"
             },
             "detail": {
-                "title": "Bat Ho"
+                "title": "Bát Họ"
             },
-            "tienduakhach": "Tienduakhach",
-            "tongtien": "Tongtien",
-            "tongsongay": "Tongsongay",
-            "chuky": "Chuky",
-            "hopdongbh": "Hopdongbh"
+            "tienduakhach": "Tiền đưa khách",
+            "tongtien": "Tổng tiền",
+            "tongsongay": "Tổng số ngày",
+            "chuky": "Chu kỳ",
+            "hopdongbh": "Hợp đồng bát họ"
         }
     }
 }

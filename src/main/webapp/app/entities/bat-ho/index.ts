@@ -6,3 +6,4 @@ export * from './bat-ho-delete-dialog.component';
 export * from './bat-ho-detail.component';
 export * from './bat-ho.component';
 export * from './bat-ho.route';
+export * from '../hop-dong/hop-dong-dialog.component';

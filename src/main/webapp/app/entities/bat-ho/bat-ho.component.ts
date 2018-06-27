@@ -12,10 +12,10 @@ import { Principal } from '../../shared';
     templateUrl: './bat-ho.component.html'
 })
 export class BatHoComponent implements OnInit, OnDestroy {
-batHos: BatHo[];
+    batHos: BatHo[];
     currentAccount: any;
     eventSubscriber: Subscription;
-
+    text: any;
     constructor(
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,

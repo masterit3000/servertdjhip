@@ -1,0 +1,106 @@
+<div class="container">
+
+
+  <form class="form-vertical" method="post" >
+    <div class="form-group">
+      <div class="row">
+
+        <div class="col-md-2">
+          <label class="control-label">Loại hình</label>
+          <select  class="form-control">
+            <option style="cursor: pointer" label="Tất cả" title="Tất cả" value="0">Tất cả</option>
+            <option style="cursor: pointer" label="Cầm đồ" title="Tất cả" value="4">Cầm Đồ</option>
+            <option style="cursor: pointer" label="Vay lãi" title="Tất cả" value="1">Vay Lãi</option>
+            <option style="cursor: pointer" label="Bát họ" title="Tất cả" value="2">Bát Họ</option>
+          </select>
+        </div>
+        <div class="col-md-2" >
+          <label class="control-label">
+            Từ ngày</label>
+          <input type="date"  class="form-control " >
+        </div>
+        <div class="col-md-2" id="divToDate">
+          <label class="control-label">
+            Đến ngày
+          </label>
+          <input type="date"  class="form-control " >
+        </div>
+        <div class="col-md-2">
+          <label class="control-label">
+            Nhân Viên
+          </label>
+          <select class="form-control" >
+            <option value="0">Tất cả</option>
+            <option value="54117">asdasd</option>
+            <option value="54120">ádasdas</option>
+          </select>
+        </div>
+        <div class="col-md-2" style="padding-top: 2.7%">
+          <button class="btn btn-info btnSearch">
+            Tìm kiếm
+          </button>
+          <button class="btn btn-sm btnSearch"  title="Xuất excel" style="margin-left:20px;">
+            <i class="fa fa-file-excel-o"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <div class="form-group">
+    <div class="widget-content" >
+      <!--GIAO DỊCH Cầm đồ-->
+      <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+        <thead>
+          <tr style="background:#3f86c3;">
+            <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Báo cáo thu tiền lãi</th>
+          </tr>
+          <tr>
+            <th width="50px" style="text-align:center">#</th>
+            <th width="80px" style="text-align:center">Loại Hình</th>
+            <th width="80px" style="text-align:center">Mã HĐ</th>
+            <th>Khách hàng</th>
+            <th>Tên hàng</th>
+            <th class="align-right">Tiền vay</th>
+            <th style="text-align:center">Ngày GD</th>
+            <th style="text-align:right">Tiền lãi</th>
+            <th style="text-align:right">Tiền khác</th>
+            <th style="text-align:right">Tổng lãi</th>
+            <th class="align-center">Loại GD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--FOOTER-->
+          <tr>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td align="center">&nbsp;</td>
+            <td></td>
+            <td align="right">
+              <a style="color:brown">&nbsp;</a>
+            </td>
+            <td>&nbsp;</td>
+            <td align="right" style="color:red;">
+              <strong>Tổng </strong>
+            </td>
+            <td class="align-right">
+              <span style="color:red">0</span>
+            </td>
+            <td class="align-right">
+              <span style="color:red">0</span>
+            </td>
+            <td class="align-right">
+              <span style="color:red">0</span>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--Box loading-->
+  
+  
+  <!--FOOTER CONTENT-->
+</div>

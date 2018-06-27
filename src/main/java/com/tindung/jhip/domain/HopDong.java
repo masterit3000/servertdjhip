@@ -29,6 +29,11 @@ public class HopDong implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "mahopdong", length = 20, nullable = false)
+    private String mahopdong;
+
     @Size(max = 3000)
     @Column(name = "ghichu", length = 3000)
     private String ghichu;
@@ -82,6 +87,19 @@ public class HopDong implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMahopdong() {
+        return mahopdong;
+    }
+
+    public HopDong mahopdong(String mahopdong) {
+        this.mahopdong = mahopdong;
+        return this;
+    }
+
+    public void setMahopdong(String mahopdong) {
+        this.mahopdong = mahopdong;
     }
 
     public String getGhichu() {
@@ -300,6 +318,7 @@ public class HopDong implements Serializable {
     public String toString() {
         return "HopDong{" +
             "id=" + getId() +
+            ", mahopdong='" + getMahopdong() + "'" +
             ", ghichu='" + getGhichu() + "'" +
             ", loaihopdong='" + getLoaihopdong() + "'" +
             ", ngaytao='" + getNgaytao() + "'" +

@@ -3,7 +3,7 @@
     "servertdjhipApp": {
         "thuChi" : {
             "home": {
-                "title": "Thu Chis",
+                "title": "Thu Chi",
                 "createLabel": "Thêm mới một Thu Chi",
                 "createOrEditLabel": "Thêm mới hoặc cập nhật Thu Chi"
             },
@@ -16,11 +16,15 @@
             "detail": {
                 "title": "Thu Chi"
             },
-            "noidung": "Noidung",
-            "thoigian": "Thoigian",
-            "thuchi": "Thuchi",
-            "cuaHang": "Cua Hang",
-            "nhanVien": "Nhan Vien"
+            "noidung": "Nội dung",
+            "thoigian": "Thời gian",
+            "thuchi": "Thu chi",
+            "cuaHang": "Cửa hàng",
+            "nhanVien": "Nhân viên",
+            "thu": "Thu",
+            "chi": "Chi",
+            "gopvon": "Góp vốn",
+            "rutvon": "Rút vốn"
         }
     }
 }

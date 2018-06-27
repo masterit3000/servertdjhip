@@ -3,32 +3,32 @@
     "servertdjhipApp": {
         "khachHang" : {
             "home": {
-                "title": "Khach Hangs",
-                "createLabel": "Thêm mới một Khach Hang",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Khach Hang"
+                "title": "Khách hàng",
+                "createLabel": "Thêm mới một Khách Hàng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Khách Hàng"
             },
-            "created": "Một Khach Hang mới được tạo với định danh {{ param }}",
-            "updated": "Một Khach Hang cập nhật với định danh {{ param }}",
-            "deleted": "Một Khach Hang đã xóa với định danh {{ param }}",
+            "created": "Một Khách Hàng mới được tạo với định danh {{ param }}",
+            "updated": "Một Khách Hàng cập nhật với định danh {{ param }}",
+            "deleted": "Một Khách Hàng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Khach Hang {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Khách Hàng {{ id }}?"
             },
             "detail": {
-                "title": "Khach Hang"
+                "title": "Khách hàng"
             },
-            "ten": "Ten",
-            "diachi": "Diachi",
-            "dienthoai": "Dienthoai",
-            "cmnd": "Cmnd",
-            "trangthai": "Trangthai",
-            "ngayTao": "Ngay Tao",
+            "ten": "Tên",
+            "diachi": "Địa chỉ",
+            "dienthoai": "Điện thoại",
+            "cmnd": "CMND",
+            "trangthai": "Trạng thái",
+            "ngayTao": "Ngày tạo",
             "email": "Email",
             "facebook": "Facebook",
-            "ghiChu": "Ghi Chu",
-            "xa": "Xa",
-            "anh": "Anh",
-            "hopdong": "Hopdong",
-            "cuaHang": "Cua Hang"
+            "ghiChu": "Ghi chú",
+            "xa": "Xã",
+            "anh": "Ảnh",
+            "hopdong": "Hợp đồng",
+            "cuaHang": "Cửa hàng"
         }
     }
 }

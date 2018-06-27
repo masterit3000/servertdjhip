@@ -13,7 +13,6 @@ import { JhiLanguageHelper } from '../../shared';
 export class JhiMainComponent implements OnInit {
 
     menuActive: boolean;
-    
     activeMenuId: string;
     visibleSidebar1;
     constructor(

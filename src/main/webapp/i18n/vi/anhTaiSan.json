@@ -3,21 +3,21 @@
     "servertdjhipApp": {
         "anhTaiSan" : {
             "home": {
-                "title": "Anh Tai Sans",
-                "createLabel": "Thêm mới một Anh Tai San",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Anh Tai San"
+                "title": "Ảnh Tài Sản",
+                "createLabel": "Thêm mới một ảnh tài sản",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật ảnh tài sản"
             },
-            "created": "Một Anh Tai San mới được tạo với định danh {{ param }}",
-            "updated": "Một Anh Tai San cập nhật với định danh {{ param }}",
-            "deleted": "Một Anh Tai San đã xóa với định danh {{ param }}",
+            "created": "Một ảnh tài sản mới được tạo với định danh {{ param }}",
+            "updated": "Một ảnh tài sản cập nhật với định danh {{ param }}",
+            "deleted": "Một ảnh tài sản đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Anh Tai San {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa ảnh tài sản {{ id }}?"
             },
             "detail": {
-                "title": "Anh Tai San"
+                "title": "Ảnh Tài Sản"
             },
             "url": "Url",
-            "taiSan": "Tai San"
+            "taiSan": "Tài Sản"
         }
     }
 }

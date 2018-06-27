@@ -3,27 +3,27 @@
     "servertdjhipApp": {
         "vayLai" : {
             "home": {
-                "title": "Vay Lais",
-                "createLabel": "Thêm mới một Vay Lai",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Vay Lai"
+                "title": "Vay Lãi",
+                "createLabel": "Thêm mới một Vay Lãi",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Vay Lãi"
             },
-            "created": "Một Vay Lai mới được tạo với định danh {{ param }}",
-            "updated": "Một Vay Lai cập nhật với định danh {{ param }}",
-            "deleted": "Một Vay Lai đã xóa với định danh {{ param }}",
+            "created": "Một Vay Lãi mới được tạo với định danh {{ param }}",
+            "updated": "Một Vay Lãi cập nhật với định danh {{ param }}",
+            "deleted": "Một Vay Lãi đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Vay Lai {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Vay Lãi {{ id }}?"
             },
             "detail": {
-                "title": "Vay Lai"
+                "title": "Vay Lãi"
             },
-            "tienvay": "Tienvay",
-            "hinhthuclai": "Hinhthuclai",
-            "thoigianvay": "Thoigianvay",
-            "chukylai": "Chukylai",
-            "lai": "Lai",
-            "cachtinhlai": "Cachtinhlai",
-            "thulaitruoc": "Thulaitruoc",
-            "hopdongvl": "Hopdongvl"
+            "tienvay": "Tiền vay",
+            "hinhthuclai": "Hình thức lãi",
+            "thoigianvay": "Thời gian vay",
+            "chukylai": "Chu kỳ lãi",
+            "lai": "Lãi",
+            "cachtinhlai": "Cách tính lãi",
+            "thulaitruoc": "Thu lãi trước",
+            "hopdongvl": "Hợp đồng vay lãi"
         }
     }
 }

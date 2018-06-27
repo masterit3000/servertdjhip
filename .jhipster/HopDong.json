@@ -54,6 +54,15 @@
     ],
     "fields": [
         {
+            "fieldName": "mahopdong",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
             "fieldName": "ghichu",
             "fieldType": "String",
             "fieldValidateRules": [

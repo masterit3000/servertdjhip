@@ -3,24 +3,24 @@
     "servertdjhipApp": {
         "xa" : {
             "home": {
-                "title": "Xas",
-                "createLabel": "Thêm mới một Xa",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Xa"
+                "title": "Xã",
+                "createLabel": "Thêm mới một Xã",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Xã"
             },
-            "created": "Một Xa mới được tạo với định danh {{ param }}",
-            "updated": "Một Xa cập nhật với định danh {{ param }}",
-            "deleted": "Một Xa đã xóa với định danh {{ param }}",
+            "created": "Một Xã mới được tạo với định danh {{ param }}",
+            "updated": "Một Xã cập nhật với định danh {{ param }}",
+            "deleted": "Một Xã đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Xa {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Xã {{ id }}?"
             },
             "detail": {
-                "title": "Xa"
+                "title": "Xã"
             },
-            "ten": "Ten",
-            "huyen": "Huyen",
-            "khachang": "Khachang",
-            "nhanvien": "Nhanvien",
-            "cuahang": "Cuahang"
+            "ten": "Tên",
+            "huyen": "Huyện",
+            "khachhang": "Khách hàng",
+            "nhanvien": "Nhân viên",
+            "cuahang": "Cửa hàng"
         }
     }
 }

@@ -3,25 +3,25 @@
     "servertdjhipApp": {
         "ghiNo" : {
             "home": {
-                "title": "Ghi Nos",
-                "createLabel": "Thêm mới một Ghi No",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Ghi No"
+                "title": "Ghi Nợ",
+                "createLabel": "Thêm mới một Ghi Nợ",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Ghi Nợ"
             },
-            "created": "Một Ghi No mới được tạo với định danh {{ param }}",
-            "updated": "Một Ghi No cập nhật với định danh {{ param }}",
-            "deleted": "Một Ghi No đã xóa với định danh {{ param }}",
+            "created": "Một Ghi Nợ mới được tạo với định danh {{ param }}",
+            "updated": "Một Ghi Nợ cập nhật với định danh {{ param }}",
+            "deleted": "Một Ghi Nợ đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Ghi No {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Ghi Nợ {{ id }}?"
             },
             "detail": {
-                "title": "Ghi No"
+                "title": "Ghi Nợ"
             },
-            "ngayghino": "Ngayghino",
-            "sotien": "Sotien",
-            "trangthai": "Trangthai",
-            "ghiChu": "Ghi Chu",
-            "nhanVien": "Nhan Vien",
-            "hopDong": "Hop Dong"
+            "ngayghino": "Ngày ghi nợ",
+            "sotien": "Số tiền",
+            "trangthai": "Trạng thái",
+            "ghiChu": "Ghi chú",
+            "nhanVien": "Nhân Viên",
+            "hopDong": "Hợp đồng"
         }
     }
 }

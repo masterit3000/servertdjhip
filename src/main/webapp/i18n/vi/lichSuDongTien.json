@@ -3,26 +3,26 @@
     "servertdjhipApp": {
         "lichSuDongTien" : {
             "home": {
-                "title": "Lich Su Dong Tiens",
-                "createLabel": "Thêm mới một Lich Su Dong Tien",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Lich Su Dong Tien"
+                "title": "Lịch Sử Đóng Tiền",
+                "createLabel": "Thêm mới một Lịch Sử Đóng Tiền",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Lịch Sử Đóng Tiền"
             },
-            "created": "Một Lich Su Dong Tien mới được tạo với định danh {{ param }}",
-            "updated": "Một Lich Su Dong Tien cập nhật với định danh {{ param }}",
-            "deleted": "Một Lich Su Dong Tien đã xóa với định danh {{ param }}",
+            "created": "Một Lịch Sử Đóng Tiền mới được tạo với định danh {{ param }}",
+            "updated": "Một Lịch Sử Đóng Tiền cập nhật với định danh {{ param }}",
+            "deleted": "Một Lịch Sử Đóng Tiền đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Lich Su Dong Tien {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Lịch Sử Đóng Tiền {{ id }}?"
             },
             "detail": {
-                "title": "Lich Su Dong Tien"
+                "title": "Lịch Sử Đóng Tiền"
             },
-            "ngaybatdau": "Ngaybatdau",
-            "ngayketthuc": "Ngayketthuc",
-            "sotien": "Sotien",
-            "trangthai": "Trangthai",
-            "ghiChu": "Ghi Chu",
-            "nhanVien": "Nhan Vien",
-            "hopDong": "Hop Dong"
+            "ngaybatdau": "Ngày bắt đầu",
+            "ngayketthuc": "Ngày kết thúc",
+            "sotien": "Số tiền",
+            "trangthai": "Trạng thái",
+            "ghiChu": "Ghi chú",
+            "nhanVien": "Nhân viên",
+            "hopDong": "Hợp đồng"
         }
     }
 }

@@ -1,12 +1,12 @@
 {
     "servertdjhipApp": {
         "HINHTHUCLAI" : {
-            "null": "",
-            "NGAY": "NGAY",
-            "THANG": "THANG",
-            "TUAN": "TUAN",
-            "NAM": "NAM",
-            "THANGCODINH": "THANGCODINH"
+            "null": "Lựa chọn",
+            "NGAY": "Ngày",
+            "TUAN": "Tuần",
+            "THANG": "Tháng",
+            "NAM": "Năm",
+            "THANGCODINH": "Tháng cố định"
         }
     }
 }

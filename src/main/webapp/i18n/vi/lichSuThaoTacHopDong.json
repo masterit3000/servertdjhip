@@ -3,23 +3,23 @@
     "servertdjhipApp": {
         "lichSuThaoTacHopDong" : {
             "home": {
-                "title": "Lich Su Thao Tac Hop Dongs",
-                "createLabel": "Thêm mới một Lich Su Thao Tac Hop Dong",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Lich Su Thao Tac Hop Dong"
+                "title": "Lịch Sử Thao Tác Hợp Đồng",
+                "createLabel": "Thêm mới một Lịch Sử Thao Tác Hợp Đồng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Lịch Sử Thao Tác Hợp Đồng"
             },
-            "created": "Một Lich Su Thao Tac Hop Dong mới được tạo với định danh {{ param }}",
-            "updated": "Một Lich Su Thao Tac Hop Dong cập nhật với định danh {{ param }}",
-            "deleted": "Một Lich Su Thao Tac Hop Dong đã xóa với định danh {{ param }}",
+            "created": "Một Lịch Sử Thao Tác Hợp Đồng mới được tạo với định danh {{ param }}",
+            "updated": "Một Lịch Sử Thao Tác Hợp Đồng cập nhật với định danh {{ param }}",
+            "deleted": "Một Lịch Sử Thao Tác Hợp Đồng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Lich Su Thao Tac Hop Dong {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Lịch Sử Thao Tác Hợp Đồng {{ id }}?"
             },
             "detail": {
-                "title": "Lich Su Thao Tac Hop Dong"
+                "title": "Lịch Sử Thao Tác Hợp Đồng"
             },
-            "thoigian": "Thoigian",
-            "noidung": "Noidung",
-            "nhanVien": "Nhan Vien",
-            "hopDong": "Hop Dong"
+            "thoigian": "Thời gian",
+            "noidung": "Nội dung",
+            "nhanVien": "Nhân viên",
+            "hopDong": "Hợp đồng"
         }
     }
 }

@@ -1,0 +1,130 @@
+<div class="container">
+
+
+  <form class="form-vertical" method="post">
+
+    <div class="form-group">
+      <div class="row">
+
+
+        <div class="col-md-2">
+          <label class="control-label">Loại hình</label>
+          <select class="form-control">
+            <option style="cursor: pointer" label="Tất cả" title="Tất cả" value="0">Tất cả</option>
+            <option style="cursor: pointer" label="Cầm đồ" title="Tất cả" value="4">Cầm Đồ</option>
+            <option style="cursor: pointer" label="Vay lãi" title="Tất cả" value="1">Vay Lãi</option>
+            <option style="cursor: pointer" label="Bát họ" title="Tất cả" value="2">Bát Họ</option>
+          </select>
+        </div>
+
+
+
+        <div class="col-md-2">
+          <label class="control-label">Nhân Viên</label>
+
+          <select class="form-control">
+            <option style="cursor: pointer" label="Tất cả nhân viên" title="Tất cả" value="0">Tất cả</option>
+            <option style="cursor:pointer" label="asdasd" title="asdasd" value="54117">asdasd</option>
+            <option style="cursor:pointer" label="ádasdas" title="ádasdas" value="54120">ádasdas</option>
+          </select>
+        </div>
+
+
+
+        <div class="col-md-2">
+          <label class="control-label">
+            Từ ngày</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="control-label">
+            Đến ngày
+          </label>
+          <input type="date" class="form-control">
+        </div>
+
+        <div class="col-md-2" style="padding-top: 2.7%">
+          <button class="btn btn-info btnSearch">
+            Tìm kiếm
+          </button class="btn btn-sm btnSearch" style="margin-left:20px">
+
+          <button class="btn btn-sm btnSearch" title="Xuất excel" style="margin-left:20px;">
+              <i class="	fa fa-file-excel-o"></i>
+            </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="form-group">
+    <div class="widget-content">
+
+      <!--GIAO DỊCH Đồ Đang Cầm-->
+      <table class="table table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+        <thead>
+          <tr style="background:#3f86c3;">
+            <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Báo cáo hợp đồng đang cho vay</th>
+          </tr>
+          <tr>
+            <th width="50px" style="text-align:center">#</th>
+            <th width="120px" style="text-align:center">Mã Hợp Đồng</th>
+            <th width="170px" class="align-left">Tên Khách Hàng</th>
+            <th style="text-align:left" width="250px">Tên Hàng</th>
+            <th class="align-center">Ngày vay</th>
+            <th class="align-right">Tiền Vay</th>
+
+            <th class="align-center">Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="center">1 </td>
+            <td align="center">
+              <a style="color:brown;text-decoration:underline" href="/"> BH-1 </a>
+            </td>
+            <td class="align-left">
+              <a href="/"> 12312 </a>
+            </td>
+            <td style="text-align:left">Vay Họ</td>
+            <td class="align-center"> 26-06-2018</td>
+            <td class="align-right" style="color: blue;"> 121,113,213 </td>
+
+            <td class="align-center "> Đang vay </td>
+          </tr>
+
+          <!--FOOTER-->
+          <!--FOOTER-->
+          <tr class="tr_footer">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="align-right">
+              <a style="color: brown">
+                <strong>Tổng Tiền</strong>
+              </a>
+            </td>
+            <td class="align-right" style="color: blue;">
+              <strong>121,113,213</strong>
+            </td>
+
+            <td> &nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <!--Pagging-->
+      <div style="float: left;">
+        <button>Pre</button>
+        <button>1</button>
+        <button>Next</button>
+      </div>
+
+      <!--End Padding-->
+    </div>
+  </div>
+
+
+</div>
