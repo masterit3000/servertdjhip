@@ -16,7 +16,7 @@ nhanViens: NhanVien[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredNhanViens: NhanVien[];
-    
+    nhanVien: any;
 
     constructor(
         private nhanVienService: NhanVienService,
