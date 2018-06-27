@@ -15,6 +15,8 @@ export class NhanVienComponent implements OnInit, OnDestroy {
 nhanViens: NhanVien[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    filteredNhanViens: NhanVien[];
+    nhanVien: any;
 
     constructor(
         private nhanVienService: NhanVienService,
@@ -53,5 +55,12 @@ nhanViens: NhanVien[];
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    filterNhanViens(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.nhanVienService.getNhanVien(query).subscribe((nhanViens: any) => {
+            this.filteredNhanViens = nhanViens;
+        });
     }
 }

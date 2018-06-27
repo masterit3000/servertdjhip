@@ -15,7 +15,8 @@ export class HopDongComponent implements OnInit, OnDestroy {
 hopDongs: HopDong[];
     currentAccount: any;
     eventSubscriber: Subscription;
-
+    filteredHopDongs: HopDong[];
+    hopDong: any;
     constructor(
         private hopDongService: HopDongService,
         private jhiAlertService: JhiAlertService,
@@ -53,5 +54,12 @@ hopDongs: HopDong[];
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    filterHopDongs(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.hopDongService.getHopDongs(query).subscribe((hopDongs: any) => {
+            this.filteredHopDongs = hopDongs;
+        });
     }
 }

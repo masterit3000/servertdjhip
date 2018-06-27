@@ -19,6 +19,7 @@ import { BhDongHdComponent } from './bat-ho-chuc-nang/bh-dong-hd/bh-dong-hd.comp
 import { BhLichDongTienComponent } from './bat-ho-chuc-nang/bh-lich-dong-tien/bh-lich-dong-tien.component';
 import { BhNoComponent } from './bat-ho-chuc-nang/bh-no/bh-no.component';
 
+
 const ENTITY_STATES = [
     ...batHoRoute,
     ...batHoPopupRoute,
