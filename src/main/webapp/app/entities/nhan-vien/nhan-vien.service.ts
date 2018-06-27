@@ -77,4 +77,8 @@ export class NhanVienService {
         copy.ngayTao = this.dateUtils.toDate(nhanVien.ngayTao);
         return copy;
     }
+    getNhanVien(query:any): Observable<NhanVien[]> {
+        return this.http.get('/api/nhan-viens')
+            .map((response) => response as NhanVien[]);
+    }
 }

@@ -9,6 +9,20 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
+    <hr/>
+    <div>
+        <div>
+
+            <h3>Tìm cửa hàng</h3>
+            <p-autoComplete [(ngModel)]="cua-hang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
+                field="ten" [size]="30" placeholder="Tên cửa hàng" [minLength]="1"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="cua-hang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
+                field="xaId" [size]="30" placeholder="xã" [minLength]="1"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="cua-hang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
+                field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+            <button type="submit"  class="btn btn-primary float-right">Tìm kiếm</button>
+        </div>
+    </div>
     <div class="row">
     </div>
     <br/>
@@ -16,20 +30,38 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.ten">Ten</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.diachi">Diachi</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.dienthoai">Dienthoai</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.trangthai">Trangthai</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.ngayTao">Ngay Tao</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.ghiChu">Ghi Chu</span></th>
-            <th><span jhiTranslate="servertdjhipApp.cuaHang.xa">Xa</span></th>
+                    <th>
+                        <span jhiTranslate="global.field.id">ID</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.ten">Ten</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.diachi">Diachi</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.dienthoai">Dienthoai</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.trangthai">Trangthai</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.ngayTao">Ngay Tao</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.ghiChu">Ghi Chu</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.cuaHang.xa">Xa</span>
+                    </th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let cuaHang of cuaHangs ;trackBy: trackId">
-                <td><a [routerLink]="['../cua-hang', cuaHang.id ]">{{cuaHang.id}}</a></td>
+                    <td>
+                        <a [routerLink]="['../cua-hang', cuaHang.id ]">{{cuaHang.id}}</a>
+                    </td>
                 <td>{{cuaHang.ten}}</td>
                 <td>{{cuaHang.diachi}}</td>
                 <td>{{cuaHang.dienthoai}}</td>
@@ -38,30 +70,22 @@
                 <td>{{cuaHang.ghiChu}}</td>
                 <td>
                     <div *ngIf="cuaHang.xaId">
-                        <a [routerLink]="['../xa', cuaHang.xaId  ]" >{{cuaHang.xaId}}</a>
+                            <a [routerLink]="['../xa', cuaHang.xaId  ]">{{cuaHang.xaId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['../cua-hang', cuaHang.id ]"
-                                class="btn btn-info btn-sm">
+                            <button type="submit" [routerLink]="['../cua-hang', cuaHang.id ]" class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/delete'} }]" replaceUrl="true"
+                                queryParamsHandling="merge" class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>

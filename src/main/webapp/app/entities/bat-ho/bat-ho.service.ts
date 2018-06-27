@@ -71,4 +71,5 @@ export class BatHoService {
         const copy: BatHo = Object.assign({}, batHo);
         return copy;
     }
+
 }

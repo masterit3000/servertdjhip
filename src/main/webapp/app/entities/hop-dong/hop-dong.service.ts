@@ -77,4 +77,8 @@ export class HopDongService {
         copy.ngaytao = this.dateUtils.toDate(hopDong.ngaytao);
         return copy;
     }
+    getHopDongs(query:any): Observable<HopDong[]> {
+        return this.http.get('/api/hop-dongs')
+            .map((response) => response as HopDong[]);
+    }
 }

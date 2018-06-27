@@ -10,14 +10,17 @@
     </h2>
     <jhi-alert></jhi-alert>
     <hr/>
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-2">
-                <label for="input">Tên khách hàng</label>
-                <input id="input" name="input" type="text" size="30" pInputText [(ngModel)]="text">
-        </div>
-        <div class="ui-g-2">
-            <br />
-            <button type="submit" [routerLink]="['../khach-hang', text]" class="btn btn-primary float-right">Tìm kiếm</button>
+    <div>
+        <div>
+
+            <h3>Tìm khách hàng</h3>
+            <p-autoComplete [(ngModel)]="khach-hang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="ten" [size]="30" placeholder="Tên khách hàng" [minLength]="1"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="khach-hang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="cmnd" [size]="30" placeholder="CMND" [minLength]="1"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="khach-hang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+            <button type="submit" class="btn btn-primary float-right">Tìm kiếm</button>
         </div>
     </div>
     <div class="row">
