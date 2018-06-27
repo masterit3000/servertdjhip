@@ -1,3 +1,85 @@
-<p>
-  bao-cao-tin-nhan works!
-</p>
+<div class="container">
+  
+
+  <form class="form-vertical"  method="post" >
+
+    <div class="form-group">
+      <div class="row">
+       
+
+        <div class="col-md-2">
+          <label class="control-label">
+            Tên Khách Hàng</label>
+          <input type="text" class="form-control" >
+        </div>
+
+        <div class="col-md-2">
+          <label class="control-label">
+            Loại</label>
+          <select class="form-control" >
+            <option value="0">Tất cả</option>
+            <option value="1">Vay Lãi</option>
+            <option value="2">Bát Họ</option>
+            <option value="4">Cầm Đồ</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label class="control-label">
+            Từ ngày</label>
+          <input type="date"  class="form-control " >
+        </div>
+        <div class="col-md-2" >
+          <label class="control-label">
+            Đến ngày
+          </label>
+          <input type="date" class="form-control " >
+        </div>
+
+        <div class="col-md-2" style="padding-top: 2.7%">
+          <button class="btn btn-info btnSearch" >
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <div class="form-group">
+    <div class="widget-content" >
+      <!--GIAO DỊCH Cầm đồ-->
+      <table class="table table-striped table-hover table-bordered table-calendar table-my-hover" style="margin-top:30px;">
+        <thead>
+          <tr style="background:#3f86c3;">
+            <th colspan="91" style="text-align:left; padding-left:10px;font-size:12px;color:#FFF;">Báo cáo tin nhắn SMS</th>
+          </tr>
+          <tr>
+            <th width="50px" style="text-align:center">#</th>
+            <th width="150px" style="text-align:center">Tên Khách Hàng</th>
+            <th width="100px" class="align-left">SĐT</th>
+            <th style="text-align:left">Nội Dung</th>
+            <th class="align-left" width="150px">Thời gian tạo</th>
+            <th class="align-left" width="150px">Thời gian gửi</th>
+            <th class="align-left" width="120px">Tình trạng</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!--FOOTER-->
+
+        </tbody>
+      </table>
+
+
+      <!--Pagging-->
+      <div class="row">
+        <button>Pre</button>
+        <button>1</button>
+        <button>Next</button>
+      </div>
+
+      <!--End Padding-->
+    </div>
+  </div>
+  
+</div>

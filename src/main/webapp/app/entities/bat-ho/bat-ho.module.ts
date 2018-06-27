@@ -13,7 +13,9 @@ import {
     BatHoDeleteDialogComponent,
     batHoRoute,
     batHoPopupRoute,
+
 } from './';
+
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -32,6 +34,7 @@ const ENTITY_STATES = [
         BatHoDeleteDialogComponent,
         BatHoPopupComponent,
         BatHoDeletePopupComponent,
+       
     ],
     entryComponents: [
         BatHoComponent,
