@@ -12,10 +12,10 @@ import { Principal } from '../../shared';
     templateUrl: './cua-hang.component.html'
 })
 export class CuaHangComponent implements OnInit, OnDestroy {
-cuaHangs: CuaHang[];
+    cuaHangs: CuaHang[];
     currentAccount: any;
     eventSubscriber: Subscription;
-
+    filteredCuaHangs: CuaHang[];
     constructor(
         private cuaHangService: CuaHangService,
         private jhiAlertService: JhiAlertService,
@@ -53,5 +53,12 @@ cuaHangs: CuaHang[];
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    filterCuaHangs(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.cuaHangService.getCuaHangs(query).subscribe((CuaHangs: any) => {
+            this.filteredCuaHangs = CuaHangs;
+        });
     }
 }

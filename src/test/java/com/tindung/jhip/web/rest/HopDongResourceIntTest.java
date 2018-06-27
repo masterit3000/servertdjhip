@@ -47,6 +47,9 @@ import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 @SpringBootTest(classes = ServertdjhipApp.class)
 public class HopDongResourceIntTest {
 
+    private static final String DEFAULT_MAHOPDONG = "AAAAAAAAAA";
+    private static final String UPDATED_MAHOPDONG = "BBBBBBBBBB";
+
     private static final String DEFAULT_GHICHU = "AAAAAAAAAA";
     private static final String UPDATED_GHICHU = "BBBBBBBBBB";
 
@@ -100,6 +103,7 @@ public class HopDongResourceIntTest {
      */
     public static HopDong createEntity(EntityManager em) {
         HopDong hopDong = new HopDong()
+            .mahopdong(DEFAULT_MAHOPDONG)
             .ghichu(DEFAULT_GHICHU)
             .loaihopdong(DEFAULT_LOAIHOPDONG)
             .ngaytao(DEFAULT_NGAYTAO);
@@ -127,6 +131,7 @@ public class HopDongResourceIntTest {
         List<HopDong> hopDongList = hopDongRepository.findAll();
         assertThat(hopDongList).hasSize(databaseSizeBeforeCreate + 1);
         HopDong testHopDong = hopDongList.get(hopDongList.size() - 1);
+        assertThat(testHopDong.getMahopdong()).isEqualTo(DEFAULT_MAHOPDONG);
         assertThat(testHopDong.getGhichu()).isEqualTo(DEFAULT_GHICHU);
         assertThat(testHopDong.getLoaihopdong()).isEqualTo(DEFAULT_LOAIHOPDONG);
         assertThat(testHopDong.getNgaytao()).isEqualTo(DEFAULT_NGAYTAO);
@@ -150,6 +155,25 @@ public class HopDongResourceIntTest {
         // Validate the HopDong in the database
         List<HopDong> hopDongList = hopDongRepository.findAll();
         assertThat(hopDongList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkMahopdongIsRequired() throws Exception {
+        int databaseSizeBeforeTest = hopDongRepository.findAll().size();
+        // set the field null
+        hopDong.setMahopdong(null);
+
+        // Create the HopDong, which fails.
+        HopDongDTO hopDongDTO = hopDongMapper.toDto(hopDong);
+
+        restHopDongMockMvc.perform(post("/api/hop-dongs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(hopDongDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<HopDong> hopDongList = hopDongRepository.findAll();
+        assertThat(hopDongList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -201,6 +225,7 @@ public class HopDongResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(hopDong.getId().intValue())))
+            .andExpect(jsonPath("$.[*].mahopdong").value(hasItem(DEFAULT_MAHOPDONG.toString())))
             .andExpect(jsonPath("$.[*].ghichu").value(hasItem(DEFAULT_GHICHU.toString())))
             .andExpect(jsonPath("$.[*].loaihopdong").value(hasItem(DEFAULT_LOAIHOPDONG.toString())))
             .andExpect(jsonPath("$.[*].ngaytao").value(hasItem(sameInstant(DEFAULT_NGAYTAO))));
@@ -217,6 +242,7 @@ public class HopDongResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(hopDong.getId().intValue()))
+            .andExpect(jsonPath("$.mahopdong").value(DEFAULT_MAHOPDONG.toString()))
             .andExpect(jsonPath("$.ghichu").value(DEFAULT_GHICHU.toString()))
             .andExpect(jsonPath("$.loaihopdong").value(DEFAULT_LOAIHOPDONG.toString()))
             .andExpect(jsonPath("$.ngaytao").value(sameInstant(DEFAULT_NGAYTAO)));
@@ -242,6 +268,7 @@ public class HopDongResourceIntTest {
         // Disconnect from session so that the updates on updatedHopDong are not directly saved in db
         em.detach(updatedHopDong);
         updatedHopDong
+            .mahopdong(UPDATED_MAHOPDONG)
             .ghichu(UPDATED_GHICHU)
             .loaihopdong(UPDATED_LOAIHOPDONG)
             .ngaytao(UPDATED_NGAYTAO);
@@ -256,6 +283,7 @@ public class HopDongResourceIntTest {
         List<HopDong> hopDongList = hopDongRepository.findAll();
         assertThat(hopDongList).hasSize(databaseSizeBeforeUpdate);
         HopDong testHopDong = hopDongList.get(hopDongList.size() - 1);
+        assertThat(testHopDong.getMahopdong()).isEqualTo(UPDATED_MAHOPDONG);
         assertThat(testHopDong.getGhichu()).isEqualTo(UPDATED_GHICHU);
         assertThat(testHopDong.getLoaihopdong()).isEqualTo(UPDATED_LOAIHOPDONG);
         assertThat(testHopDong.getNgaytao()).isEqualTo(UPDATED_NGAYTAO);

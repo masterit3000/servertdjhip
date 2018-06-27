@@ -13,6 +13,7 @@ import { Principal } from '../../shared';
 })
 export class BatHoComponent implements OnInit, OnDestroy {
 batHos: BatHo[];
+
     currentAccount: any;
     eventSubscriber: Subscription;
 

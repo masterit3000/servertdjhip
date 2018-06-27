@@ -12,9 +12,9 @@ import {
     BatHoDeletePopupComponent,
     BatHoDeleteDialogComponent,
     batHoRoute,
-    batHoPopupRoute,
-
+    batHoPopupRoute
 } from './';
+import { BatHoChucNangComponent } from './bat-ho-chuc-nang/bat-ho-chuc-nang.component';
 
 
 const ENTITY_STATES = [
@@ -34,14 +34,14 @@ const ENTITY_STATES = [
         BatHoDeleteDialogComponent,
         BatHoPopupComponent,
         BatHoDeletePopupComponent,
-       
+        BatHoChucNangComponent
     ],
     entryComponents: [
         BatHoComponent,
         BatHoDialogComponent,
         BatHoPopupComponent,
         BatHoDeleteDialogComponent,
-        BatHoDeletePopupComponent,
+        BatHoDeletePopupComponent
     ],
     providers: [
         BatHoService,
