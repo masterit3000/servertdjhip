@@ -12,8 +12,18 @@ import {
     VayLaiDeletePopupComponent,
     VayLaiDeleteDialogComponent,
     vayLaiRoute,
-    vayLaiPopupRoute,
+    vayLaiPopupRoute
+
 } from './';
+import { VlDongHdComponent } from './vay-lai-chuc-nang/vl-dong-hd/vl-dong-hd.component';
+import { VlDongLaiComponent } from './vay-lai-chuc-nang/vl-dong-lai/vl-dong-lai.component';
+import { VlGiaHanComponent } from './vay-lai-chuc-nang/vl-gia-han/vl-gia-han.component';
+import { VlLichSuComponent } from './vay-lai-chuc-nang/vl-lich-su/vl-lich-su.component';
+import { VlLichSuTraChamComponent } from './vay-lai-chuc-nang/vl-lich-su-tra-cham/vl-lich-su-tra-cham.component';
+import { VlNoComponent } from './vay-lai-chuc-nang/vl-no/vl-no.component';
+import { VlTraBotGocComponent } from './vay-lai-chuc-nang/vl-tra-bot-goc/vl-tra-bot-goc.component';
+import { VlVayThemComponent } from './vay-lai-chuc-nang/vl-vay-them/vl-vay-them.component';
+import { VayLaiChucNangComponent } from './vay-lai-chuc-nang/vay-lai-chuc-nang.component';
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -32,7 +42,18 @@ const ENTITY_STATES = [
         VayLaiDeleteDialogComponent,
         VayLaiPopupComponent,
         VayLaiDeletePopupComponent,
+        VlDongHdComponent,
+        VlDongLaiComponent,
+        VlGiaHanComponent,
+        VlLichSuComponent,
+        VlLichSuTraChamComponent,
+        VlNoComponent,
+        VlTraBotGocComponent,
+        VlVayThemComponent,
+        VayLaiChucNangComponent
+        
     ],
+
     entryComponents: [
         VayLaiComponent,
         VayLaiDialogComponent,
@@ -46,4 +67,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ServertdjhipVayLaiModule {}
+export class ServertdjhipVayLaiModule { }

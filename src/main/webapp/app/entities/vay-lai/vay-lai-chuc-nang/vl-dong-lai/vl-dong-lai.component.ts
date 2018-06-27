@@ -8,14 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class VlDongLaiComponent implements OnInit {
 
   constructor() { }
-
+  value: any;
   ngOnInit() {
   }
 
 }
-
 export class MyModel {
-
   value: Date;
-
 }
