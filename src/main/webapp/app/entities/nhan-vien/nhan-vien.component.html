@@ -13,13 +13,13 @@
         <div>
 
             <h3>Tìm nhân viên</h3>
-            <p-autoComplete [(ngModel)]="nhanVienCanTim.ten" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
                 field="ten" [size]="30" placeholder="Tên nhân viên " [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="nhanVienCanTim.cmnd" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
                 field="cmnd" [size]="10" placeholder="CMND" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="nhanVienCanTim.trangthai" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="nhanVienCanTim.userId" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
                 field="userId" [size]="20" placeholder="User" [minLength]="1"></p-autoComplete>
             <button type="submit" class="btn btn-primary float-right">Tìm kiếm</button>
         </div>

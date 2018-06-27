@@ -18,7 +18,7 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     filteredKhachHangs: KhachHang[];
     text: any;
-    khachHangCanTim: KhachHang;
+  
 
     constructor(
         private khachHangService: KhachHangService,
