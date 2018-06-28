@@ -9,7 +9,6 @@ import { TongQuatChuoiCuaHangComponent } from './tong-quat-chuoi-cua-hang/tong-q
 import { ThongTinChiTietCuaHangComponent } from './thong-tin-chi-tiet-cua-hang/thong-tin-chi-tiet-cua-hang.component';
 import { CauHinhHangHoaComponent } from './cau-hinh-hang-hoa/cau-hinh-hang-hoa.component';
 import { NhapTienQuyDauNgayComponent } from './nhap-tien-quy-dau-ngay/nhap-tien-quy-dau-ngay.component';
-
 export const cuaHangRoute: Routes = [
     {
         path: 'cua-hang',
@@ -19,7 +18,8 @@ export const cuaHangRoute: Routes = [
             pageTitle: 'servertdjhipApp.cuaHang.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    }, 
+    {
         path: 'cua-hang/:id',
         component: CuaHangDetailComponent,
         data: {
@@ -28,8 +28,8 @@ export const cuaHangRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
-    
-     {
+
+    {
         path: 'tongQuatChuoiCuaHang',
         component: TongQuatChuoiCuaHangComponent,
         data: {
@@ -38,7 +38,7 @@ export const cuaHangRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
-     {
+    {
         path: 'thongTinChiTietCuaHang',
         component: ThongTinChiTietCuaHangComponent,
         data: {
@@ -47,7 +47,7 @@ export const cuaHangRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
-     {
+    {
         path: 'cauHinhHangHoa',
         component: CauHinhHangHoaComponent,
         data: {
@@ -56,7 +56,7 @@ export const cuaHangRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
-     {
+    {
         path: 'nhapTienQuyDauNgay',
         component: NhapTienQuyDauNgayComponent,
         data: {

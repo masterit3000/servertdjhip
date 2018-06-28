@@ -2,7 +2,9 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.domain.NhanVien;
+import com.tindung.jhip.domain.User;
 import com.tindung.jhip.repository.NhanVienRepository;
+import com.tindung.jhip.repository.UserRepository;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.NhanVienMapper;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -24,12 +27,14 @@ public class NhanVienServiceImpl implements NhanVienService {
     private final Logger log = LoggerFactory.getLogger(NhanVienServiceImpl.class);
 
     private final NhanVienRepository nhanVienRepository;
+    private final UserRepository userRepository;
 
     private final NhanVienMapper nhanVienMapper;
 
-    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, NhanVienMapper nhanVienMapper) {
+    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, NhanVienMapper nhanVienMapper, UserRepository userRepository) {
         this.nhanVienRepository = nhanVienRepository;
         this.nhanVienMapper = nhanVienMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -56,8 +61,8 @@ public class NhanVienServiceImpl implements NhanVienService {
     public List<NhanVienDTO> findAll() {
         log.debug("Request to get all NhanViens");
         return nhanVienRepository.findAll().stream()
-            .map(nhanVienMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(nhanVienMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -83,5 +88,12 @@ public class NhanVienServiceImpl implements NhanVienService {
     public void delete(Long id) {
         log.debug("Request to delete NhanVien : {}", id);
         nhanVienRepository.delete(id);
+    }
+
+    @Override
+    public NhanVienDTO findByUserLogin(User username) {
+        log.debug("Request tim  NhanVien theo ussername : {}", username);
+//        Optional<User> findOneByLogin = userRepository.findOneByLogin(username);
+        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(username).get());
     }
 }

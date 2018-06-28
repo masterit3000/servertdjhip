@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 /**
  * REST controller for managing KhachHang.
@@ -49,6 +50,7 @@ public class KhachHangResource {
         if (khachHangDTO.getId() != null) {
             throw new BadRequestAlertException("A new khachHang cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        
         KhachHangDTO result = khachHangService.save(khachHangDTO);
         return ResponseEntity.created(new URI("/api/khach-hangs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

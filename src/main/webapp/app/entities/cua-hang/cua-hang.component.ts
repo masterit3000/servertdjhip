@@ -16,8 +16,10 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredCuaHangs: CuaHang[];
-    cuaHang: any;
-    
+
+    cuaHang: CuaHang;
+    cuahangs: CuaHang[];
+
     constructor(
         private cuaHangService: CuaHangService,
         private jhiAlertService: JhiAlertService,
@@ -59,8 +61,17 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     filterCuaHangs(event: any) {
         const query = event.query;
         console.log(query);
-        this.cuaHangService.getCuaHangs(query).subscribe((CuaHangs: any) => {
-            this.filteredCuaHangs = CuaHangs;
+        this.cuaHangService.getCuaHangs(query).subscribe((cuahangs:any) => {
+            this.filteredCuaHangs = this.filterCuaHang(query, cuahangs);
         });
+    }
+    filterCuaHang(query: any, cuahangs: CuaHang[]): CuaHang[] {
+        const filtered: any[] = [];
+        for (const CuaHang of cuahangs) {
+            if (CuaHang.ten.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(CuaHang);
+            }
+        }
+        return filtered;
     }
 }

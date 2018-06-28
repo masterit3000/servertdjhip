@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.service.HuyenService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -17,12 +18,14 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.access.annotation.Secured;
 
 /**
  * REST controller for managing Huyen.
  */
 @RestController
 @RequestMapping("/api")
+@Secured(AuthoritiesConstants.ADMIN)
 public class HuyenResource {
 
     private final Logger log = LoggerFactory.getLogger(HuyenResource.class);

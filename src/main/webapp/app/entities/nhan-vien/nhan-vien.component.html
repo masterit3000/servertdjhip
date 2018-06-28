@@ -21,7 +21,8 @@
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
             <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
                 field="userId" [size]="20" placeholder="User" [minLength]="1"></p-autoComplete>
-            <button type="submit" class="btn btn-primary float-right">Tìm kiếm</button>
+            {{nhanVien? nhanVien.ten || nhanVien: 'none'}}
+            <button type="submit" [routerLink]="['../nhan-vien', nhanVien? nhanVien.id || nhanVien: 'none' ]" class="btn btn-primary float-right">Tìm kiếm</button>
         </div>
     </div>
     <div class="row">
