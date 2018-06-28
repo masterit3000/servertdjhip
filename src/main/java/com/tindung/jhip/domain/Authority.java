@@ -19,6 +19,9 @@ import java.io.Serializable;
 
 public class Authority implements Serializable {
 
+    public Authority() {
+    }
+
     private static final long serialVersionUID = 1L;
 
     @NotNull
@@ -26,6 +29,10 @@ public class Authority implements Serializable {
     @Id
     @Column(length = 50)
     private String name;
+
+    public Authority(String name) {
+        this.setName(name);
+    }
 
     public String getName() {
         return name;
@@ -56,8 +63,8 @@ public class Authority implements Serializable {
 
     @Override
     public String toString() {
-        return "Authority{" +
-            "name='" + name + '\'' +
-            "}";
+        return "Authority{"
+                + "name='" + name + '\''
+                + "}";
     }
 }

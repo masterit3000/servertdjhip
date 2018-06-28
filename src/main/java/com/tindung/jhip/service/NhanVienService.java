@@ -1,5 +1,6 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.User;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface NhanVienService {
      * @return the persisted entity
      */
     NhanVienDTO save(NhanVienDTO nhanVienDTO);
-
+    
     /**
      * Get all the nhanViens.
      *
@@ -37,4 +38,5 @@ public interface NhanVienService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    NhanVienDTO findByUserLogin(User user);
 }
