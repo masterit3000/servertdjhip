@@ -21,7 +21,7 @@
             <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
                 field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
             {{cuaHang ? cuaHang.ten||cuaHang : 'none'}}
-            <button type="submit" [routerLink]="['../cua-hang', cuaHang? cuaHang.id || cuaHang: 'none']" class="btn btn-primary">Tìm kiếm</button>
+            <button type="submit" [routerLink]="['../cua-hang', cuaHang? cuaHang.id || cuaHang:none]" class="btn btn-primary">Tìm kiếm</button>
         </div>
 
     </div>

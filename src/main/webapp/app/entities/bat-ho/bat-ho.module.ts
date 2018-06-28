@@ -22,6 +22,7 @@ import { BatHoLichSuComponent } from './bat-ho-chuc-nang/bat-ho-lich-su/bat-ho-l
 import { BatHoDaoHoComponent } from './bat-ho-chuc-nang/bat-ho-dao-ho/bat-ho-dao-ho.component';
 import {TabViewModule} from 'primeng/tabview';
 import {InputTextModule} from 'primeng/inputtext';
+import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -47,7 +48,8 @@ const ENTITY_STATES = [
         BatHoDongHopDongComponent,
         BatHoNoComponent,
         BatHoLichSuComponent,
-        BatHoDaoHoComponent
+        BatHoDaoHoComponent,
+        BatHoMoiComponent
     ],
     entryComponents: [
         BatHoComponent,
