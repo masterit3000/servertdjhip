@@ -38,6 +38,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.tindung.jhip.domain.enumeration.TrangThaiNhanVien;
+import com.tindung.jhip.repository.UserRepository;
+import com.tindung.jhip.service.UserService;
+
 /**
  * Test class for the NhanVienResource REST controller.
  *
@@ -93,15 +96,20 @@ public class NhanVienResourceIntTest {
 
     private NhanVien nhanVien;
 
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserService userService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NhanVienResource nhanVienResource = new NhanVienResource(nhanVienService);
+        final NhanVienResource nhanVienResource = new NhanVienResource(nhanVienService, userRepository, userService);
         this.restNhanVienMockMvc = MockMvcBuilders.standaloneSetup(nhanVienResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+                .setCustomArgumentResolvers(pageableArgumentResolver)
+                .setControllerAdvice(exceptionTranslator)
+                .setConversionService(createFormattingConversionService())
+                .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -112,13 +120,13 @@ public class NhanVienResourceIntTest {
      */
     public static NhanVien createEntity(EntityManager em) {
         NhanVien nhanVien = new NhanVien()
-            .ten(DEFAULT_TEN)
-            .diachi(DEFAULT_DIACHI)
-            .dienthoai(DEFAULT_DIENTHOAI)
-            .cmnd(DEFAULT_CMND)
-            .trangthai(DEFAULT_TRANGTHAI)
-            .ngayTao(DEFAULT_NGAY_TAO)
-            .ghiChu(DEFAULT_GHI_CHU);
+                .ten(DEFAULT_TEN)
+                .diachi(DEFAULT_DIACHI)
+                .dienthoai(DEFAULT_DIENTHOAI)
+                .cmnd(DEFAULT_CMND)
+                .trangthai(DEFAULT_TRANGTHAI)
+                .ngayTao(DEFAULT_NGAY_TAO)
+                .ghiChu(DEFAULT_GHI_CHU);
         return nhanVien;
     }
 
@@ -135,9 +143,9 @@ public class NhanVienResourceIntTest {
         // Create the NhanVien
         NhanVienDTO nhanVienDTO = nhanVienMapper.toDto(nhanVien);
         restNhanVienMockMvc.perform(post("/api/nhan-viens")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
-            .andExpect(status().isCreated());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the NhanVien in the database
         List<NhanVien> nhanVienList = nhanVienRepository.findAll();
@@ -163,9 +171,9 @@ public class NhanVienResourceIntTest {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNhanVienMockMvc.perform(post("/api/nhan-viens")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the NhanVien in the database
         List<NhanVien> nhanVienList = nhanVienRepository.findAll();
@@ -183,9 +191,9 @@ public class NhanVienResourceIntTest {
         NhanVienDTO nhanVienDTO = nhanVienMapper.toDto(nhanVien);
 
         restNhanVienMockMvc.perform(post("/api/nhan-viens")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
+                .andExpect(status().isBadRequest());
 
         List<NhanVien> nhanVienList = nhanVienRepository.findAll();
         assertThat(nhanVienList).hasSize(databaseSizeBeforeTest);
@@ -199,16 +207,16 @@ public class NhanVienResourceIntTest {
 
         // Get all the nhanVienList
         restNhanVienMockMvc.perform(get("/api/nhan-viens?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(nhanVien.getId().intValue())))
-            .andExpect(jsonPath("$.[*].ten").value(hasItem(DEFAULT_TEN.toString())))
-            .andExpect(jsonPath("$.[*].diachi").value(hasItem(DEFAULT_DIACHI.toString())))
-            .andExpect(jsonPath("$.[*].dienthoai").value(hasItem(DEFAULT_DIENTHOAI.toString())))
-            .andExpect(jsonPath("$.[*].cmnd").value(hasItem(DEFAULT_CMND.toString())))
-            .andExpect(jsonPath("$.[*].trangthai").value(hasItem(DEFAULT_TRANGTHAI.toString())))
-            .andExpect(jsonPath("$.[*].ngayTao").value(hasItem(sameInstant(DEFAULT_NGAY_TAO))))
-            .andExpect(jsonPath("$.[*].ghiChu").value(hasItem(DEFAULT_GHI_CHU.toString())));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(nhanVien.getId().intValue())))
+                .andExpect(jsonPath("$.[*].ten").value(hasItem(DEFAULT_TEN.toString())))
+                .andExpect(jsonPath("$.[*].diachi").value(hasItem(DEFAULT_DIACHI.toString())))
+                .andExpect(jsonPath("$.[*].dienthoai").value(hasItem(DEFAULT_DIENTHOAI.toString())))
+                .andExpect(jsonPath("$.[*].cmnd").value(hasItem(DEFAULT_CMND.toString())))
+                .andExpect(jsonPath("$.[*].trangthai").value(hasItem(DEFAULT_TRANGTHAI.toString())))
+                .andExpect(jsonPath("$.[*].ngayTao").value(hasItem(sameInstant(DEFAULT_NGAY_TAO))))
+                .andExpect(jsonPath("$.[*].ghiChu").value(hasItem(DEFAULT_GHI_CHU.toString())));
     }
 
     @Test
@@ -219,16 +227,16 @@ public class NhanVienResourceIntTest {
 
         // Get the nhanVien
         restNhanVienMockMvc.perform(get("/api/nhan-viens/{id}", nhanVien.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(nhanVien.getId().intValue()))
-            .andExpect(jsonPath("$.ten").value(DEFAULT_TEN.toString()))
-            .andExpect(jsonPath("$.diachi").value(DEFAULT_DIACHI.toString()))
-            .andExpect(jsonPath("$.dienthoai").value(DEFAULT_DIENTHOAI.toString()))
-            .andExpect(jsonPath("$.cmnd").value(DEFAULT_CMND.toString()))
-            .andExpect(jsonPath("$.trangthai").value(DEFAULT_TRANGTHAI.toString()))
-            .andExpect(jsonPath("$.ngayTao").value(sameInstant(DEFAULT_NGAY_TAO)))
-            .andExpect(jsonPath("$.ghiChu").value(DEFAULT_GHI_CHU.toString()));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id").value(nhanVien.getId().intValue()))
+                .andExpect(jsonPath("$.ten").value(DEFAULT_TEN.toString()))
+                .andExpect(jsonPath("$.diachi").value(DEFAULT_DIACHI.toString()))
+                .andExpect(jsonPath("$.dienthoai").value(DEFAULT_DIENTHOAI.toString()))
+                .andExpect(jsonPath("$.cmnd").value(DEFAULT_CMND.toString()))
+                .andExpect(jsonPath("$.trangthai").value(DEFAULT_TRANGTHAI.toString()))
+                .andExpect(jsonPath("$.ngayTao").value(sameInstant(DEFAULT_NGAY_TAO)))
+                .andExpect(jsonPath("$.ghiChu").value(DEFAULT_GHI_CHU.toString()));
     }
 
     @Test
@@ -236,7 +244,7 @@ public class NhanVienResourceIntTest {
     public void getNonExistingNhanVien() throws Exception {
         // Get the nhanVien
         restNhanVienMockMvc.perform(get("/api/nhan-viens/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -251,19 +259,19 @@ public class NhanVienResourceIntTest {
         // Disconnect from session so that the updates on updatedNhanVien are not directly saved in db
         em.detach(updatedNhanVien);
         updatedNhanVien
-            .ten(UPDATED_TEN)
-            .diachi(UPDATED_DIACHI)
-            .dienthoai(UPDATED_DIENTHOAI)
-            .cmnd(UPDATED_CMND)
-            .trangthai(UPDATED_TRANGTHAI)
-            .ngayTao(UPDATED_NGAY_TAO)
-            .ghiChu(UPDATED_GHI_CHU);
+                .ten(UPDATED_TEN)
+                .diachi(UPDATED_DIACHI)
+                .dienthoai(UPDATED_DIENTHOAI)
+                .cmnd(UPDATED_CMND)
+                .trangthai(UPDATED_TRANGTHAI)
+                .ngayTao(UPDATED_NGAY_TAO)
+                .ghiChu(UPDATED_GHI_CHU);
         NhanVienDTO nhanVienDTO = nhanVienMapper.toDto(updatedNhanVien);
 
         restNhanVienMockMvc.perform(put("/api/nhan-viens")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
-            .andExpect(status().isOk());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
+                .andExpect(status().isOk());
 
         // Validate the NhanVien in the database
         List<NhanVien> nhanVienList = nhanVienRepository.findAll();
@@ -288,9 +296,9 @@ public class NhanVienResourceIntTest {
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restNhanVienMockMvc.perform(put("/api/nhan-viens")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
-            .andExpect(status().isCreated());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(nhanVienDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the NhanVien in the database
         List<NhanVien> nhanVienList = nhanVienRepository.findAll();
@@ -306,8 +314,8 @@ public class NhanVienResourceIntTest {
 
         // Get the nhanVien
         restNhanVienMockMvc.perform(delete("/api/nhan-viens/{id}", nhanVien.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
 
         // Validate the database is empty
         List<NhanVien> nhanVienList = nhanVienRepository.findAll();
