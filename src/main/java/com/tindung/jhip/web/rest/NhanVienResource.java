@@ -3,6 +3,7 @@ package com.tindung.jhip.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.tindung.jhip.domain.Authority;
 import com.tindung.jhip.domain.User;
+import com.tindung.jhip.domain.enumeration.TrangThaiNhanVien;
 import com.tindung.jhip.repository.UserRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.access.annotation.Secured;
 
 /**
  * REST controller for managing NhanVien.
@@ -59,25 +61,28 @@ public class NhanVienResource {
      */
     @PostMapping("/nhan-viens")
     @Timed
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.STOREADMIN})
     public ResponseEntity<NhanVienDTO> createNhanVien(@Valid @RequestBody NhanVienDTO nhanVienDTO) throws URISyntaxException {
         log.debug("REST request to save NhanVien : {}", nhanVienDTO);
         if (nhanVienDTO.getId() != null) {
             throw new BadRequestAlertException("A new nhanVien cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        String currentUser = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        Optional<User> userWithAuthoritiesByLogin = userService.getUserWithAuthoritiesByLogin(currentUser);
-        User user = userWithAuthoritiesByLogin.get();
-        ArrayList<Authority> authoritys = new ArrayList<>();
-        authoritys.add(new Authority(AuthoritiesConstants.ADMIN));
-        authoritys.add(new Authority(AuthoritiesConstants.STOREADMIN));
-        if (user.getAuthorities().containsAll(authoritys)) {
-        nhanVienDTO.setCuaHangId(nhanVienService.findByUserLogin(user).getCuaHangId());
+//        Optional<User> userWithAuthoritiesByLogin = userService.getUserWithAuthoritiesByLogin(currentUser);
+//        User user = userWithAuthoritiesByLogin.get();
+//        ArrayList<Authority> authoritys = new ArrayList<>();
+//        authoritys.add(new Authority(AuthoritiesConstants.ADMIN));
+//        authoritys.add(new Authority(AuthoritiesConstants.STOREADMIN));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {//neu ko phai admin thi lay cua hang hien tai
+                String currentUser = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+                User userLogin = userService.getUserWithAuthoritiesByLogin(currentUser).get();
+                nhanVienDTO.setCuaHangId(nhanVienService.findByUserLogin(userLogin).getCuaHangId());
+            }
             NhanVienDTO result = nhanVienService.save(nhanVienDTO);
             return ResponseEntity.created(new URI("/api/nhan-viens/" + result.getId()))
                     .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                     .body(result);
         } else {
-
             throw new BadRequestAlertException("Khong co quyen tao nhan vien", ENTITY_NAME, "khongCoQuyen");
         }
     }
@@ -94,15 +99,25 @@ public class NhanVienResource {
      */
     @PutMapping("/nhan-viens")
     @Timed
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.STOREADMIN})
     public ResponseEntity<NhanVienDTO> updateNhanVien(@Valid @RequestBody NhanVienDTO nhanVienDTO) throws URISyntaxException {
         log.debug("REST request to update NhanVien : {}", nhanVienDTO);
         if (nhanVienDTO.getId() == null) {
             return createNhanVien(nhanVienDTO);
         }
-        NhanVienDTO result = nhanVienService.save(nhanVienDTO);
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, nhanVienDTO.getId().toString()))
-                .body(result);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {//neu ko phai admin thi lay cua hang hien tai
+                String currentUser = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+                User userLogin = userService.getUserWithAuthoritiesByLogin(currentUser).get();
+                nhanVienDTO.setCuaHangId(nhanVienService.findByUserLogin(userLogin).getCuaHangId());
+            }
+            NhanVienDTO result = nhanVienService.save(nhanVienDTO);
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, nhanVienDTO.getId().toString()))
+                    .body(result);
+        } else {
+            throw new BadRequestAlertException("Khong co quyen tao nhan vien", ENTITY_NAME, "khongCoQuyen");
+        }
     }
 
     /**
@@ -141,9 +156,12 @@ public class NhanVienResource {
      */
     @DeleteMapping("/nhan-viens/{id}")
     @Timed
+    @Secured({AuthoritiesConstants.ADMIN, AuthoritiesConstants.STOREADMIN})
     public ResponseEntity<Void> deleteNhanVien(@PathVariable Long id) {
         log.debug("REST request to delete NhanVien : {}", id);
-        nhanVienService.delete(id);
+        NhanVienDTO findOne = nhanVienService.findOne(id);
+        findOne.setTrangthai(TrangThaiNhanVien.DUNGHOATDONG);
+        nhanVienService.save(findOne);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
