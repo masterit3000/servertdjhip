@@ -16,7 +16,11 @@ hopDongs: HopDong[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredHopDongs: HopDong[];
+<<<<<<< HEAD
     hopDong:any;
+=======
+    hopDong: any;
+>>>>>>> 1fed065b06f8e301df1896c411a0c87e5034ae06
     constructor(
         private hopDongService: HopDongService,
         private jhiAlertService: JhiAlertService,

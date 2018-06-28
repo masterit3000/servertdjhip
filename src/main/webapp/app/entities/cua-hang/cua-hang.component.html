@@ -14,7 +14,6 @@
         <div>
 
             <h3>Tìm cửa hàng</h3>
-
             <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
                 field="ten" [size]="30" placeholder="Tên cửa hàng" [minLength]="1"></p-autoComplete>
             <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"

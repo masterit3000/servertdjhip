@@ -14,6 +14,7 @@
         <div>
 
             <h3>Tìm khách hàng</h3>
+<<<<<<< HEAD
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="ten" [size]="20" placeholder="Tên khách hàng" [minLength]="1"></p-autoComplete>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
@@ -22,6 +23,15 @@
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
                 {{khachHang? khachHang.ten || khachHang: 'none'}}
                 <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang: 'none' ]" class="btn btn-info btn-sm">Tìm kiếm</button>
+=======
+            <p-autoComplete [(ngModel)]="text" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="ten" [size]="30" placeholder="Tên khách hàng" [minLength]="1"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="text" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="cmnd" [size]="30" placeholder="CMND" [minLength]="1"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="text" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+            <button type="submit" class="btn btn-primary float-right">Tìm kiếm</button>
+>>>>>>> 1fed065b06f8e301df1896c411a0c87e5034ae06
         </div>
     </div>
     <div class="row">
