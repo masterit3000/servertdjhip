@@ -17,8 +17,13 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     filteredCuaHangs: CuaHang[];
 <<<<<<< HEAD
+<<<<<<< HEAD
     cuaHang: CuaHang;
     cuahangs: CuaHang[];
+=======
+    cuaHang: any;
+    
+>>>>>>> 1fed065b06f8e301df1896c411a0c87e5034ae06
 =======
     cuaHang: any;
     
