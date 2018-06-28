@@ -6,6 +6,7 @@ export const enum TrangThaiCuaHang {
 }
 
 export class CuaHang implements BaseEntity {
+
     constructor(
         public id?: number,
         public ten?: string,
