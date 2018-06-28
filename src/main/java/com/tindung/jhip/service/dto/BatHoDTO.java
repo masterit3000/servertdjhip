@@ -26,7 +26,7 @@ public class BatHoDTO implements Serializable {
     @NotNull
     private Integer chuky;
 
-    private Long hopdongbhId;
+    private HopDongDTO hopdong;
 
     public Long getId() {
         return id;
@@ -68,13 +68,15 @@ public class BatHoDTO implements Serializable {
         this.chuky = chuky;
     }
 
-    public Long getHopdongbhId() {
-        return hopdongbhId;
+    public HopDongDTO getHopdong() {
+        return hopdong;
     }
 
-    public void setHopdongbhId(Long hopDongId) {
-        this.hopdongbhId = hopDongId;
+    public void setHopdong(HopDongDTO hopdong) {
+        this.hopdong = hopdong;
     }
+
+   
 
     @Override
     public boolean equals(Object o) {
