@@ -17,6 +17,7 @@ nhanViens: NhanVien[];
     eventSubscriber: Subscription;
     filteredNhanViens: NhanVien[];
     nhanVien: any;
+    none :any;
     constructor(
         private nhanVienService: NhanVienService,
         private jhiAlertService: JhiAlertService,

@@ -16,7 +16,7 @@ hopDongs: HopDong[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredHopDongs: HopDong[];
-
+    none: any;
     hopDong:any;
 
     constructor(
