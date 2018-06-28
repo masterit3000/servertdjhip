@@ -22,6 +22,9 @@ import { BatHoLichSuComponent } from './bat-ho-chuc-nang/bat-ho-lich-su/bat-ho-l
 import { BatHoDaoHoComponent } from './bat-ho-chuc-nang/bat-ho-dao-ho/bat-ho-dao-ho.component';
 import {TabViewModule} from 'primeng/tabview';
 import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { BatHoChungTuComponent } from './bat-ho-chuc-nang/bat-ho-chung-tu/bat-ho-chung-tu.component';
+import {FileUploadModule} from 'primeng/fileupload';
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -33,7 +36,9 @@ const ENTITY_STATES = [
         ServertdjhipSharedModule,
         RouterModule.forChild(ENTITY_STATES),
         TabViewModule,
-        InputTextModule
+        InputTextModule,
+        InputTextareaModule,
+        FileUploadModule
     ],
     declarations: [
         BatHoComponent,
@@ -47,7 +52,8 @@ const ENTITY_STATES = [
         BatHoDongHopDongComponent,
         BatHoNoComponent,
         BatHoLichSuComponent,
-        BatHoDaoHoComponent
+        BatHoDaoHoComponent,
+        BatHoChungTuComponent
     ],
     entryComponents: [
         BatHoComponent,

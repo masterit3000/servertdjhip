@@ -26,7 +26,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe((params) => {
-            this.load(params['ten']);
+            this.load(params['id']);
         });
         this.registerChangeInBatHos();
     }

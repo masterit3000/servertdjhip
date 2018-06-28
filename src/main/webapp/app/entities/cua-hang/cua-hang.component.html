@@ -47,7 +47,7 @@
                     <th>
                         <span jhiTranslate="servertdjhipApp.cuaHang.trangthai">Trangthai</span>
                     </th>
-                    <th>
+                    <!-- <th>
                         <span jhiTranslate="servertdjhipApp.cuaHang.ngayTao">Ngay Tao</span>
                     </th>
                     <th>
@@ -55,7 +55,7 @@
                     </th>
                     <th>
                         <span jhiTranslate="servertdjhipApp.cuaHang.xa">Xa</span>
-                    </th>
+                    </th> -->
                     <th></th>
                 </tr>
             </thead>
@@ -68,13 +68,13 @@
                     <td>{{cuaHang.diachi}}</td>
                     <td>{{cuaHang.dienthoai}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.TrangThaiCuaHang.' + cuaHang.trangthai}}">{{cuaHang.trangthai}}</td>
-                    <td>{{cuaHang.ngayTao | date:'medium'}}</td>
+                    <!-- <td>{{cuaHang.ngayTao | date:'medium'}}</td>
                     <td>{{cuaHang.ghiChu}}</td>
                     <td>
                         <div *ngIf="cuaHang.xaId">
                             <a [routerLink]="['../xa', cuaHang.xaId  ]">{{cuaHang.xaId}}</a>
                         </div>
-                    </td>
+                    </td> -->
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit" [routerLink]="['../cua-hang', cuaHang.id ]" class="btn btn-info btn-sm">
