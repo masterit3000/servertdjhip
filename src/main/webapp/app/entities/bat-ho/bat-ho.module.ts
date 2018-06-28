@@ -15,10 +15,13 @@ import {
     batHoPopupRoute
 } from './';
 import { BatHoChucNangComponent } from './bat-ho-chuc-nang/bat-ho-chuc-nang.component';
-import { BhDongHdComponent } from './bat-ho-chuc-nang/bh-dong-hd/bh-dong-hd.component';
-import { BhLichDongTienComponent } from './bat-ho-chuc-nang/bh-lich-dong-tien/bh-lich-dong-tien.component';
-import { BhNoComponent } from './bat-ho-chuc-nang/bh-no/bh-no.component';
-
+import { BatHoLichDongTienComponent } from './bat-ho-chuc-nang/bat-ho-lich-dong-tien/bat-ho-lich-dong-tien.component';
+import { BatHoDongHopDongComponent } from './bat-ho-chuc-nang/bat-ho-dong-hop-dong/bat-ho-dong-hop-dong.component';
+import { BatHoNoComponent } from './bat-ho-chuc-nang/bat-ho-no/bat-ho-no.component';
+import { BatHoLichSuComponent } from './bat-ho-chuc-nang/bat-ho-lich-su/bat-ho-lich-su.component';
+import { BatHoDaoHoComponent } from './bat-ho-chuc-nang/bat-ho-dao-ho/bat-ho-dao-ho.component';
+import {TabViewModule} from 'primeng/tabview';
+import {InputTextModule} from 'primeng/inputtext';
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -28,7 +31,9 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        TabViewModule,
+        InputTextModule
     ],
     declarations: [
         BatHoComponent,
@@ -38,9 +43,11 @@ const ENTITY_STATES = [
         BatHoPopupComponent,
         BatHoDeletePopupComponent,
         BatHoChucNangComponent,
-        BhDongHdComponent,
-        BhLichDongTienComponent,
-        BhNoComponent
+        BatHoLichDongTienComponent,
+        BatHoDongHopDongComponent,
+        BatHoNoComponent,
+        BatHoLichSuComponent,
+        BatHoDaoHoComponent
     ],
     entryComponents: [
         BatHoComponent,
