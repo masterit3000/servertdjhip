@@ -15,15 +15,19 @@ import {
     vayLaiPopupRoute
 
 } from './';
-import { VlDongHdComponent } from './vay-lai-chuc-nang/vl-dong-hd/vl-dong-hd.component';
-import { VlDongLaiComponent } from './vay-lai-chuc-nang/vl-dong-lai/vl-dong-lai.component';
-import { VlGiaHanComponent } from './vay-lai-chuc-nang/vl-gia-han/vl-gia-han.component';
-import { VlLichSuComponent } from './vay-lai-chuc-nang/vl-lich-su/vl-lich-su.component';
-import { VlLichSuTraChamComponent } from './vay-lai-chuc-nang/vl-lich-su-tra-cham/vl-lich-su-tra-cham.component';
-import { VlNoComponent } from './vay-lai-chuc-nang/vl-no/vl-no.component';
-import { VlTraBotGocComponent } from './vay-lai-chuc-nang/vl-tra-bot-goc/vl-tra-bot-goc.component';
-import { VlVayThemComponent } from './vay-lai-chuc-nang/vl-vay-them/vl-vay-them.component';
 import { VayLaiChucNangComponent } from './vay-lai-chuc-nang/vay-lai-chuc-nang.component';
+import {TabViewModule} from 'primeng/tabview';
+import { VayLaiDongLaiComponent } from './vay-lai-chuc-nang/vay-lai-dong-lai/vay-lai-dong-lai.component';
+import { VayLaiTraBotGocComponent } from './vay-lai-chuc-nang/vay-lai-tra-bot-goc/vay-lai-tra-bot-goc.component';
+import { VayLaiVayThemComponent } from './vay-lai-chuc-nang/vay-lai-vay-them/vay-lai-vay-them.component';
+import { VayLaiGiaHanComponent } from './vay-lai-chuc-nang/vay-lai-gia-han/vay-lai-gia-han.component';
+import { VayLaiDongHopDongComponent } from './vay-lai-chuc-nang/vay-lai-dong-hop-dong/vay-lai-dong-hop-dong.component';
+import { VayLaiNoComponent } from './vay-lai-chuc-nang/vay-lai-no/vay-lai-no.component';
+import { VayLaiLichSuComponent } from './vay-lai-chuc-nang/vay-lai-lich-su/vay-lai-lich-su.component';
+import { VayLaiLichSuTraChamComponent } from './vay-lai-chuc-nang/vay-lai-lich-su-tra-cham/vay-lai-lich-su-tra-cham.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {CalendarModule} from 'primeng/calendar';
+
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -33,7 +37,10 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        TabViewModule,
+        InputTextModule,
+        CalendarModule
     ],
     declarations: [
         VayLaiComponent,
@@ -42,15 +49,15 @@ const ENTITY_STATES = [
         VayLaiDeleteDialogComponent,
         VayLaiPopupComponent,
         VayLaiDeletePopupComponent,
-        VlDongHdComponent,
-        VlDongLaiComponent,
-        VlGiaHanComponent,
-        VlLichSuComponent,
-        VlLichSuTraChamComponent,
-        VlNoComponent,
-        VlTraBotGocComponent,
-        VlVayThemComponent,
-        VayLaiChucNangComponent
+        VayLaiChucNangComponent,
+        VayLaiDongLaiComponent,
+        VayLaiTraBotGocComponent,
+        VayLaiVayThemComponent,
+        VayLaiGiaHanComponent,
+        VayLaiDongHopDongComponent,
+        VayLaiNoComponent,
+        VayLaiLichSuComponent,
+        VayLaiLichSuTraChamComponent
         
     ],
 

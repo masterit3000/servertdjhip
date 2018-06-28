@@ -1,26 +1,36 @@
-
 <div *ngIf="batHo">
-    <h2><span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.id}}</h2>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span></dt>
+        <dt>
+            <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
+        </dt>
         <dd>
             <span>{{batHo.tienduakhach}}</span>
         </dd>
-        <dt><span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span></dt>
+        <dt>
+            <span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span>
+        </dt>
         <dd>
             <span>{{batHo.tongtien}}</span>
         </dd>
-        <dt><span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span></dt>
+        <dt>
+            <span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span>
+        </dt>
         <dd>
             <span>{{batHo.tongsongay}}</span>
         </dd>
-        <dt><span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span></dt>
+        <dt>
+            <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
+        </dt>
         <dd>
             <span>{{batHo.chuky}}</span>
         </dd>
-        <dt><span jhiTranslate="servertdjhipApp.batHo.hopdongbh">Hopdongbh</span></dt>
+        <dt>
+            <span jhiTranslate="servertdjhipApp.batHo.hopdongbh">Hopdongbh</span>
+        </dt>
         <dd>
             <div *ngIf="batHo.hopdongbhId">
                 <a [routerLink]="['/hop-dong', batHo.hopdongbhId]">{{batHo.hopdongbhId}}</a>
@@ -28,18 +38,31 @@
         </dd>
     </dl>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;
+        <span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;
+        <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
-    <jhi-bat-ho-chuc-nang></jhi-bat-ho-chuc-nang>
+    <p-tabView>
+        <p-tabPanel header="Lịch đóng tiền">
+            <jhi-bat-ho-lich-dong-tien></jhi-bat-ho-lich-dong-tien>
+        </p-tabPanel>
+        <p-tabPanel header="Đóng hợp đồng">
+            <jhi-bat-ho-dong-hop-dong></jhi-bat-ho-dong-hop-dong>
+        </p-tabPanel>
+        <p-tabPanel header="Nợ">
+            <jhi-bat-ho-no></jhi-bat-ho-no>
+        </p-tabPanel>
+        <p-tabPanel header="Lịch sử">
+            <jhi-bat-ho-lich-su></jhi-bat-ho-lich-su>
+        </p-tabPanel>
+        <p-tabPanel header="Đảo họ">
+            <jhi-bat-ho-dao-ho></jhi-bat-ho-dao-ho>
+        </p-tabPanel>
+    </p-tabView>
 </div>
