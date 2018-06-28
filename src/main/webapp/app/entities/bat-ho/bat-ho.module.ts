@@ -25,7 +25,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { BatHoChungTuComponent } from './bat-ho-chuc-nang/bat-ho-chung-tu/bat-ho-chung-tu.component';
 import {FileUploadModule} from 'primeng/fileupload';
-import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
+
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -54,8 +54,7 @@ const ENTITY_STATES = [
         BatHoNoComponent,
         BatHoLichSuComponent,
         BatHoDaoHoComponent,
-        BatHoChungTuComponent,
-        BatHoMoiComponent
+        BatHoChungTuComponent
     ],
     entryComponents: [
         BatHoComponent,
