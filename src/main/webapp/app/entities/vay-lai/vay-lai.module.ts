@@ -26,6 +26,8 @@ import { VayLaiNoComponent } from './vay-lai-chuc-nang/vay-lai-no/vay-lai-no.com
 import { VayLaiLichSuComponent } from './vay-lai-chuc-nang/vay-lai-lich-su/vay-lai-lich-su.component';
 import { VayLaiLichSuTraChamComponent } from './vay-lai-chuc-nang/vay-lai-lich-su-tra-cham/vay-lai-lich-su-tra-cham.component';
 import {InputTextModule} from 'primeng/inputtext';
+import {CalendarModule} from 'primeng/calendar';
+
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -37,7 +39,8 @@ const ENTITY_STATES = [
         ServertdjhipSharedModule,
         RouterModule.forChild(ENTITY_STATES),
         TabViewModule,
-        InputTextModule
+        InputTextModule,
+        CalendarModule
     ],
     declarations: [
         VayLaiComponent,
