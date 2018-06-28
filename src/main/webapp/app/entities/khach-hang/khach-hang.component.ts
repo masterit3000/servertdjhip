@@ -19,7 +19,7 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     filteredKhachHangs: KhachHang[];
     text: any;
     khachHang: any;
-
+    none: any;
     constructor(
         private khachHangService: KhachHangService,
         private jhiAlertService: JhiAlertService,

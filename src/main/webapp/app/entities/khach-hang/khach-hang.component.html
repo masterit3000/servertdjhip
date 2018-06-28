@@ -20,8 +20,8 @@
                 field="cmnd" [size]="20" placeholder="CMND" [minLength]="1"></p-autoComplete>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
-                {{khachHang? khachHang.ten || khachHang: 'none'}}
-                <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang: 'none' ]" class="btn btn-info btn-sm">Tìm kiếm</button>
+                <!-- {{khachHang? khachHang.ten || khachHang: 'none'}}
+                <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang: 'none' ]" class="btn btn-info btn-sm">Tìm kiếm</button> -->
 
         </div>
     </div>
