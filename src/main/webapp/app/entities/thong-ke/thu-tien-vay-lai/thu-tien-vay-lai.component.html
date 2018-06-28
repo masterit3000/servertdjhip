@@ -1,0 +1,78 @@
+<div class="container">
+
+  <!--=== Page Header ===-->
+  <div class="container-fluid">
+    <div class="row" style="padding:19px 0px;">
+      <h3>Lịch sử thu tiền theo ngày</h3>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <div style="border-top:1px solid #cecece;height:5px;"></div>
+
+  <form class="form-vertical" method="post">
+    <div class="form-group">
+      <div class="row">
+
+
+        <div class="col-md-2">
+          <label class="control-label">
+            Từ ngày</label>
+          <input type="date" class="form-control ">
+        </div>
+        <div class="col-md-2">
+          <label class="control-label">
+            Đến ngày
+          </label>
+          <input type="date" class="form-control ">
+        </div>
+
+        <div class="col-md-2" style="padding-top: 2.7%">
+          <button class="btn btn-info btnSearch">
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <div class="form-group">
+    <div class="widget-content">
+      <table class="table table-striped table-hover table-bordered table-calendar">
+        <thead>
+          <tr>
+            <th width="50px" style="text-align:center">#</th>
+
+            <th>Người thu tiền</th>
+            <th style="text-align:center">Từ ngày</th>
+            <th style="text-align:center">Đến ngày</th>
+
+
+            <th style="text-align:right">Tổng tiền thu</th>
+            <th style="text-align:center">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--FOOTER-->
+          <tr class="tr_footer">
+            <td align="center">&nbsp;</td>
+
+            <td></td>
+            <td align="right">
+              <a style="color:brown">&nbsp;</a>
+            </td>
+
+            <td align="right" style="color:red;">
+              <strong>Tổng </strong>
+            </td>
+
+            <td align="right" style="color:red">0</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</div>
