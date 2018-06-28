@@ -17,10 +17,6 @@ nhanViens: NhanVien[];
     eventSubscriber: Subscription;
     filteredNhanViens: NhanVien[];
     nhanVien: any;
-<<<<<<< HEAD
-=======
-
->>>>>>> 1fed065b06f8e301df1896c411a0c87e5034ae06
     constructor(
         private nhanVienService: NhanVienService,
         private jhiAlertService: JhiAlertService,
