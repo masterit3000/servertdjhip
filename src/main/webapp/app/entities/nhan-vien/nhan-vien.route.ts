@@ -5,6 +5,7 @@ import { NhanVienComponent } from './nhan-vien.component';
 import { NhanVienDetailComponent } from './nhan-vien-detail.component';
 import { NhanVienPopupComponent } from './nhan-vien-dialog.component';
 import { NhanVienDeletePopupComponent } from './nhan-vien-delete-dialog.component';
+import { PhanQuyenNhanVienComponent } from './phan-quyen-nhan-vien/phan-quyen-nhan-vien.component';
 
 export const nhanVienRoute: Routes = [
     {
@@ -21,6 +22,15 @@ export const nhanVienRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'phanQuyenNhanVien',
+        component: PhanQuyenNhanVienComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'ssss'
         },
         canActivate: [UserRouteAccessService]
     }

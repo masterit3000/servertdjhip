@@ -17,6 +17,7 @@ import {
     nhanVienRoute,
     nhanVienPopupRoute,
 } from './';
+import { PhanQuyenNhanVienComponent } from './phan-quyen-nhan-vien/phan-quyen-nhan-vien.component';
 
 const ENTITY_STATES = [
     ...nhanVienRoute,
@@ -39,6 +40,7 @@ const ENTITY_STATES = [
         NhanVienDeleteDialogComponent,
         NhanVienPopupComponent,
         NhanVienDeletePopupComponent,
+        PhanQuyenNhanVienComponent,
     ],
     entryComponents: [
         NhanVienComponent,

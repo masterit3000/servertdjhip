@@ -67,7 +67,7 @@
                 <a routerLink="nhan-vien" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.danhSachNhanVien">Danh sách nhân viên</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="phanQuyenNhanVien" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.phanQuyenNhanVien">Phân quyền nhân viên</span>
                 </a>
             </div>
@@ -75,10 +75,10 @@
                 <span jhiTranslate="global.menu.thongKe">Thống kê</span>
             </a>
             <div [ngClass]="{submenushow: (menuthongke.id == activeMenuId), 'submenuhide': (menuthongke.id != activeMenuId)}">
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="thuTienVayLai" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.thuTienVayLai">Thu tiền vay lãi</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="thuTienHo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.thuTienHo">Thu tiền họ</span>
                 </a>
             </div>

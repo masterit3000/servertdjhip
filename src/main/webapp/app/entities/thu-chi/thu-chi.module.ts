@@ -15,6 +15,7 @@ import {
     thuChiPopupRoute,
 } from './';
 
+
 const ENTITY_STATES = [
     ...thuChiRoute,
     ...thuChiPopupRoute,
@@ -32,6 +33,7 @@ const ENTITY_STATES = [
         ThuChiDeleteDialogComponent,
         ThuChiPopupComponent,
         ThuChiDeletePopupComponent,
+      
     ],
     entryComponents: [
         ThuChiComponent,

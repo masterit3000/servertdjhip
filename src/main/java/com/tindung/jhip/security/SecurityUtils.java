@@ -73,4 +73,7 @@ public final class SecurityUtils {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(authority)))
             .orElse(false);
     }
+  
+    
+    
 }

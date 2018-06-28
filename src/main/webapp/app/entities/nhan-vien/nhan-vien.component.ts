@@ -16,8 +16,7 @@ nhanViens: NhanVien[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredNhanViens: NhanVien[];
-    nhanVien:any;
-
+    nhanVien: any;
     constructor(
         private nhanVienService: NhanVienService,
         private jhiAlertService: JhiAlertService,
