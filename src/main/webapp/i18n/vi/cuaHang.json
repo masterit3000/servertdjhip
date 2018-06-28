@@ -2,6 +2,10 @@
 {
     "servertdjhipApp": {
         "cuaHang" : {
+            "tongQuatChuoiCuaHang": "Tổng quát chuỗi cửa hầng",
+            "thongTinChiTietCuaHang": "Thông tin chi tiết cửa hàng",
+            "cauHinhHangHoa": "Cấu hình hàng hóa",
+            "nhapTienQuyDauNgay": "Nhập tiền quỹ đầu ngày",
             "home": {
                 "title": "Cửa Hàng",
                 "createLabel": "Thêm mới một Cửa Hàng",

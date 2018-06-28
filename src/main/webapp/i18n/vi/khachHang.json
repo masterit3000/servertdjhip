@@ -2,6 +2,8 @@
 {
     "servertdjhipApp": {
         "khachHang" : {
+            "checkThongTinKhachHang": "Check thông tin khách hàng",
+            "khachCanVay": "Khách cần vay",
             "home": {
                 "title": "Khách hàng",
                 "createLabel": "Thêm mới một Khách Hàng",

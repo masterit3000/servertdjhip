@@ -14,18 +14,90 @@ import { BanGiaoCaComponent } from './ban-giao-ca/ban-giao-ca.component';
 import { DongTienTheoNgayComponent } from './dong-tien-theo-ngay/dong-tien-theo-ngay.component';
 
 const routes: Routes = [
-  { path: 'soQuyTienMat',          component:SoQuyTienMatComponent},
-    { path: 'tongKetGiaoDich',          component:TongKetGiaoDichComponent},
-    { path: 'tongKetLoiNhuan',          component:TongKetLoiNhuanComponent},
-    { path: 'chiTietTienLai',          component:ChiTietTienLaiComponent},
-    { path: 'baoCaoDangChoVay',          component:BaoCaoDangChoVayComponent},
-    { path: 'baoCaoHangChoThanhLy',          component:BaoCaoHangChoThanhLyComponent},
-    { path: 'baoCaoChuocDoDongHD',          component:BaoCaoChuocDoDongHopDongComponent},
-    { path: 'baoCaoThanhLyDo',          component:BaoCaoThanhLyDoComponent},
-    { path: 'baoCaoHopDongDaXoa',          component:BaoCaoHopDongDaXoaComponent},
-    { path: 'baoCaoTinNhan',          component:BaoCaoTinNhanComponent},
-    { path: 'banGiaoCa',          component:BanGiaoCaComponent},
-    { path: 'dongTienTheoNgay',          component:DongTienTheoNgayComponent},
+  {
+    path: 'soQuyTienMat', component: SoQuyTienMatComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.soQuyTienMat'
+    },
+  },
+  {
+    path: 'tongKetGiaoDich', component: TongKetGiaoDichComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.tongKetGiaoDich'
+    },
+  },
+  {
+    path: 'tongKetLoiNhuan', component: TongKetLoiNhuanComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.tongKetLoiNhuan'
+    },
+  },
+  {
+    path: 'chiTietTienLai', component: ChiTietTienLaiComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.chiTietTienLai'
+    },
+  },
+  {
+    path: 'baoCaoDangChoVay', component: BaoCaoDangChoVayComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoDangChoVay'
+    },
+  },
+  {
+    path: 'baoCaoHangChoThanhLy', component: BaoCaoHangChoThanhLyComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoHangChoThanhLy'
+    },
+  },
+  {
+    path: 'baoCaoChuocDoDongHD', component: BaoCaoChuocDoDongHopDongComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoChuocDoDongHD'
+    },
+  },
+  {
+    path: 'baoCaoThanhLyDo', component: BaoCaoThanhLyDoComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoThanhLyDo'
+    },
+  },
+  {
+    path: 'baoCaoHopDongDaXoa', component: BaoCaoHopDongDaXoaComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoHopDongDaXoa'
+    },
+  },
+  {
+    path: 'baoCaoTinNhan', component: BaoCaoTinNhanComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoTinNhan'
+    },
+  },
+  {
+    path: 'banGiaoCa', component: BanGiaoCaComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.banGiaoCa'
+    },
+  },
+  {
+    path: 'dongTienTheoNgay', component: DongTienTheoNgayComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.dongTienTheoNgay'
+    },
+  },
 ];
 
 @NgModule({

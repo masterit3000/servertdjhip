@@ -34,7 +34,7 @@ export const cuaHangRoute: Routes = [
         component: TongQuatChuoiCuaHangComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'aaa'
+            pageTitle: 'servertdjhipApp.cuaHang.tongQuatChuoiCuaHang'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -43,7 +43,7 @@ export const cuaHangRoute: Routes = [
         component: ThongTinChiTietCuaHangComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'aaaa'
+            pageTitle: 'servertdjhipApp.cuaHang.thongTinChiTietCuaHang'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const cuaHangRoute: Routes = [
         component: CauHinhHangHoaComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'aaaa'
+            pageTitle: 'servertdjhipApp.cuaHang.cauHinhHangHoa'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -61,7 +61,7 @@ export const cuaHangRoute: Routes = [
         component: NhapTienQuyDauNgayComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'aaaa'
+            pageTitle: 'servertdjhipApp.cuaHang.nhapTienQuyDauNgay'
         },
         canActivate: [UserRouteAccessService]
     },
