@@ -5,6 +5,7 @@ import { BatHoComponent } from './bat-ho.component';
 import { BatHoDetailComponent } from './bat-ho-detail.component';
 import { BatHoPopupComponent } from './bat-ho-dialog.component';
 import { BatHoDeletePopupComponent } from './bat-ho-delete-dialog.component';
+import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
 
 export const batHoRoute: Routes = [
     {
@@ -18,6 +19,15 @@ export const batHoRoute: Routes = [
     }, {
         path: 'bat-ho/:id',
         component: BatHoDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'servertdjhipApp.batHo.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'batHoMoi',
+        component: BatHoMoiComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'servertdjhipApp.batHo.home.title'

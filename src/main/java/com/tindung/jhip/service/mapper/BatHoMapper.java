@@ -11,10 +11,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {HopDongMapper.class})
 public interface BatHoMapper extends EntityMapper<BatHoDTO, BatHo> {
 
-    @Mapping(source = "hopdongbh.id", target = "hopdongbhId")
+    @Mapping(source = "hopdongbh", target = "hopdong")
     BatHoDTO toDto(BatHo batHo);
 
-    @Mapping(source = "hopdongbhId", target = "hopdongbh")
+    @Mapping(source = "hopdong", target = "hopdongbh")
     BatHo toEntity(BatHoDTO batHoDTO);
 
     default BatHo fromId(Long id) {

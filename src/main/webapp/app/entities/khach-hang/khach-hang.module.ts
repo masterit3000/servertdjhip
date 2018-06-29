@@ -42,8 +42,7 @@ const ENTITY_STATES = [
         KhachHangPopupComponent,
         KhachHangDeletePopupComponent,
         CheckThongTinKhachHangComponent,
-        KhachCanVayComponent,
-
+        KhachCanVayComponent
     ],
     entryComponents: [
         KhachHangComponent,

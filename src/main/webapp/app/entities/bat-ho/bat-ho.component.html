@@ -1,7 +1,8 @@
 <div>
     <h2>
         <span jhiTranslate="servertdjhipApp.batHo.home.title">Bat Hos</span>
-        <button class="btn btn-primary float-right jh-create-entity create-bat-ho" [routerLink]="['/', { outlets: { popup: ['bat-ho-new'] } }]">
+        <button class="btn btn-primary float-right jh-create-entity create-bat-ho" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/batHoMoi">
+        <!-- <button class="btn btn-primary float-right jh-create-entity create-bat-ho" [routerLink]="['/', { outlets: { popup: ['bat-ho-new'] } }]"> -->
             <span class="fa fa-plus"></span>
             <span jhiTranslate="servertdjhipApp.batHo.home.createLabel">
                 Create new Bat Ho

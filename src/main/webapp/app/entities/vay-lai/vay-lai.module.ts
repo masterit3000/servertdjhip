@@ -30,6 +30,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { VayLaiChungTuComponent } from './vay-lai-chuc-nang/vay-lai-chung-tu/vay-lai-chung-tu.component';
 import {FileUploadModule} from 'primeng/fileupload';
+import { VayLaiMoiComponent } from './vay-lai-chuc-nang/vay-lai-moi/vay-lai-moi.component';
+import { VayLaiKhachHangTableComponent } from './vay-lai-chuc-nang/vay-lai-khach-hang-table/vay-lai-khach-hang-table.component';
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -62,7 +64,9 @@ const ENTITY_STATES = [
         VayLaiNoComponent,
         VayLaiLichSuComponent,
         VayLaiLichSuTraChamComponent,
-        VayLaiChungTuComponent
+        VayLaiChungTuComponent,
+        VayLaiMoiComponent,
+        VayLaiKhachHangTableComponent
         
     ],
 

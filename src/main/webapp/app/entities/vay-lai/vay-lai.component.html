@@ -1,7 +1,8 @@
 <div>
     <h2>
         <span jhiTranslate="servertdjhipApp.vayLai.home.title">Vay Lais</span>
-        <button class="btn btn-primary float-right jh-create-entity create-vay-lai" [routerLink]="['/', { outlets: { popup: ['vay-lai-new'] } }]">
+        <button class="btn btn-primary float-right jh-create-entity create-vay-lai" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/vayLaiMoi">
+        <!-- <button class="btn btn-primary float-right jh-create-entity create-vay-lai" [routerLink]="['/', { outlets: { popup: ['vay-lai-new'] } }]"> -->
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="servertdjhipApp.vayLai.home.createLabel">
             Create new Vay Lai
