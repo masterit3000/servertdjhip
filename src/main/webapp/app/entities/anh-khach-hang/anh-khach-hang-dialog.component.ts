@@ -10,6 +10,7 @@ import { AnhKhachHang } from './anh-khach-hang.model';
 import { AnhKhachHangPopupService } from './anh-khach-hang-popup.service';
 import { AnhKhachHangService } from './anh-khach-hang.service';
 import { KhachHang, KhachHangService } from '../khach-hang';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
     selector: 'jhi-anh-khach-hang-dialog',
@@ -27,8 +28,25 @@ export class AnhKhachHangDialogComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private anhKhachHangService: AnhKhachHangService,
         private khachHangService: KhachHangService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        location: PlatformLocation
     ) {
+        location.onPopState(() => {
+
+            console.log('pressed back!');
+
+            // example for a simple check if modal is opened
+            if (this.activeModal !== undefined) {
+                console.log('modal is opened - cancel default browser event and close modal');
+                // TODO: cancel the default event
+
+                // close modal
+                this.activeModal.close();
+            }
+            else {
+                console.log('modal is not opened - default browser event');
+            }
+        });
     }
 
     ngOnInit() {
@@ -58,7 +76,7 @@ export class AnhKhachHangDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: AnhKhachHang) {
-        this.eventManager.broadcast({ name: 'anhKhachHangListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'anhKhachHangListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -87,11 +105,14 @@ export class AnhKhachHangPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private anhKhachHangPopupService: AnhKhachHangPopupService
-    ) {}
+    ) {
+
+        
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.anhKhachHangPopupService
                     .open(AnhKhachHangDialogComponent as Component, params['id']);
             } else {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterEvent, NavigationStart } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -11,6 +11,7 @@ import { KhachHangPopupService } from './khach-hang-popup.service';
 import { KhachHangService } from './khach-hang.service';
 import { Xa, XaService } from '../xa';
 import { CuaHang, CuaHangService } from '../cua-hang';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
     selector: 'jhi-khach-hang-dialog',
@@ -31,8 +32,19 @@ export class KhachHangDialogComponent implements OnInit {
         private khachHangService: KhachHangService,
         private xaService: XaService,
         private cuaHangService: CuaHangService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        location: PlatformLocation,
+        public router: Router
     ) {
+        router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
+            console.log(e);
+        //    this.activeModal .close();
+        //    this.router.navigate([{outlets: {modal: null}}]);
+
+            
+        });
+
+
     }
 
     ngOnInit() {
@@ -64,7 +76,7 @@ export class KhachHangDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: KhachHang) {
-        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -97,11 +109,11 @@ export class KhachHangPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private khachHangPopupService: KhachHangPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.khachHangPopupService
                     .open(KhachHangDialogComponent as Component, params['id']);
             } else {

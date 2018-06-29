@@ -93,7 +93,13 @@ public class NhanVienServiceImpl implements NhanVienService {
     @Override
     public NhanVienDTO findByUserLogin(User username) {
         log.debug("Request tim  NhanVien theo ussername : {}", username);
-//        Optional<User> findOneByLogin = userRepository.findOneByLogin(username);
         return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(username).get());
+    }
+
+    @Override
+    public NhanVienDTO findByUserLogin(String user) {
+
+        User users = userRepository.findOneByLogin(user).get();
+        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(users).get());
     }
 }
