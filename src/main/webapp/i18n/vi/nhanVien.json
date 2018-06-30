@@ -2,6 +2,7 @@
 {
     "servertdjhipApp": {
         "nhanVien" : {
+            "phanQuyenNhanVien": "Phân quyền nhân viên",
             "home": {
                 "title": "Nhân Viên",
                 "createLabel": "Thêm mới một Nhân Viên",

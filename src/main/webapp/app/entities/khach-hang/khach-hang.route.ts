@@ -34,7 +34,7 @@ export const khachHangRoute: Routes = [
         component: CheckThongTinKhachHangComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'SS'
+            pageTitle: 'servertdjhipApp.khachHang.checkThongTinKhachHang'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -44,7 +44,7 @@ export const khachHangRoute: Routes = [
         component: KhachCanVayComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'SS'
+            pageTitle: 'servertdjhipApp.khachHang.khachCanVay'
         },
         canActivate: [UserRouteAccessService]
     },

@@ -30,7 +30,7 @@ export const nhanVienRoute: Routes = [
         component: PhanQuyenNhanVienComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'ssss'
+            pageTitle: 'servertdjhipApp.nhanVien.phanQuyenNhanVien'
         },
         canActivate: [UserRouteAccessService]
     }

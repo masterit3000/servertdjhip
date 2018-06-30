@@ -27,7 +27,9 @@ import { VayLaiLichSuComponent } from './vay-lai-chuc-nang/vay-lai-lich-su/vay-l
 import { VayLaiLichSuTraChamComponent } from './vay-lai-chuc-nang/vay-lai-lich-su-tra-cham/vay-lai-lich-su-tra-cham.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {CalendarModule} from 'primeng/calendar';
-
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { VayLaiChungTuComponent } from './vay-lai-chuc-nang/vay-lai-chung-tu/vay-lai-chung-tu.component';
+import {FileUploadModule} from 'primeng/fileupload';
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -40,7 +42,9 @@ const ENTITY_STATES = [
         RouterModule.forChild(ENTITY_STATES),
         TabViewModule,
         InputTextModule,
-        CalendarModule
+        CalendarModule,
+        InputTextareaModule,
+        FileUploadModule
     ],
     declarations: [
         VayLaiComponent,
@@ -57,7 +61,8 @@ const ENTITY_STATES = [
         VayLaiDongHopDongComponent,
         VayLaiNoComponent,
         VayLaiLichSuComponent,
-        VayLaiLichSuTraChamComponent
+        VayLaiLichSuTraChamComponent,
+        VayLaiChungTuComponent
         
     ],
 

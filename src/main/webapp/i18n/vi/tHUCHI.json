@@ -2,6 +2,8 @@
 {
     "servertdjhipApp": {
         "thuChi" : {
+            "thuTienVayLai": "Thu tiền vay lãi",
+            "thuTienHo": "Thu tiền họ",
             "home": {
                 "title": "Thu Chi",
                 "createLabel": "Thêm mới một Thu Chi",
