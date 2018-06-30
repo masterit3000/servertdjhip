@@ -16,7 +16,7 @@ import {
 
 } from './';
 import { VayLaiChucNangComponent } from './vay-lai-chuc-nang/vay-lai-chuc-nang.component';
-import {TabViewModule} from 'primeng/tabview';
+import { TabViewModule } from 'primeng/tabview';
 import { VayLaiDongLaiComponent } from './vay-lai-chuc-nang/vay-lai-dong-lai/vay-lai-dong-lai.component';
 import { VayLaiTraBotGocComponent } from './vay-lai-chuc-nang/vay-lai-tra-bot-goc/vay-lai-tra-bot-goc.component';
 import { VayLaiVayThemComponent } from './vay-lai-chuc-nang/vay-lai-vay-them/vay-lai-vay-them.component';
@@ -25,13 +25,14 @@ import { VayLaiDongHopDongComponent } from './vay-lai-chuc-nang/vay-lai-dong-hop
 import { VayLaiNoComponent } from './vay-lai-chuc-nang/vay-lai-no/vay-lai-no.component';
 import { VayLaiLichSuComponent } from './vay-lai-chuc-nang/vay-lai-lich-su/vay-lai-lich-su.component';
 import { VayLaiLichSuTraChamComponent } from './vay-lai-chuc-nang/vay-lai-lich-su-tra-cham/vay-lai-lich-su-tra-cham.component';
-import {InputTextModule} from 'primeng/inputtext';
-import {CalendarModule} from 'primeng/calendar';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { VayLaiChungTuComponent } from './vay-lai-chuc-nang/vay-lai-chung-tu/vay-lai-chung-tu.component';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 import { VayLaiMoiComponent } from './vay-lai-chuc-nang/vay-lai-moi/vay-lai-moi.component';
 import { VayLaiKhachHangTableComponent } from './vay-lai-chuc-nang/vay-lai-khach-hang-table/vay-lai-khach-hang-table.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -46,7 +47,8 @@ const ENTITY_STATES = [
         InputTextModule,
         CalendarModule,
         InputTextareaModule,
-        FileUploadModule
+        FileUploadModule,
+        InputSwitchModule
     ],
     declarations: [
         VayLaiComponent,
@@ -67,7 +69,7 @@ const ENTITY_STATES = [
         VayLaiChungTuComponent,
         VayLaiMoiComponent,
         VayLaiKhachHangTableComponent
-        
+
     ],
 
     entryComponents: [

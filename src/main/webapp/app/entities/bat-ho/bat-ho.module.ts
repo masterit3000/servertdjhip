@@ -20,21 +20,13 @@ import { BatHoDongHopDongComponent } from './bat-ho-chuc-nang/bat-ho-dong-hop-do
 import { BatHoNoComponent } from './bat-ho-chuc-nang/bat-ho-no/bat-ho-no.component';
 import { BatHoLichSuComponent } from './bat-ho-chuc-nang/bat-ho-lich-su/bat-ho-lich-su.component';
 import { BatHoDaoHoComponent } from './bat-ho-chuc-nang/bat-ho-dao-ho/bat-ho-dao-ho.component';
-import {TabViewModule} from 'primeng/tabview';
-import {InputTextModule} from 'primeng/inputtext';
-<<<<<<< HEAD
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { TabViewModule } from 'primeng/tabview';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { BatHoChungTuComponent } from './bat-ho-chuc-nang/bat-ho-chung-tu/bat-ho-chung-tu.component';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
 import { BatHoKhachHangTableComponent } from './bat-ho-chuc-nang/bat-ho-khach-hang-table/bat-ho-khach-hang-table.component';
-=======
-import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import { BatHoChungTuComponent } from './bat-ho-chuc-nang/bat-ho-chung-tu/bat-ho-chung-tu.component';
-import {FileUploadModule} from 'primeng/fileupload';
-
->>>>>>> aa4bf04f4722576a3f8a4dfaf3c0f6111806f4cd
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -63,14 +55,9 @@ const ENTITY_STATES = [
         BatHoNoComponent,
         BatHoLichSuComponent,
         BatHoDaoHoComponent,
-<<<<<<< HEAD
         BatHoChungTuComponent,
         BatHoMoiComponent,
         BatHoKhachHangTableComponent
-=======
-        BatHoMoiComponent,
-        BatHoChungTuComponent
->>>>>>> aa4bf04f4722576a3f8a4dfaf3c0f6111806f4cd
     ],
     entryComponents: [
         BatHoComponent,
@@ -85,4 +72,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ServertdjhipBatHoModule {}
+export class ServertdjhipBatHoModule { }

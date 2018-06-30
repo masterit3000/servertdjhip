@@ -13,14 +13,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ten" for="field_ten">Ten</label>
-                                    <input type="text" class="form-control" name="ten" id="field_ten" required/>
+                                    <input type="text" placeholder="Tên khách hàng" class="form-control" name="ten" id="field_ten" required/>
                                     <!-- <div [hidden]="!(editForm.controls.ten?.dirty && editForm.controls.ten?.invalid)">
                                     <small class="form-text text-danger" [hidden]="!editForm.controls.ten?.errors?.required" jhiTranslate="entity.validation.required">
                                         This field is required.
                                     </small>
                                 </div> -->
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.facebook" for="field_facebook">Facebook</label>
+                                    <input type="text" class="form-control" name="facebook" id="field_facebook" />
                                 </div>
                             </div>
                             <div class="row">
@@ -36,15 +40,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.dienthoai" for="field_dienthoai">Dienthoai</label>
                                     <input type="text" class="form-control" name="dienthoai" id="field_dienthoai" />
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cmnd" for="field_cmnd">Cmnd</label>
-                                    <input type="text" class="form-control" name="cmnd" id="field_cmnd" maxlength="11" />
+                                    <input type="text" placeholder="Chứng minh thư nhân dân" class="form-control" name="cmnd" id="field_cmnd" maxlength="11"
+                                    />
                                     <!-- <div [hidden]="!(editForm.controls.cmnd?.dirty && editForm.controls.cmnd?.invalid)">
                                     <small class="form-text text-danger"
                                        [hidden]="!editForm.controls.cmnd?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 11 }">
@@ -54,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-3">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.trangthai" for="field_trangthai">Trangthai</label>
                                     <select class="form-control" name="trangthai" id="field_trangthai">
                                         <option value="HOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
@@ -63,6 +66,17 @@
                                         <option value="CAPDO2">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO2' | translate}}</option>
                                         <option value="CAPDO3">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO3' | translate}}</option>
                                     </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.xa" for="field_xa">Xa</label>
+                                    <select class="form-control" id="field_xa" name="xa">
+                                        <option [ngValue]="null">Chọn xã</option>
+                                        <!-- <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option> -->
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.email" for="field_email">Email</label>
+                                    <input type="text" class="form-control" name="email" id="field_email" />
                                 </div>
                             </div>
                         </div>
@@ -74,55 +88,99 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.email" for="field_email">Email</label>
-                            <input type="text" class="form-control" name="email" id="field_email" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.facebook" for="field_facebook">Facebook</label>
-                            <input type="text" class="form-control" name="facebook" id="field_facebook" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ghiChu" for="field_ghiChu">Ghi Chu</label>
-                            <input type="text" class="form-control" name="ghiChu" id="field_ghiChu" maxlength="3000" />
-                            <!-- <div [hidden]="!(editForm.controls.ghiChu?.dirty && editForm.controls.ghiChu?.invalid)">
-                            <small class="form-text text-danger" [hidden]="!editForm.controls.ghiChu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                                translateValues="{ max: 3000 }">
-                                This field cannot be longer than 3000 characters.
-                            </small>
-                        </div> -->
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.xa" for="field_xa">Xa</label>
-                            <select class="form-control" id="field_xa" name="xa">
-                                <!-- <option [ngValue]="null"></option>
-                            <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option> -->
-                            </select>
-                        </div>
-                    </div>
                 </div>
             </div>
             <hr/>
             <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
-                    <input type="text" class="form-control" name="mahopdong" id="field_mahopdong" required maxlength="20" />
-                    <!-- <div [hidden]="!(editForm.controls.mahopdong?.dirty && editForm.controls.mahopdong?.invalid)">
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                            translateValues="{ max: 20 }">
-                            This field cannot be longer than 20 characters.
-                        </small>
-                    </div> -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
+                            <input type="text" class="form-control" name="mahopdong" id="field_mahopdong" placeholder="BH-x" required maxlength="20"
+                            />
+                            <!-- <div [hidden]="!(editForm.controls.mahopdong?.dirty && editForm.controls.mahopdong?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
+                                        translateValues="{ max: 20 }">
+                                        This field cannot be longer than 20 characters.
+                                    </small>
+                                </div> -->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.loaihopdong" for="field_loaihopdong">Loaihopdong</label>
+                            <select class="form-control" name="loaihopdong" id="field_loaihopdong" required>
+                                <!-- <option value="VAYLAI">{{'servertdjhipApp.LOAIHOPDONG.VAYLAI' | translate}}</option> -->
+                                <option value="BATHO">{{'servertdjhipApp.LOAIHOPDONG.BATHO' | translate}}</option>
+                                <!-- <option value="CAMDO">{{'servertdjhipApp.LOAIHOPDONG.CAMDO' | transgit add.late}}</option> -->
+                            </select>
+                            <!-- <div [hidden]="!(editForm.controls.loaihopdong?.dirty && editForm.controls.loaihopdong?.invalid)">
+                                    <small class="form-text text-danger" [hidden]="!editForm.controls.loaihopdong?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
+                            <input type="number" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
+                                required/>
+                            <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
+                                        <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.number" jhiTranslate="entity.validation.number">
+                                            This field should be a number.
+                                        </small>
+                                    </div> -->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
+                            <input type="number" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
+                                required/>
+                            <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
+                            <input type="number" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền" required/>
+                            <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div> -->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
+                            <input type="number" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
+                                required/>
+                            <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div> -->
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
                     <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
-                    <input type="text" class="form-control" name="ghichu" id="field_ghichu" maxlength="3000" />
+                    <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pInputTextarea autoResize="autoResize"></textarea>
                     <!-- <div [hidden]="!(editForm.controls.ghichu?.dirty && editForm.controls.ghichu?.invalid)">
                         <small class="form-text text-danger" [hidden]="!editForm.controls.ghichu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
                             translateValues="{ max: 3000 }">
@@ -131,99 +189,12 @@
                     </div> -->
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.loaihopdong" for="field_loaihopdong">Loaihopdong</label>
-                    <select class="form-control" name="loaihopdong" id="field_loaihopdong" required>
-                        <!-- <option value="VAYLAI">{{'servertdjhipApp.LOAIHOPDONG.VAYLAI' | translate}}</option> -->
-                        <option value="BATHO">{{'servertdjhipApp.LOAIHOPDONG.BATHO' | translate}}</option>
-                        <!-- <option value="CAMDO">{{'servertdjhipApp.LOAIHOPDONG.CAMDO' | transgit add.late}}</option> -->
-                    </select>
-                    <!-- <div [hidden]="!(editForm.controls.loaihopdong?.dirty && editForm.controls.loaihopdong?.invalid)">
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.loaihopdong?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </div> -->
-                </div>
-                <!-- <div class="form-group">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ngaytao" for="field_ngaytao">Ngaytao</label>
-                <div class="d-flex">
-                    <input id="field_ngaytao" type="datetime-local" class="form-control" name="ngaytao" required/>
-                </div>
-                <div [hidden]="!(editForm.controls.ngaytao?.dirty && editForm.controls.ngaytao?.invalid)">
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.ngaytao?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.ngaytao?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                            This field should be a date and time.
-                        </small>
-                    </div>
-            </div> -->
-
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.khachHang" for="field_khachHang">Khach Hang</label>
-                    <select class="form-control" id="field_khachHang" name="khachHang">
-                        <!-- <option [ngValue]="null"></option>
-                        <option [ngValue]="khachHangOption.id" *ngFor="let khachHangOption of khachhangs; trackBy: trackKhachHangById">{{khachHangOption.id}}</option> -->
-                    </select>
-                </div>
-            </div>
             <!-- <div class="form-group" [hidden]="!batHo.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="batHo.id" readonly />
         </div> -->
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
-                    <input type="number" class="form-control" name="tienduakhach" id="field_tienduakhach" required/>
-                    <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.number" jhiTranslate="entity.validation.number">
-                        This field should be a number.
-                    </small>
-                </div> -->
-                </div>
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
-                    <input type="number" class="form-control" name="tongtien" id="field_tongtien" required/>
-                    <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.number" jhiTranslate="entity.validation.number">
-                        This field should be a number.
-                    </small>
-                </div> -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
-                    <input type="number" class="form-control" name="tongsongay" id="field_tongsongay" required/>
-                    <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.number" jhiTranslate="entity.validation.number">
-                        This field should be a number.
-                    </small>
-                </div> -->
-                </div>
-                <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
-                    <input type="number" class="form-control" name="chuky" id="field_chuky" required/>
-                    <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.number" jhiTranslate="entity.validation.number">
-                        This field should be a number.
-                    </small>
-                </div> -->
-                </div>
-            </div>
+
+
             <!-- <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
                 <span class="fa fa-ban"></span>&nbsp;
