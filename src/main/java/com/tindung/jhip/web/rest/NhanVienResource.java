@@ -67,11 +67,6 @@ public class NhanVienResource {
         if (nhanVienDTO.getId() != null) {
             throw new BadRequestAlertException("A new nhanVien cannot already have an ID", ENTITY_NAME, "idexists");
         }
-//        Optional<User> userWithAuthoritiesByLogin = userService.getUserWithAuthoritiesByLogin(currentUser);
-//        User user = userWithAuthoritiesByLogin.get();
-//        ArrayList<Authority> authoritys = new ArrayList<>();
-//        authoritys.add(new Authority(AuthoritiesConstants.ADMIN));
-//        authoritys.add(new Authority(AuthoritiesConstants.STOREADMIN));
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
             if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {//neu ko phai admin thi lay cua hang hien tai
                 String currentUser = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));

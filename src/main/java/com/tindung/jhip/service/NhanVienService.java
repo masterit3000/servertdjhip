@@ -16,7 +16,7 @@ public interface NhanVienService {
      * @return the persisted entity
      */
     NhanVienDTO save(NhanVienDTO nhanVienDTO);
-    
+
     /**
      * Get all the nhanViens.
      *
@@ -38,5 +38,8 @@ public interface NhanVienService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
     NhanVienDTO findByUserLogin(User user);
+
+    NhanVienDTO findByUserLogin(String user);
 }

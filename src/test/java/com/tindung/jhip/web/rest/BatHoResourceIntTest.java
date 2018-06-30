@@ -5,6 +5,8 @@ import com.tindung.jhip.ServertdjhipApp;
 import com.tindung.jhip.domain.BatHo;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.service.BatHoService;
+import com.tindung.jhip.service.NhanVienService;
+import com.tindung.jhip.service.UserService;
 import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.mapper.BatHoMapper;
 import com.tindung.jhip.web.rest.errors.ExceptionTranslator;
@@ -61,7 +63,10 @@ public class BatHoResourceIntTest {
 
     @Autowired
     private BatHoService batHoService;
-
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private NhanVienService nhanVienService;
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
@@ -81,12 +86,12 @@ public class BatHoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final BatHoResource batHoResource = new BatHoResource(batHoService);
+        final BatHoResource batHoResource = new BatHoResource(batHoService,userService, nhanVienService);
         this.restBatHoMockMvc = MockMvcBuilders.standaloneSetup(batHoResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+                .setCustomArgumentResolvers(pageableArgumentResolver)
+                .setControllerAdvice(exceptionTranslator)
+                .setConversionService(createFormattingConversionService())
+                .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -97,10 +102,10 @@ public class BatHoResourceIntTest {
      */
     public static BatHo createEntity(EntityManager em) {
         BatHo batHo = new BatHo()
-            .tienduakhach(DEFAULT_TIENDUAKHACH)
-            .tongtien(DEFAULT_TONGTIEN)
-            .tongsongay(DEFAULT_TONGSONGAY)
-            .chuky(DEFAULT_CHUKY);
+                .tienduakhach(DEFAULT_TIENDUAKHACH)
+                .tongtien(DEFAULT_TONGTIEN)
+                .tongsongay(DEFAULT_TONGSONGAY)
+                .chuky(DEFAULT_CHUKY);
         return batHo;
     }
 
@@ -117,9 +122,9 @@ public class BatHoResourceIntTest {
         // Create the BatHo
         BatHoDTO batHoDTO = batHoMapper.toDto(batHo);
         restBatHoMockMvc.perform(post("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isCreated());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the BatHo in the database
         List<BatHo> batHoList = batHoRepository.findAll();
@@ -142,9 +147,9 @@ public class BatHoResourceIntTest {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBatHoMockMvc.perform(post("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the BatHo in the database
         List<BatHo> batHoList = batHoRepository.findAll();
@@ -162,9 +167,9 @@ public class BatHoResourceIntTest {
         BatHoDTO batHoDTO = batHoMapper.toDto(batHo);
 
         restBatHoMockMvc.perform(post("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isBadRequest());
 
         List<BatHo> batHoList = batHoRepository.findAll();
         assertThat(batHoList).hasSize(databaseSizeBeforeTest);
@@ -181,9 +186,9 @@ public class BatHoResourceIntTest {
         BatHoDTO batHoDTO = batHoMapper.toDto(batHo);
 
         restBatHoMockMvc.perform(post("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isBadRequest());
 
         List<BatHo> batHoList = batHoRepository.findAll();
         assertThat(batHoList).hasSize(databaseSizeBeforeTest);
@@ -200,9 +205,9 @@ public class BatHoResourceIntTest {
         BatHoDTO batHoDTO = batHoMapper.toDto(batHo);
 
         restBatHoMockMvc.perform(post("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isBadRequest());
 
         List<BatHo> batHoList = batHoRepository.findAll();
         assertThat(batHoList).hasSize(databaseSizeBeforeTest);
@@ -219,9 +224,9 @@ public class BatHoResourceIntTest {
         BatHoDTO batHoDTO = batHoMapper.toDto(batHo);
 
         restBatHoMockMvc.perform(post("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isBadRequest());
 
         List<BatHo> batHoList = batHoRepository.findAll();
         assertThat(batHoList).hasSize(databaseSizeBeforeTest);
@@ -235,13 +240,13 @@ public class BatHoResourceIntTest {
 
         // Get all the batHoList
         restBatHoMockMvc.perform(get("/api/bat-hos?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(batHo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tienduakhach").value(hasItem(DEFAULT_TIENDUAKHACH.doubleValue())))
-            .andExpect(jsonPath("$.[*].tongtien").value(hasItem(DEFAULT_TONGTIEN.doubleValue())))
-            .andExpect(jsonPath("$.[*].tongsongay").value(hasItem(DEFAULT_TONGSONGAY)))
-            .andExpect(jsonPath("$.[*].chuky").value(hasItem(DEFAULT_CHUKY)));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(batHo.getId().intValue())))
+                .andExpect(jsonPath("$.[*].tienduakhach").value(hasItem(DEFAULT_TIENDUAKHACH.doubleValue())))
+                .andExpect(jsonPath("$.[*].tongtien").value(hasItem(DEFAULT_TONGTIEN.doubleValue())))
+                .andExpect(jsonPath("$.[*].tongsongay").value(hasItem(DEFAULT_TONGSONGAY)))
+                .andExpect(jsonPath("$.[*].chuky").value(hasItem(DEFAULT_CHUKY)));
     }
 
     @Test
@@ -252,13 +257,13 @@ public class BatHoResourceIntTest {
 
         // Get the batHo
         restBatHoMockMvc.perform(get("/api/bat-hos/{id}", batHo.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(batHo.getId().intValue()))
-            .andExpect(jsonPath("$.tienduakhach").value(DEFAULT_TIENDUAKHACH.doubleValue()))
-            .andExpect(jsonPath("$.tongtien").value(DEFAULT_TONGTIEN.doubleValue()))
-            .andExpect(jsonPath("$.tongsongay").value(DEFAULT_TONGSONGAY))
-            .andExpect(jsonPath("$.chuky").value(DEFAULT_CHUKY));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id").value(batHo.getId().intValue()))
+                .andExpect(jsonPath("$.tienduakhach").value(DEFAULT_TIENDUAKHACH.doubleValue()))
+                .andExpect(jsonPath("$.tongtien").value(DEFAULT_TONGTIEN.doubleValue()))
+                .andExpect(jsonPath("$.tongsongay").value(DEFAULT_TONGSONGAY))
+                .andExpect(jsonPath("$.chuky").value(DEFAULT_CHUKY));
     }
 
     @Test
@@ -266,7 +271,7 @@ public class BatHoResourceIntTest {
     public void getNonExistingBatHo() throws Exception {
         // Get the batHo
         restBatHoMockMvc.perform(get("/api/bat-hos/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -281,16 +286,16 @@ public class BatHoResourceIntTest {
         // Disconnect from session so that the updates on updatedBatHo are not directly saved in db
         em.detach(updatedBatHo);
         updatedBatHo
-            .tienduakhach(UPDATED_TIENDUAKHACH)
-            .tongtien(UPDATED_TONGTIEN)
-            .tongsongay(UPDATED_TONGSONGAY)
-            .chuky(UPDATED_CHUKY);
+                .tienduakhach(UPDATED_TIENDUAKHACH)
+                .tongtien(UPDATED_TONGTIEN)
+                .tongsongay(UPDATED_TONGSONGAY)
+                .chuky(UPDATED_CHUKY);
         BatHoDTO batHoDTO = batHoMapper.toDto(updatedBatHo);
 
         restBatHoMockMvc.perform(put("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isOk());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isOk());
 
         // Validate the BatHo in the database
         List<BatHo> batHoList = batHoRepository.findAll();
@@ -312,9 +317,9 @@ public class BatHoResourceIntTest {
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restBatHoMockMvc.perform(put("/api/bat-hos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
-            .andExpect(status().isCreated());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(batHoDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the BatHo in the database
         List<BatHo> batHoList = batHoRepository.findAll();
@@ -330,8 +335,8 @@ public class BatHoResourceIntTest {
 
         // Get the batHo
         restBatHoMockMvc.perform(delete("/api/bat-hos/{id}", batHo.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
 
         // Validate the database is empty
         List<BatHo> batHoList = batHoRepository.findAll();
