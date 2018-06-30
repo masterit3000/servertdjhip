@@ -15,7 +15,7 @@ import org.springframework.data.repository.query.Param;
 @Repository
 public interface BatHoRepository extends JpaRepository<BatHo, Long> {
 
-    @Query(value = "select b from batHo b inner join hopHong h on b.hopdongbh = h.id inner join cuaHang c on h.cuaHang = c.id where c.id =:idcuahang")
+    @Query(value = "select b from BatHo b inner join b.hopdongbh h inner join h.cuaHang c where c.id =:idcuahang")
     public List<BatHo> findAllByCuaHang(@Param(value = "idcuahang") Long cuaHangId);
 
 //    public Optional<BatHo> findOneByCuaHang(Long id, Long cuaHangId);
