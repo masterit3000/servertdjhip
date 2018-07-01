@@ -5,8 +5,10 @@ import com.tindung.jhip.domain.BatHo;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.BatHoDTO;
+import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.BatHoMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
@@ -28,15 +30,17 @@ public class BatHoServiceImpl implements BatHoService {
 
     private final Logger log = LoggerFactory.getLogger(BatHoServiceImpl.class);
 
-    private final BatHoRepository batHoRepository;
-
     private final BatHoMapper batHoMapper;
+    private final BatHoRepository batHoRepository;
+    private final HopDongService hopDongService;
+
     private final NhanVienService nhanVienService;
 
-    public BatHoServiceImpl(BatHoRepository batHoRepository, BatHoMapper batHoMapper, NhanVienService nhanVienService) {
+    public BatHoServiceImpl(BatHoRepository batHoRepository, BatHoMapper batHoMapper, NhanVienService nhanVienService, HopDongService hopDongService) {
         this.batHoRepository = batHoRepository;
         this.batHoMapper = batHoMapper;
         this.nhanVienService = nhanVienService;
+        this.hopDongService = hopDongService;
     }
 
     /**
@@ -48,6 +52,12 @@ public class BatHoServiceImpl implements BatHoService {
     @Override
     public BatHoDTO save(BatHoDTO batHoDTO) {
         log.debug("Request to save BatHo : {}", batHoDTO);
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+        Long cuaHangId = nhanVien.getCuaHangId();
+        batHoDTO.getHopdong().setCuaHangId(cuaHangId);
+        HopDongDTO save = hopDongService.save(batHoDTO.getHopdong());
+        batHoDTO.setHopdong(save);
         BatHo batHo = batHoMapper.toEntity(batHoDTO);
         batHo = batHoRepository.save(batHo);
         return batHoMapper.toDto(batHo);
@@ -115,6 +125,18 @@ public class BatHoServiceImpl implements BatHoService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete BatHo : {}", id);
-        batHoRepository.delete(id);
+        if ((SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN))) {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+            Long cuaHangId = nhanVien.getCuaHangId();
+            BatHoDTO findOne = findOne(id);
+            if (findOne.getHopdong().getCuaHangId() == cuaHangId) {
+                batHoRepository.delete(id);
+                hopDongService.delete(findOne.getHopdong().getId());
+                return;
+            }
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 }

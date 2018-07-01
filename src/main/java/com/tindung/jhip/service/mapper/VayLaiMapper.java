@@ -11,10 +11,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {HopDongMapper.class})
 public interface VayLaiMapper extends EntityMapper<VayLaiDTO, VayLai> {
 
-    @Mapping(source = "hopdongvl.id", target = "hopdongvlId")
+    @Mapping(source = "hopdongvl", target = "hopdongvl")
     VayLaiDTO toDto(VayLai vayLai);
 
-    @Mapping(source = "hopdongvlId", target = "hopdongvl")
+    @Mapping(source = "hopdongvl", target = "hopdongvl")
     VayLai toEntity(VayLaiDTO vayLaiDTO);
 
     default VayLai fromId(Long id) {

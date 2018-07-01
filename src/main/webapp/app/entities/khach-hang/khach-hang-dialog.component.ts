@@ -38,10 +38,10 @@ export class KhachHangDialogComponent implements OnInit {
     ) {
         router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
             console.log(e);
-        //    this.activeModal .close();
-        //    this.router.navigate([{outlets: {modal: null}}]);
+            //    this.activeModal .close();
+            //    this.router.navigate([{outlets: {modal: null}}]);
 
-            
+
         });
 
 
@@ -61,6 +61,7 @@ export class KhachHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        console.log(this.khachHang);
         if (this.khachHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.khachHangService.update(this.khachHang));

@@ -93,12 +93,13 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ngayTao" for="field_ngayTao">Ngay Tao</label>
             <div class="d-flex">
-                <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="khachHang.ngayTao" />
+                    <p-calendar id="field_ngayTao" [(ngModel)]="khachHang.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ></p-calendar>
+                <!-- <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="khachHang.ngayTao" /> -->
             </div>
-        </div> -->
+        </div> 
         <!-- <div class="form-group">
             <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cuaHang" for="field_cuaHang">Cua Hang</label>
             <select class="form-control" id="field_cuaHang" name="cuaHang" [(ngModel)]="khachHang.cuaHangId">

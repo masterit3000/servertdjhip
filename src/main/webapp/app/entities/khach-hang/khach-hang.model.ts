@@ -16,7 +16,7 @@ export class KhachHang implements BaseEntity {
         public dienthoai?: string,
         public cmnd?: string,
         public trangthai?: TrangThaiKhachHang,
-        public ngayTao?: any,
+        public ngayTao?: Date,
         public email?: string,
         public facebook?: string,
         public ghiChu?: string,

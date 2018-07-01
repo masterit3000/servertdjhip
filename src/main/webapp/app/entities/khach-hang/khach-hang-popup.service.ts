@@ -31,8 +31,8 @@ export class KhachHangPopupService {
                 this.khachHangService.find(id)
                     .subscribe((khachHangResponse: HttpResponse<KhachHang>) => {
                         const khachHang: KhachHang = khachHangResponse.body;
-                        khachHang.ngayTao = this.datePipe
-                            .transform(khachHang.ngayTao, 'yyyy-MM-ddTHH:mm:ss');
+                        // khachHang.ngayTao = this.datePipe
+                        //     .transform(khachHang.ngayTao, 'yyyy-MM-ddTHH:mm:ss');
                         this.ngbModalRef = this.khachHangModalRef(component, khachHang);
                         resolve(this.ngbModalRef);
                     });
