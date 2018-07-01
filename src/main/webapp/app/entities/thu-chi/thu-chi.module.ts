@@ -14,6 +14,9 @@ import {
     thuChiRoute,
     thuChiPopupRoute,
 } from './';
+import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
+import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
+
 
 
 const ENTITY_STATES = [
@@ -33,6 +36,9 @@ const ENTITY_STATES = [
         ThuChiDeleteDialogComponent,
         ThuChiPopupComponent,
         ThuChiDeletePopupComponent,
+        ThuHoatDongComponent,
+        ChiHoatDongComponent,
+     
       
     ],
     entryComponents: [
