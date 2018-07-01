@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
                                     <input type="text" placeholder="VH-x / CD-x" class="form-control" name="mahopdong" id="field_mahopdong" required maxlength="20"
                                     />
@@ -26,19 +26,6 @@
                                                 This field cannot be longer than 20 characters.
                                             </small>
                                         </div> -->
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.loaihopdong" for="field_loaihopdong">Loaihopdong</label>
-                                    <select class="form-control" name="loaihopdong" id="field_loaihopdong" required>
-                                        <option value="VAYLAI">{{'servertdjhipApp.LOAIHOPDONG.VAYLAI' | translate}}</option>
-                                        <!-- <option value="BATHO">{{'servertdjhipApp.LOAIHOPDONG.BATHO' | translate}}</option> -->
-                                        <option value="CAMDO">{{'servertdjhipApp.LOAIHOPDONG.CAMDO' | translate}}</option>
-                                    </select>
-                                    <!-- <div [hidden]="!(editForm.controls.loaihopdong?.dirty && editForm.controls.loaihopdong?.invalid)">
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.loaihopdong?.errors?.required" jhiTranslate="entity.validation.required">
-                                            This field is required.
-                                        </small>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="row">
