@@ -74,7 +74,7 @@ export class KhachHangService {
     private convert(khachHang: KhachHang): KhachHang {
         const copy: KhachHang = Object.assign({}, khachHang);
 
-        copy.ngayTao = this.dateUtils.toDate(khachHang.ngayTao);
+        // copy.ngayTao = this.dateUtils.toDate(khachHang.ngayTao);
         return copy;
     }
     getKhachHang(query:any): Observable<KhachHang[]> {
