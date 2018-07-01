@@ -11,7 +11,7 @@ import { KhachHangPopupService } from './khach-hang-popup.service';
 import { KhachHangService } from './khach-hang.service';
 import { Xa, XaService } from '../xa';
 import { CuaHang, CuaHangService } from '../cua-hang';
-import { PlatformLocation } from '@angular/common';
+// import { PlatformLocation } from '@angular/common';
 
 @Component({
     selector: 'jhi-khach-hang-dialog',
@@ -33,16 +33,16 @@ export class KhachHangDialogComponent implements OnInit {
         private xaService: XaService,
         private cuaHangService: CuaHangService,
         private eventManager: JhiEventManager,
-        location: PlatformLocation,
+        // location: PlatformLocation,
         public router: Router
     ) {
-        router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
-            console.log(e);
-            //    this.activeModal .close();
-            //    this.router.navigate([{outlets: {modal: null}}]);
+        // router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
+        //     console.log(e);
+        //     //    this.activeModal .close();
+        //     //    this.router.navigate([{outlets: {modal: null}}]);
 
 
-        });
+        // });
 
 
     }
