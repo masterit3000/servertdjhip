@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {SelectButtonModule} from 'primeng/components/selectbutton/selectbutton';
-//  
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     KhachHangService,
@@ -31,7 +30,6 @@ const ENTITY_STATES = [
         ServertdjhipSharedModule,
         SelectButtonModule,
         AutoCompleteModule,
-        //   
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

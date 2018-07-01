@@ -27,6 +27,7 @@ import { BatHoChungTuComponent } from './bat-ho-chuc-nang/bat-ho-chung-tu/bat-ho
 import { FileUploadModule } from 'primeng/fileupload';
 import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
 import { BatHoKhachHangTableComponent } from './bat-ho-chuc-nang/bat-ho-khach-hang-table/bat-ho-khach-hang-table.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 const ENTITY_STATES = [
     ...batHoRoute,
@@ -40,7 +41,8 @@ const ENTITY_STATES = [
         TabViewModule,
         InputTextModule,
         InputTextareaModule,
-        FileUploadModule
+        FileUploadModule,
+        AutoCompleteModule
     ],
     declarations: [
         BatHoComponent,

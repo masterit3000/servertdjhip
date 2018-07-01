@@ -33,6 +33,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { VayLaiMoiComponent } from './vay-lai-chuc-nang/vay-lai-moi/vay-lai-moi.component';
 import { VayLaiKhachHangTableComponent } from './vay-lai-chuc-nang/vay-lai-khach-hang-table/vay-lai-khach-hang-table.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -48,7 +49,8 @@ const ENTITY_STATES = [
         CalendarModule,
         InputTextareaModule,
         FileUploadModule,
-        InputSwitchModule
+        InputSwitchModule,
+        AutoCompleteModule
     ],
     declarations: [
         VayLaiComponent,
