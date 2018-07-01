@@ -77,7 +77,7 @@ export class KhachHangDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: KhachHang) {
-        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK111' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }

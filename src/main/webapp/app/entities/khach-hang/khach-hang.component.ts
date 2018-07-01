@@ -52,7 +52,8 @@ export class KhachHangComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInKhachHangs() {
-        this.eventSubscriber = this.eventManager.subscribe('khachHangListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('khachHangListModification', (response) => {this.loadAll();console.log(response);
+        });
     }
 
     private onError(error) {
