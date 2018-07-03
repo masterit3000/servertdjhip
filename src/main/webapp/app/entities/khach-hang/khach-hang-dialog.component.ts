@@ -11,7 +11,7 @@ import { KhachHangPopupService } from './khach-hang-popup.service';
 import { KhachHangService } from './khach-hang.service';
 import { Xa, XaService } from '../xa';
 import { CuaHang, CuaHangService } from '../cua-hang';
-import { PlatformLocation } from '@angular/common';
+// import { PlatformLocation } from '@angular/common';
 
 @Component({
     selector: 'jhi-khach-hang-dialog',
@@ -33,16 +33,16 @@ export class KhachHangDialogComponent implements OnInit {
         private xaService: XaService,
         private cuaHangService: CuaHangService,
         private eventManager: JhiEventManager,
-        location: PlatformLocation,
+        // location: PlatformLocation,
         public router: Router
     ) {
-        router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
-            console.log(e);
-        //    this.activeModal .close();
-        //    this.router.navigate([{outlets: {modal: null}}]);
+        // router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
+        //     console.log(e);
+        //     //    this.activeModal .close();
+        //     //    this.router.navigate([{outlets: {modal: null}}]);
 
-            
-        });
+
+        // });
 
 
     }
@@ -61,6 +61,7 @@ export class KhachHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        console.log(this.khachHang);
         if (this.khachHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.khachHangService.update(this.khachHang));
@@ -76,7 +77,7 @@ export class KhachHangDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: KhachHang) {
-        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK' });
+        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK111' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }

@@ -46,17 +46,17 @@
                     <span jhiTranslate="global.menu.nhapTienQuyDauNgay">Nhập tiền quỹ đầu ngày</span>
                 </a>
             </div>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="thu-chi" (click)="activeMenuId = null">
+            <a id="thu-chi-menu" #menuthuchi [class.active-menuitem]="menuthuchi.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuthuchi.id ? null : menuthuchi.id)">
                 <span jhiTranslate="global.menu.quanLyThuChi">Quản lý thu chi</span>
             </a>
-            <!-- <div [ngClass]="{submenushow: (menuthuchi.id == activeMenuId), 'submenuhide': (menuthuchi.id != activeMenuId)}">
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+            <div [ngClass]="{submenushow: (menuthuchi.id == activeMenuId), 'submenuhide': (menuthuchi.id != activeMenuId)}">
+                <a routerLink="thuHoatDong" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.thuHoatDong">Thu hoạt động</span>
                 </a>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                <a routerLink="chiHoatDong" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <span jhiTranslate="global.menu.chiHoatDong">Chi hoạt động</span>
                 </a>
-            </div> -->
+            </div>
             <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/" (click)="activeMenuId = null">
                 <span jhiTranslate="global.menu.quanLyNguonVon">Quản lý nguồn vốn</span>
             </a>

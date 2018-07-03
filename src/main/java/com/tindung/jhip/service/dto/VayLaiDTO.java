@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -36,7 +35,7 @@ public class VayLaiDTO implements Serializable {
 
     private Boolean thulaitruoc;
 
-    private Long hopdongvlId;
+    private HopDongDTO hopdongvl;
 
     public Long getId() {
         return id;
@@ -102,14 +101,19 @@ public class VayLaiDTO implements Serializable {
         this.thulaitruoc = thulaitruoc;
     }
 
-    public Long getHopdongvlId() {
-        return hopdongvlId;
+    public HopDongDTO getHopdongvl() {
+        return hopdongvl;
     }
 
-    public void setHopdongvlId(Long hopDongId) {
-        this.hopdongvlId = hopDongId;
+    public void setHopdongvl(HopDongDTO hopdongvl) {
+        this.hopdongvl = hopdongvl;
     }
 
+    public Boolean getThulaitruoc() {
+        return thulaitruoc;
+    }
+
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -120,7 +124,7 @@ public class VayLaiDTO implements Serializable {
         }
 
         VayLaiDTO vayLaiDTO = (VayLaiDTO) o;
-        if(vayLaiDTO.getId() == null || getId() == null) {
+        if (vayLaiDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), vayLaiDTO.getId());
@@ -133,15 +137,15 @@ public class VayLaiDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "VayLaiDTO{" +
-            "id=" + getId() +
-            ", tienvay=" + getTienvay() +
-            ", hinhthuclai='" + getHinhthuclai() + "'" +
-            ", thoigianvay=" + getThoigianvay() +
-            ", chukylai=" + getChukylai() +
-            ", lai=" + getLai() +
-            ", cachtinhlai='" + getCachtinhlai() + "'" +
-            ", thulaitruoc='" + isThulaitruoc() + "'" +
-            "}";
+        return "VayLaiDTO{"
+                + "id=" + getId()
+                + ", tienvay=" + getTienvay()
+                + ", hinhthuclai='" + getHinhthuclai() + "'"
+                + ", thoigianvay=" + getThoigianvay()
+                + ", chukylai=" + getChukylai()
+                + ", lai=" + getLai()
+                + ", cachtinhlai='" + getCachtinhlai() + "'"
+                + ", thulaitruoc='" + isThulaitruoc() + "'"
+                + "}";
     }
 }

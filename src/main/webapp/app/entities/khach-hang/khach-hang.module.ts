@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {SelectButtonModule} from 'primeng/components/selectbutton/selectbutton';
+//  
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     KhachHangService,
@@ -15,10 +16,14 @@ import {
     khachHangRoute,
     khachHangPopupRoute,
     
+    
 } from './';
 import { CheckThongTinKhachHangComponent } from './check-thong-tin-khach-hang/check-thong-tin-khach-hang.component';
 import { KhachCanVayComponent } from './khach-can-vay/khach-can-vay.component';
 
+import {CalendarModule} from 'primeng/calendar';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+//2 module nay phai cho vao de co hieu ugn day du
 
 const ENTITY_STATES = [
     ...khachHangRoute,
@@ -30,7 +35,11 @@ const ENTITY_STATES = [
         ServertdjhipSharedModule,
         SelectButtonModule,
         AutoCompleteModule,
-        RouterModule.forChild(ENTITY_STATES)
+        //   
+        RouterModule.forChild(ENTITY_STATES),
+        CalendarModule,
+        BrowserAnimationsModule,
+        NoopAnimationsModule
     ],
     declarations: [
         KhachHangComponent,
