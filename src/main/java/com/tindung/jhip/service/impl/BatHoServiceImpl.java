@@ -12,7 +12,6 @@ import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.BatHoMapper;
-import com.tindung.jhip.service.util.UserCuaHangUtil;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

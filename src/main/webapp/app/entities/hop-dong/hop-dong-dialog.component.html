@@ -44,7 +44,7 @@
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ngaytao" for="field_ngaytao">Ngaytao</label>
                 <div class="d-flex">
-                        <p-calendar  id="field_ngayTao" [(ngModel)]="hopDong.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ></p-calendar>
+                        <p-calendar  id="field_ngayTao" [(ngModel)]="hopDong.ngaytao" dateFormat="dd.mm.yy" name="ngayTao" ></p-calendar>
                     <!-- <input id="field_ngaytao" type="datetime-local" class="form-control" name="ngaytao" [(ngModel)]="hopDong.ngaytao" required/> -->
                 </div>
                 <div [hidden]="!(editForm.controls.ngaytao?.dirty && editForm.controls.ngaytao?.invalid)">
