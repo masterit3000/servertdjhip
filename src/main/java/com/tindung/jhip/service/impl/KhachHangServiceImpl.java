@@ -3,6 +3,7 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.domain.KhachHang;
 import com.tindung.jhip.repository.KhachHangRepository;
+import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.dto.KhachHangDTO;
 import com.tindung.jhip.service.mapper.KhachHangMapper;
 import org.slf4j.Logger;
@@ -20,16 +21,18 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class KhachHangServiceImpl implements KhachHangService {
-
+    
     private final Logger log = LoggerFactory.getLogger(KhachHangServiceImpl.class);
-
+    
     private final KhachHangRepository khachHangRepository;
-
+    
     private final KhachHangMapper khachHangMapper;
-
-    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper) {
+    private final CuaHangService cuaHangService;
+    
+    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService) {
         this.khachHangRepository = khachHangRepository;
         this.khachHangMapper = khachHangMapper;
+        this.cuaHangService = cuaHangService;
     }
 
     /**
@@ -41,6 +44,8 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHangDTO save(KhachHangDTO khachHangDTO) {
         log.debug("Request to save KhachHang : {}", khachHangDTO);
+        Long idCuaHang = cuaHangService.findIDByUserLogin();
+        khachHangDTO.setCuaHangId(idCuaHang);
         KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
         khachHang = khachHangRepository.save(khachHang);
         return khachHangMapper.toDto(khachHang);
@@ -56,8 +61,8 @@ public class KhachHangServiceImpl implements KhachHangService {
     public List<KhachHangDTO> findAll() {
         log.debug("Request to get all KhachHangs");
         return khachHangRepository.findAll().stream()
-            .map(khachHangMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(khachHangMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

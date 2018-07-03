@@ -51,15 +51,23 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     trackId(index: number, item: KhachHang) {
         return item.id;
     }
+
     registerChangeInKhachHangs() {
-        this.eventSubscriber = this.eventManager.subscribe('khachHangListModification', (response) => {this.loadAll();console.log(response);
-        });
+
+        this.eventSubscriber = this.eventManager //lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
+            .subscribe('khachHangListModification', (response) => {//đăng ký lắng nghe sự kiện có tên khachHangListModification
+                //khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
+                this.loadAll(); //load lại data
+                console.log(response);//in ra xem sự kiện nổ ra truyền vào cái j
+            });
+
     }
+
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-    
+
     filterKhachHangs(event: any) {
         const query = event.query;
         console.log(query);

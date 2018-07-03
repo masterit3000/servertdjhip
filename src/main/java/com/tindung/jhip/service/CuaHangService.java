@@ -32,6 +32,20 @@ public interface CuaHangService {
     CuaHangDTO findOne(Long id);
 
     /**
+     *
+     * @param user
+     * @return
+     */
+    CuaHangDTO findByUserLogin();
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    Long findIDByUserLogin();
+
+    /**
      * Delete the "id" cuaHang.
      *
      * @param id the id of the entity

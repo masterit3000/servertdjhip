@@ -3,8 +3,12 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.domain.CuaHang;
 import com.tindung.jhip.repository.CuaHangRepository;
+import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.CuaHangDTO;
+import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.CuaHangMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,9 +31,12 @@ public class CuaHangServiceImpl implements CuaHangService {
 
     private final CuaHangMapper cuaHangMapper;
 
-    public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper) {
+    private final NhanVienService nhanVienService;
+
+    public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService) {
         this.cuaHangRepository = cuaHangRepository;
         this.cuaHangMapper = cuaHangMapper;
+        this.nhanVienService = nhanVienService;
     }
 
     /**
@@ -56,8 +63,8 @@ public class CuaHangServiceImpl implements CuaHangService {
     public List<CuaHangDTO> findAll() {
         log.debug("Request to get all CuaHangs");
         return cuaHangRepository.findAll().stream()
-            .map(cuaHangMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(cuaHangMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -83,5 +90,19 @@ public class CuaHangServiceImpl implements CuaHangService {
     public void delete(Long id) {
         log.debug("Request to delete CuaHang : {}", id);
         cuaHangRepository.delete(id);
+    }
+
+    @Override
+    public CuaHangDTO findByUserLogin() {
+
+        return findOne(findIDByUserLogin());
+    }
+
+    @Override
+    public Long findIDByUserLogin() {
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+        Long cuaHangId = nhanVien.getCuaHangId();
+        return cuaHangId;
     }
 }
