@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {SelectButtonModule} from 'primeng/components/selectbutton/selectbutton';
 import { ServertdjhipSharedModule } from '../../shared';
+import{CalendarModule} from 'primeng/calendar';
 import {
     CuaHangService,
     CuaHangPopupService,
@@ -30,6 +31,7 @@ const ENTITY_STATES = [
         ServertdjhipSharedModule,
         AutoCompleteModule,
         SelectButtonModule,
+        CalendarModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import{CalendarModule} from 'primeng/calendar';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     LichSuDongTienService,
@@ -23,6 +23,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
+        CalendarModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
