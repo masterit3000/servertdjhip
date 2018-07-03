@@ -6,10 +6,10 @@
     <!-- <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000" id="layout-sidebar"> -->
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="bat-ho">
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="bat-ho" (click)="activeMenuId = null">
                 <span jhiTranslate="global.menu.batHo">Bát họ</span>
             </a>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="vay-lai">
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="vay-lai" (click)="activeMenuId = null">
                 <span jhiTranslate="global.menu.vayLai">Vay lãi</span>
             </a>
             <a id="khach-hang-menu" #menukhachhang [class.active-menuitem]="menukhachhang.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menukhachhang.id ? null : menukhachhang.id)">
@@ -57,7 +57,7 @@
                     <span jhiTranslate="global.menu.chiHoatDong">Chi hoạt động</span>
                 </a>
             </div>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/" (click)="activeMenuId = null">
                 <span jhiTranslate="global.menu.quanLyNguonVon">Quản lý nguồn vốn</span>
             </a>
             <a id="nhan-vien-menu" #menunhanvien [class.active-menuitem]="menunhanvien.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menunhanvien.id ? null : menunhanvien.id)">
