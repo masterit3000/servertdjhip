@@ -16,10 +16,20 @@ import { BanGiaoCaComponent } from './ban-giao-ca/ban-giao-ca.component';
 import { DongTienTheoNgayComponent } from './dong-tien-theo-ngay/dong-tien-theo-ngay.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BaoCaoRoutingModule
-  ],
-  declarations: [SoQuyTienMatComponent, TongKetGiaoDichComponent, TongKetLoiNhuanComponent, ChiTietTienLaiComponent, BaoCaoDangChoVayComponent, BaoCaoHangChoThanhLyComponent, BaoCaoChuocDoDongHopDongComponent, BaoCaoThanhLyDoComponent, BaoCaoHopDongDaXoaComponent, BaoCaoTinNhanComponent, BanGiaoCaComponent, DongTienTheoNgayComponent]
+    imports: [CommonModule, BaoCaoRoutingModule],
+    declarations: [
+        SoQuyTienMatComponent,
+        TongKetGiaoDichComponent,
+        TongKetLoiNhuanComponent,
+        ChiTietTienLaiComponent,
+        BaoCaoDangChoVayComponent,
+        BaoCaoHangChoThanhLyComponent,
+        BaoCaoChuocDoDongHopDongComponent,
+        BaoCaoThanhLyDoComponent,
+        BaoCaoHopDongDaXoaComponent,
+        BaoCaoTinNhanComponent,
+        BanGiaoCaComponent,
+        DongTienTheoNgayComponent
+    ]
 })
-export class BaoCaoModule { }
+export class BaoCaoModule {}

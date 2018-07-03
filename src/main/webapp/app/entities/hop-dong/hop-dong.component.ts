@@ -12,20 +12,19 @@ import { Principal } from '../../shared';
     templateUrl: './hop-dong.component.html'
 })
 export class HopDongComponent implements OnInit, OnDestroy {
-hopDongs: HopDong[];
+    hopDongs: HopDong[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredHopDongs: HopDong[];
     none: any;
-    hopDong:any;
+    hopDong: any;
 
     constructor(
         private hopDongService: HopDongService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.hopDongService.query().subscribe(
@@ -37,7 +36,7 @@ hopDongs: HopDong[];
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInHopDongs();
@@ -51,7 +50,10 @@ hopDongs: HopDong[];
         return item.id;
     }
     registerChangeInHopDongs() {
-        this.eventSubscriber = this.eventManager.subscribe('hopDongListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'hopDongListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {

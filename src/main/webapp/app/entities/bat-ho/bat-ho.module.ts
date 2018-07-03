@@ -29,10 +29,7 @@ import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.comp
 import { BatHoKhachHangTableComponent } from './bat-ho-chuc-nang/bat-ho-khach-hang-table/bat-ho-khach-hang-table.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
-const ENTITY_STATES = [
-    ...batHoRoute,
-    ...batHoPopupRoute,
-];
+const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
 @NgModule({
     imports: [
@@ -68,10 +65,7 @@ const ENTITY_STATES = [
         BatHoDeleteDialogComponent,
         BatHoDeletePopupComponent
     ],
-    providers: [
-        BatHoService,
-        BatHoPopupService,
-    ],
+    providers: [BatHoService, BatHoPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ServertdjhipBatHoModule { }
+export class ServertdjhipBatHoModule {}

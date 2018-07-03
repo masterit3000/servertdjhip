@@ -17,7 +17,6 @@ import { PlatformLocation } from '@angular/common';
     templateUrl: './anh-khach-hang-dialog.component.html'
 })
 export class AnhKhachHangDialogComponent implements OnInit {
-
     anhKhachHang: AnhKhachHang;
     isSaving: boolean;
 
@@ -32,18 +31,18 @@ export class AnhKhachHangDialogComponent implements OnInit {
         location: PlatformLocation
     ) {
         location.onPopState(() => {
-
             console.log('pressed back!');
 
             // example for a simple check if modal is opened
             if (this.activeModal !== undefined) {
-                console.log('modal is opened - cancel default browser event and close modal');
+                console.log(
+                    'modal is opened - cancel default browser event and close modal'
+                );
                 // TODO: cancel the default event
 
                 // close modal
                 this.activeModal.close();
-            }
-            else {
+            } else {
                 console.log('modal is not opened - default browser event');
             }
         });
@@ -51,8 +50,12 @@ export class AnhKhachHangDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.khachHangService.query()
-            .subscribe((res: HttpResponse<KhachHang[]>) => { this.khachhangs = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.khachHangService.query().subscribe(
+            (res: HttpResponse<KhachHang[]>) => {
+                this.khachhangs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     clear() {
@@ -63,20 +66,29 @@ export class AnhKhachHangDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.anhKhachHang.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.anhKhachHangService.update(this.anhKhachHang));
+                this.anhKhachHangService.update(this.anhKhachHang)
+            );
         } else {
             this.subscribeToSaveResponse(
-                this.anhKhachHangService.create(this.anhKhachHang));
+                this.anhKhachHangService.create(this.anhKhachHang)
+            );
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<AnhKhachHang>>) {
-        result.subscribe((res: HttpResponse<AnhKhachHang>) =>
-            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    private subscribeToSaveResponse(
+        result: Observable<HttpResponse<AnhKhachHang>>
+    ) {
+        result.subscribe(
+            (res: HttpResponse<AnhKhachHang>) => this.onSaveSuccess(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
     }
 
     private onSaveSuccess(result: AnhKhachHang) {
-        this.eventManager.broadcast({ name: 'anhKhachHangListModification', content: 'OK' });
+        this.eventManager.broadcast({
+            name: 'anhKhachHangListModification',
+            content: 'OK'
+        });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -99,25 +111,24 @@ export class AnhKhachHangDialogComponent implements OnInit {
     template: ''
 })
 export class AnhKhachHangPopupComponent implements OnInit, OnDestroy {
-
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
         private anhKhachHangPopupService: AnhKhachHangPopupService
-    ) {
-
-        
-    }
+    ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
+        this.routeSub = this.route.params.subscribe(params => {
             if (params['id']) {
-                this.anhKhachHangPopupService
-                    .open(AnhKhachHangDialogComponent as Component, params['id']);
+                this.anhKhachHangPopupService.open(
+                    AnhKhachHangDialogComponent as Component,
+                    params['id']
+                );
             } else {
-                this.anhKhachHangPopupService
-                    .open(AnhKhachHangDialogComponent as Component);
+                this.anhKhachHangPopupService.open(
+                    AnhKhachHangDialogComponent as Component
+                );
             }
         });
     }

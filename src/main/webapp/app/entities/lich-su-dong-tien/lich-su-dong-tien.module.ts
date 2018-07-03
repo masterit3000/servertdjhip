@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import{CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     LichSuDongTienService,
@@ -12,13 +12,10 @@ import {
     LichSuDongTienDeletePopupComponent,
     LichSuDongTienDeleteDialogComponent,
     lichSuDongTienRoute,
-    lichSuDongTienPopupRoute,
+    lichSuDongTienPopupRoute
 } from './';
 
-const ENTITY_STATES = [
-    ...lichSuDongTienRoute,
-    ...lichSuDongTienPopupRoute,
-];
+const ENTITY_STATES = [...lichSuDongTienRoute, ...lichSuDongTienPopupRoute];
 
 @NgModule({
     imports: [
@@ -32,19 +29,16 @@ const ENTITY_STATES = [
         LichSuDongTienDialogComponent,
         LichSuDongTienDeleteDialogComponent,
         LichSuDongTienPopupComponent,
-        LichSuDongTienDeletePopupComponent,
+        LichSuDongTienDeletePopupComponent
     ],
     entryComponents: [
         LichSuDongTienComponent,
         LichSuDongTienDialogComponent,
         LichSuDongTienPopupComponent,
         LichSuDongTienDeleteDialogComponent,
-        LichSuDongTienDeletePopupComponent,
+        LichSuDongTienDeletePopupComponent
     ],
-    providers: [
-        LichSuDongTienService,
-        LichSuDongTienPopupService,
-    ],
+    providers: [LichSuDongTienService, LichSuDongTienPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ServertdjhipLichSuDongTienModule {}

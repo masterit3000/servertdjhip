@@ -8,9 +8,6 @@ import { KhachHangDeletePopupComponent } from './khach-hang-delete-dialog.compon
 import { CheckThongTinKhachHangComponent } from './check-thong-tin-khach-hang/check-thong-tin-khach-hang.component';
 import { KhachCanVayComponent } from './khach-can-vay/khach-can-vay.component';
 
-
-
-
 export const khachHangRoute: Routes = [
     {
         path: 'khach-hang',
@@ -20,7 +17,8 @@ export const khachHangRoute: Routes = [
             pageTitle: 'servertdjhipApp.khachHang.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    },
+    {
         path: 'khach-hang/:id',
         component: KhachHangDetailComponent,
         data: {
@@ -38,7 +36,7 @@ export const khachHangRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
-   
+
     {
         path: 'khachCanVay',
         component: KhachCanVayComponent,
@@ -47,9 +45,7 @@ export const khachHangRoute: Routes = [
             pageTitle: 'servertdjhipApp.khachHang.khachCanVay'
         },
         canActivate: [UserRouteAccessService]
-    },
-   
-
+    }
 ];
 
 export const khachHangPopupRoute: Routes = [

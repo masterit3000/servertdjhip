@@ -8,7 +8,6 @@ import { ThuChiDeletePopupComponent } from './thu-chi-delete-dialog.component';
 import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
 import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
 
-
 export const thuChiRoute: Routes = [
     {
         path: 'thu-chi',
@@ -18,7 +17,8 @@ export const thuChiRoute: Routes = [
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    },
+    {
         path: 'thu-chi/:id',
         component: ThuChiDetailComponent,
         data: {
@@ -45,7 +45,6 @@ export const thuChiRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     }
-    
 ];
 
 export const thuChiPopupRoute: Routes = [

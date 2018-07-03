@@ -25,8 +25,7 @@ export class KhachHangComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.khachHangService.query().subscribe(
@@ -38,7 +37,7 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInKhachHangs();
@@ -53,16 +52,14 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInKhachHangs() {
-
-        this.eventSubscriber = this.eventManager //lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
-            .subscribe('khachHangListModification', (response) => {//đăng ký lắng nghe sự kiện có tên khachHangListModification
-                //khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
-                this.loadAll(); //load lại data
-                console.log(response);//in ra xem sự kiện nổ ra truyền vào cái j
+        this.eventSubscriber = this.eventManager // lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
+            .subscribe('khachHangListModification', response => {
+                // đăng ký lắng nghe sự kiện có tên khachHangListModification
+                // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
+                this.loadAll(); // load lại data
+                console.log(response); // in ra xem sự kiện nổ ra truyền vào cái j
             });
-
     }
-
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
@@ -71,8 +68,10 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     filterKhachHangs(event: any) {
         const query = event.query;
         console.log(query);
-        this.khachHangService.getKhachHang(query).subscribe((khachHangs: any) => {
-            this.filteredKhachHangs = khachHangs;
-        });
+        this.khachHangService
+            .getKhachHang(query)
+            .subscribe((khachHangs: any) => {
+                this.filteredKhachHangs = khachHangs;
+            });
     }
 }
