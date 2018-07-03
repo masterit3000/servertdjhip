@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {SelectButtonModule} from 'primeng/components/selectbutton/selectbutton';
- 
+ import{CalendarModule} from 'primeng/calendar';
 import { ServertdjhipSharedModule } from '../../shared';
 import { ServertdjhipAdminModule } from '../../admin/admin.module';
 import {
@@ -30,6 +30,7 @@ const ENTITY_STATES = [
         ServertdjhipAdminModule,
         AutoCompleteModule,
         SelectButtonModule,
+        CalendarModule,
           
         RouterModule.forChild(ENTITY_STATES)
     ],
