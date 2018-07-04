@@ -1,4 +1,4 @@
-<form>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <div class="main-content">
         <div class="container-fluid">
             <div class="row">
@@ -102,61 +102,64 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <!--TODO: Scroll Panel PrimeNG-->
                                 <div class="col-md-12">
-                                    <table class="table table-striped table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.cmnd">CMND</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
-                                                </th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Nguyễn văn A</td>
-                                                <td>01234567890</td>
-                                                <td>Số A ngõ B phố C</td>
-                                                <td>01234567890</td>
-                                                <td>Hoạt động</td>
-                                                <td>
-                                                    <button class="btn btn-primary">Chọn</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nguyễn văn A</td>
-                                                <td>01234567890</td>
-                                                <td>Số A ngõ B phố C</td>
-                                                <td>01234567890</td>
-                                                <td>Hoạt động</td>
-                                                <td>
-                                                    <button class="btn btn-primary">Chọn</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nguyễn văn A</td>
-                                                <td>01234567890</td>
-                                                <td>Số A ngõ B phố C</td>
-                                                <td>01234567890</td>
-                                                <td>Hoạt động</td>
-                                                <td>
-                                                    <button class="btn btn-primary">Chọn</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <table class="table table-striped table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.cmnd">CMND</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                                                    </th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Nguyễn văn A</td>
+                                                    <td>01234567890</td>
+                                                    <td>Số A ngõ B phố C</td>
+                                                    <td>01234567890</td>
+                                                    <td>Hoạt động</td>
+                                                    <td>
+                                                        <button class="btn btn-primary">Chọn</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nguyễn văn A</td>
+                                                    <td>01234567890</td>
+                                                    <td>Số A ngõ B phố C</td>
+                                                    <td>01234567890</td>
+                                                    <td>Hoạt động</td>
+                                                    <td>
+                                                        <button class="btn btn-primary">Chọn</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nguyễn văn A</td>
+                                                    <td>01234567890</td>
+                                                    <td>Số A ngõ B phố C</td>
+                                                    <td>01234567890</td>
+                                                    <td>Hoạt động</td>
+                                                    <td>
+                                                        <button class="btn btn-primary">Chọn</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </p-scrollPanel>
                                 </div>
                             </div>
                         </div>
@@ -197,15 +200,41 @@
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>
         </div> -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <span class="fa fa-ban"></span>&nbsp;
-                    <span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;
-                    <span jhiTranslate="entity.action.save">Save</span>
-                </button>
+            <div class="row">
+                <!--TODO: thêm event onAfterToggle https://www.primefaces.org/primeng/#/fieldset-->
+                <div class="col-md-12">
+                    <p-fieldset [toggleable]="true" [collapsed]="true">
+                        <p-header>Lịch đóng tiền</p-header>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <th>In</th>
+                                <th>STT</th>
+                                <th>Ngày họ</th>
+                                <th>Tiền họ</th>
+                                <th>Ngày giao dịch</th>
+                                <th>Tiền khách trả</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7">
+                                        Demo data
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <span class="fa fa-ban"></span>&nbsp;
+                                <span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="fa fa-save"></span>&nbsp;
+                                <span jhiTranslate="entity.action.save">Save</span>
+                            </button>
+                        </div>
+                    </p-fieldset>
+                </div>
             </div>
         </div>
     </div>

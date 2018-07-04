@@ -34,6 +34,7 @@ import { VayLaiMoiComponent } from './vay-lai-chuc-nang/vay-lai-moi/vay-lai-moi.
 import { VayLaiKhachHangTableComponent } from './vay-lai-chuc-nang/vay-lai-khach-hang-table/vay-lai-khach-hang-table.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 const ENTITY_STATES = [
     ...vayLaiRoute,
@@ -50,7 +51,8 @@ const ENTITY_STATES = [
         InputTextareaModule,
         FileUploadModule,
         InputSwitchModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        ScrollPanelModule
     ],
     declarations: [
         VayLaiComponent,

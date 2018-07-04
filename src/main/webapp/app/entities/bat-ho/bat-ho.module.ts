@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     BatHoService,
@@ -28,6 +27,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
 import { BatHoKhachHangTableComponent } from './bat-ho-chuc-nang/bat-ho-khach-hang-table/bat-ho-khach-hang-table.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
@@ -39,7 +40,9 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         InputTextModule,
         InputTextareaModule,
         FileUploadModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        FieldsetModule,
+        ScrollPanelModule
     ],
     declarations: [
         BatHoComponent,
