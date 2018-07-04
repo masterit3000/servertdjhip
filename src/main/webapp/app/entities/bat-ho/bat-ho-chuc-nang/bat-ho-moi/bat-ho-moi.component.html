@@ -31,7 +31,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
-                                    <input type="number" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
                                                 <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
-                                    <input type="number" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
@@ -59,7 +59,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
-                                    <input type="number" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền" required/>
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền" required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
                                             This field is required.
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
-                                    <input type="number" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
@@ -134,7 +134,7 @@
                                                     <td>01234567890</td>
                                                     <td>Hoạt động</td>
                                                     <td>
-                                                        <button class="btn btn-primary">Chọn</button>
+                                                        <input type="radio" name="selectKhachHang">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -144,7 +144,7 @@
                                                     <td>01234567890</td>
                                                     <td>Hoạt động</td>
                                                     <td>
-                                                        <button class="btn btn-primary">Chọn</button>
+                                                        <input type="radio" name="selectKhachHang">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -154,7 +154,7 @@
                                                     <td>01234567890</td>
                                                     <td>Hoạt động</td>
                                                     <td>
-                                                        <button class="btn btn-primary">Chọn</button>
+                                                        <input type="radio" name="selectKhachHang">
                                                     </td>
                                                 </tr>
                                             </tbody>

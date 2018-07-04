@@ -29,6 +29,7 @@ import { BatHoKhachHangTableComponent } from './bat-ho-chuc-nang/bat-ho-khach-ha
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
@@ -42,7 +43,8 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         FileUploadModule,
         AutoCompleteModule,
         FieldsetModule,
-        ScrollPanelModule
+        ScrollPanelModule,
+        KeyFilterModule
     ],
     declarations: [
         BatHoComponent,
