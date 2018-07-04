@@ -68,31 +68,403 @@
     </button>
     <p-tabView>
         <p-tabPanel header="Đóng lãi">
-            <jhi-vay-lai-dong-lai></jhi-vay-lai-dong-lai>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Từ ngày:
+                                </td>
+                                <td>15/04/1999</td>
+                            </tr>
+                            <tr>
+                                <td>Đến ngày:</td>
+                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
+                                <td>
+                                    <p-calendar></p-calendar>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số ngày:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tiền lãi:</td>
+                                <td>999 vnđ</td>
+                            </tr>
+                            <tr>
+                                <td>Tiền khác:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tổng tiền lãi:</td>
+                                <td>999 vnđ</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center bolder-table-last">
+                                    <button class="btn btn-primary">Đóng lãi</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th colspan="3">Ngày</th>
+                            <th>Số ngày</th>
+                            <th>Tiền lãi</th>
+                            <th>Tiền khác</th>
+                            <th>Tổng lãi</th>
+                            <th>Tiền khách trả</th>
+                            <th></th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Trả bớt gốc">
-            <jhi-vay-lai-tra-bot-goc></jhi-vay-lai-tra-bot-goc>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2">Trả gốc</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ngày trả trước gốc:</td>
+                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
+                                <td>
+                                    <p-calendar></p-calendar>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số tiền trả trước:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ghi chú:</td>
+                                <td>
+                                    <span class="ui-float-label">
+                                        <textarea id="float-input" [rows]="1" [cols]="30" pInputTextarea></textarea>
+                                        <label for="float-input">Ghi chú</label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center bolder-table-last">
+                                    <button class="btn btn-primary">Đồng ý</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Danh sách tiền gốc</h3>
+                    <br />
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Nội dung</th>
+                            <th>Số tiền</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Vay thêm">
-            <jhi-vay-lai-vay-them></jhi-vay-lai-vay-them>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2">Vay thêm tiền</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ngày vay thêm gốc:</td>
+                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
+                                <td>
+                                    <p-calendar></p-calendar>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số tiền vay thêm:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ghi chú:</td>
+                                <td>
+                                    <span class="ui-float-label">
+                                        <textarea id="float-input" [rows]="1" [cols]="30" pInputTextarea></textarea>
+                                        <label for="float-input">Ghi chú</label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center bolder-table-last">
+                                    <button class="btn btn-primary">Đồng ý</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Danh sách tiền gốc</h3>
+                    <br />
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Nội dung</th>
+                            <th>Số tiền</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Gia hạn">
-            <jhi-vay-lai-gia-han></jhi-vay-lai-gia-han>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2">Gia hạn hợp đồng</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Khách hàng:</td>
+                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
+                                <td>
+                                    (DATA)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Gia hạn thêm:</td>
+                                <td>
+                                    <input type="number" pInputText> Ngày
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ghi chú:</td>
+                                <td>
+                                    <span class="ui-float-label">
+                                        <textarea id="float-input" [rows]="1" [cols]="30" pInputTextarea></textarea>
+                                        <label for="float-input">Ghi chú</label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center bolder-table-last">
+                                    <button class="btn btn-primary">Đồng ý</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Gia hạn từ ngày</th>
+                            <th>Đến ngày</th>
+                            <th>Số ngày</th>
+                            <th>Nội dung</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Đóng hợp đồng">
-            <jhi-vay-lai-dong-hop-dong></jhi-vay-lai-dong-hop-dong>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Ngày đóng HĐ: </td>
+                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
+                                <td>
+                                    <p-calendar></p-calendar>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tiền cầm: </td>
+                                <td>0 vnđ</td>
+                            </tr>
+                            <tr>
+                                <td>Nợ cũ: </td>
+                                <td>0 vnđ</td>
+                            </tr>
+                            <tr>
+                                <td>Tiền lãi: </td>
+                                <td>0 vnđ</td>
+                            </tr>
+                            <tr>
+                                <td>Tiền khác: </td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tổng tiền chuộc: </td>
+                                <td>0 vnđ</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center bolder-table-last">
+                                    <button class="btn btn-primary">Đóng HĐ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Nợ">
-            <jhi-vay-lai-no></jhi-vay-lai-no>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Số tiền nợ: </td>
+                                <td>
+                                    <input type="number" pInputText placeholder="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="bolder-table-last">
+                                    <button class="btn btn-primary float-right">Ghi nợ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Số tiền trả: </td>
+                                <td>
+                                    <input type="number" pInputText placeholder="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="bolder-table-last">
+                                    <button class="btn btn-primary float-right">Trả nợ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Lịch sử">
-            <jhi-vay-lai-lich-su></jhi-vay-lai-lich-su>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="ui-float-label">
+                        <textarea id="float-input" [rows]="5" [cols]="170" pInputTextarea></textarea>
+                        <label for="float-input">Ghi chú</label>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary float-right">Lưu</button>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Lịch sử nhắc nợ</h3>
+                    <br />
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Nhân viên</th>
+                            <th>Nội dung</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Lịch sử thao tác</h3>
+                    <br />
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Nhân viên</th>
+                            <th>Số tiền ghi nợ</th>
+                            <th>Số tiền ghi có</th>
+                            <th>Nội dung</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Lịch sử trả chậm">
-            <jhi-vay-lai-lich-su-tra-cham></jhi-vay-lai-lich-su-tra-cham>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>Hợp đồng</th>
+                            <th>Từ ngày</th>
+                            <th>Đến ngày</th>
+                            <th>Số ngày</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Chứng từ">
-            <jhi-vay-lai-chung-tu></jhi-vay-lai-chung-tu>
+            <div class="row">
+                <div class="col-md-12">
+                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+                </div>
+            </div>
         </p-tabPanel>
     </p-tabView>
 </div>

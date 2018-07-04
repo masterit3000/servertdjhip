@@ -41,9 +41,7 @@ export class KhachHangDialogComponent implements OnInit {
         //     //    this.activeModal .close();
         //     //    this.router.navigate([{outlets: {modal: null}}]);
 
-
         // });
-
 
     }
 
@@ -79,7 +77,7 @@ export class KhachHangDialogComponent implements OnInit {
     private onSaveSuccess(result: KhachHang) {
 
         this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK111' });
-        //cho xảy ra sự kiện khachHangListModification,
+        // cho xảy ra sự kiện khachHangListModification,
         // và truyền vào content 'ok111'' tương ứng, chỗ này truyền j vào cũng đc, cả 1 obj cũng đc
         this.isSaving = false;
         this.activeModal.dismiss(result);

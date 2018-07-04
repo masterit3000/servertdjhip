@@ -12,50 +12,62 @@ export type EntityResponseType = HttpResponse<NhanVien>;
 
 @Injectable()
 export class NhanVienService {
+    private resourceUrl = SERVER_API_URL + 'api/nhan-viens';
 
-    private resourceUrl =  SERVER_API_URL + 'api/nhan-viens';
-
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
 
     create(nhanVien: NhanVien): Observable<EntityResponseType> {
         const copy = this.convert(nhanVien);
-        return this.http.post<NhanVien>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .post<NhanVien>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     update(nhanVien: NhanVien): Observable<EntityResponseType> {
         const copy = this.convert(nhanVien);
-        return this.http.put<NhanVien>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .put<NhanVien>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<NhanVien>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http
+            .get<NhanVien>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<NhanVien[]>> {
         const options = createRequestOption(req);
-        return this.http.get<NhanVien[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<NhanVien[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<NhanVien[]>(this.resourceUrl, {
+                params: options,
+                observe: 'response'
+            })
+            .map((res: HttpResponse<NhanVien[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
+            observe: 'response'
+        });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: NhanVien = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
-    private convertArrayResponse(res: HttpResponse<NhanVien[]>): HttpResponse<NhanVien[]> {
+    private convertArrayResponse(
+        res: HttpResponse<NhanVien[]>
+    ): HttpResponse<NhanVien[]> {
         const jsonResponse: NhanVien[] = res.body;
         const body: NhanVien[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -63,8 +75,9 @@ export class NhanVienService {
      */
     private convertItemFromServer(nhanVien: NhanVien): NhanVien {
         const copy: NhanVien = Object.assign({}, nhanVien);
-        copy.ngayTao = this.dateUtils
-            .convertDateTimeFromServer(nhanVien.ngayTao);
+        copy.ngayTao = this.dateUtils.convertDateTimeFromServer(
+            nhanVien.ngayTao
+        );
         return copy;
     }
 
@@ -77,8 +90,9 @@ export class NhanVienService {
         copy.ngayTao = this.dateUtils.toDate(nhanVien.ngayTao);
         return copy;
     }
-    getNhanVien(query:any): Observable<NhanVien[]> {
-        return this.http.get('/api/nhan-viens')
-            .map((response) => response as NhanVien[]);
+    getNhanVien(query: any): Observable<NhanVien[]> {
+        return this.http
+            .get('/api/nhan-viens')
+            .map(response => response as NhanVien[]);
     }
 }

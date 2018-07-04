@@ -25,8 +25,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.cuaHangService.query().subscribe(
@@ -38,7 +37,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInCuaHangs();
@@ -52,7 +51,10 @@ export class CuaHangComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInCuaHangs() {
-        this.eventSubscriber = this.eventManager.subscribe('cuaHangListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'cuaHangListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {
@@ -61,7 +63,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     filterCuaHangs(event: any) {
         const query = event.query;
         console.log(query);
-        this.cuaHangService.getCuaHangs(query).subscribe((cuahangs:any) => {
+        this.cuaHangService.getCuaHangs(query).subscribe((cuahangs: any) => {
             this.filteredCuaHangs = this.filterCuaHang(query, cuahangs);
         });
     }

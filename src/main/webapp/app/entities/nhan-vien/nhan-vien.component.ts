@@ -12,19 +12,18 @@ import { Principal } from '../../shared';
     templateUrl: './nhan-vien.component.html'
 })
 export class NhanVienComponent implements OnInit, OnDestroy {
-nhanViens: NhanVien[];
+    nhanViens: NhanVien[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredNhanViens: NhanVien[];
     nhanVien: any;
-    none :any;
+    none: any;
     constructor(
         private nhanVienService: NhanVienService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.nhanVienService.query().subscribe(
@@ -36,7 +35,7 @@ nhanViens: NhanVien[];
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInNhanViens();
@@ -50,7 +49,10 @@ nhanViens: NhanVien[];
         return item.id;
     }
     registerChangeInNhanViens() {
-        this.eventSubscriber = this.eventManager.subscribe('nhanVienListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'nhanVienListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {

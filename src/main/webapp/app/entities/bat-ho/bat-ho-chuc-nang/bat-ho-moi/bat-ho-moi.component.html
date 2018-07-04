@@ -1,4 +1,4 @@
-<form>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <div class="main-content">
         <div class="container-fluid">
             <div class="row">
@@ -31,7 +31,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
-                                    <input type="number" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
                                                 <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
-                                    <input type="number" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
@@ -59,7 +59,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
-                                    <input type="number" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền" required/>
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền" required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
                                             This field is required.
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
-                                    <input type="number" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
@@ -102,26 +102,64 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <!--TODO: Scroll Panel PrimeNG-->
                                 <div class="col-md-12">
-                                    <table class="table table-striped table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
-                                                </th>
-                                                <th>
-                                                    <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
-                                                </th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                        <table class="table table-striped table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.cmnd">CMND</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                                                    </th>
+                                                    <th>
+                                                        <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                                                    </th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Nguyễn văn A</td>
+                                                    <td>01234567890</td>
+                                                    <td>Số A ngõ B phố C</td>
+                                                    <td>01234567890</td>
+                                                    <td>Hoạt động</td>
+                                                    <td>
+                                                        <input type="radio" name="selectKhachHang">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nguyễn văn A</td>
+                                                    <td>01234567890</td>
+                                                    <td>Số A ngõ B phố C</td>
+                                                    <td>01234567890</td>
+                                                    <td>Hoạt động</td>
+                                                    <td>
+                                                        <input type="radio" name="selectKhachHang">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nguyễn văn A</td>
+                                                    <td>01234567890</td>
+                                                    <td>Số A ngõ B phố C</td>
+                                                    <td>01234567890</td>
+                                                    <td>Hoạt động</td>
+                                                    <td>
+                                                        <input type="radio" name="selectKhachHang">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </p-scrollPanel>
                                 </div>
                             </div>
                         </div>
@@ -162,15 +200,41 @@
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>
         </div> -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <span class="fa fa-ban"></span>&nbsp;
-                    <span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;
-                    <span jhiTranslate="entity.action.save">Save</span>
-                </button>
+            <div class="row">
+                <!--TODO: thêm event onAfterToggle https://www.primefaces.org/primeng/#/fieldset-->
+                <div class="col-md-12">
+                    <p-fieldset [toggleable]="true" [collapsed]="true">
+                        <p-header>Lịch đóng tiền</p-header>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <th>In</th>
+                                <th>STT</th>
+                                <th>Ngày họ</th>
+                                <th>Tiền họ</th>
+                                <th>Ngày giao dịch</th>
+                                <th>Tiền khách trả</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7">
+                                        Demo data
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <span class="fa fa-ban"></span>&nbsp;
+                                <span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="fa fa-save"></span>&nbsp;
+                                <span jhiTranslate="entity.action.save">Save</span>
+                            </button>
+                        </div>
+                    </p-fieldset>
+                </div>
             </div>
         </div>
     </div>

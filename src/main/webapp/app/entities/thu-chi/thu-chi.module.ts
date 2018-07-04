@@ -12,23 +12,15 @@ import {
     ThuChiDeletePopupComponent,
     ThuChiDeleteDialogComponent,
     thuChiRoute,
-    thuChiPopupRoute,
+    thuChiPopupRoute
 } from './';
 import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
 import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
 
-
-
-const ENTITY_STATES = [
-    ...thuChiRoute,
-    ...thuChiPopupRoute,
-];
+const ENTITY_STATES = [...thuChiRoute, ...thuChiPopupRoute];
 
 @NgModule({
-    imports: [
-        ServertdjhipSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
+    imports: [ServertdjhipSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         ThuChiComponent,
         ThuChiDetailComponent,
@@ -37,21 +29,16 @@ const ENTITY_STATES = [
         ThuChiPopupComponent,
         ThuChiDeletePopupComponent,
         ThuHoatDongComponent,
-        ChiHoatDongComponent,
-     
-      
+        ChiHoatDongComponent
     ],
     entryComponents: [
         ThuChiComponent,
         ThuChiDialogComponent,
         ThuChiPopupComponent,
         ThuChiDeleteDialogComponent,
-        ThuChiDeletePopupComponent,
+        ThuChiDeletePopupComponent
     ],
-    providers: [
-        ThuChiService,
-        ThuChiPopupService,
-    ],
+    providers: [ThuChiService, ThuChiPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ServertdjhipThuChiModule {}

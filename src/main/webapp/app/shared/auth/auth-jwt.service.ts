@@ -13,18 +13,24 @@ export class AuthServerProvider {
     ) {}
 
     getToken() {
-
-        return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken');
+        return (
+            this.$localStorage.retrieve('authenticationToken') ||
+            this.$sessionStorage.retrieve('authenticationToken')
+        );
     }
 
     login(credentials): Observable<any> {
-        console.log('url backend: '+SERVER_API_URL);
+        console.log('url backend: ' + SERVER_API_URL);
         const data = {
             username: credentials.username,
             password: credentials.password,
             rememberMe: credentials.rememberMe
         };
-        return this.http.post(SERVER_API_URL + 'api/authenticate', data, {observe : 'response'}).map(authenticateSuccess.bind(this));
+        return this.http
+            .post(SERVER_API_URL + 'api/authenticate', data, {
+                observe: 'response'
+            })
+            .map(authenticateSuccess.bind(this));
 
         function authenticateSuccess(resp) {
             const bearerToken = resp.headers.get('Authorization');
@@ -54,8 +60,7 @@ export class AuthServerProvider {
     }
 
     logout(): Observable<any> {
-
-        return new Observable((observer) => {
+        return new Observable(observer => {
             this.$localStorage.clear('authenticationToken');
             this.$sessionStorage.clear('authenticationToken');
             observer.complete();

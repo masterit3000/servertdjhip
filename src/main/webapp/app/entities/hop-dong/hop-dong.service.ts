@@ -12,50 +12,62 @@ export type EntityResponseType = HttpResponse<HopDong>;
 
 @Injectable()
 export class HopDongService {
+    private resourceUrl = SERVER_API_URL + 'api/hop-dongs';
 
-    private resourceUrl =  SERVER_API_URL + 'api/hop-dongs';
-
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
 
     create(hopDong: HopDong): Observable<EntityResponseType> {
         const copy = this.convert(hopDong);
-        return this.http.post<HopDong>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .post<HopDong>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     update(hopDong: HopDong): Observable<EntityResponseType> {
         const copy = this.convert(hopDong);
-        return this.http.put<HopDong>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .put<HopDong>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<HopDong>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http
+            .get<HopDong>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<HopDong[]>> {
         const options = createRequestOption(req);
-        return this.http.get<HopDong[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<HopDong[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<HopDong[]>(this.resourceUrl, {
+                params: options,
+                observe: 'response'
+            })
+            .map((res: HttpResponse<HopDong[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
+            observe: 'response'
+        });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: HopDong = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
-    private convertArrayResponse(res: HttpResponse<HopDong[]>): HttpResponse<HopDong[]> {
+    private convertArrayResponse(
+        res: HttpResponse<HopDong[]>
+    ): HttpResponse<HopDong[]> {
         const jsonResponse: HopDong[] = res.body;
         const body: HopDong[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -63,8 +75,9 @@ export class HopDongService {
      */
     private convertItemFromServer(hopDong: HopDong): HopDong {
         const copy: HopDong = Object.assign({}, hopDong);
-        copy.ngaytao = this.dateUtils
-            .convertDateTimeFromServer(hopDong.ngaytao);
+        copy.ngaytao = this.dateUtils.convertDateTimeFromServer(
+            hopDong.ngaytao
+        );
         return copy;
     }
 
@@ -77,8 +90,9 @@ export class HopDongService {
         copy.ngaytao = this.dateUtils.toDate(hopDong.ngaytao);
         return copy;
     }
-    getHopDongs(query:any): Observable<HopDong[]> {
-        return this.http.get('/api/hop-dongs')
-            .map((response) => response as HopDong[]);
+    getHopDongs(query: any): Observable<HopDong[]> {
+        return this.http
+            .get('/api/hop-dongs')
+            .map(response => response as HopDong[]);
     }
 }

@@ -13,7 +13,6 @@ import {
     VayLaiDeleteDialogComponent,
     vayLaiRoute,
     vayLaiPopupRoute
-
 } from './';
 import { VayLaiChucNangComponent } from './vay-lai-chuc-nang/vay-lai-chuc-nang.component';
 import { TabViewModule } from 'primeng/tabview';
@@ -33,12 +32,11 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { VayLaiMoiComponent } from './vay-lai-chuc-nang/vay-lai-moi/vay-lai-moi.component';
 import { VayLaiKhachHangTableComponent } from './vay-lai-chuc-nang/vay-lai-khach-hang-table/vay-lai-khach-hang-table.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
-const ENTITY_STATES = [
-    ...vayLaiRoute,
-    ...vayLaiPopupRoute,
-];
+const ENTITY_STATES = [...vayLaiRoute, ...vayLaiPopupRoute];
 
 @NgModule({
     imports: [
@@ -50,7 +48,9 @@ const ENTITY_STATES = [
         InputTextareaModule,
         FileUploadModule,
         InputSwitchModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        ScrollPanelModule,
+        KeyFilterModule
     ],
     declarations: [
         VayLaiComponent,
@@ -71,7 +71,6 @@ const ENTITY_STATES = [
         VayLaiChungTuComponent,
         VayLaiMoiComponent,
         VayLaiKhachHangTableComponent
-
     ],
 
     entryComponents: [
@@ -79,12 +78,9 @@ const ENTITY_STATES = [
         VayLaiDialogComponent,
         VayLaiPopupComponent,
         VayLaiDeleteDialogComponent,
-        VayLaiDeletePopupComponent,
+        VayLaiDeletePopupComponent
     ],
-    providers: [
-        VayLaiService,
-        VayLaiPopupService,
-    ],
+    providers: [VayLaiService, VayLaiPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ServertdjhipVayLaiModule { }
+export class ServertdjhipVayLaiModule {}

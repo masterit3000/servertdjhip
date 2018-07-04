@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     BatHoService,
@@ -28,11 +27,11 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
 import { BatHoKhachHangTableComponent } from './bat-ho-chuc-nang/bat-ho-khach-hang-table/bat-ho-khach-hang-table.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
-const ENTITY_STATES = [
-    ...batHoRoute,
-    ...batHoPopupRoute,
-];
+const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
 @NgModule({
     imports: [
@@ -42,7 +41,10 @@ const ENTITY_STATES = [
         InputTextModule,
         InputTextareaModule,
         FileUploadModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        FieldsetModule,
+        ScrollPanelModule,
+        KeyFilterModule
     ],
     declarations: [
         BatHoComponent,
@@ -68,10 +70,7 @@ const ENTITY_STATES = [
         BatHoDeleteDialogComponent,
         BatHoDeletePopupComponent
     ],
-    providers: [
-        BatHoService,
-        BatHoPopupService,
-    ],
+    providers: [BatHoService, BatHoPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ServertdjhipBatHoModule { }
+export class ServertdjhipBatHoModule {}
