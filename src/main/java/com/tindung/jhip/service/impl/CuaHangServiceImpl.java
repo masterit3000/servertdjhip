@@ -101,7 +101,7 @@ public class CuaHangServiceImpl implements CuaHangService {
     @Override
     public Long findIDByUserLogin() {
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+        NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
         Long cuaHangId = nhanVien.getCuaHangId();
         return cuaHangId;
     }

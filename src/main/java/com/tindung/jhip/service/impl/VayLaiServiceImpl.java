@@ -56,8 +56,8 @@ public class VayLaiServiceImpl implements VayLaiService {
     @Override
     public VayLaiDTO save(VayLaiDTO vayLaiDTO) {
         log.debug("Request to save VayLai : {}", vayLaiDTO);
-        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+//        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
         Long cuaHangId = nhanVien.getCuaHangId();
         vayLaiDTO.getHopdongvl().setCuaHangId(cuaHangId);
         HopDongDTO save = hopDongService.save(vayLaiDTO.getHopdongvl());
@@ -76,14 +76,14 @@ public class VayLaiServiceImpl implements VayLaiService {
     @Transactional(readOnly = true)
     public List<VayLaiDTO> findAll() {
         log.debug("Request to get all VayLais");
-        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+//        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             LinkedList<VayLaiDTO> collect = vayLaiRepository.findAll().stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
         } else {
-            NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+            NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
             Long cuaHangId = nhanVien.getCuaHangId();
             LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByCuaHang(cuaHangId).stream()
                     .map(vayLaiMapper::toDto)
@@ -119,8 +119,8 @@ public class VayLaiServiceImpl implements VayLaiService {
     public void delete(Long id) {
         log.debug("Request to delete VayLai : {}", id);
         if ((SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN))) {
-            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-            NhanVienDTO nhanVien = nhanVienService.findByUserLogin(login);
+//            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
             Long cuaHangId = nhanVien.getCuaHangId();
             VayLaiDTO findOne = findOne(id);
             if (findOne.getHopdongvl().getCuaHangId() == cuaHangId) {
