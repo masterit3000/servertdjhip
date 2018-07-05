@@ -14,6 +14,6 @@ import org.springframework.data.repository.query.Param;
 @Repository
 public interface GhiNoRepository extends JpaRepository<GhiNo, Long> {
 
-    @Query(value = "select l from GhiNo l inner join l.hopdong h where h.id =:idhopdong")
+    @Query(value = "select l from GhiNo l inner join l.hopDong h where h.id =:idhopdong")
     List<GhiNo> findByHopDong(@Param(value = "idhopdong") long idhopdong);
 }

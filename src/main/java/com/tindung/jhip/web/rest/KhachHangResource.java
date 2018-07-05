@@ -37,10 +37,12 @@ public class KhachHangResource {
     }
 
     /**
-     * POST  /khach-hangs : Create a new khachHang.
+     * POST /khach-hangs : Create a new khachHang.
      *
      * @param khachHangDTO the khachHangDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new khachHangDTO, or with status 400 (Bad Request) if the khachHang has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new khachHangDTO, or with status 400 (Bad Request) if the khachHang has
+     * already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/khach-hangs")
@@ -50,20 +52,21 @@ public class KhachHangResource {
         if (khachHangDTO.getId() != null) {
             throw new BadRequestAlertException("A new khachHang cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        
+
         KhachHangDTO result = khachHangService.save(khachHangDTO);
         return ResponseEntity.created(new URI("/api/khach-hangs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /khach-hangs : Updates an existing khachHang.
+     * PUT /khach-hangs : Updates an existing khachHang.
      *
      * @param khachHangDTO the khachHangDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated khachHangDTO,
-     * or with status 400 (Bad Request) if the khachHangDTO is not valid,
-     * or with status 500 (Internal Server Error) if the khachHangDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * khachHangDTO, or with status 400 (Bad Request) if the khachHangDTO is not
+     * valid, or with status 500 (Internal Server Error) if the khachHangDTO
+     * couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/khach-hangs")
@@ -75,27 +78,41 @@ public class KhachHangResource {
         }
         KhachHangDTO result = khachHangService.save(khachHangDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, khachHangDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, khachHangDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /khach-hangs : get all the khachHangs.
+     * GET /khach-hangs : get all the khachHangs.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of khachHangs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of
+     * khachHangs in body
      */
     @GetMapping("/khach-hangs")
     @Timed
     public List<KhachHangDTO> getAllKhachHangs() {
         log.debug("REST request to get all KhachHangs");
         return khachHangService.findAll();
-        }
+    }
 
     /**
-     * GET  /khach-hangs/:id : get the "id" khachHang.
+     *
+     * @param key
+     * @return
+     */
+    @GetMapping("/tim-khach-hang-by-ten-cmnd/{key}")
+    @Timed
+    public List<KhachHangDTO> timKhachHangsByTenCMND(@PathVariable(name = "key") String key) {
+        log.debug("REST request to get all KhachHangs");
+        return khachHangService.findByNameOrCMND(key);
+    }
+
+    /**
+     * GET /khach-hangs/:id : get the "id" khachHang.
      *
      * @param id the id of the khachHangDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the khachHangDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * khachHangDTO, or with status 404 (Not Found)
      */
     @GetMapping("/khach-hangs/{id}")
     @Timed
@@ -106,7 +123,7 @@ public class KhachHangResource {
     }
 
     /**
-     * DELETE  /khach-hangs/:id : delete the "id" khachHang.
+     * DELETE /khach-hangs/:id : delete the "id" khachHang.
      *
      * @param id the id of the khachHangDTO to delete
      * @return the ResponseEntity with status 200 (OK)

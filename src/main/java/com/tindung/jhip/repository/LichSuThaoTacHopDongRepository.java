@@ -15,6 +15,6 @@ import org.springframework.data.repository.query.Param;
 @Repository
 public interface LichSuThaoTacHopDongRepository extends JpaRepository<LichSuThaoTacHopDong, Long> {
 
-    @Query(value = "select l from  LichSuThaoTacHopDong l inner join l.hopdong h where h.id =:idhopdong")
+    @Query(value = "select l from  LichSuThaoTacHopDong l inner join l.hopDong h where h.id =:idhopdong")
     List< LichSuThaoTacHopDong> findByHopDong(@Param(value = "idhopdong")long idhopdong);
 }

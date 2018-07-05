@@ -71,7 +71,9 @@ public class NhanVienResource {
             if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {//neu ko phai admin thi lay cua hang hien tai
                 String currentUser = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
                 User userLogin = userService.getUserWithAuthoritiesByLogin(currentUser).get();
-                nhanVienDTO.setCuaHangId(nhanVienService.findByUserLogin().getCuaHangId());
+                if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+                    nhanVienDTO.setCuaHangId(nhanVienService.findByUserLogin().getCuaHangId());
+                }
             }
             NhanVienDTO result = nhanVienService.save(nhanVienDTO);
             return ResponseEntity.created(new URI("/api/nhan-viens/" + result.getId()))

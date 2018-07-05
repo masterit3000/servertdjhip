@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class KhachHangServiceImpl implements KhachHangService {
-    
+
     private final Logger log = LoggerFactory.getLogger(KhachHangServiceImpl.class);
-    
+
     private final KhachHangRepository khachHangRepository;
-    
+
     private final KhachHangMapper khachHangMapper;
     private final CuaHangService cuaHangService;
-    
+
     public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService) {
         this.khachHangRepository = khachHangRepository;
         this.khachHangMapper = khachHangMapper;
@@ -88,5 +88,15 @@ public class KhachHangServiceImpl implements KhachHangService {
     public void delete(Long id) {
         log.debug("Request to delete KhachHang : {}", id);
         khachHangRepository.delete(id);
+    }
+
+    @Override
+    public List<KhachHangDTO> findByNameOrCMND(String key) {
+        log.debug("Request to get all KhachHangs");
+        key = new StringBuffer("%").append(key).append("%").toString();
+
+        return khachHangRepository.findByNameOrCMND(key).stream()
+                .map(khachHangMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 }

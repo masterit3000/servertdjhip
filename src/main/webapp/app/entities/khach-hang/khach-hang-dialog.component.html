@@ -99,14 +99,14 @@
                     <p-calendar id="field_ngayTao" [(ngModel)]="khachHang.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ></p-calendar>
                 <!-- <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="khachHang.ngayTao" /> -->
             </div>
-        </div> 
-        <!-- <div class="form-group">
+        </div>
+         <div class="form-group" *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cuaHang" for="field_cuaHang">Cua Hang</label>
             <select class="form-control" id="field_cuaHang" name="cuaHang" [(ngModel)]="khachHang.cuaHangId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="cuaHangOption.id" *ngFor="let cuaHangOption of cuahangs; trackBy: trackCuaHangById">{{cuaHangOption.id}}</option>
+                <option [ngValue]="cuaHangOption.id" *ngFor="let cuaHangOption of cuahangs; trackBy: trackCuaHangById">{{cuaHangOption.id}}-{{cuaHangOption.ten}}</option>
             </select>
-        </div> -->
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

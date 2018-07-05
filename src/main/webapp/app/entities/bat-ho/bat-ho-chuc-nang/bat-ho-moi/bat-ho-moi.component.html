@@ -59,7 +59,8 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
-                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền" required/>
+                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền"
+                                        required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
                                             This field is required.
@@ -87,10 +88,14 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete>
+                                    <input type="text" name="keyTimKhachHang" pInputText placeholder="Nhập cmnd hoặc tên khách hàng" [(ngModel)]="keyTimKhachHang">
+                                    <!-- <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="khachHangs" (completeMethod)="filterKhachHangs($event)"
+                                        field="ten" [size]="20" placeholder="Nhap Tên hoặc CMND" [minLength]="1"></p-autoComplete> -->
+                                    <!-- <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete> -->
+
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-left">Tìm kiếm</button>
+                                    <button class="btn btn-primary float-left" (click)="timKhachHang()" >Tìm kiếm</button>
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
@@ -127,36 +132,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Nguyễn văn A</td>
-                                                    <td>01234567890</td>
-                                                    <td>Số A ngõ B phố C</td>
-                                                    <td>01234567890</td>
-                                                    <td>Hoạt động</td>
+                                                <tr *ngFor="let khachHang of khachHangs">
+                                                    <td>{{khachHang.ten}}</td>
+                                                    <td>{{khachHang.cmnd}}</td>
+                                                    <td>{{khachHang.dienthoai}}</td>
+                                                    <td>{{khachHang.ten}}</td>
+                                                    <td>{{khachHang.trangthai}}</td>
                                                     <td>
                                                         <input type="radio" name="selectKhachHang">
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Nguyễn văn A</td>
-                                                    <td>01234567890</td>
-                                                    <td>Số A ngõ B phố C</td>
-                                                    <td>01234567890</td>
-                                                    <td>Hoạt động</td>
-                                                    <td>
-                                                        <input type="radio" name="selectKhachHang">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nguyễn văn A</td>
-                                                    <td>01234567890</td>
-                                                    <td>Số A ngõ B phố C</td>
-                                                    <td>01234567890</td>
-                                                    <td>Hoạt động</td>
-                                                    <td>
-                                                        <input type="radio" name="selectKhachHang">
-                                                    </td>
-                                                </tr>
+
                                             </tbody>
                                         </table>
                                     </p-scrollPanel>
