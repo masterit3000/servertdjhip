@@ -30,7 +30,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
-
+import { FormsModule } from '@angular/forms';
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
 @NgModule({
@@ -44,7 +44,8 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         AutoCompleteModule,
         FieldsetModule,
         ScrollPanelModule,
-        KeyFilterModule
+        KeyFilterModule,
+        FormsModule
     ],
     declarations: [
         BatHoComponent,

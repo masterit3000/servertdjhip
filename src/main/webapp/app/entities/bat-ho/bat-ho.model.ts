@@ -2,6 +2,7 @@ import { BaseEntity } from './../../shared';
 import { HopDong } from '../hop-dong';
 
 export class BatHo implements BaseEntity {
+     
     constructor(
         public id?: number,
         public tienduakhach?: number,

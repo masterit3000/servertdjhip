@@ -97,7 +97,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         String user = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         User get = userRepository.findOneByLogin(user).get();
         log.debug("Request tim  NhanVien theo ussername : {}", user);
-        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(get).get());
+        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(get).orElseThrow(() -> new InternalServerErrorException("Current user login not found")));
     }
 
 }
