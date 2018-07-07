@@ -30,6 +30,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { CalendarModule } from 'primeng/calendar';
 
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
@@ -44,7 +45,8 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         AutoCompleteModule,
         FieldsetModule,
         ScrollPanelModule,
-        KeyFilterModule
+        KeyFilterModule,
+        CalendarModule
     ],
     declarations: [
         BatHoComponent,
