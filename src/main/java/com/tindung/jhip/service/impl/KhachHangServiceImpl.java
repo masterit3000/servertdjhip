@@ -3,6 +3,8 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.domain.KhachHang;
 import com.tindung.jhip.repository.KhachHangRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
+import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.dto.KhachHangDTO;
 import com.tindung.jhip.service.mapper.KhachHangMapper;
@@ -44,11 +46,20 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHangDTO save(KhachHangDTO khachHangDTO) {
         log.debug("Request to save KhachHang : {}", khachHangDTO);
-        Long idCuaHang = cuaHangService.findIDByUserLogin();
-        khachHangDTO.setCuaHangId(idCuaHang);
-        KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
-        khachHang = khachHangRepository.save(khachHang);
-        return khachHangMapper.toDto(khachHang);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                Long idCuaHang = cuaHangService.findIDByUserLogin();
+                khachHangDTO.setCuaHangId(idCuaHang);
+            }
+
+            KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
+            khachHang = khachHangRepository.save(khachHang);
+            return khachHangMapper.toDto(khachHang);
+        }
+
+        throw new InternalError("Khong co quyen them khach hang");
     }
 
     /**

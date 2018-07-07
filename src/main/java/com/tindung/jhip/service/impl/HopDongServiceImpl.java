@@ -42,7 +42,7 @@ public class HopDongServiceImpl implements HopDongService {
     public HopDongDTO save(HopDongDTO hopDongDTO) {
         log.debug("Request to save HopDong : {}", hopDongDTO);
         HopDong hopDong = hopDongMapper.toEntity(hopDongDTO);
-        hopDong = hopDongRepository.save(hopDong);
+        hopDong = hopDongRepository.saveAndFlush(hopDong);
         return hopDongMapper.toDto(hopDong);
     }
 
@@ -56,8 +56,8 @@ public class HopDongServiceImpl implements HopDongService {
     public List<HopDongDTO> findAll() {
         log.debug("Request to get all HopDongs");
         return hopDongRepository.findAll().stream()
-            .map(hopDongMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(hopDongMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

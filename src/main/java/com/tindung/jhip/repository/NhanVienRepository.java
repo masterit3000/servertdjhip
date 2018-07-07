@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Spring Data JPA repository for the NhanVien entity.
@@ -14,5 +15,12 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface NhanVienRepository extends JpaRepository<NhanVien, Long> {
 
+    @Query("select n from NhanVien n inner join n.user u where u.id =:id")
+    Optional<NhanVien> findOneByUser(@Param("id") long userid);
+
+    @Query("select n from NhanVien n inner join n.user u where u.login =:id")
+    Optional<NhanVien> findOneByUser(@Param("id") String login);
+
     Optional<NhanVien> findOneByUser(User user);
+//    NhanVien findOneByUser(User user);
 }
