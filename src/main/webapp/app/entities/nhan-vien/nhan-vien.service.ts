@@ -87,7 +87,7 @@ export class NhanVienService {
     private convert(nhanVien: NhanVien): NhanVien {
         const copy: NhanVien = Object.assign({}, nhanVien);
 
-        copy.ngayTao = this.dateUtils.toDate(nhanVien.ngayTao);
+        // copy.ngayTao = this.dateUtils.toDate(nhanVien.ngayTao);
         return copy;
     }
     getNhanVien(query: any): Observable<NhanVien[]> {

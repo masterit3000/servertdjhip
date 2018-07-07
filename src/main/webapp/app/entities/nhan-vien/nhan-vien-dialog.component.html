@@ -60,7 +60,7 @@
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.ngayTao" for="field_ngayTao">Ngay Tao</label>
                 <div class="d-flex">
-                    <p-calendar id="field_ngayTao" [(ngModel)]="nhanVien.ngayTao" dateFormat="dd.mm.yy" name="ngayTao"></p-calendar>
+                    <p-calendar id="field_ngayTao" [(ngModel)]="nhanVien.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ng-readonly="true"></p-calendar>
                     <!-- <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="nhanVien.ngayTao" /> -->
                 </div>
             </div>
@@ -95,6 +95,15 @@
                         <select class="form-control" id="field_user" name="user" [(ngModel)]="nhanVien.userId">
                             <option [ngValue]="null"></option>
                             <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                    <div class="form-group col-md-12">
+                        <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.user" for="field_cuahang">Cửa hàng</label>
+                        <select class="form-control" id="field_user" name="cuahangs" [(ngModel)]="nhanVien.cuaHangId">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="cuahang.id" *ngFor="let cuahang of cuahangs; trackBy: trackUserById">{{cuahang.ten}}</option>
                         </select>
                     </div>
                 </div>

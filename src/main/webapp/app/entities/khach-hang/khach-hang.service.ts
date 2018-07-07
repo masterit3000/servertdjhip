@@ -13,8 +13,9 @@ export type EntityResponseType = HttpResponse<KhachHang>;
 @Injectable()
 export class KhachHangService {
     private resourceUrl = SERVER_API_URL + 'api/khach-hangs';
+    private resourceUrlTimKhachHang = SERVER_API_URL + 'api/tim-khach-hang-by-ten-cmnd';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(khachHang: KhachHang): Observable<EntityResponseType> {
         const copy = this.convert(khachHang);
@@ -92,9 +93,14 @@ export class KhachHangService {
         // copy.ngayTao = this.dateUtils.toDate(khachHang.ngayTao);
         return copy;
     }
-    getKhachHang(query: any): Observable<KhachHang[]> {
+    findKhachHangByTenOrCMND(query: any): Observable<HttpResponse<KhachHang[]>> {
+        // const options = createRequestOption(req);
         return this.http
-            .get('/api/khach-hangs')
-            .map(response => response as KhachHang[]);
+            .get<KhachHang[]>(`${this.resourceUrlTimKhachHang}/${query}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<KhachHang[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 }

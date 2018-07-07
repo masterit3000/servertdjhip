@@ -39,8 +39,6 @@ public interface NhanVienService {
      */
     void delete(Long id);
 
-    NhanVienDTO findByUserLogin(User user);
+    NhanVienDTO findByUserLogin();
 
-    NhanVienDTO findByUserLogin(String user);
-    
 }

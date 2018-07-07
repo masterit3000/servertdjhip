@@ -23,6 +23,8 @@ public interface LichSuThaoTacHopDongService {
      */
     List<LichSuThaoTacHopDongDTO> findAll();
 
+    List<LichSuThaoTacHopDongDTO> findByHopDong(long idhopdong);
+
     /**
      * Get the "id" lichSuThaoTacHopDong.
      *

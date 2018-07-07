@@ -3,8 +3,14 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.domain.LichSuThaoTacHopDong;
 import com.tindung.jhip.repository.LichSuThaoTacHopDongRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
+import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.CuaHangService;
+import com.tindung.jhip.service.HopDongService;
+import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.mapper.LichSuThaoTacHopDongMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,6 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -26,10 +38,14 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
     private final LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository;
 
     private final LichSuThaoTacHopDongMapper lichSuThaoTacHopDongMapper;
+    private final HopDongService hopDongService;
+    private final CuaHangService cuaHangService;
 
-    public LichSuThaoTacHopDongServiceImpl(LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongMapper lichSuThaoTacHopDongMapper) {
+    public LichSuThaoTacHopDongServiceImpl(LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongMapper lichSuThaoTacHopDongMapper, HopDongService hopDongService, CuaHangService cuaHangService) {
         this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
         this.lichSuThaoTacHopDongMapper = lichSuThaoTacHopDongMapper;
+        this.hopDongService = hopDongService;
+        this.cuaHangService = cuaHangService;
     }
 
     /**
@@ -56,8 +72,8 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
     public List<LichSuThaoTacHopDongDTO> findAll() {
         log.debug("Request to get all LichSuThaoTacHopDongs");
         return lichSuThaoTacHopDongRepository.findAll().stream()
-            .map(lichSuThaoTacHopDongMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(lichSuThaoTacHopDongMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -83,5 +99,25 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
     public void delete(Long id) {
         log.debug("Request to delete LichSuThaoTacHopDong : {}", id);
         lichSuThaoTacHopDongRepository.delete(id);
+    }
+
+    @Override
+    public List<LichSuThaoTacHopDongDTO> findByHopDong(long idhopdong) {
+        Long idCuaHangByUserLogin = cuaHangService.findIDByUserLogin();
+        long idCuaHangByHopDong = hopDongService.findOne(idhopdong).getCuaHangId();
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            if (idCuaHangByHopDong == idCuaHangByUserLogin) {
+
+                List<LichSuThaoTacHopDong> findByHopDong = lichSuThaoTacHopDongRepository.findByHopDong(idhopdong);
+                List<LichSuThaoTacHopDongDTO> collect = findByHopDong.stream().map(lichSuThaoTacHopDongMapper::toDto).collect(Collectors.toList());
+                return collect;
+
+            }
+        } else {
+            List<LichSuThaoTacHopDong> findByHopDong = lichSuThaoTacHopDongRepository.findByHopDong(idhopdong);
+            List<LichSuThaoTacHopDongDTO> collect = findByHopDong.stream().map(lichSuThaoTacHopDongMapper::toDto).collect(Collectors.toList());
+            return collect;
+        }
+        throw new InternalServerErrorException("Loi lay lich su dong tien");
     }
 }

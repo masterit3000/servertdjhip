@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -23,10 +22,10 @@ public class HopDongDTO implements Serializable {
     @Size(max = 3000)
     private String ghichu;
 
-    @NotNull
+//    @NotNull
     private LOAIHOPDONG loaihopdong;
 
-    @NotNull
+//    @NotNull
     private ZonedDateTime ngaytao;
 
     private Long khachHangId;
@@ -119,7 +118,7 @@ public class HopDongDTO implements Serializable {
         }
 
         HopDongDTO hopDongDTO = (HopDongDTO) o;
-        if(hopDongDTO.getId() == null || getId() == null) {
+        if (hopDongDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), hopDongDTO.getId());
@@ -132,12 +131,12 @@ public class HopDongDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "HopDongDTO{" +
-            "id=" + getId() +
-            ", mahopdong='" + getMahopdong() + "'" +
-            ", ghichu='" + getGhichu() + "'" +
-            ", loaihopdong='" + getLoaihopdong() + "'" +
-            ", ngaytao='" + getNgaytao() + "'" +
-            "}";
+        return "HopDongDTO{"
+                + "id=" + getId()
+                + ", mahopdong='" + getMahopdong() + "'"
+                + ", ghichu='" + getGhichu() + "'"
+                + ", loaihopdong='" + getLoaihopdong() + "'"
+                + ", ngaytao='" + getNgaytao() + "'"
+                + "}";
     }
 }

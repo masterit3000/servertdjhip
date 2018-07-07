@@ -87,12 +87,12 @@ export class CuaHangService {
     private convert(cuaHang: CuaHang): CuaHang {
         const copy: CuaHang = Object.assign({}, cuaHang);
 
-        copy.ngayTao = this.dateUtils.toDate(cuaHang.ngayTao);
+        // copy.ngayTao = this.dateUtils.toDate(cuaHang.ngayTao);
         return copy;
     }
     getCuaHangs(query: any): Observable<CuaHang[]> {
         return this.http
             .get('/api/cua-hangs')
-            .map(response => response as CuaHang[]);
+            .map((response) => response as CuaHang[]);
     }
 }

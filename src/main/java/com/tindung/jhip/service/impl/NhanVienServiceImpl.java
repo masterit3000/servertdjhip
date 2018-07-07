@@ -5,8 +5,10 @@ import com.tindung.jhip.domain.NhanVien;
 import com.tindung.jhip.domain.User;
 import com.tindung.jhip.repository.NhanVienRepository;
 import com.tindung.jhip.repository.UserRepository;
+import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.NhanVienMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -91,15 +93,11 @@ public class NhanVienServiceImpl implements NhanVienService {
     }
 
     @Override
-    public NhanVienDTO findByUserLogin(User username) {
-        log.debug("Request tim  NhanVien theo ussername : {}", username);
-        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(username).get());
+    public NhanVienDTO findByUserLogin() {
+        String user = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+//        User get = userRepository.findOneByLogin(user).get();
+        log.debug("Request tim  NhanVien theo ussername : {}", user);
+        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(user).orElseThrow(() -> new InternalServerErrorException("Current user login not found")));
     }
 
-    @Override
-    public NhanVienDTO findByUserLogin(String user) {
-
-        User users = userRepository.findOneByLogin(user).get();
-        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(users).get());
-    }
 }

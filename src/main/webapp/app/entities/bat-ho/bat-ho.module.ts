@@ -31,6 +31,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
 
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
@@ -46,7 +47,8 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         FieldsetModule,
         ScrollPanelModule,
         KeyFilterModule,
-        CalendarModule
+        CalendarModule,
+        FormsModule
     ],
     declarations: [
         BatHoComponent,

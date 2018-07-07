@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
-                                    <input type="text" class="form-control" name="mahopdong" id="field_mahopdong" placeholder="BH-x" required maxlength="20"
+                                    <input [(ngModel)]="batHo.hopdong.mahopdong" type="text" class="form-control" name="mahopdong" id="field_mahopdong" placeholder="BH-x" required maxlength="20"
                                     />
                                     <!-- <div [hidden]="!(editForm.controls.mahopdong?.dirty && editForm.controls.mahopdong?.invalid)">
                                             <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.required" jhiTranslate="entity.validation.required">
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
-                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
+                                    <input [(ngModel)]="batHo.tongtien" type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien" placeholder="Tổng tiền họ khách phải đóng"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
                                                 <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
-                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
+                                    <input  [(ngModel)]="batHo.tienduakhach" type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach" placeholder="Số tiền khách nhận (Chưa tính bát họ)"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
-                                    <input type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền"
+                                    <input  [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay" placeholder="Tổng số ngày đóng tiền"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
-                                    <input type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
+                                    <input  [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" placeholder="Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
@@ -99,10 +99,14 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete>
+                                    <input type="text" name="keyTimKhachHang" pInputText placeholder="Nhập cmnd hoặc tên khách hàng" [(ngModel)]="keyTimKhachHang">
+                                    <!-- <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="khachHangs" (completeMethod)="filterKhachHangs($event)"
+                                        field="ten" [size]="20" placeholder="Nhap Tên hoặc CMND" [minLength]="1"></p-autoComplete> -->
+                                    <!-- <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete> -->
+
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-left">Tìm kiếm</button>
+                                    <button class="btn btn-primary float-left" (click)="timKhachHang()" >Tìm kiếm</button>
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
@@ -139,36 +143,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Nguyễn văn A</td>
-                                                    <td>01234567890</td>
-                                                    <td>Số A ngõ B phố C</td>
-                                                    <td>01234567890</td>
-                                                    <td>Hoạt động</td>
+                                                <tr *ngFor="let khachHang of khachHangs">
+                                                    <td>{{khachHang.ten}}</td>
+                                                    <td>{{khachHang.cmnd}}</td>
+                                                    <td>{{khachHang.dienthoai}}</td>
+                                                    <td>{{khachHang.ten}}</td>
+                                                    <td>{{khachHang.trangthai}}</td>
                                                     <td>
-                                                        <input type="radio" name="selectKhachHang">
+                                                        <input type="radio" name="selectKhachHang" [checked]="(idx === 0)"  (change)="onSelectionChange(khachHang.id)"  [value]="khachHang.id"  >
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Nguyễn văn A</td>
-                                                    <td>01234567890</td>
-                                                    <td>Số A ngõ B phố C</td>
-                                                    <td>01234567890</td>
-                                                    <td>Hoạt động</td>
-                                                    <td>
-                                                        <input type="radio" name="selectKhachHang">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nguyễn văn A</td>
-                                                    <td>01234567890</td>
-                                                    <td>Số A ngõ B phố C</td>
-                                                    <td>01234567890</td>
-                                                    <td>Hoạt động</td>
-                                                    <td>
-                                                        <input type="radio" name="selectKhachHang">
-                                                    </td>
-                                                </tr>
+
                                             </tbody>
                                         </table>
                                     </p-scrollPanel>
@@ -181,7 +166,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
-                    <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pInputTextarea autoResize="autoResize"></textarea>
+                    <textarea ngMode [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pInputTextarea autoResize="autoResize"></textarea>
                     <!-- <div [hidden]="!(editForm.controls.ghichu?.dirty && editForm.controls.ghichu?.invalid)">
                         <small class="form-text text-danger" [hidden]="!editForm.controls.ghichu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
                             translateValues="{ max: 3000 }">
@@ -202,7 +187,7 @@
         </div> -->
 
 
-            <!-- <div class="modal-footer">
+            <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
                 <span class="fa fa-ban"></span>&nbsp;
                 <span jhiTranslate="entity.action.cancel">Cancel</span>
@@ -211,7 +196,7 @@
                 <span class="fa fa-save"></span>&nbsp;
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>
-        </div> -->
+        </div> 
             <div class="row">
                 <!--TODO: thêm event onAfterToggle https://www.primefaces.org/primeng/#/fieldset-->
                 <div class="col-md-12">

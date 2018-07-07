@@ -69,7 +69,7 @@ export class KhachHangComponent implements OnInit, OnDestroy {
         const query = event.query;
         console.log(query);
         this.khachHangService
-            .getKhachHang(query)
+            .query(query)
             .subscribe((khachHangs: any) => {
                 this.filteredKhachHangs = khachHangs;
             });
