@@ -12,7 +12,7 @@ import { Principal } from '../../shared';
     templateUrl: './thu-chi.component.html'
 })
 export class ThuChiComponent implements OnInit, OnDestroy {
-    thuChis: ThuChi[];
+thuChis: ThuChi[];
     currentAccount: any;
     eventSubscriber: Subscription;
     thoigian: any;

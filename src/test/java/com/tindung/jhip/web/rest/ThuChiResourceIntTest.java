@@ -56,6 +56,9 @@ public class ThuChiResourceIntTest {
     private static final THUCHI DEFAULT_THUCHI = THUCHI.THU;
     private static final THUCHI UPDATED_THUCHI = THUCHI.CHI;
 
+    private static final Double DEFAULT_SOTIEN = 1D;
+    private static final Double UPDATED_SOTIEN = 2D;
+
     @Autowired
     private ThuChiRepository thuChiRepository;
 
@@ -102,7 +105,8 @@ public class ThuChiResourceIntTest {
         ThuChi thuChi = new ThuChi()
             .noidung(DEFAULT_NOIDUNG)
             .thoigian(DEFAULT_THOIGIAN)
-            .thuchi(DEFAULT_THUCHI);
+            .thuchi(DEFAULT_THUCHI)
+            .sotien(DEFAULT_SOTIEN);
         return thuChi;
     }
 
@@ -130,6 +134,7 @@ public class ThuChiResourceIntTest {
         assertThat(testThuChi.getNoidung()).isEqualTo(DEFAULT_NOIDUNG);
         assertThat(testThuChi.getThoigian()).isEqualTo(DEFAULT_THOIGIAN);
         assertThat(testThuChi.getThuchi()).isEqualTo(DEFAULT_THUCHI);
+        assertThat(testThuChi.getSotien()).isEqualTo(DEFAULT_SOTIEN);
     }
 
     @Test
@@ -192,6 +197,25 @@ public class ThuChiResourceIntTest {
 
     @Test
     @Transactional
+    public void checkSotienIsRequired() throws Exception {
+        int databaseSizeBeforeTest = thuChiRepository.findAll().size();
+        // set the field null
+        thuChi.setSotien(null);
+
+        // Create the ThuChi, which fails.
+        ThuChiDTO thuChiDTO = thuChiMapper.toDto(thuChi);
+
+        restThuChiMockMvc.perform(post("/api/thu-chis")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(thuChiDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ThuChi> thuChiList = thuChiRepository.findAll();
+        assertThat(thuChiList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllThuChis() throws Exception {
         // Initialize the database
         thuChiRepository.saveAndFlush(thuChi);
@@ -203,7 +227,8 @@ public class ThuChiResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(thuChi.getId().intValue())))
             .andExpect(jsonPath("$.[*].noidung").value(hasItem(DEFAULT_NOIDUNG.toString())))
             .andExpect(jsonPath("$.[*].thoigian").value(hasItem(sameInstant(DEFAULT_THOIGIAN))))
-            .andExpect(jsonPath("$.[*].thuchi").value(hasItem(DEFAULT_THUCHI.toString())));
+            .andExpect(jsonPath("$.[*].thuchi").value(hasItem(DEFAULT_THUCHI.toString())))
+            .andExpect(jsonPath("$.[*].sotien").value(hasItem(DEFAULT_SOTIEN.doubleValue())));
     }
 
     @Test
@@ -219,7 +244,8 @@ public class ThuChiResourceIntTest {
             .andExpect(jsonPath("$.id").value(thuChi.getId().intValue()))
             .andExpect(jsonPath("$.noidung").value(DEFAULT_NOIDUNG.toString()))
             .andExpect(jsonPath("$.thoigian").value(sameInstant(DEFAULT_THOIGIAN)))
-            .andExpect(jsonPath("$.thuchi").value(DEFAULT_THUCHI.toString()));
+            .andExpect(jsonPath("$.thuchi").value(DEFAULT_THUCHI.toString()))
+            .andExpect(jsonPath("$.sotien").value(DEFAULT_SOTIEN.doubleValue()));
     }
 
     @Test
@@ -244,7 +270,8 @@ public class ThuChiResourceIntTest {
         updatedThuChi
             .noidung(UPDATED_NOIDUNG)
             .thoigian(UPDATED_THOIGIAN)
-            .thuchi(UPDATED_THUCHI);
+            .thuchi(UPDATED_THUCHI)
+            .sotien(UPDATED_SOTIEN);
         ThuChiDTO thuChiDTO = thuChiMapper.toDto(updatedThuChi);
 
         restThuChiMockMvc.perform(put("/api/thu-chis")
@@ -259,6 +286,7 @@ public class ThuChiResourceIntTest {
         assertThat(testThuChi.getNoidung()).isEqualTo(UPDATED_NOIDUNG);
         assertThat(testThuChi.getThoigian()).isEqualTo(UPDATED_THOIGIAN);
         assertThat(testThuChi.getThuchi()).isEqualTo(UPDATED_THUCHI);
+        assertThat(testThuChi.getSotien()).isEqualTo(UPDATED_SOTIEN);
     }
 
     @Test

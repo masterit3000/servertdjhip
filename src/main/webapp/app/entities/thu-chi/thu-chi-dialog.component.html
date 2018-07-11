@@ -47,11 +47,26 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.thuchi" for="field_thuchi">Thuchi</label>
             <select class="form-control" name="thuchi" [(ngModel)]="thuChi.thuchi" id="field_thuchi" >
-                <option value="THU">{{'servertdjhipApp.thuChi.thu' | translate}}</option>
-                <option value="CHI">{{'servertdjhipApp.thuChi.chi' | translate}}</option>
-                <option value="GOPVON">{{'servertdjhipApp.thuChi.gopvon' | translate}}</option>
-                <option value="RUTVON">{{'servertdjhipApp.thuChi.rutvon' | translate}}</option>
+                <option value="THU">{{'servertdjhipApp.THUCHI.THU' | translate}}</option>
+                <option value="CHI">{{'servertdjhipApp.THUCHI.CHI' | translate}}</option>
+                <option value="GOPVON">{{'servertdjhipApp.THUCHI.GOPVON' | translate}}</option>
+                <option value="RUTVON">{{'servertdjhipApp.THUCHI.RUTVON' | translate}}</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.sotien" for="field_sotien">Sotien</label>
+            <input type="number" class="form-control" name="sotien" id="field_sotien"
+                [(ngModel)]="thuChi.sotien" required/>
+            <div [hidden]="!(editForm.controls.sotien?.dirty && editForm.controls.sotien?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sotien?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.sotien?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
         </div>
 
         <div class="form-group">
