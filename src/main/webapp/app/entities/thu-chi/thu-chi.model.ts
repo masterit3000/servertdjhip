@@ -11,10 +11,11 @@ export class ThuChi implements BaseEntity {
     constructor(
         public id?: number,
         public noidung?: string,
-        public thoigian?: any,
+        public thoigian?: Date,
         public thuchi?: THUCHI,
         public cuaHangId?: number,
         public nhanVienId?: number,
+        
     ) {
     }
 }

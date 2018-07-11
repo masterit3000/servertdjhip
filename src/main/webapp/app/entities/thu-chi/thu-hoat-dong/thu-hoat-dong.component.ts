@@ -16,6 +16,7 @@ export class ThuHoatDongComponent implements OnInit {
   thuChis: ThuChi[];
   currentAccount: any;
   eventSubscriber: Subscription;
+  
 
   constructor(
       private thuChiService: ThuChiService,

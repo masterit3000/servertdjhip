@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import {CalendarModule} from 'primeng/calendar';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     ThuChiService,
@@ -20,7 +20,7 @@ import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
 const ENTITY_STATES = [...thuChiRoute, ...thuChiPopupRoute];
 
 @NgModule({
-    imports: [ServertdjhipSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [ServertdjhipSharedModule, RouterModule.forChild(ENTITY_STATES),CalendarModule],
     declarations: [
         ThuChiComponent,
         ThuChiDetailComponent,
@@ -29,7 +29,8 @@ const ENTITY_STATES = [...thuChiRoute, ...thuChiPopupRoute];
         ThuChiPopupComponent,
         ThuChiDeletePopupComponent,
         ThuHoatDongComponent,
-        ChiHoatDongComponent
+        ChiHoatDongComponent,
+     
     ],
     entryComponents: [
         ThuChiComponent,
