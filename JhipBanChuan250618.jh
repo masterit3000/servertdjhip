@@ -110,7 +110,7 @@ entity ThuChi{
 	noidung String maxlength(3000) required,
 	thoigian ZonedDateTime required, 
     thuchi THUCHI,
-    
+    sotien Double required
 }
 entity TaiSan{
 	mota String maxlength(3000) required,

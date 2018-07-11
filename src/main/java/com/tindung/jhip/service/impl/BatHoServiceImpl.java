@@ -131,20 +131,9 @@ public class BatHoServiceImpl implements BatHoService {
 
                 return batHoMapper.toDto(batHo);
             } else {
-                Long idCuaHang = cuaHangService.findIDByUserLogin();
-                BatHo findOne = batHoRepository.findOne(batHoDTO.getId());
-                Long idCuaHangBatHo = findOne.getHopdongbh().getCuaHang().getId();
-                if (Objects.equals(idCuaHang, idCuaHangBatHo)) {//bat ho cua cua hang hien tai moi cho sua
-                    batHoDTO.getHopdong().setCuaHangId(idCuaHangBatHo);//de phong user thay doi idcuahang
-                    HopDongDTO save = hopDongService.save(batHoDTO.getHopdong());
-                    batHoDTO.setHopdong(save);
-                    BatHo batHo = batHoMapper.toEntity(batHoDTO);
-                    batHo = batHoRepository.save(batHo);
-                    return batHoMapper.toDto(batHo);
-
-                } else {
-                    throw new InternalServerErrorException("Sai cua hang");
-                }
+           
+                    throw new InternalServerErrorException("Không được sửa bat họ");
+                
 
             }
         }

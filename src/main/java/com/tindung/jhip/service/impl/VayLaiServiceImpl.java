@@ -6,6 +6,10 @@ import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.HINHTHUCLAI;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.TINHLAI;
+<<<<<<< HEAD
+=======
+import com.tindung.jhip.repository.BatHoRepository;
+>>>>>>> origin/devbuild
 import com.tindung.jhip.repository.VayLaiRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
@@ -47,16 +51,13 @@ public class VayLaiServiceImpl implements VayLaiService {
 
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
-    private final LichSuDongTienService lichSuDongTienService;
 
-    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, CuaHangService cuaHangService, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService1, LichSuDongTienService lichSuDongTienService) {
-        this.vayLaiRepository = vayLaiRepository;
-        this.vayLaiMapper = vayLaiMapper;
-        this.nhanVienService = nhanVienService1;
-        this.hopDongService = hopDongService;
-        this.lichSuDongTienService = lichSuDongTienService;
-        this.cuaHangService = cuaHangService;
-
+    public VayLaiServiceImpl() {
+        this.vayLaiRepository = null;
+        this.vayLaiMapper = null;
+        this.hopDongService = null;
+        this.nhanVienService = null;
+        this.cuaHangService = null;
     }
 
     /**
@@ -190,7 +191,10 @@ public class VayLaiServiceImpl implements VayLaiService {
      */
     @Override
     @Transactional(readOnly = true)
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/devbuild
     public VayLaiDTO findOne(Long id
     ) {
         log.debug("Request to get VayLai : {}", id);

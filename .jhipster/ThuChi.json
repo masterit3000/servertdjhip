@@ -35,6 +35,13 @@
             "fieldName": "thuchi",
             "fieldType": "THUCHI",
             "fieldValues": "THU,CHI,GOPVON,RUTVON"
+        },
+        {
+            "fieldName": "sotien",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20180625141445",
