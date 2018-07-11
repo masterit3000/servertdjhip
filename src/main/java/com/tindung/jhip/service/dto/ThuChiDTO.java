@@ -25,6 +25,9 @@ public class ThuChiDTO implements Serializable {
 
     private THUCHI thuchi;
 
+    @NotNull
+    private Double sotien;
+
     private Long cuaHangId;
 
     private Long nhanVienId;
@@ -59,6 +62,14 @@ public class ThuChiDTO implements Serializable {
 
     public void setThuchi(THUCHI thuchi) {
         this.thuchi = thuchi;
+    }
+
+    public Double getSotien() {
+        return sotien;
+    }
+
+    public void setSotien(Double sotien) {
+        this.sotien = sotien;
     }
 
     public Long getCuaHangId() {
@@ -105,6 +116,7 @@ public class ThuChiDTO implements Serializable {
             ", noidung='" + getNoidung() + "'" +
             ", thoigian='" + getThoigian() + "'" +
             ", thuchi='" + getThuchi() + "'" +
+            ", sotien=" + getSotien() +
             "}";
     }
 }

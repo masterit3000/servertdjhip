@@ -13,6 +13,7 @@ export class ThuChi implements BaseEntity {
         public noidung?: string,
         public thoigian?: any,
         public thuchi?: THUCHI,
+        public sotien?: number,
         public cuaHangId?: number,
         public nhanVienId?: number,
     ) {
