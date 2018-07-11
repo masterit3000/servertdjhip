@@ -2,17 +2,24 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.VayLaiService;
 import com.tindung.jhip.domain.VayLai;
+import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.domain.enumeration.HINHTHUCLAI;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TINHLAI;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.VayLaiRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.HopDongDTO;
+import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.dto.VayLaiDTO;
 import com.tindung.jhip.service.mapper.VayLaiMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,13 +45,14 @@ public class VayLaiServiceImpl implements VayLaiService {
     private final HopDongService hopDongService;
 
     private final NhanVienService nhanVienService;
+    private final CuaHangService cuaHangService;
 
-    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService1) {
-        this.vayLaiRepository = vayLaiRepository;
-        this.vayLaiMapper = vayLaiMapper;
-        this.nhanVienService = nhanVienService1;
-        this.hopDongService = hopDongService;
-
+    public VayLaiServiceImpl() {
+        this.vayLaiRepository = null;
+        this.vayLaiMapper = null;
+        this.hopDongService = null;
+        this.nhanVienService = null;
+        this.cuaHangService = null;
     }
 
     /**
@@ -57,14 +65,95 @@ public class VayLaiServiceImpl implements VayLaiService {
     public VayLaiDTO save(VayLaiDTO vayLaiDTO) {
         log.debug("Request to save VayLai : {}", vayLaiDTO);
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
-        Long cuaHangId = nhanVien.getCuaHangId();
-        vayLaiDTO.getHopdongvl().setCuaHangId(cuaHangId);
-        HopDongDTO save = hopDongService.save(vayLaiDTO.getHopdongvl());
-        vayLaiDTO.setHopdongvl(save);
-        VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
-        vayLai = vayLaiRepository.save(vayLai);
-        return vayLaiMapper.toDto(vayLai);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            if (vayLaiDTO.getId() == null) {
+                HopDongDTO hopdong = vayLaiDTO.getHopdongvl();
+                hopdong.setLoaihopdong(LOAIHOPDONG.VAYLAI);
+                NhanVienDTO findByUserLogin = nhanVienService.findByUserLogin();
+                hopdong.setNhanVienId(findByUserLogin.getId());
+                hopdong.setNgaytao(ZonedDateTime.now());
+                if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                    Long idCuaHang = cuaHangService.findIDByUserLogin();
+                    hopdong.setCuaHangId(idCuaHang);
+                }
+                hopdong = hopDongService.save(hopdong);
+                vayLaiDTO.setHopdongvl(hopdong);
+                Integer chukylai = vayLaiDTO.getChukylai();
+                TINHLAI cachtinhlai = vayLaiDTO.getCachtinhlai();
+                HINHTHUCLAI hinhthuclai = vayLaiDTO.getHinhthuclai();
+                Integer thoigianvay = vayLaiDTO.getThoigianvay();
+                Boolean thulaitruoc = vayLaiDTO.getThulaitruoc();
+                Double tienvay = vayLaiDTO.getTienvay();
+                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+
+                ZonedDateTime ngaybatdau = null;
+                ZonedDateTime ngayketthuc = null;
+                double soTien = 0f;
+                switch (hinhthuclai) {
+                    case NAM:
+                        switch (cachtinhlai) {
+                            case CHUKY:
+                                break;
+                            case MOTTRIEU:
+                                break;
+                            case PHANTRAM:
+                                break;
+                        }
+                        break;
+                    case THANG:
+                        switch (cachtinhlai) {
+                            case CHUKY:
+                                break;
+                            case MOTTRIEU:
+                                break;
+                            case PHANTRAM:
+                                break;
+                        }
+                        break;
+                    case THANGCODINH:
+                        switch (cachtinhlai) {
+                            case CHUKY:
+                                break;
+                            case MOTTRIEU:
+                                break;
+                            case PHANTRAM:
+                                break;
+                        }
+                        break;
+                    case TUAN:
+                        switch (cachtinhlai) {
+                            case CHUKY:
+                                break;
+                            case MOTTRIEU:
+                                break;
+                            case PHANTRAM:
+                                break;
+                        }
+                        break;
+                    case NGAY:
+                        switch (cachtinhlai) {
+                            case CHUKY:
+                                break;
+                            case MOTTRIEU:
+                                double trieu = tienvay / 1000000D;
+                                break;
+                            case PHANTRAM:
+                                break;
+                        }
+                        break;
+                }
+
+                VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
+                vayLai = vayLaiRepository.save(vayLai);
+                return vayLaiMapper.toDto(vayLai);
+            }
+        }
+        throw new InternalError("Khong co quyen");
     }
 
     /**
@@ -104,7 +193,8 @@ public class VayLaiServiceImpl implements VayLaiService {
      */
     @Override
     @Transactional(readOnly = true)
-    public VayLaiDTO findOne(Long id) {
+    public VayLaiDTO findOne(Long id
+    ) {
         log.debug("Request to get VayLai : {}", id);
         VayLai vayLai = vayLaiRepository.findOne(id);
         return vayLaiMapper.toDto(vayLai);
@@ -116,7 +206,8 @@ public class VayLaiServiceImpl implements VayLaiService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id
+    ) {
         log.debug("Request to delete VayLai : {}", id);
         if ((SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN))) {
 //            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));

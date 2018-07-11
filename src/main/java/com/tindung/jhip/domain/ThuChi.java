@@ -39,6 +39,10 @@ public class ThuChi implements Serializable {
     @Column(name = "thuchi")
     private THUCHI thuchi;
 
+    @NotNull
+    @Column(name = "sotien", nullable = false)
+    private Double sotien;
+
     @ManyToOne
     private CuaHang cuaHang;
 
@@ -91,6 +95,19 @@ public class ThuChi implements Serializable {
 
     public void setThuchi(THUCHI thuchi) {
         this.thuchi = thuchi;
+    }
+
+    public Double getSotien() {
+        return sotien;
+    }
+
+    public ThuChi sotien(Double sotien) {
+        this.sotien = sotien;
+        return this;
+    }
+
+    public void setSotien(Double sotien) {
+        this.sotien = sotien;
     }
 
     public CuaHang getCuaHang() {
@@ -147,6 +164,7 @@ public class ThuChi implements Serializable {
             ", noidung='" + getNoidung() + "'" +
             ", thoigian='" + getThoigian() + "'" +
             ", thuchi='" + getThuchi() + "'" +
+            ", sotien=" + getSotien() +
             "}";
     }
 }

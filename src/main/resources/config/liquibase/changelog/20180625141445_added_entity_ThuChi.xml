@@ -34,6 +34,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="sotien" type="double">
+                <constraints nullable="false" />
+            </column>
+
             <column name="cua_hang_id" type="bigint">
                 <constraints nullable="true" />
             </column>
