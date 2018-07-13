@@ -25,7 +25,8 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        CalendarModule
     ],
     declarations: [
         ThuChiComponent,

@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="row" style="padding-top: 5%">
                                     <div class=" col-md-12">
-                                        <button class="btn btn-xs btn-info pull-right">Chi tiêu</button>
+                                        <button class="btn btn-xs btn-info pull-right">Thu tiền</button>
                                     </div>
                                 </div>
                             </form>
@@ -72,29 +72,20 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <h3 style="margin-left:-10px;">
-                                            <i class="fa fa-calendar" style="margin-right:2px;"></i>Lịch sử thu</h3>
+                                        <h4 >
+                                            <i class="fa fa-calendar" style="margin-right:2px;"></i>Lịch sử thu</h4>
                                     </div>
-
-
-                                    <div class="col-md-2 control-label">
-                                        Từ Ngày
+                                    <div class="col-md-4">
+                                        <label>Từ Ngày</label>
+                                        <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="ui-g-12 ui-md-4">
-
-                                            <p-calendar id="field_thoigian" [(ngModel)]="ThuChi.thoigian" dateFormat="dd.mm.yy" name="thoigian"></p-calendar> 
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2 control-label">
-                                        Đến Ngày</div>
-                                    <div class="col-md-2">
-                                       
-                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Đến Ngày</label>
+                                        <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+                                     </div>
 
                                     <div class="col-md-1" style="margin-top: 20px">
-                                        <button class="btn btn-info">Tìm </button>
+                                        <button class="btn btn-info" (click)="timkiem()">Tìm </button>
                                     </div>
                                 </div>
                             </div>

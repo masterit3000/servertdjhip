@@ -8,52 +8,59 @@ import { ThuChiService } from '../thu-chi.service';
 import { Principal } from '../../../shared';
 
 @Component({
-  selector: 'jhi-thu-hoat-dong',
-  templateUrl: './thu-hoat-dong.component.html',
-  styles: []
+    selector: 'jhi-thu-hoat-dong',
+    templateUrl: './thu-hoat-dong.component.html',
+    styles: []
 })
 export class ThuHoatDongComponent implements OnInit {
-  thuChis: ThuChi[];
-  currentAccount: any;
-  eventSubscriber: Subscription;
-  
+    thuChis: ThuChi[];
+    currentAccount: any;
+    eventSubscriber: Subscription;
+    thuchi: ThuChi;
+    tungay : Date;
+    denngay : Date;
 
-  constructor(
-      private thuChiService: ThuChiService,
-      private jhiAlertService: JhiAlertService,
-      private eventManager: JhiEventManager,
-      private principal: Principal
-  ) {
-  }
+    constructor(
+        private thuChiService: ThuChiService,
+        private jhiAlertService: JhiAlertService,
+        private eventManager: JhiEventManager,
+        private principal: Principal
+    ) {
+    }
+    timkiem(){
 
-  loadAll() {
-      this.thuChiService.query().subscribe(
-          (res: HttpResponse<ThuChi[]>) => {
-              this.thuChis = res.body;
-          },
-          (res: HttpErrorResponse) => this.onError(res.message)
-      );
-  }
-  ngOnInit() {
-      this.loadAll();
-      this.principal.identity().then((account) => {
-          this.currentAccount = account;
-      });
-      this.registerChangeInThuChis();
-  }
+        console.log(this.tungay);
+        console.log(this.denngay);
+        
+    }
+    loadAll() {
+        this.thuChiService.query().subscribe(
+            (res: HttpResponse<ThuChi[]>) => {
+                this.thuChis = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then((account) => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInThuChis();
+    }
 
-  ngOnDestroy() {
-      this.eventManager.destroy(this.eventSubscriber);
-  }
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
+    }
 
-  trackId(index: number, item: ThuChi) {
-      return item.id;
-  }
-  registerChangeInThuChis() {
-      this.eventSubscriber = this.eventManager.subscribe('thuChiListModification', (response) => this.loadAll());
-  }
+    trackId(index: number, item: ThuChi) {
+        return item.id;
+    }
+    registerChangeInThuChis() {
+        this.eventSubscriber = this.eventManager.subscribe('thuChiListModification', (response) => this.loadAll());
+    }
 
-  private onError(error) {
-      this.jhiAlertService.error(error.message, null, null);
-  }
+    private onError(error) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
 }
