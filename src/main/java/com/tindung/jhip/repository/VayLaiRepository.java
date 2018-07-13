@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 
 /**
@@ -15,6 +16,6 @@ import org.springframework.data.jpa.repository.*;
 public interface VayLaiRepository extends JpaRepository<VayLai, Long> {
 
     @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =:idcuahang")
-    public List<VayLai> findAllByCuaHang(Long cuaHangId);
+    public List<VayLai> findAllByCuaHang(@Param(value = "idcuahang") Long cuaHangId);
 
 }
