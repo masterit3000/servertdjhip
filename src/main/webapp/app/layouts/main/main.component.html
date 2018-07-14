@@ -4,122 +4,163 @@
 </div>
 <div class="container-fluid">
     <!-- <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000" id="layout-sidebar"> -->
-    <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
+    <div id="layout-sidebar" style="background-color: #f2f4f7" [ngClass]="{'active': menuActive}">
         <div class="layout-menu">
             <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="bat-ho" (click)="activeMenuId = null">
+                <i class="fa fa-credit-card" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.batHo">Bát họ</span>
             </a>
             <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="vay-lai" (click)="activeMenuId = null">
+                <i class="fa fa-money" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.vayLai">Vay lãi</span>
             </a>
             <a id="khach-hang-menu" #menukhachhang [class.active-menuitem]="menukhachhang.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menukhachhang.id ? null : menukhachhang.id)">
+                <i class="fa fa-vcard-o" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.khachHang">Khách hàng</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
             <div [ngClass]="{submenushow: (menukhachhang.id == activeMenuId), 'submenuhide': (menukhachhang.id != activeMenuId)}">
                 <a routerLink="khach-hang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.danhSachKhachHang">Danh sách khách hàng</span>
                 </a>
                 <a routerLink="khachCanVay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.khachCanVay">Khách cần vay</span>
                 </a>
                 <a routerLink="checkThongTinKhachHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.checkThongTinKhachHang">Check thông tin khách hàng</span>
                 </a>
             </div>
             <a id="cua-hang-menu" #menucuahang [class.active-menuitem]="menucuahang.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menucuahang.id ? null : menucuahang.id)">
+                <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyCuaHang">Quản lý cửa hàng</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
             <div [ngClass]="{submenushow: (menucuahang.id == activeMenuId), 'submenuhide': (menucuahang.id != activeMenuId)}">
                 <a routerLink="tongQuatChuoiCuaHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.tongQuatChuoiCuaHang">Tổng quát chuỗi cửa hàng</span>
                 </a>
                 <a routerLink="thongTinChiTietCuaHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.thongTinChiTietCuaHang">Thông tin chi tiết cửa hàng</span>
                 </a>
                 <a routerLink="cua-hang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.danhSachCuaHang">Danh sách cửa hàng</span>
                 </a>
                 <a routerLink="tai-san" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.cauHinhHangHoa">Cấu hình hàng hóa</span>
                 </a>
                 <a routerLink="nhapTienQuyDauNgay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.nhapTienQuyDauNgay">Nhập tiền quỹ đầu ngày</span>
                 </a>
             </div>
             <a id="thu-chi-menu" #menuthuchi [class.active-menuitem]="menuthuchi.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuthuchi.id ? null : menuthuchi.id)">
+                <i class="fa fa-balance-scale" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyThuChi">Quản lý thu chi</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
             <div [ngClass]="{submenushow: (menuthuchi.id == activeMenuId), 'submenuhide': (menuthuchi.id != activeMenuId)}">
                 <a routerLink="thuHoatDong" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.thuHoatDong">Thu hoạt động</span>
                 </a>
                 <a routerLink="chiHoatDong" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.chiHoatDong">Chi hoạt động</span>
                 </a>
             </div>
             <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/" (click)="activeMenuId = null">
+                <i class="fa fa-pie-chart" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyNguonVon">Quản lý nguồn vốn</span>
             </a>
             <a id="nhan-vien-menu" #menunhanvien [class.active-menuitem]="menunhanvien.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menunhanvien.id ? null : menunhanvien.id)">
+                <i class="fa fa-user" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyNhanVien">Quản lý nhân viên</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
             <div [ngClass]="{submenushow: (menunhanvien.id == activeMenuId), 'submenuhide': (menunhanvien.id != activeMenuId)}">
                 <a routerLink="nhan-vien" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.danhSachNhanVien">Danh sách nhân viên</span>
                 </a>
                 <a routerLink="phanQuyenNhanVien" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.phanQuyenNhanVien">Phân quyền nhân viên</span>
                 </a>
             </div>
             <a id="thong-ke-menu" #menuthongke [class.active-menuitem]="menuthongke.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuthongke.id ? null : menuthongke.id)">
+                <i class="fa fa-line-chart" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.thongKe">Thống kê</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
             <div [ngClass]="{submenushow: (menuthongke.id == activeMenuId), 'submenuhide': (menuthongke.id != activeMenuId)}">
                 <a routerLink="thuTienVayLai" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.thuTienVayLai">Thu tiền vay lãi</span>
                 </a>
                 <a routerLink="thuTienHo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.thuTienHo">Thu tiền họ</span>
                 </a>
             </div>
             <a id="bao-cao-menu" #menubaocao [class.active-menuitem]="menubaocao.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menubaocao.id ? null : menubaocao.id)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.baoCao">Báo cáo</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
             <div [ngClass]="{submenushow: (menubaocao.id == activeMenuId), 'submenuhide': (menubaocao.id != activeMenuId)}">
                 <a routerLink="soQuyTienMat" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.soQuyTienMat">Số quỹ tiền mặt</span>
                 </a>
                 <a routerLink="tongKetGiaoDich" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.tongKetGiaoDich">Tổng kết giao dịch</span>
                 </a>
                 <a routerLink="tongKetLoiNhuan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.tongKetLoiNhuan">Tổng kết lợi nhuận</span>
                 </a>
                 <a routerLink="chiTietTienLai" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.chiTietTienLai">Chi tiết tiền lãi</span>
                 </a>
                 <a routerLink="baoCaoDangChoVay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.baoCaoDangChoVay">Báo cáo đang cho vay</span>
                 </a>
                 <a routerLink="baoCaoHangChoThanhLy" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.baoCaoHangChoThanhLy">Báo cáo hàng chờ thanh lý</span>
                 </a>
                 <a routerLink="baoCaoChuocDoDongHD" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.baoCaoChuocDoDongHD">Báo cáo chuộc đồ, đống hợp đồng</span>
                 </a>
                 <a routerLink="baoCaoThanhLyDo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.baoCaoThanhLyDo">Báo cáo thanh lý đồ</span>
                 </a>
                 <a routerLink="baoCaoHopDongDaXoa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.baoCaoHopDongDaXoa">Báo cáo hợp đồng đã xóa</span>
                 </a>
                 <a routerLink="baoCaoTinNhan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.baoCaoTinNhan">Báo cáo tin nhắn</span>
                 </a>
                 <a routerLink="banGiaoCa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.banGiaoCa">Bàn giao ca</span>
                 </a>
                 <a routerLink="dongTienTheoNgay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.dongTienTheoNgay">Dòng tiền theo ngày</span>
                 </a>
             </div>
