@@ -15,6 +15,7 @@ export class ThuChiComponent implements OnInit, OnDestroy {
 thuChis: ThuChi[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    thoigian: any;
 
     constructor(
         private thuChiService: ThuChiService,

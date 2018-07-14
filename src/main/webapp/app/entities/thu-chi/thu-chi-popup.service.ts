@@ -31,8 +31,8 @@ export class ThuChiPopupService {
                 this.thuChiService.find(id)
                     .subscribe((thuChiResponse: HttpResponse<ThuChi>) => {
                         const thuChi: ThuChi = thuChiResponse.body;
-                        thuChi.thoigian = this.datePipe
-                            .transform(thuChi.thoigian, 'yyyy-MM-ddTHH:mm:ss');
+                        // thuChi.thoigian = this.datePipe
+                        //     .transform(thuChi.thoigian, 'yyyy-MM-ddTHH:mm:ss');
                         this.ngbModalRef = this.thuChiModalRef(component, thuChi);
                         resolve(this.ngbModalRef);
                     });

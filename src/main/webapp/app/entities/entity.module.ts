@@ -21,6 +21,8 @@ import { BaoCaoModule } from './bao-cao/bao-cao.module';
 import { ThongKeModule } from './thong-ke/thong-ke.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
+
+
 @NgModule({
     imports: [
         ServertdjhipTinhModule,
@@ -42,6 +44,8 @@ import { ThongKeModule } from './thong-ke/thong-ke.module';
         ServertdjhipNhatKyModule,
         BaoCaoModule,
         ThongKeModule,
+        
+    
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import {CalendarModule} from 'primeng/calendar';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     ThuChiService,
@@ -14,6 +14,8 @@ import {
     thuChiRoute,
     thuChiPopupRoute,
 } from './';
+import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
+import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
 
 const ENTITY_STATES = [
     ...thuChiRoute,
@@ -23,7 +25,8 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        CalendarModule
     ],
     declarations: [
         ThuChiComponent,
@@ -32,6 +35,9 @@ const ENTITY_STATES = [
         ThuChiDeleteDialogComponent,
         ThuChiPopupComponent,
         ThuChiDeletePopupComponent,
+        ThuHoatDongComponent,
+        ChiHoatDongComponent,
+     
     ],
     entryComponents: [
         ThuChiComponent,

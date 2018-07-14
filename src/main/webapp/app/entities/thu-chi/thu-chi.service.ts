@@ -74,7 +74,7 @@ export class ThuChiService {
     private convert(thuChi: ThuChi): ThuChi {
         const copy: ThuChi = Object.assign({}, thuChi);
 
-        copy.thoigian = this.dateUtils.toDate(thuChi.thoigian);
+        // copy.thoigian = this.dateUtils.toDate(thuChi.thoigian);
         return copy;
     }
 }

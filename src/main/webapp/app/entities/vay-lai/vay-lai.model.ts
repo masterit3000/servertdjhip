@@ -1,5 +1,5 @@
 import { BaseEntity } from './../../shared';
-
+import { HopDong } from '../hop-dong';
 export const enum HINHTHUCLAI {
     'NGAY',
     'THANG',
@@ -25,6 +25,7 @@ export class VayLai implements BaseEntity {
         public cachtinhlai?: TINHLAI,
         public thulaitruoc?: boolean,
         public hopdongvlId?: number,
+        public hopdongvl?: HopDong,
     ) {
         this.thulaitruoc = false;
     }
