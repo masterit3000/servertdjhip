@@ -35,6 +35,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import {TooltipModule} from 'primeng/tooltip';
+import {SpinnerModule} from 'primeng/spinner';
 
 const ENTITY_STATES = [...vayLaiRoute, ...vayLaiPopupRoute];
 
@@ -50,7 +52,9 @@ const ENTITY_STATES = [...vayLaiRoute, ...vayLaiPopupRoute];
         InputSwitchModule,
         AutoCompleteModule,
         ScrollPanelModule,
-        KeyFilterModule
+        KeyFilterModule,
+        TooltipModule,
+        SpinnerModule
     ],
     declarations: [
         VayLaiComponent,
