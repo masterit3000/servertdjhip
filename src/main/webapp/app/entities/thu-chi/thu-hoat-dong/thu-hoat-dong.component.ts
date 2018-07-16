@@ -7,6 +7,7 @@ import { ThuChi, THUCHI } from '../thu-chi.model';
 import { ThuChiService } from '../thu-chi.service';
 import { Principal } from '../../../shared';
 import { Observable } from '../../../../../../../node_modules/rxjs/Observable';
+import { NhanVien, NhanVienService } from '../../nhan-vien';
 // import { NgbActiveModal } from '../../../../../../../node_modules/@ng-bootstrap/ng-bootstrap';
 // import { ThuHoatDongService } from './thu-hoat-dong.service';
 
@@ -23,6 +24,7 @@ export class ThuHoatDongComponent implements OnInit {
     tungay : Date;
     denngay : Date;
     isSaving: boolean;
+    nhanviens: NhanVien[];
     
     
 
@@ -31,6 +33,7 @@ export class ThuHoatDongComponent implements OnInit {
         // public activeModal: NgbActiveModal,
         private thuChiService: ThuChiService,
         private jhiAlertService: JhiAlertService,
+        private nhanVienService: NhanVienService,
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {
@@ -64,6 +67,7 @@ export class ThuHoatDongComponent implements OnInit {
         this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
         this.isSaving = false;
         // this.activeModal.dismiss(result);
+        this.jhiAlertService.success('them moi thanh cong', null, null);
     }
 
     private onSaveError() {
@@ -86,6 +90,8 @@ export class ThuHoatDongComponent implements OnInit {
             this.currentAccount = account;
         });
         this.registerChangeInThuChis();
+        this.nhanVienService.query()
+        .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     ngOnDestroy() {

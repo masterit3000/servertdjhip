@@ -31,6 +31,7 @@ import {
 } from './layouts';
 import { SidebarModule } from 'primeng/primeng';
 
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -53,6 +54,7 @@ import { SidebarModule } from 'primeng/primeng';
         PageRibbonComponent,
         ActiveMenuDirective,
         FooterComponent
+       
     ],
     providers: [
         ProfileService,

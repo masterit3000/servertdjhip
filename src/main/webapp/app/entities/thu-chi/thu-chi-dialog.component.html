@@ -80,7 +80,7 @@
             <label class="form-control-label" jhiTranslate="servertdjhipApp.thuChi.nhanVien" for="field_nhanVien">Nhan Vien</label>
             <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuChi.nhanVienId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens; trackBy: trackNhanVienById">{{nhanVienOption.id}}</option>
+                <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens; trackBy: trackNhanVienById">{{nhanVienOption.ten}}</option>
             </select>
         </div>
     </div>
