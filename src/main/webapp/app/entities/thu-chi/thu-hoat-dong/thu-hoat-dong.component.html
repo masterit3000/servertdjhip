@@ -10,6 +10,7 @@
             </div>
         </div>
         <!-- content -->
+        <jhi-alert></jhi-alert>
         <div class="row" style="padding-top: 2%">
             <div class="col-md-12">
                 <div class="row">
@@ -28,7 +29,10 @@
                                             <span class="ui-inputgroup-addon">
                                                 <i class="fa fa-user"></i>
                                             </span>
-                                            <input type="text" pInputText placeholder="Username" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId">
+                                            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" >
+                                                <option [ngValue]="null"></option>
+                                                <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens; trackBy: trackNhanVienById">{{nhanVienOption.ten}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -42,8 +46,8 @@
                                         <!-- size="10"> -->
 
                                         <div class="ui-inputgroup">
-                                            <span class="ui-inputgroup-addon">$</span>
-                                            <input type="number" pInputText placeholder="Số tiền" name="sotien" id="field_sotien" [(ngModel)]="thuchi.sotien" required>
+                                            <!-- <span class="ui-inputgroup-addon">$</span> -->
+                                            <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" name="sotien" id="field_sotien" class="form-control" [(ngModel)]="thuchi.sotien" required>
                                             <!-- [(ngModel)]="thuChis.sotien" required> -->
                                             
 
@@ -87,7 +91,7 @@
                                         <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
                                      </div>
 
-                                    <div class="col-md-1" style="margin-top: 20px">
+                                    <div class="col-md-1" >
                                         <button class="btn btn-info" (click)="timkiem()">Tìm </button>
                                     </div>
                                 </div>

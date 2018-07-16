@@ -7,6 +7,8 @@ import { ThuChiPopupComponent } from './thu-chi-dialog.component';
 import { ThuChiDeletePopupComponent } from './thu-chi-delete-dialog.component';
 import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
 import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
+import { GopVonComponent } from './gop-von/gop-von.component';
+import { RutVonComponent } from './rut-von/rut-von.component';
 
 export const thuChiRoute: Routes = [
     {
@@ -38,6 +40,23 @@ export const thuChiRoute: Routes = [
     {
         path: 'chiHoatDong',
         component: ChiHoatDongComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'servertdjhipApp.thuChi.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'gopVon',
+        component: GopVonComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'servertdjhipApp.thuChi.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },   {
+        path: 'rutVon',
+        component: RutVonComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'

@@ -16,6 +16,9 @@ import {
 } from './';
 import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
 import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
+import {SpinnerModule} from 'primeng/spinner';
+import { GopVonComponent } from './gop-von/gop-von.component';
+import { RutVonComponent } from './rut-von/rut-von.component';
 
 
 const ENTITY_STATES = [
@@ -27,7 +30,8 @@ const ENTITY_STATES = [
     imports: [
         ServertdjhipSharedModule,
         RouterModule.forChild(ENTITY_STATES),
-        CalendarModule
+        CalendarModule,
+        SpinnerModule
     ],
     declarations: [
         ThuChiComponent,
@@ -38,6 +42,8 @@ const ENTITY_STATES = [
         ThuChiDeletePopupComponent,
         ThuHoatDongComponent,
         ChiHoatDongComponent,
+        GopVonComponent,
+        RutVonComponent,
      
     ],
     entryComponents: [
