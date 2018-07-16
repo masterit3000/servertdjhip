@@ -3,9 +3,12 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { ThuChi } from '../thu-chi.model';
+import { ThuChi, THUCHI } from '../thu-chi.model';
 import { ThuChiService } from '../thu-chi.service';
 import { Principal } from '../../../shared';
+import { Observable } from '../../../../../../../node_modules/rxjs/Observable';
+// import { NgbActiveModal } from '../../../../../../../node_modules/@ng-bootstrap/ng-bootstrap';
+// import { ThuHoatDongService } from './thu-hoat-dong.service';
 
 @Component({
     selector: 'jhi-thu-hoat-dong',
@@ -19,20 +22,56 @@ export class ThuHoatDongComponent implements OnInit {
     thuchi: ThuChi;
     tungay : Date;
     denngay : Date;
+    isSaving: boolean;
+    
+    
+
 
     constructor(
+        // public activeModal: NgbActiveModal,
         private thuChiService: ThuChiService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {
+        this.thuchi = new ThuChi();
     }
     timkiem(){
-
         console.log(this.tungay);
         console.log(this.denngay);
         
     }
+    // clear() {
+    //     this.activeModal.dismiss('cancel');
+    // }
+    save() {
+        this.thuchi.thuchi = THUCHI.THU;
+        this.isSaving = true;
+        if (this.thuchi.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.thuChiService.update(this.thuchi));
+        } else {
+            this.subscribeToSaveResponse(
+                this.thuChiService.create(this.thuchi));
+        }
+    }
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
+        result.subscribe(
+            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body), 
+            (res: HttpErrorResponse) => this.onSaveError());
+    }
+    private onSaveSuccess(result: ThuChi) {
+        this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
+        this.isSaving = false;
+        // this.activeModal.dismiss(result);
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+
+   
+
     loadAll() {
         this.thuChiService.query().subscribe(
             (res: HttpResponse<ThuChi[]>) => {
