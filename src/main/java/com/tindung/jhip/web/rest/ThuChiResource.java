@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.THUCHI;
 import com.tindung.jhip.service.ThuChiService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,33 +38,36 @@ public class ThuChiResource {
     }
 
     /**
-     * POST  /thu-chis : Create a new thuChi.
+     * POST /thu-chis : Create a new thuChi.
      *
      * @param thuChiDTO the thuChiDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new thuChiDTO, or with status 400 (Bad Request) if the thuChi has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new thuChiDTO, or with status 400 (Bad Request) if the thuChi has already
+     * an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/thu-chis")
     @Timed
     public ResponseEntity<ThuChiDTO> createThuChi(@Valid @RequestBody ThuChiDTO thuChiDTO) throws URISyntaxException {
-    //   thuChiDTO.setThoiGian();
+        //   thuChiDTO.setThoiGian();
         log.debug("REST request to save ThuChi : {}", thuChiDTO);
         if (thuChiDTO.getId() != null) {
             throw new BadRequestAlertException("A new thuChi cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ThuChiDTO result = thuChiService.save(thuChiDTO);
         return ResponseEntity.created(new URI("/api/thu-chis/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /thu-chis : Updates an existing thuChi.
+     * PUT /thu-chis : Updates an existing thuChi.
      *
      * @param thuChiDTO the thuChiDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated thuChiDTO,
-     * or with status 400 (Bad Request) if the thuChiDTO is not valid,
-     * or with status 500 (Internal Server Error) if the thuChiDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * thuChiDTO, or with status 400 (Bad Request) if the thuChiDTO is not
+     * valid, or with status 500 (Internal Server Error) if the thuChiDTO
+     * couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/thu-chis")
@@ -74,27 +79,44 @@ public class ThuChiResource {
         }
         ThuChiDTO result = thuChiService.save(thuChiDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, thuChiDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, thuChiDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /thu-chis : get all the thuChis.
+     * GET /thu-chis : get all the thuChis.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of thuChis in body
+     * @return the ResponseEntity with status 200 (OK) and the list of thuChis
+     * in body
      */
     @GetMapping("/thu-chis")
     @Timed
     public List<ThuChiDTO> getAllThuChis() {
         log.debug("REST request to get all ThuChis");
         return thuChiService.findAll();
-        }
+    }
 
     /**
-     * GET  /thu-chis/:id : get the "id" thuChi.
+     * GET /thu-chis : get all the thuChis.
+     *
+     * @param start
+     * @param end
+     * @return the ResponseEntity with status 200 (OK) and the list of thuChis
+     * in body
+     */
+    @GetMapping("/thu-chis/{start}/{end}/{loai}")
+    @Timed
+    public List<ThuChiDTO> getAllThuChisByTime(@PathVariable(name = "start") ZonedDateTime start, @PathVariable(name = "end") ZonedDateTime end, @PathVariable THUCHI thuchi) {
+        log.debug("REST request to get all ThuChis");
+        return thuChiService.findByTime(start, end,thuchi);
+    }
+
+    /**
+     * GET /thu-chis/:id : get the "id" thuChi.
      *
      * @param id the id of the thuChiDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the thuChiDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * thuChiDTO, or with status 404 (Not Found)
      */
     @GetMapping("/thu-chis/{id}")
     @Timed
@@ -105,7 +127,7 @@ public class ThuChiResource {
     }
 
     /**
-     * DELETE  /thu-chis/:id : delete the "id" thuChi.
+     * DELETE /thu-chis/:id : delete the "id" thuChi.
      *
      * @param id the id of the thuChiDTO to delete
      * @return the ResponseEntity with status 200 (OK)

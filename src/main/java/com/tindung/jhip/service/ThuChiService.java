@@ -1,6 +1,8 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.THUCHI;
 import com.tindung.jhip.service.dto.ThuChiDTO;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -37,4 +39,8 @@ public interface ThuChiService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end);
+
+    public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi);
 }
