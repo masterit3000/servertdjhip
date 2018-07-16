@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { ThuChi } from './thu-chi.model';
+import { ThuChi, THUCHI } from './thu-chi.model';
 import { ThuChiPopupService } from './thu-chi-popup.service';
 import { ThuChiService } from './thu-chi.service';
 import { CuaHang, CuaHangService } from '../cua-hang';
@@ -48,6 +48,7 @@ export class ThuChiDialogComponent implements OnInit {
     }
 
     save() {
+        this.thuChi.thuchi = THUCHI.CHI
         this.isSaving = true;
         if (this.thuChi.id !== undefined) {
             this.subscribeToSaveResponse(
@@ -56,6 +57,8 @@ export class ThuChiDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.thuChiService.create(this.thuChi));
         }
+        
+        
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {

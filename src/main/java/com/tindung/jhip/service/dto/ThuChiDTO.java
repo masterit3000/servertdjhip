@@ -20,15 +20,16 @@ public class ThuChiDTO implements Serializable {
     @Size(max = 3000)
     private String noidung;
 
-    @NotNull
+    // @NotNull
     private ZonedDateTime thoigian;
 
     private THUCHI thuchi;
 
     @NotNull
     private Double sotien;
-
     private Long cuaHangId;
+
+    
 
     private Long nhanVienId;
 

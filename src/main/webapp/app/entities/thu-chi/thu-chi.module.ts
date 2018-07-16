@@ -17,6 +17,7 @@ import {
 import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
 import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
 
+
 const ENTITY_STATES = [
     ...thuChiRoute,
     ...thuChiPopupRoute,
@@ -49,6 +50,7 @@ const ENTITY_STATES = [
     providers: [
         ThuChiService,
         ThuChiPopupService,
+       
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
