@@ -50,22 +50,194 @@
     </button>
     <p-tabView>
         <p-tabPanel header="Lịch đóng tiền">
-            <jhi-bat-ho-lich-dong-tien></jhi-bat-ho-lich-dong-tien>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>In</th>
+                            <th>STT</th>
+                            <th>Ngày họ</th>
+                            <th>Tiền họ</th>
+                            <th>Ngày giao dịch</th>
+                            <th>Tiền khách trả</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7">
+                                    Demo data
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Đóng hợp đồng">
-            <jhi-bat-ho-dong-hop-dong></jhi-bat-ho-dong-hop-dong>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-borderles">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Chú ý:
+                                </td>
+                                <td rowspan="3">
+                                    <button class="btn btn-primary float-right">Đóng hợp đồng</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số kỳ còn phải đóng: (DATA)</td>
+                            </tr>
+                            <tr>
+                                <td>Nợ cũ: (DATA)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Nợ">
-            <jhi-bat-ho-no></jhi-bat-ho-no>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Số tiền nợ: </td>
+                                <td>
+                                    <input type="number" pInputText placeholder="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="bolder-table-last">
+                                    <button class="btn btn-primary float-right">Ghi nợ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Số tiền trả: </td>
+                                <td>
+                                    <input type="number" pInputText placeholder="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="bolder-table-last">
+                                    <button class="btn btn-primary float-right">Trả nợ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Lịch sử">
-            <jhi-bat-ho-lich-su></jhi-bat-ho-lich-su>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="ui-float-label">
+                        <textarea id="float-input" [rows]="5" [cols]="170" pInputTextarea></textarea>
+                        <label for="float-input">Ghi chú</label>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary float-right">Lưu</button>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Lịch sử nhắc nợ</h3>
+                    <br />
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Nhân viên</th>
+                            <th>Nội dung</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Lịch sử thao tác</h3>
+                    <br />
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Nhân viên</th>
+                            <th>Số tiền ghi nợ</th>
+                            <th>Số tiền ghi có</th>
+                            <th>Nội dung</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Đảo họ">
-            <jhi-bat-ho-dao-ho></jhi-bat-ho-dao-ho>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Ngày đảo họ:</td>
+                                <td>
+                                    <p-calendar></p-calendar>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bát họ mới:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tiền đưa khách:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bốc trong vòng:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số ngày đóng tiền:</td>
+                                <td>
+                                    <input type="number" pInputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-center bolder-table-last">
+                                    <button class="btn btn-primary">Đảo họ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </p-tabPanel>
         <p-tabPanel header="Chứng từ">
-            <jhi-bat-ho-chung-tu></jhi-bat-ho-chung-tu>
+            <div class="row">
+                <div class="col-md-12">
+                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+                </div>
+            </div>
         </p-tabPanel>
     </p-tabView>
 </div>

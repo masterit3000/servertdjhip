@@ -1,33 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { KhachHang, KhachHangService } from '../../../khach-hang';
-import { Principal } from '../../../../shared';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { BatHoService } from '../../bat-ho.service';
-import { BatHo } from '../../bat-ho.model';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { HopDong } from '../../../hop-dong';
+import { Component, OnInit } from "@angular/core";
+import { KhachHang, KhachHangService } from "../../../khach-hang";
+import { Principal } from "../../../../shared";
+import { JhiEventManager, JhiAlertService } from "ng-jhipster";
+import { BatHoService } from "../../bat-ho.service";
+import { BatHo } from "../../bat-ho.model";
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
+import { HopDong } from "../../../hop-dong";
 
 @Component({
-    selector: 'jhi-bat-ho-moi',
-    templateUrl: './bat-ho-moi.component.html',
+    selector: "jhi-bat-ho-moi",
+    templateUrl: "./bat-ho-moi.component.html",
     styles: []
 })
 export class BatHoMoiComponent implements OnInit {
-
     khachHangs: KhachHang[]; // chua danh sach khach hang
     batHo: BatHo; // bat ho hien tai biding voi thong tin bat ho
     keyTimKhachHang: String;
     khachhangid: any;
     mahopdong: any;
-
-
     constructor(
         private khachHangService: KhachHangService,
         private bathoService: BatHoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-
     ) {
         this.batHo = new BatHo();
         this.batHo.hopdong = new HopDong();
@@ -36,7 +32,6 @@ export class BatHoMoiComponent implements OnInit {
         // this.batHo.hopdong.khachHangId = null;
 
         // this.batHo.hopdong = null;
-
     }
 
     ngOnInit() {
@@ -46,14 +41,12 @@ export class BatHoMoiComponent implements OnInit {
         console.log(this.batHo);
         this.bathoService.create(this.batHo).subscribe(
             (res: HttpResponse<BatHo>) => {
-
                 this.jhiAlertService.info("them bat ho thanh cong", null, null);
-
-            },//thanh cong thi goi
+            }, //thanh cong thi goi
             (err: HttpErrorResponse) => {
                 console.log(err);
                 this.jhiAlertService.error(err.message, null, null);
-            }//loi thi goi ham nay
+            } //loi thi goi ham nay
         );
 
         // batHo.hopdong.khachangid = this.khachhangid;
@@ -79,6 +72,5 @@ export class BatHoMoiComponent implements OnInit {
 
     private onSelectionChange(khachangid) {
         this.batHo.hopdong.khachHangId = khachangid;
-
     }
 }
