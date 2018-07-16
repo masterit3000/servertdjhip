@@ -44,7 +44,7 @@ public class VayLaiResource {
      */
     @PostMapping("/vay-lais")
     @Timed
-    public ResponseEntity<VayLaiDTO> createVayLai(@Valid @RequestBody VayLaiDTO vayLaiDTO) throws URISyntaxException {
+    public ResponseEntity<VayLaiDTO> createVayLai( @RequestBody VayLaiDTO vayLaiDTO) throws URISyntaxException {
         log.debug("REST request to save VayLai : {}", vayLaiDTO);
         if (vayLaiDTO.getId() != null) {
             throw new BadRequestAlertException("A new vayLai cannot already have an ID", ENTITY_NAME, "idexists");

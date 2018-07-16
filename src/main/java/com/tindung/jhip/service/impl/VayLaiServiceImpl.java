@@ -6,12 +6,12 @@ import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.HINHTHUCLAI;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.TINHLAI;
-import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.VayLaiRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.HopDongService;
+import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -46,14 +47,17 @@ public class VayLaiServiceImpl implements VayLaiService {
 
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
+    private final LichSuDongTienService lichSuDongTienService;
 
-    public VayLaiServiceImpl() {
-        this.vayLaiRepository = null;
-        this.vayLaiMapper = null;
-        this.hopDongService = null;
-        this.nhanVienService = null;
-        this.cuaHangService = null;
+    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService) {
+        this.vayLaiRepository = vayLaiRepository;
+        this.vayLaiMapper = vayLaiMapper;
+        this.hopDongService = hopDongService;
+        this.nhanVienService = nhanVienService;
+        this.cuaHangService = cuaHangService;
+        this.lichSuDongTienService = lichSuDongTienService;
     }
+
 
     /**
      * Save a vayLai.
@@ -68,92 +72,85 @@ public class VayLaiServiceImpl implements VayLaiService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            if (vayLaiDTO.getId() == null) {
+            if (vayLaiDTO.getId() == null) {// add new vay lai
                 HopDongDTO hopdong = vayLaiDTO.getHopdongvl();
                 hopdong.setLoaihopdong(LOAIHOPDONG.VAYLAI);
-                NhanVienDTO findByUserLogin = nhanVienService.findByUserLogin();
-                hopdong.setNhanVienId(findByUserLogin.getId());
-                hopdong.setNgaytao(ZonedDateTime.now());
+                NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
+                
+                hopdong.setNhanVienId(nhanVien.getId());
                 if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
                     Long idCuaHang = cuaHangService.findIDByUserLogin();
                     hopdong.setCuaHangId(idCuaHang);
                 }
+                hopdong.setNgaytao(ZonedDateTime.now());
                 hopdong = hopDongService.save(hopdong);
                 vayLaiDTO.setHopdongvl(hopdong);
-                Integer chukylai = vayLaiDTO.getChukylai();
-                TINHLAI cachtinhlai = vayLaiDTO.getCachtinhlai();
-                HINHTHUCLAI hinhthuclai = vayLaiDTO.getHinhthuclai();
-                Integer thoigianvay = vayLaiDTO.getThoigianvay();
-                Boolean thulaitruoc = vayLaiDTO.getThulaitruoc();
-                Double tienvay = vayLaiDTO.getTienvay();
+                VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
+                vayLai = vayLaiRepository.save(vayLai);
+                // lay du lieu nhan ve
+                Double tongTienVay = vayLai.getTienvay();
+                HINHTHUCLAI hinhThucLai = vayLai.getHinhthuclai();
+                Boolean thuLaiTruoc = vayLai.isThulaitruoc();
+                Float lai = vayLai.getLai();
+                TINHLAI cachTinhLai = vayLai.getCachtinhlai();
+                Integer soNgayVay = vayLai.getThoigianvay();
+                Integer kyLai = vayLai.getChukylai();
+                ZonedDateTime ngayVay = hopdong.getNgaytao();
+
+                // xu li du lieu nhan ve
+                int day = 0;
+                ZonedDateTime batdau = ngayVay;
+                int soChuKy = soNgayVay / kyLai;
+                if (soNgayVay % kyLai != 0) {
+                    soChuKy++;
+                }
+
+                long soTienTrongChuKy = Math.round(((tongTienVay / soChuKy) * 1000) * 1000);//lam tron den 1000d
+                while (day < soNgayVay) {
+                    LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                    lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                    lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                    lichSuDongTienDTO.setNgaybatdau(batdau);
+                    batdau = batdau.plusDays(kyLai);
+                    lichSuDongTienDTO.setNgayketthuc(batdau);
+                    lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                    day += kyLai;
+                    lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                    lichSuDongTienService.save(lichSuDongTienDTO);
+                }
+                //phat cuoi
                 LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                 lichSuDongTienDTO.setHopDongId(hopdong.getId());
                 lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setNgaybatdau(batdau);
+                batdau = ngayVay.plusDays(soNgayVay);
+                lichSuDongTienDTO.setNgayketthuc(batdau);
+                lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                lichSuDongTienService.save(lichSuDongTienDTO);
 
-                ZonedDateTime ngaybatdau = null;
-                ZonedDateTime ngayketthuc = null;
-                double soTien = 0f;
-                switch (hinhthuclai) {
-                    case NAM:
-                        switch (cachtinhlai) {
-                            case CHUKY:
-                                break;
-                            case MOTTRIEU:
-                                break;
-                            case PHANTRAM:
-                                break;
-                        }
-                        break;
-                    case THANG:
-                        switch (cachtinhlai) {
-                            case CHUKY:
-                                break;
-                            case MOTTRIEU:
-                                break;
-                            case PHANTRAM:
-                                break;
-                        }
-                        break;
-                    case THANGCODINH:
-                        switch (cachtinhlai) {
-                            case CHUKY:
-                                break;
-                            case MOTTRIEU:
-                                break;
-                            case PHANTRAM:
-                                break;
-                        }
-                        break;
-                    case TUAN:
-                        switch (cachtinhlai) {
-                            case CHUKY:
-                                break;
-                            case MOTTRIEU:
-                                break;
-                            case PHANTRAM:
-                                break;
-                        }
-                        break;
-                    case NGAY:
-                        switch (cachtinhlai) {
-                            case CHUKY:
-                                break;
-                            case MOTTRIEU:
-                                double trieu = tienvay / 1000000D;
-                                break;
-                            case PHANTRAM:
-                                break;
-                        }
-                        break;
+                //
+                return vayLaiMapper.toDto(vayLai);
+            } else {
+                Long idCuaHang = cuaHangService.findIDByUserLogin();
+                VayLai findOne = vayLaiRepository.findOne(vayLaiDTO.getId());
+                Long idCuaHangVayLai = findOne.getHopdongvl().getCuaHang().getId();
+                if (Objects.equals(idCuaHang, idCuaHangVayLai)) {// vay lai cua cua hang hien tai moi cho sua
+                    vayLaiDTO.getHopdongvl().setCuaHangId(idCuaHangVayLai);//de phong user thay doi idcuahang
+                    HopDongDTO save = hopDongService.save(vayLaiDTO.getHopdongvl());
+                    vayLaiDTO.setHopdongvl(save);
+                    VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
+                    vayLai = vayLaiRepository.save(vayLai);
+                    return vayLaiMapper.toDto(vayLai);
+
+                } else {
+                    throw new InternalServerErrorException("Sai cua hang");
                 }
 
-                VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
-                vayLai = vayLaiRepository.save(vayLai);
-                return vayLaiMapper.toDto(vayLai);
             }
         }
-        throw new InternalError("Khong co quyen");
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 
     /**
@@ -196,8 +193,20 @@ public class VayLaiServiceImpl implements VayLaiService {
     public VayLaiDTO findOne(Long id
     ) {
         log.debug("Request to get VayLai : {}", id);
-        VayLai vayLai = vayLaiRepository.findOne(id);
-        return vayLaiMapper.toDto(vayLai);
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        VayLai vayLai = null;
+        vayLai = vayLaiRepository.findOne(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return vayLaiMapper.toDto(vayLai);
+
+        } else {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            if (vayLai.getHopdongvl().getCuaHang().getId() == idCuaHang) {
+                return vayLaiMapper.toDto(vayLai);
+            }
+            return null;
+
+        }
     }
 
     /**
@@ -223,4 +232,5 @@ public class VayLaiServiceImpl implements VayLaiService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+
 }
