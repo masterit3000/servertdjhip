@@ -3,6 +3,28 @@
         <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover text-left">
+                <tr>
+                    <th>Tên khách hàng</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+                <tr>
+                    <th>Bát họ</th>
+                    <td>{{batHo.tongtien}}</td>
+                </tr>
+                <tr>
+                    <th>Tiền đưa khách</th>
+                    <td>{{batHo.tienduakhach}}</td>
+                </tr>
+                <tr>
+                    <th>Tỷ lệ</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <dl class="row-md jh-entity-details">
         <dt>
             <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
