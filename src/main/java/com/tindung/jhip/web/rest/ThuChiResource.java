@@ -45,6 +45,7 @@ public class ThuChiResource {
     @PostMapping("/thu-chis")
     @Timed
     public ResponseEntity<ThuChiDTO> createThuChi(@Valid @RequestBody ThuChiDTO thuChiDTO) throws URISyntaxException {
+    //   thuChiDTO.setThoiGian();
         log.debug("REST request to save ThuChi : {}", thuChiDTO);
         if (thuChiDTO.getId() != null) {
             throw new BadRequestAlertException("A new thuChi cannot already have an ID", ENTITY_NAME, "idexists");

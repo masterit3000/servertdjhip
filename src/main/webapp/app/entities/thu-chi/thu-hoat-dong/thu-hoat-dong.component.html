@@ -28,7 +28,7 @@
                                             <span class="ui-inputgroup-addon">
                                                 <i class="fa fa-user"></i>
                                             </span>
-                                            <input type="text" pInputText placeholder="Username">
+                                            <input type="text" pInputText placeholder="Username" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId">
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +43,9 @@
 
                                         <div class="ui-inputgroup">
                                             <span class="ui-inputgroup-addon">$</span>
-                                            <input type="number" pInputText placeholder="Price">
+                                            <input type="number" pInputText placeholder="Số tiền" name="sotien" id="field_sotien" [(ngModel)]="thuchi.sotien" required>
+                                            <!-- [(ngModel)]="thuChis.sotien" required> -->
+                                            
 
                                         </div>
 
@@ -56,12 +58,13 @@
                                         <span style="color: red;">*</span>
                                     </label>
                                     <div class="col-md-8">
-                                        <textarea rows="2" cols="6" class="auto form-control" data-rule-required="true" data-msg-required="Không được để trống trường này!"></textarea>
+                                        <textarea rows="2" cols="6" class="auto form-control" name="noidung" id="field_noidung"
+                                        [(ngModel)]="thuchi.noidung" required maxlength="3000"></textarea>
                                     </div>
                                 </div>
                                 <div class="row" style="padding-top: 5%">
                                     <div class=" col-md-12">
-                                        <button class="btn btn-xs btn-info pull-right">Thu tiền</button>
+                                        <button class="btn btn-xs btn-info pull-right" (click)="save()">Thu tiền</button>
                                     </div>
                                 </div>
                             </form>
