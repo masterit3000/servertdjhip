@@ -43,7 +43,7 @@
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
                                     <!-- <input [(ngModel)]="batHo.tongtien" type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien"
                                         placeholder="Tổng tiền họ khách phải đóng" required/> -->
-                                    <p-spinner placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHo.tongtien" class="form-control"
+                                    <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHo.tongtien" class="form-control"
                                         name="tongtien" id="field_tongtien" pTooltip="Nhập  số tiền khách hàng phải đóng" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                     <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
                                                 <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
@@ -58,7 +58,7 @@
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
                                     <!-- <input [(ngModel)]="batHo.tienduakhach" type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach"
                                         placeholder="Số tiền khách nhận (Chưa tính bát họ)" required/> -->
-                                    <p-spinner placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHo.tienduakhach"
+                                    <p-spinner thousandSeparator="."  [step]="500000" placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHo.tienduakhach"
                                         class="form-control" name="tienduakhach" id="field_tienduakhach" pTooltip="Nhập số tiền khách nhận
                                         (Tiền lãi - chưa tính bát họ gốc)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                     <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">

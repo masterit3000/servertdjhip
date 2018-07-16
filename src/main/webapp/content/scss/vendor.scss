@@ -2,6 +2,9 @@
 $fa-font-path: '~font-awesome/fonts';
 
 /***************************
+   "node_modules/primeicons/primeicons.css",
+            "node_modules/primeng/resources/themes/omega/theme.css",
+            "node_modules/primeng/resources/primeng.min.css"
 put Sass variables here:
 eg $input-color: red;
 ****************************/
@@ -10,6 +13,9 @@ eg $input-color: red;
 // Import Bootstrap source files from node_modules
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/font-awesome/scss/font-awesome';
+// @import   'node_modules/primeicons/primeicons.css';
+// @import   'node_modules/primeng/resources/themes/omega/theme.css';
+// @import   'node_modules/primeng/resources/primeng.min.css';
 
 /* ==========================================================================
 PrimeNG and it's third-party dependencies resources
@@ -18,6 +24,7 @@ PrimeNG and it's third-party dependencies resources
 @import "~primeng/resources/primeng.min.css";
 @import "~primeng-extensions/resources/primeng-extensions.min.css";
  @import "~primeng/resources/themes/omega/theme.css";
+ @import "~primeicons/primeicons.css";
  @import "~quill/dist/quill.core.css";
  @import "~quill/dist/quill.snow.css";
 
