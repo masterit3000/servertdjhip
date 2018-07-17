@@ -37,8 +37,14 @@ export class GopVonComponent implements OnInit {
       this.thuchi = new ThuChi();
   }
   timkiem(){
-      console.log(this.tungay);
-      console.log(this.denngay);
+           // console.log(this.tungay);
+        // console.log(this.denngay);
+        this.thuChiService.findByTime(this.tungay, this.denngay, THUCHI.GOPVON).subscribe(
+            (res: HttpResponse<ThuChi[]>) => {
+                this.thuChis = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
       
   }
   // clear() {

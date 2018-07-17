@@ -21,12 +21,12 @@ export class ThuHoatDongComponent implements OnInit {
     currentAccount: any;
     eventSubscriber: Subscription;
     thuchi: ThuChi;
-    tungay : Date;
-    denngay : Date;
+    tungay: Date;
+    denngay: Date;
     isSaving: boolean;
     nhanviens: NhanVien[];
-    
-    
+
+
 
 
     constructor(
@@ -39,10 +39,15 @@ export class ThuHoatDongComponent implements OnInit {
     ) {
         this.thuchi = new ThuChi();
     }
-    timkiem(){
-        console.log(this.tungay);
-        console.log(this.denngay);
-        
+    timkiem() {
+        // console.log(this.tungay);
+        // console.log(this.denngay);
+        this.thuChiService.findByTime(this.tungay, this.denngay, THUCHI.THU).subscribe(
+            (res: HttpResponse<ThuChi[]>) => {
+                this.thuChis = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
     // clear() {
     //     this.activeModal.dismiss('cancel');
@@ -60,11 +65,11 @@ export class ThuHoatDongComponent implements OnInit {
     }
     private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
         result.subscribe(
-            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body), 
+            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
             (res: HttpErrorResponse) => this.onSaveError());
     }
     private onSaveSuccess(result: ThuChi) {
-        this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
+        // this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);
@@ -74,7 +79,7 @@ export class ThuHoatDongComponent implements OnInit {
         this.isSaving = false;
     }
 
-   
+
 
     loadAll() {
         this.thuChiService.query().subscribe(
@@ -89,9 +94,9 @@ export class ThuHoatDongComponent implements OnInit {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInThuChis();
+        // this.registerChangeInThuChis();
         this.nhanVienService.query()
-        .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     ngOnDestroy() {

@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Optional;
@@ -106,9 +109,28 @@ public class ThuChiResource {
      */
     @GetMapping("/thu-chis/{start}/{end}/{loai}")
     @Timed
-    public List<ThuChiDTO> getAllThuChisByTime(@PathVariable(name = "start") ZonedDateTime start, @PathVariable(name = "end") ZonedDateTime end, @PathVariable THUCHI thuchi) {
+    public List<ThuChiDTO> getAllThuChisByTime(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "loai") String thuchi) {
         log.debug("REST request to get all ThuChis");
-        return thuChiService.findByTime(start, end,thuchi);
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+//        ZonedDateTime timeEnd = ZonedDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd").withZone(ZoneId.systemDefault())).plusSeconds(86399);
+        THUCHI loai = THUCHI.THU;
+        switch (thuchi) {
+            case "0":
+                loai = THUCHI.THU;
+                break;
+            case "1":
+                loai = THUCHI.CHI;
+                break;
+            case "2":
+                loai = THUCHI.GOPVON;
+                break;
+            case "3":
+                loai = THUCHI.RUTVON;
+                break;
+
+        }
+        return thuChiService.findByTime(timeStart, timeEnd, loai);
     }
 
     /**

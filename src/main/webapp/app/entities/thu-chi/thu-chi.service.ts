@@ -5,7 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { ThuChi } from './thu-chi.model';
+import { ThuChi, THUCHI } from './thu-chi.model';
 import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<ThuChi>;
@@ -13,7 +13,7 @@ export type EntityResponseType = HttpResponse<ThuChi>;
 @Injectable()
 export class ThuChiService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/thu-chis';
+    private resourceUrl = SERVER_API_URL + 'api/thu-chis';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -30,8 +30,18 @@ export class ThuChiService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<ThuChi>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<ThuChi>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    findByTime(start: Date, end: Date, loaithuchi: THUCHI): Observable<HttpResponse<ThuChi[]>> {
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, "dd.MM.yyy");
+        // let endd = this.dateUtils.convertLocalDateToServer(end, "dd.MM.yyy");
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+
+        return this.http.get<ThuChi[]>(`${this.resourceUrl}/${startd}/${endd}/${loaithuchi}`, { observe: 'response' })
+            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<ThuChi[]>> {
@@ -41,12 +51,12 @@ export class ThuChiService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: ThuChi = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<ThuChi[]>): HttpResponse<ThuChi[]> {
@@ -55,7 +65,7 @@ export class ThuChiService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -73,8 +83,15 @@ export class ThuChiService {
      */
     private convert(thuChi: ThuChi): ThuChi {
         const copy: ThuChi = Object.assign({}, thuChi);
-
+        console.log(copy);
         // copy.thoigian = this.dateUtils.toDate(thuChi.thoigian);
         return copy;
+    }
+    private convertDateToString(d: Date): String {
+
+        let m = d.getMonth() + 1;
+        let mm = m < 10 ? "0" + m : m;
+        return d.getFullYear() + " " + mm + " " + d.getDate();
+
     }
 }

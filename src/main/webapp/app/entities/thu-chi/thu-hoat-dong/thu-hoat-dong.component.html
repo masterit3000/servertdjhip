@@ -104,50 +104,37 @@
                                         <thead>
                                             <tr>
                                                 <th class="hidden-xs">
-                                                    STT
+                                                    ID
+                                                </th>
+                                                <th class="align-center">
+                                                    Nội Dung
                                                 </th>
                                                 <th class="align-center">
                                                     Ngày
                                                 </th>
-                                                <th class="align-center">
-                                                    Nhân viên
-                                                </th>
-
-
                                                 <th class="align-right">
                                                     Số tiền
                                                 </th>
-                                                <th class="align-center">
-                                                    Ghi chú
+                                                <th class="align-right">
+                                                    Nhân viên
                                                 </th>
-                                                <th width="60px">
-                                                    &nbsp;
-                                                </th>
+                                             
+                                              
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="hidden-xs">
-                                                    1
-                                                </td>
-                                                <td class="align-center">
-                                                    23:53 09/06/2018
-                                                </td>
-                                                <td class="align-center">
-                                                    asdasd
-                                                </td>
-
-                                                <td class="align-right">
-                                                    <span style="color:red">-1</span>
-                                                </td>
-
-                                                <td class="align-center">
-                                                    11
-                                                </td>
+                                            <tr *ngFor="let thuChi of thuChis ;trackBy: trackId">
+                                                <td><a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a></td>
+                                                <td>{{thuChi.noidung}}</td>
+                                                <td>{{thuChi.thoigian | date:'medium'}}</td>
+                                                <td>{{thuChi.sotien}}</td>
+                                               
                                                 <td>
-                                                    <i type="button" class="fa fa-print"></i>
-                                                    <i type="button" class="fa fa-trash"></i>
+                                                    <div *ngIf="thuChi.nhanVienId">
+                                                        <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]" >{{thuChi.nhanVienId}}</a>
+                                                    </div>
                                                 </td>
+                                                                   
                                             </tr>
                                         </tbody>
                                     </table>

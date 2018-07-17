@@ -112,8 +112,10 @@ public class ThuChiServiceImpl implements ThuChiService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
             Long cuahangID = cuaHangService.findIDByUserLogin();
-            thuChiRepository.findbyTime(start, end, cuahangID);
-
+            List<ThuChi> findbyTime = thuChiRepository.findbyTime(start, end, cuahangID);
+            return findbyTime.stream()
+                    .map(thuChiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalError("Khong cos quyen");
     }
@@ -127,8 +129,10 @@ public class ThuChiServiceImpl implements ThuChiService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
             Long cuahangID = cuaHangService.findIDByUserLogin();
-            thuChiRepository.findbyTime(start, end, thuchi, cuahangID);
-
+            List<ThuChi> findbyTime = thuChiRepository.findbyTime(start, end, thuchi, cuahangID);
+            return findbyTime.stream()
+                    .map(thuChiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalError("Khong cos quyen");
     }
