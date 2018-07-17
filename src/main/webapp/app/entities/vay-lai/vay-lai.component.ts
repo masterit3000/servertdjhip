@@ -15,7 +15,8 @@ export class VayLaiComponent implements OnInit, OnDestroy {
 vayLais: VayLai[];
     currentAccount: any;
     eventSubscriber: Subscription;
-
+    selected: VayLai;
+    none:any;
     constructor(
         private vayLaiService: VayLaiService,
         private jhiAlertService: JhiAlertService,
