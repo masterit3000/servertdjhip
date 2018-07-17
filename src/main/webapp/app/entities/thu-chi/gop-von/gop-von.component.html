@@ -31,7 +31,7 @@
                                           </span>
                                           <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" >
                                               <option [ngValue]="null"></option>
-                                              <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens; trackBy: trackNhanVienById">{{nhanVienOption.ten}}</option>
+                                              <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
                                           </select>
                                       </div>
                                   </div>

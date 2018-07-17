@@ -34,6 +34,10 @@ export class BatHoMoiComponent implements OnInit {
         // this.batHo.hopdong = null;
     }
 
+    clear(){
+
+        
+    }
     ngOnInit() {
 
     }
