@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
 import { ThuChi, THUCHI } from '../thu-chi.model';
 import { ThuChiService } from '../thu-chi.service';
 import { Principal } from '../../../shared';
 import { Observable } from '../../../../../../../node_modules/rxjs/Observable';
 import { NhanVien, NhanVienService } from '../../nhan-vien';
+
 // import { NgbActiveModal } from '../../../../../../../node_modules/@ng-bootstrap/ng-bootstrap';
 // import { ThuHoatDongService } from './thu-hoat-dong.service';
 
@@ -100,7 +100,7 @@ export class ThuHoatDongComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+        // this.eventManager.destroy(this.eventSubscriber);
     }
 
     trackId(index: number, item: ThuChi) {

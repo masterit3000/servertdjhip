@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
 import { ThuChi, THUCHI } from '../thu-chi.model';
 import { ThuChiService } from '../thu-chi.service';
 import { Principal } from '../../../shared';
@@ -85,13 +84,13 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInThuChis();
+        // this.registerChangeInThuChis();
         this.nhanVienService.query()
         .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+        // this.eventManager.destroy(this.eventSubscriber);
     }
 
     trackId(index: number, item: ThuChi) {

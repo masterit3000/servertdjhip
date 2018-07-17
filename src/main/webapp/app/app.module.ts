@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng2Webstorage, LocalStorageService, SessionStorageService  } from 'ngx-webstorage';
 import { JhiEventManager } from 'ng-jhipster';
-
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
@@ -17,8 +16,8 @@ import { ServertdjhipAdminModule } from './admin/admin.module';
 import { ServertdjhipAccountModule } from './account/account.module';
 import { ServertdjhipEntityModule } from './entities/entity.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
-// import { ServertdjhipprimengModule } from './primeng/primeng.module';
 import { ServertdjhipAppHiThereModule } from './hi-there/hi-there.module';
+// import { ServertdjhipprimengModule } from './primeng/primeng.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
     JhiMainComponent,
