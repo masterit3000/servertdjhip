@@ -104,17 +104,21 @@ public class ThuChiResource {
      *
      * @param start
      * @param end
-     * @return the ResponseEntity with status 200 (OK) and the list of thuChis
-     * in body
+     * @return Hàm sư dung để tìm kiếm thu chi theo thời gian và loại thu chi
+     * CÁc hàm tìm kiếm (lấy dữ liệu) cố gắng để kiểu get, tham số truyefn lên
+     * dưới dạng url =>@GetMapping("/thu-chis/{start}/{end}/{loai}") link client
+     * gui
      */
     @GetMapping("/thu-chis/{start}/{end}/{loai}")
     @Timed
     public List<ThuChiDTO> getAllThuChisByTime(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "loai") String thuchi) {
-        log.debug("REST request to get all ThuChis");
+        log.debug("REST request to get all ThuChis");//ghi log thôi
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-//        ZonedDateTime timeEnd = ZonedDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd").withZone(ZoneId.systemDefault())).plusSeconds(86399);
+//2 dòng trên để convert thời gian từ client gửi lên thành dạng ZoneDateTime, client gửi lên dạng 2018 07 15. plusSeconds(86399);-> đê tạo tahfh thời diểm 23h59m59s của ngày đó
+
         THUCHI loai = THUCHI.THU;
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
         switch (thuchi) {
             case "0":
                 loai = THUCHI.THU;
@@ -130,7 +134,7 @@ public class ThuChiResource {
                 break;
 
         }
-        return thuChiService.findByTime(timeStart, timeEnd, loai);
+        return thuChiService.findByTime(timeStart, timeEnd, loai);//goi service chạy
     }
 
     /**
