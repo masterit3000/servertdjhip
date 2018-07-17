@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { KhachHang, KhachHangService } from "../../../khach-hang";
-import { Principal } from "../../../../shared";
-import { JhiEventManager, JhiAlertService } from "ng-jhipster";
-import { BatHoService } from "../../bat-ho.service";
-import { BatHo } from "../../bat-ho.model";
-import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
-import { HopDong } from "../../../hop-dong";
+import { Component, OnInit } from '@angular/core';
+import { KhachHang, KhachHangService } from '../../../khach-hang';
+import { Principal } from '../../../../shared';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { BatHoService } from '../../bat-ho.service';
+import { BatHo } from '../../bat-ho.model';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HopDong } from '../../../hop-dong';
 
 @Component({
-    selector: "jhi-bat-ho-moi",
-    templateUrl: "./bat-ho-moi.component.html",
+    selector: 'jhi-bat-ho-moi',
+    templateUrl: './bat-ho-moi.component.html',
     styles: []
 })
 export class BatHoMoiComponent implements OnInit {
@@ -28,7 +28,7 @@ export class BatHoMoiComponent implements OnInit {
         this.batHo = new BatHo();
         this.batHo.hopdong = new HopDong();
         this.batHo.hopdong.khachHangId = 0;
-        // this.batHo.hopdong.mahopdong ="";
+        // this.batHo.hopdong.mahopdong ='';
         // this.batHo.hopdong.khachHangId = null;
 
         // this.batHo.hopdong = null;
@@ -45,7 +45,7 @@ export class BatHoMoiComponent implements OnInit {
         console.log(this.batHo);
         this.bathoService.create(this.batHo).subscribe(
             (res: HttpResponse<BatHo>) => {
-                this.jhiAlertService.info("them bat ho thanh cong", null, null);
+                this.jhiAlertService.info('them bat ho thanh cong', null, null);
             }, //thanh cong thi goi
             (err: HttpErrorResponse) => {
                 console.log(err);

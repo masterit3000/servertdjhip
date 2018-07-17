@@ -10,6 +10,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <jhi-alert-error></jhi-alert-error>
                     <!-- <div class="form-group" [hidden]="!batHo.id">
                         <label for="id" jhiTranslate="global.field.id">ID</label>
                         <input type="text" class="form-control" id="id" name="id" [(ngModel)]="batHo.id" readonly />
@@ -43,8 +44,10 @@
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
                                     <!-- <input [(ngModel)]="batHo.tongtien" type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien"
                                         placeholder="Tổng tiền họ khách phải đóng" required/> -->
-                                    <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHo.tongtien" class="form-control"
-                                        name="tongtien" id="field_tongtien" pTooltip="Nhập  số tiền khách hàng phải đóng" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                        [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"
+                                        pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover"
+                                        required></p-spinner>
                                     <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
                                                 <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
                                                     This field is required.
@@ -58,9 +61,11 @@
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
                                     <!-- <input [(ngModel)]="batHo.tienduakhach" type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach"
                                         placeholder="Số tiền khách nhận (Chưa tính bát họ)" required/> -->
-                                    <p-spinner thousandSeparator="."  [step]="500000" placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHo.tienduakhach"
-                                        class="form-control" name="tienduakhach" id="field_tienduakhach" pTooltip="Nhập số tiền khách nhận
-                                        (Tiền lãi - chưa tính bát họ gốc)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
+                                    <p-spinner thousandSeparator="." [step]="1000000" placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                        [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
+                                        pTooltip="Nhập số tiền khách nhận
+                                        (Tiền lãi - chưa tính bát họ gốc)
+                                        (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                     <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
                                             This field is required.
@@ -75,7 +80,8 @@
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
                                     <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
-                                        placeholder="0" [min]="0" pTooltip="Nhập tổng số ngày đóng tiền" tooltipPosition="top" tooltipEvent="focus" required/>
+                                        placeholder="0" [min]="0" pTooltip="Nhập tổng số ngày đóng tiền" tooltipPosition="top"
+                                        tooltipEvent="focus" required/>
                                     <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
                                             This field is required.
@@ -87,9 +93,10 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
-                                    <input [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky"
-                                    placeholder="0" [min]="0" pTooltip="Nhập chu kỳ đóng tiền
-                                        Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus" required/>
+                                    <input [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" placeholder="0"
+                                        [min]="0" pTooltip="Nhập chu kỳ đóng tiền
+                                        Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus"
+                                        required/>
                                     <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
                                         <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
                                             This field is required.
@@ -103,8 +110,8 @@
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
-                                    <textarea ngMode [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30"
-                                    pTooltip="Điền thêm các thông tin khác" tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+                                    <textarea ngMode [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
+                                        tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
                                     <!-- <div [hidden]="!(editForm.controls.ghichu?.dirty && editForm.controls.ghichu?.invalid)">
                                             <small class="form-text text-danger" [hidden]="!editForm.controls.ghichu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
                                                 translateValues="{ max: 3000 }">
@@ -117,8 +124,8 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng"
-                                    pTooltip="Nhập tên khách hàng/CMND" tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
+                                    <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng" pTooltip="Nhập tên khách hàng/CMND"
+                                        tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
                                     <!-- <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="khachHangs" (completeMethod)="filterKhachHangs($event)"
                                         field="ten" [size]="20" placeholder="Nhap Tên hoặc CMND" [minLength]="1"></p-autoComplete> -->
                                     <!-- <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete> -->

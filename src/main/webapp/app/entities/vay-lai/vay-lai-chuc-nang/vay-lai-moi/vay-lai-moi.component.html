@@ -34,7 +34,7 @@
                                     <!-- <input [(ngModel)]="vayLai.tienvay" type="number" pKeyFilter="pnum" class="form-control" name="tienvay" id="field_tienvay"
                                         required/> -->
                                     <p-spinner placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay" class="form-control"
-                                        name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay" tooltipPosition="top"
+                                        name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)" tooltipPosition="top"
                                         tooltipEvent="hover" required></p-spinner>
                                     <!-- <div [hidden]="!(editForm.controls.tienvay?.dirty && editForm.controls.tienvay?.invalid)">
                                                 <small class="form-text text-danger" [hidden]="!editForm.controls.tienvay?.errors?.required" jhiTranslate="entity.validation.required">
@@ -106,7 +106,8 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.lai" for="field_lai">Lai</label>
-                                    <input [(ngModel)]="vayLai.lai" [min]="0" type="number" pKeyFilter="pnum" placeholder="0" pTooltip="Phụ thuộc vào hình thức và cách tính lãi"
+                                    <input [(ngModel)]="vayLai.lai" [min]="0" type="number" pKeyFilter="pnum" placeholder="0" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
+                                    (Đơn vị: VNĐ)"
                                         tooltipPosition="top" tooltipEvent="focus" class="form-control" name="lai" id="field_lai"
                                         required/>
                                     <!-- <div [hidden]="!(editForm.controls.lai?.dirty && editForm.controls.lai?.invalid)">

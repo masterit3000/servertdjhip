@@ -3,7 +3,50 @@
         <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover text-left">
+                <tr>
+                    <th>ID khách hàng</th>
+                    <td colspan="2"><a href="#">{{batHo.hopdong.khachHangId}}</a></td>
+                </tr>
+                <tr>
+                    <th>Bát họ</th>
+                    <td colspan="2">{{batHo.tongtien}}</td>
+                </tr>
+                <tr>
+                    <th>Họ từ ngày</th>
+                    <td>{{batHo.hopdong.ngaytao}}</td>
+                    <td>(ngModel = Ngày tạo + Số ngày)</td>
+                </tr>
+                <tr>
+                    <th>Tỷ lệ</th>
+                    <td colspan="2">(Dữ liệu demo)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>Số tiền đưa khách (lãi)</th>
+                    <td>{{batHo.tienduakhach}}</td>
+                </tr>
+                <tr>
+                    <th>Tổng tiền phải đóng</th>
+                    <td>{{batHo.tongtien}}</td>
+                </tr>
+                <tr>
+                    <th>Đã đóng</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+                <tr>
+                    <th>Còn lại</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- <dl class="row-md jh-entity-details">
         <dt>
             <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
         </dt>
@@ -36,7 +79,7 @@
                 <a [routerLink]="['/hop-dong', batHo.hopdongbhId]">{{batHo.hopdongbhId}}</a>
             </div>
         </dd>
-    </dl>
+    </dl> -->
 
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;

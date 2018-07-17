@@ -13,7 +13,8 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ten" for="field_ten">Ten</label>
-                <input type="text" placeholder="Tên khách hàng" class="form-control" name="ten" id="field_ten" [(ngModel)]="khachHang.ten" required/>
+                <input type="text" placeholder="Tên khách hàng" class="form-control" name="ten" id="field_ten" [(ngModel)]="khachHang.ten"
+                pTooltip="Nhập họ tên đầy đủ của khách hàng" tooltipPosition="top" tooltipEvent="Focus" required/>
                 <div [hidden]="!(editForm.controls.ten?.dirty && editForm.controls.ten?.invalid)">
                     <small class="form-text text-danger" [hidden]="!editForm.controls.ten?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
