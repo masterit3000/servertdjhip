@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import {TableModule} from 'primeng/table';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     VayLaiService,
@@ -54,6 +54,7 @@ const ENTITY_STATES = [...vayLaiRoute, ...vayLaiPopupRoute];
         ScrollPanelModule,
         KeyFilterModule,
         TooltipModule,
+        TableModule,
         SpinnerModule
     ],
     declarations: [

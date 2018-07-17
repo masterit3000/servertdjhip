@@ -28,10 +28,11 @@
 <div class="row">
 </div>
 <br/>
-<div class="table-responsive" *ngIf="vayLais">
-    <table class="table table-striped">
-        <thead>
-            <tr>
+<div class="table-responsive" >
+    <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <ng-template pTemplate="header" >
+ 
+            <tr >
                 <th>
                     <span jhiTranslate="global.field.id">ID</span>
                 </th>
@@ -50,13 +51,13 @@
                 </th>
                 <!-- <th><span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span></th> -->
                 <!-- <th><span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span></th> -->
-                <th></th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let vayLai of vayLais ;trackBy: trackId">
+
+        </ng-template>
+        <ng-template pTemplate="body" let-vayLai >
+             <tr [pSelectableRow]="vayLai"  [routerLink]="['../vay-lai', vayLai.id ]">
                 <td>
-                    <a [routerLink]="['../vay-lai', vayLai.id ]">{{vayLai.id}}</a>
+                   {{vayLai.id}}      
                 </td>
                 <td>{{vayLai.tienvay}}</td>
                 <!-- <td jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</td> -->
@@ -65,26 +66,10 @@
                 <td>{{vayLai.lai}}</td>
                 <!-- <td jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</td> -->
                 <!-- <td>{{vayLai.thulaitruoc}}</td> -->
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit" [routerLink]="['../vay-lai', vayLai.id ]" class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit" [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
-                            class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit" [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge"
-                            class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
             </tr>
-        </tbody>
-    </table>
+     
+
+        </ng-template>
+    </p-table>
 </div>
 </div>

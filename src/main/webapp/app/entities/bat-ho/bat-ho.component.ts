@@ -16,6 +16,8 @@ export class BatHoComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     text: any;
+    selected: BatHo;
+    none:any;
     constructor(
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,
