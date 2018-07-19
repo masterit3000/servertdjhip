@@ -23,6 +23,7 @@
                 tooltipPosition="top" tooltipEvent="hover"></p-autoComplete>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+            <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang:none]" class="btn btn-primary">Tìm kiếm</button>
             <!--TODO: Chuyển sang selection-->
         </div>
     </div>
