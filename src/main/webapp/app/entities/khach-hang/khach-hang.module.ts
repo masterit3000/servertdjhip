@@ -18,7 +18,7 @@ import {
 } from './';
 import { CheckThongTinKhachHangComponent } from './check-thong-tin-khach-hang/check-thong-tin-khach-hang.component';
 import { KhachCanVayComponent } from './khach-can-vay/khach-can-vay.component';
-
+import {TooltipModule} from 'primeng/tooltip';
 import { CalendarModule } from 'primeng/calendar';
 import {
     BrowserAnimationsModule,
@@ -33,11 +33,11 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         ServertdjhipSharedModule,
         SelectButtonModule,
         AutoCompleteModule,
-        //
         RouterModule.forChild(ENTITY_STATES),
         CalendarModule,
         BrowserAnimationsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        TooltipModule
     ],
     declarations: [
         KhachHangComponent,
