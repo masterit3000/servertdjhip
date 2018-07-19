@@ -13,16 +13,17 @@
     <hr/>
     <div>
         <div>
-            <h3><i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm khách hàng</h3>
+            <h3>
+                <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm khách hàng</h3>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
-                field="ten" [size]="20" placeholder="Tên khách hàng" [minLength]="1"></p-autoComplete>
+                field="ten" [size]="20" placeholder="Tên khách hàng" [minLength]="1" pTooltip="Nhập tên khách hàng" tooltipPosition="top"
+                tooltipEvent="hover"></p-autoComplete>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
-                field="cmnd" [size]="20" placeholder="CMND" [minLength]="1"></p-autoComplete>
+                field="cmnd" [size]="20" placeholder="CMND" [minLength]="1" pTooltip="Nhập số chứng minh thư nhân dân của khách hàng"
+                tooltipPosition="top" tooltipEvent="hover"></p-autoComplete>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
-            <!-- {{khachHang? khachHang.ten || khachHang: 'none'}}
-                <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang: 'none' ]" class="btn btn-info btn-sm">Tìm kiếm</button> -->
-
+            <!--TODO: Chuyển sang selection-->
         </div>
     </div>
     <br/>
