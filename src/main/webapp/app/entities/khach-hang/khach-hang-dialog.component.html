@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
-        <jhi-alert-error></jhi-alert-error>
+        <!-- <jhi-alert-error></jhi-alert-error> -->
         <div class="form-group" [hidden]="!khachHang.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="khachHang.id" readonly />
@@ -14,7 +14,7 @@
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ten" for="field_ten">Ten</label>
                 <input type="text" placeholder="Tên khách hàng" class="form-control" name="ten" id="field_ten" [(ngModel)]="khachHang.ten"
-                    pTooltip="Nhập họ tên đầy đủ của khách hàng" required/>
+                    pTooltip="Nhập họ tên đầy đủ của khách hàng" tooltipPosition="top" tooltipEvent="hover" required/>
             </div>
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.diachi" for="field_diachi">Diachi</label>

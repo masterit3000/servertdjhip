@@ -25,12 +25,10 @@
         </div>
 
     </div>
-    <div class="row">
-    </div>
     <br/>
     <div class="table-responsive" *ngIf="cuaHangs">
-        <table class="table table-striped">
-            <thead>
+        <p-table [value]="cuaHangs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
                 <tr>
                     <th>
                         <span jhiTranslate="global.field.id">ID</span>
@@ -47,54 +45,17 @@
                     <th>
                         <span jhiTranslate="servertdjhipApp.cuaHang.trangthai">Trangthai</span>
                     </th>
-                    <!-- <th>
-                        <span jhiTranslate="servertdjhipApp.cuaHang.ngayTao">Ngay Tao</span>
-                    </th>
-                    <th>
-                        <span jhiTranslate="servertdjhipApp.cuaHang.ghiChu">Ghi Chu</span>
-                    </th>
-                    <th>
-                        <span jhiTranslate="servertdjhipApp.cuaHang.xa">Xa</span>
-                    </th> -->
-                    <th></th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let cuaHang of cuaHangs ;trackBy: trackId">
-                    <td>
-                        <a [routerLink]="['../cua-hang', cuaHang.id ]">{{cuaHang.id}}</a>
-                    </td>
+            </ng-template>
+            <ng-template pTemplate="body" let-cuaHang>
+                <tr [pSelectableRow]="cuaHang" [routerLink]="['../cua-hang', cuaHang.id ]">
+                    <td>{{cuaHang.id}}</td>
                     <td>{{cuaHang.ten}}</td>
                     <td>{{cuaHang.diachi}}</td>
                     <td>{{cuaHang.dienthoai}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.TrangThaiCuaHang.' + cuaHang.trangthai}}">{{cuaHang.trangthai}}</td>
-                    <!-- <td>{{cuaHang.ngayTao | date:'medium'}}</td>
-                    <td>{{cuaHang.ghiChu}}</td>
-                    <td>
-                        <div *ngIf="cuaHang.xaId">
-                            <a [routerLink]="['../xa', cuaHang.xaId  ]">{{cuaHang.xaId}}</a>
-                        </div>
-                    </td> -->
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit" [routerLink]="['../cua-hang', cuaHang.id ]" class="btn btn-info btn-sm">
-                                <span class="fa fa-eye"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
-                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
-                                class="btn btn-primary btn-sm">
-                                <span class="fa fa-pencil"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/delete'} }]" replaceUrl="true"
-                                queryParamsHandling="merge" class="btn btn-danger btn-sm">
-                                <span class="fa fa-remove"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
-                        </div>
-                    </td>
                 </tr>
-            </tbody>
-        </table>
+            </ng-template>
+        </p-table>
     </div>
 </div>

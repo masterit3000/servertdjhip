@@ -16,6 +16,7 @@ import {
     khachHangRoute,
     khachHangPopupRoute
 } from './';
+import {TableModule} from 'primeng/table';
 import { CheckThongTinKhachHangComponent } from './check-thong-tin-khach-hang/check-thong-tin-khach-hang.component';
 import { KhachCanVayComponent } from './khach-can-vay/khach-can-vay.component';
 import {TooltipModule} from 'primeng/tooltip';
@@ -37,7 +38,8 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         CalendarModule,
         BrowserAnimationsModule,
         NoopAnimationsModule,
-        TooltipModule
+        TooltipModule,
+        TableModule
     ],
     declarations: [
         KhachHangComponent,

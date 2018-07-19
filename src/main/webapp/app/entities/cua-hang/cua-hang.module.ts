@@ -20,6 +20,7 @@ import { TongQuatChuoiCuaHangComponent } from './tong-quat-chuoi-cua-hang/tong-q
 import { ThongTinChiTietCuaHangComponent } from './thong-tin-chi-tiet-cua-hang/thong-tin-chi-tiet-cua-hang.component';
 import { CauHinhHangHoaComponent } from './cau-hinh-hang-hoa/cau-hinh-hang-hoa.component';
 import { NhapTienQuyDauNgayComponent } from './nhap-tien-quy-dau-ngay/nhap-tien-quy-dau-ngay.component';
+import {TableModule} from 'primeng/table';
 
 const ENTITY_STATES = [...cuaHangRoute, ...cuaHangPopupRoute];
 
@@ -29,7 +30,8 @@ const ENTITY_STATES = [...cuaHangRoute, ...cuaHangPopupRoute];
         AutoCompleteModule,
         SelectButtonModule,
         CalendarModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        TableModule
     ],
     declarations: [
         CuaHangComponent,
