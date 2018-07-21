@@ -4,7 +4,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myVayLaiLabel" jhiTranslate="servertdjhipApp.vayLai.home.createOrEditLabel">Create or edit a Vay Lai</h4>
+                        <h4>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="modal-title" id="myVayLaiLabel" jhiTranslate="servertdjhipApp.vayLai.home.createOrEditLabel">Create or edit a Vay Lai</span>
+                        </h4>
                     </div>
                 </div>
             </div>
@@ -22,7 +25,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.tienvay" for="field_tienvay">Tienvay</label>
-                                    <p-spinner placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay" class="form-control"
+                                    <p-spinner placeholder="0" [min]="0" [step]="500000" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay" class="form-control"
                                         name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)" tooltipPosition="top"
                                         tooltipEvent="hover" required></p-spinner>
                                 </div>
@@ -61,9 +64,9 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.lai" for="field_lai">Lai</label>
-                                    <input [(ngModel)]="vayLai.lai" [min]="0" type="number" pKeyFilter="pnum" placeholder="0" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
-                                    (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="focus" class="form-control" name="lai"
-                                        id="field_lai" required/>
+                                    <p-spinner placeholder="0" [min]="0" [step]="5000" [inputStyle]="{'width':'100%'}" [(ngModel)]="vayLai.lai" class="form-control" name="lai"
+                                        id="field_lai" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
+                                        (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thulaitruoc" for="field_thulaitruoc">Thulaitruoc</label>
