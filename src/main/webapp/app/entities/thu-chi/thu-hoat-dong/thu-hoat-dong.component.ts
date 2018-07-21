@@ -26,9 +26,6 @@ export class ThuHoatDongComponent implements OnInit {
     isSaving: boolean;
     nhanviens: NhanVien[];
 
-
-
-
     constructor(
         // public activeModal: NgbActiveModal,
         private thuChiService: ThuChiService,
@@ -42,12 +39,14 @@ export class ThuHoatDongComponent implements OnInit {
     timkiem() {
         // console.log(this.tungay);
         // console.log(this.denngay);
-        this.thuChiService.findByTime(this.tungay, this.denngay, THUCHI.THU).subscribe(
-            (res: HttpResponse<ThuChi[]>) => {
-                this.thuChis = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.thuChiService
+            .findByTime(this.tungay, this.denngay, THUCHI.THU)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
     // clear() {
     //     this.activeModal.dismiss('cancel');
@@ -57,16 +56,19 @@ export class ThuHoatDongComponent implements OnInit {
         this.isSaving = true;
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.thuChiService.update(this.thuchi));
+                this.thuChiService.update(this.thuchi)
+            );
         } else {
             this.subscribeToSaveResponse(
-                this.thuChiService.create(this.thuchi));
+                this.thuChiService.create(this.thuchi)
+            );
         }
     }
     private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
         result.subscribe(
             (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
-            (res: HttpErrorResponse) => this.onSaveError());
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
     }
     private onSaveSuccess(result: ThuChi) {
         // this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
@@ -79,8 +81,6 @@ export class ThuHoatDongComponent implements OnInit {
         this.isSaving = false;
     }
 
-
-
     loadAll() {
         this.thuChiService.query().subscribe(
             (res: HttpResponse<ThuChi[]>) => {
@@ -91,12 +91,16 @@ export class ThuHoatDongComponent implements OnInit {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         // this.registerChangeInThuChis();
-        this.nhanVienService.query()
-            .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.nhanVienService.query().subscribe(
+            (res: HttpResponse<NhanVien[]>) => {
+                this.nhanviens = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     ngOnDestroy() {
@@ -107,7 +111,10 @@ export class ThuHoatDongComponent implements OnInit {
         return item.id;
     }
     registerChangeInThuChis() {
-        this.eventSubscriber = this.eventManager.subscribe('thuChiListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'thuChiListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {

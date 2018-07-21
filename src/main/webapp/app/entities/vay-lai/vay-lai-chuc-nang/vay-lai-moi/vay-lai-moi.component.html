@@ -15,64 +15,29 @@
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
-                                    <input [(ngModel)]="vayLai.hopdongvl.mahopdong" type="text" placeholder="VH-x / CD-x" class="form-control" name="mahopdong" id="field_mahopdong"
-                                        pTooltip="Nhập mã hợp đồng
+                                    <input [(ngModel)]="vayLai.hopdongvl.mahopdong" type="text" placeholder="VH-x / CD-x" class="form-control" name="mahopdong"
+                                        id="field_mahopdong" pTooltip="Nhập mã hợp đồng
                                     Có định dạng 'VL-x/CD-x'" tooltipPosition="top" tooltipEvent="focus" required maxlength="20"
                                     />
-                                    <!-- <div [hidden]="!(editForm.controls.mahopdong?.dirty && editForm.controls.mahopdong?.invalid)">
-                                            <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.required" jhiTranslate="entity.validation.required">
-                                                This field is required.
-                                            </small>
-                                            <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                                                translateValues="{ max: 20 }">
-                                                This field cannot be longer than 20 characters.
-                                            </small>
-                                        </div> -->
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.tienvay" for="field_tienvay">Tienvay</label>
-                                    <!-- <input [(ngModel)]="vayLai.tienvay" type="number" pKeyFilter="pnum" class="form-control" name="tienvay" id="field_tienvay"
-                                        required/> -->
                                     <p-spinner placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay" class="form-control"
                                         name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)" tooltipPosition="top"
                                         tooltipEvent="hover" required></p-spinner>
-                                    <!-- <div [hidden]="!(editForm.controls.tienvay?.dirty && editForm.controls.tienvay?.invalid)">
-                                                <small class="form-text text-danger" [hidden]="!editForm.controls.tienvay?.errors?.required" jhiTranslate="entity.validation.required">
-                                                    This field is required.
-                                                </small>
-                                                <small class="form-text text-danger" [hidden]="!editForm.controls.tienvay?.errors?.number" jhiTranslate="entity.validation.number">
-                                                    This field should be a number.
-                                                </small>
-                                            </div> -->
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thoigianvay" for="field_thoigianvay">Thoigianvay</label>
                                     <input [(ngModel)]="vayLai.thoigianvay" [min]="0" type="number" pKeyFilter="pnum" class="form-control" pTooltip="Thời gian vay tính từ ngày tạo hợp đồng"
                                         tooltipPosition="top" tooltipEvent="focus" name="thoigianvay" id="field_thoigianvay"
                                         placeholder="0" required/>
-                                    <!-- <div [hidden]="!(editForm.controls.thoigianvay?.dirty && editForm.controls.thoigianvay?.invalid)">
-                                                <small class="form-text text-danger" [hidden]="!editForm.controls.thoigianvay?.errors?.required" jhiTranslate="entity.validation.required">
-                                                    This field is required.
-                                                </small>
-                                                <small class="form-text text-danger" [hidden]="!editForm.controls.thoigianvay?.errors?.number" jhiTranslate="entity.validation.number">
-                                                    This field should be a number.
-                                                </small>
-                                            </div> -->
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.chukylai" for="field_chukylai">Chukylai</label>
                                     <input [(ngModel)]="vayLai.chukylai" type="number" pKeyFilter="pnum" placeholder="0" class="form-control" name="chukylai"
                                         id="field_chukylai" [min]="0" pTooltip="Nhập chu kỳ đóng lãi
-                                        Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top"
-                                        tooltipEvent="focus" required/>
-                                    <!-- <div [hidden]="!(editForm.controls.chukylai?.dirty && editForm.controls.chukylai?.invalid)">
-                                                        <small class="form-text text-danger" [hidden]="!editForm.controls.chukylai?.errors?.required" jhiTranslate="entity.validation.required">
-                                                            This field is required.
-                                                        </small>
-                                                        <small class="form-text text-danger" [hidden]="!editForm.controls.chukylai?.errors?.number" jhiTranslate="entity.validation.number">
-                                                            This field should be a number.
-                                                        </small>
-                                                    </div> -->
+                                        Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus"
+                                        required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -85,11 +50,6 @@
                                         <option value="NAM">{{'servertdjhipApp.HINHTHUCLAI.NAM' | translate}}</option>
                                         <option value="THANGCODINH">{{'servertdjhipApp.HINHTHUCLAI.THANGCODINH' | translate}}</option>
                                     </select>
-                                    <!-- <div [hidden]="!(editForm.controls.hinhthuclai?.dirty && editForm.controls.hinhthuclai?.invalid)">
-                                                    <small class="form-text text-danger" [hidden]="!editForm.controls.hinhthuclai?.errors?.required" jhiTranslate="entity.validation.required">
-                                                        This field is required.
-                                                    </small>
-                                                </div> -->
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.cachtinhlai" for="field_cachtinhlai">Cachtinhlai</label>
@@ -98,44 +58,17 @@
                                         <option value="CHUKY">{{'servertdjhipApp.TINHLAI.CHUKY' | translate}}</option>
                                         <option value="PHANTRAM">{{'servertdjhipApp.TINHLAI.PHANTRAM' | translate}}</option>
                                     </select>
-                                    <!-- <div [hidden]="!(editForm.controls.cachtinhlai?.dirty && editForm.controls.cachtinhlai?.invalid)">
-                                                        <small class="form-text text-danger" [hidden]="!editForm.controls.cachtinhlai?.errors?.required" jhiTranslate="entity.validation.required">
-                                                            This field is required.
-                                                        </small>
-                                                    </div> -->
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.lai" for="field_lai">Lai</label>
                                     <input [(ngModel)]="vayLai.lai" [min]="0" type="number" pKeyFilter="pnum" placeholder="0" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
-                                    (Đơn vị: VNĐ)"
-                                        tooltipPosition="top" tooltipEvent="focus" class="form-control" name="lai" id="field_lai"
-                                        required/>
-                                    <!-- <div [hidden]="!(editForm.controls.lai?.dirty && editForm.controls.lai?.invalid)">
-                                                                    <small class="form-text text-danger" [hidden]="!editForm.controls.lai?.errors?.required" jhiTranslate="entity.validation.required">
-                                                                        This field is required.
-                                                                    </small>
-                                                                    <small class="form-text text-danger" [hidden]="!editForm.controls.lai?.errors?.number" jhiTranslate="entity.validation.number">
-                                                                        This field should be a number.
-                                                                    </small>
-                                                                </div> -->
+                                    (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="focus" class="form-control" name="lai"
+                                        id="field_lai" required/>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thulaitruoc" for="field_thulaitruoc">Thulaitruoc</label>
                                     <br />
                                     <p-inputSwitch name="thulaitruoc" class="form-control" id="field_thulaitruoc" onLabel="Có" offLabel="Không"></p-inputSwitch>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
-                                    <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30"
-                                    pTooltip="Điền thêm các thông tin khác" tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
-                                    <!-- <div [hidden]="!(editForm.controls.ghichu?.dirty && editForm.controls.ghichu?.invalid)">
-                                                    <small class="form-text text-danger" [hidden]="!editForm.controls.ghichu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                                                        translateValues="{ max: 3000 }">
-                                                        This field cannot be longer than 3000 characters.
-                                                    </small>
-                                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -144,16 +77,12 @@
                                 <div class="col-md-4">
                                     <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng" pTooltip="Nhập tên khách hàng/CMND"
                                         tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
-                                    <!-- <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="khachHangs" (completeMethod)="filterKhachHangs($event)"
-                                        field="ten" [size]="20" placeholder="Nhap Tên hoặc CMND" [minLength]="1"></p-autoComplete> -->
-                                    <!-- <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete> -->
-
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-left" (click)="timKhachHang()">Tìm kiếm</button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
+                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" routerLink="/khachHangMoi">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
@@ -164,7 +93,7 @@
                             <div class="row">
                                 <!--TODO: Scroll Panel PrimeNG-->
                                 <div class="col-md-12">
-                                    <p-scrollPanel [style]="{width: '100%', height: '300px'}">
+                                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
                                         <table class="table table-striped table-hover text-center">
                                             <thead>
                                                 <tr>
@@ -197,7 +126,6 @@
                                                         <input type="radio" name="selectKhachHang" [checked]="(idx === 0)" (change)="onSelectionChange(khachHang.id)" [value]="khachHang.id">
                                                     </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
                                     </p-scrollPanel>
@@ -209,21 +137,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="form-group col-md-6">
+                <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
+                <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
+                    tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+            </div>
+            <div class="col-md-6">
                 <label class="form-control-label">Tài sản / chứng từ</label>
                 <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
             </div>
         </div>
-        <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-                <span class="fa fa-ban"></span>&nbsp;
-                <span jhiTranslate="entity.action.cancel">Cancel</span>
-            </button>
-            <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                <span class="fa fa-save"></span>&nbsp;
-                <span jhiTranslate="entity.action.save">Save</span>
-            </button>
-        </div> -->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                 <span class="fa fa-ban"></span>&nbsp;

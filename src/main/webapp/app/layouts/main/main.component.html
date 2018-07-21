@@ -14,7 +14,8 @@
                 <i class="fa fa-money" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.vayLai">Vay lãi</span>
             </a>
-            <a id="khach-hang-menu" #menukhachhang [class.active-menuitem]="menukhachhang.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menukhachhang.id ? null : menukhachhang.id)">
+            <a id="khach-hang-menu" #menukhachhang [class.active-menuitem]="menukhachhang.id == activeMenuId" routerLink="khach-hang"
+                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="activeMenuId = (activeMenuId === menukhachhang.id ? null : menukhachhang.id)">
                 <i class="fa fa-vcard-o" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.khachHang">Khách hàng</span>
                 <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
@@ -33,7 +34,8 @@
                     <span jhiTranslate="global.menu.checkThongTinKhachHang">Check thông tin khách hàng</span>
                 </a>
             </div>
-            <a id="cua-hang-menu" #menucuahang [class.active-menuitem]="menucuahang.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menucuahang.id ? null : menucuahang.id)">
+            <a id="cua-hang-menu" #menucuahang [class.active-menuitem]="menucuahang.id == activeMenuId" routerLink="cua-hang" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="activeMenuId = (activeMenuId === menucuahang.id ? null : menucuahang.id)">
                 <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyCuaHang">Quản lý cửa hàng</span>
                 <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
@@ -91,7 +93,8 @@
                     <span jhiTranslate="global.menu.rutVon">Rút vốn</span>
                 </a>
             </div>
-            <a id="nhan-vien-menu" #menunhanvien [class.active-menuitem]="menunhanvien.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menunhanvien.id ? null : menunhanvien.id)">
+            <a id="nhan-vien-menu" #menunhanvien [class.active-menuitem]="menunhanvien.id == activeMenuId" routerLink="nhan-vien" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" (click)="activeMenuId = (activeMenuId === menunhanvien.id ? null : menunhanvien.id)">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyNhanVien">Quản lý nhân viên</span>
                 <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>

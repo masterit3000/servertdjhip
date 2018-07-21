@@ -18,6 +18,7 @@ import {
     nhanVienPopupRoute
 } from './';
 import { PhanQuyenNhanVienComponent } from './phan-quyen-nhan-vien/phan-quyen-nhan-vien.component';
+import {TableModule} from 'primeng/table';
 
 const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
 
@@ -28,7 +29,7 @@ const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
         AutoCompleteModule,
         SelectButtonModule,
         CalendarModule,
-
+        TableModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

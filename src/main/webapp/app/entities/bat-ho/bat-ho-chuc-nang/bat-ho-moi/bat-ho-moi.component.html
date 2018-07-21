@@ -10,11 +10,6 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <jhi-alert-error></jhi-alert-error>
-                    <!-- <div class="form-group" [hidden]="!batHo.id">
-                        <label for="id" jhiTranslate="global.field.id">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" [(ngModel)]="batHo.id" readonly />
-                    </div> -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
@@ -23,57 +18,21 @@
                                     <input [(ngModel)]="batHo.hopdong.mahopdong" type="text" class="form-control" name="mahopdong" id="field_mahopdong" placeholder="BH-x"
                                         required maxlength="20" pTooltip="Nhập mã hợp đồng
                                         Có định dạng 'BH-x'" tooltipPosition="top" tooltipEvent="focus" />
-                                    <!-- <div [hidden]="!(editForm.controls.mahopdong?.dirty && editForm.controls.mahopdong?.invalid)">
-                                            <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.required" jhiTranslate="entity.validation.required">
-                                                This field is required.
-                                            </small>
-                                            <small class="form-text text-danger" [hidden]="!editForm.controls.mahopdong?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                                                translateValues="{ max: 20 }">
-                                                This field cannot be longer than 20 characters.
-                                            </small>
-                                        </div> -->
                                 </div>
-                                <!-- <div class="form-control col-md-6">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ngaytao" for="field_ngaytao">Ngaytao</label>
-                                    <div class="d-flex">
-                                        <input id="field_ngaytao" type="datetime-local" class="form-control" name="ngaytao" required/>
-                                        <p-calendar [(ngModel)]="batHo.ngayTao" dateFormat="dd.mm.yy" name="ngaytao"></p-calendar>
-                                    </div>
-                                </div> -->
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
-                                    <!-- <input [(ngModel)]="batHo.tongtien" type="number" pKeyFilter="pnum" class="form-control" name="tongtien" id="field_tongtien"
-                                        placeholder="Tổng tiền họ khách phải đóng" required/> -->
                                     <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                         [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"
                                         pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover"
                                         required></p-spinner>
-                                    <!-- <div [hidden]="!(editForm.controls.tongtien?.dirty && editForm.controls.tongtien?.invalid)">
-                                                <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.required" jhiTranslate="entity.validation.required">
-                                                    This field is required.
-                                                </small>
-                                                <small class="form-text text-danger" [hidden]="!editForm.controls.tongtien?.errors?.number" jhiTranslate="entity.validation.number">
-                                                    This field should be a number.
-                                                </small>
-                                            </div> -->
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
-                                    <!-- <input [(ngModel)]="batHo.tienduakhach" type="number" pKeyFilter="pnum" class="form-control" name="tienduakhach" id="field_tienduakhach"
-                                        placeholder="Số tiền khách nhận (Chưa tính bát họ)" required/> -->
                                     <p-spinner thousandSeparator="." [step]="1000000" placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                         [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
                                         pTooltip="Nhập số tiền khách nhận
                                         (Tiền lãi - chưa tính bát họ gốc)
                                         (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
-                                    <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
-                                            This field is required.
-                                        </small>
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.tienduakhach?.errors?.number" jhiTranslate="entity.validation.number">
-                                            This field should be a number.
-                                        </small>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="row">
@@ -82,14 +41,6 @@
                                     <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
                                         placeholder="0" [min]="0" pTooltip="Nhập tổng số ngày đóng tiền" tooltipPosition="top"
                                         tooltipEvent="focus" required/>
-                                    <!-- <div [hidden]="!(editForm.controls.tongsongay?.dirty && editForm.controls.tongsongay?.invalid)">
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.required" jhiTranslate="entity.validation.required">
-                                            This field is required.
-                                        </small>
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.tongsongay?.errors?.number" jhiTranslate="entity.validation.number">
-                                            This field should be a number.
-                                        </small>
-                                    </div> -->
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
@@ -97,27 +48,6 @@
                                         [min]="0" pTooltip="Nhập chu kỳ đóng tiền
                                         Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus"
                                         required/>
-                                    <!-- <div [hidden]="!(editForm.controls.chuky?.dirty && editForm.controls.chuky?.invalid)">
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.required" jhiTranslate="entity.validation.required">
-                                            This field is required.
-                                        </small>
-                                        <small class="form-text text-danger" [hidden]="!editForm.controls.chuky?.errors?.number" jhiTranslate="entity.validation.number">
-                                            This field should be a number.
-                                        </small>
-                                    </div> -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
-                                    <textarea ngMode [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
-                                        tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
-                                    <!-- <div [hidden]="!(editForm.controls.ghichu?.dirty && editForm.controls.ghichu?.invalid)">
-                                            <small class="form-text text-danger" [hidden]="!editForm.controls.ghichu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                                                translateValues="{ max: 3000 }">
-                                                This field cannot be longer than 3000 characters.
-                                            </small>
-                                        </div> -->
                                 </div>
                             </div>
                         </div>
@@ -126,16 +56,12 @@
                                 <div class="col-md-4">
                                     <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng" pTooltip="Nhập tên khách hàng/CMND"
                                         tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
-                                    <!-- <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="khachHangs" (completeMethod)="filterKhachHangs($event)"
-                                        field="ten" [size]="20" placeholder="Nhap Tên hoặc CMND" [minLength]="1"></p-autoComplete> -->
-                                    <!-- <p-autoComplete placeholder="Nhập CNMD cần tìm" [maxLength]="11"></p-autoComplete> -->
-
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-left" (click)="timKhachHang()">Tìm kiếm</button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
+                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" routerLink="/khachHangMoi">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
@@ -144,9 +70,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <!--TODO: Scroll Panel PrimeNG-->
                                 <div class="col-md-12">
-                                    <p-scrollPanel [style]="{width: '100%', height: '300px'}">
+                                    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
                                         <table class="table table-striped table-hover text-center">
                                             <thead>
                                                 <tr>
@@ -172,8 +97,8 @@
                                                 <tr *ngFor="let khachHang of khachHangs">
                                                     <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.cmnd}}</td>
+                                                    <td>{{khachHang.diachi}}</td>
                                                     <td>{{khachHang.dienthoai}}</td>
-                                                    <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.trangthai}}</td>
                                                     <td>
                                                         <input type="radio" name="selectKhachHang" [checked]="(idx === 0)" (change)="onSelectionChange(khachHang.id)" [value]="khachHang.id">
@@ -189,230 +114,55 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
+                    <textarea ngMode [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
+                        tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+                </div>
+                <div class="col-md-6">
                     <label class="form-control-label">Tài sản / chứng từ</label>
                     <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
-            </div>
-            <!-- <div class="form-group" [hidden]="!batHo.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="batHo.id" readonly />
-        </div> -->
-
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-                    <span class="fa fa-ban"></span>&nbsp;
-                    <span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;
-                    <span jhiTranslate="entity.action.save">Save</span>
-                </button>
             </div>
             <div class="row">
                 <!--TODO: thêm event onAfterToggle https://www.primefaces.org/primeng/#/fieldset-->
                 <div class="col-md-12">
                     <p-fieldset [toggleable]="true" [collapsed]="true">
-                        <p-header>Kiểm tra</p-header>
-                        <p-tabView>
-                            <p-tabPanel header="Lịch đóng tiền">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered text-center">
-                                            <thead>
-                                                <th>In</th>
-                                                <th>STT</th>
-                                                <th>Ngày họ</th>
-                                                <th>Tiền họ</th>
-                                                <th>Ngày giao dịch</th>
-                                                <th>Tiền khách trả</th>
-                                                <th></th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="7">
-                                                        Demo data
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </p-tabPanel>
-                            <p-tabPanel [disabled]="true" header="Đóng hợp đồng">
-                                <!-- <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-borderles">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Chú ý:
-                                                    </td>
-                                                    <td rowspan="3">
-                                                        <button class="btn btn-primary float-right">Đóng hợp đồng</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Số kỳ còn phải đóng: (DATA)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nợ cũ: (DATA)</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> -->
-                            </p-tabPanel>
-                            <p-tabPanel [disabled]="true" header="Nợ">
-                                <!-- <div class="row">
-                                    <div class="col-md-6">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Số tiền nợ: </td>
-                                                    <td>
-                                                        <input type="number" pInputText placeholder="0">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" class="bolder-table-last">
-                                                        <button class="btn btn-primary float-right">Ghi nợ</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Số tiền trả: </td>
-                                                    <td>
-                                                        <input type="number" pInputText placeholder="0">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" class="bolder-table-last">
-                                                        <button class="btn btn-primary float-right">Trả nợ</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> -->
-                            </p-tabPanel>
-                            <p-tabPanel [disabled]="true" header="Lịch sử">
-                                <!-- <div class="row">
-                                    <div class="col-md-12">
-                                        <span class="ui-float-label">
-                                            <textarea id="float-input" [rows]="5" [cols]="170" pInputTextarea></textarea>
-                                            <label for="float-input">Ghi chú</label>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-primary float-right">Lưu</button>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Lịch sử nhắc nợ</h3>
-                                        <br />
-                                        <table class="table table-bordered text-center">
-                                            <thead>
-                                                <th>STT</th>
-                                                <th>Ngày</th>
-                                                <th>Nhân viên</th>
-                                                <th>Nội dung</th>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Lịch sử thao tác</h3>
-                                        <br />
-                                        <table class="table table-bordered text-center">
-                                            <thead>
-                                                <th>STT</th>
-                                                <th>Ngày</th>
-                                                <th>Nhân viên</th>
-                                                <th>Số tiền ghi nợ</th>
-                                                <th>Số tiền ghi có</th>
-                                                <th>Nội dung</th>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div> -->
-                            </p-tabPanel>
-                            <p-tabPanel [disabled]="true" header="Đảo họ">
-                                <!-- <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Ngày đảo họ:</td>
-                                                    <td>
-                                                        <p-calendar></p-calendar>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bát họ mới:</td>
-                                                    <td>
-                                                        <input type="number" pInputText>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tiền đưa khách:</td>
-                                                    <td>
-                                                        <input type="number" pInputText>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bốc trong vòng:</td>
-                                                    <td>
-                                                        <input type="number" pInputText>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Số ngày đóng tiền:</td>
-                                                    <td>
-                                                        <input type="number" pInputText>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" class="text-center bolder-table-last">
-                                                        <button class="btn btn-primary">Đảo họ</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> -->
-                            </p-tabPanel>
-                            <p-tabPanel [disabled]="true" header="Chứng từ">
-                                <!-- <div class="row">
-                                    <div class="col-md-12">
-                                        <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
-                                    </div>
-                                </div> -->
-                            </p-tabPanel>
+                        <p-header>Kiểm tra lịch đóng tiền</p-header>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <th>STT</th>
+                                        <th>Ngày họ</th>
+                                        <th>Tiền họ</th>
+                                        <th>Ngày giao dịch</th>
+                                        <th>Tiền khách trả</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>15/7/2018</td>
+                                            <td>1.000.000</td>
+                                            <td>15/7/2018</td>
+                                            <td>1.000.000</td>
+                                            <td>
+                                                <p-checkbox binary="true"></p-checkbox>
+                                            </td>
+                                            <!--https://www.primefaces.org/primeng/#/checkbox-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         </p-tabView>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
                                 <span class="fa fa-ban"></span>&nbsp;
                                 <span jhiTranslate="entity.action.cancel">Cancel</span>
                             </button>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
                                 <span class="fa fa-save"></span>&nbsp;
                                 <span jhiTranslate="entity.action.save">Save</span>
                             </button>

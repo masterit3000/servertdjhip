@@ -30,7 +30,9 @@
             "xa": "Xã",
             "anh": "Ảnh",
             "hopdong": "Hợp đồng",
-            "cuaHang": "Cửa hàng"
+            "cuaHang": "Cửa hàng",
+            "tinh": "Tỉnh",
+            "huyen": "Huyện"
         }
     }
 }

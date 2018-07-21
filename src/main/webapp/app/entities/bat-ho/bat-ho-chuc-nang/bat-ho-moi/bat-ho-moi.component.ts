@@ -34,23 +34,18 @@ export class BatHoMoiComponent implements OnInit {
         // this.batHo.hopdong = null;
     }
 
-    clear(){
-
-        
-    }
-    ngOnInit() {
-
-    }
+    clear() {}
+    ngOnInit() {}
     save() {
         console.log(this.batHo);
         this.bathoService.create(this.batHo).subscribe(
             (res: HttpResponse<BatHo>) => {
                 this.jhiAlertService.info('them bat ho thanh cong', null, null);
-            }, //thanh cong thi goi
+            }, // thanh cong thi goi
             (err: HttpErrorResponse) => {
                 console.log(err);
                 this.jhiAlertService.error(err.message, null, null);
-            } //loi thi goi ham nay
+            } // loi thi goi ham nay
         );
 
         // batHo.hopdong.khachangid = this.khachhangid;

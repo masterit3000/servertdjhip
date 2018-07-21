@@ -112,7 +112,7 @@ public class BatHoServiceImpl implements BatHoService {
                 }
 
                 long soTienTrongChuKy = Math.round((tongtien/soChuKy)*1000)/1000;//lam tron den 1000d
-                while (day < soChuKy) {
+                while (day < tongsongay) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
