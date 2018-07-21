@@ -7,8 +7,14 @@
         <div class="col-md-6">
             <table class="table table-bordered table-hover text-left">
                 <tr>
+                    <th>Mã hợp đồng</th>
+                    <td colspan="2">{{batHo.hopdong.mahopdong}}</td>
+                </tr>
+                <tr>
                     <th>ID khách hàng</th>
-                    <td colspan="2"><a href="#">{{batHo.hopdong.khachHangId}}</a></td>
+                    <td colspan="2">
+                        <a href="#">{{batHo.hopdong.khachHangId}}</a>
+                    </td>
                 </tr>
                 <tr>
                     <th>Bát họ</th>
@@ -93,28 +99,43 @@
     </button>
     <p-tabView>
         <p-tabPanel header="Lịch đóng tiền">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>In</th>
-                            <th>STT</th>
-                            <th>Ngày họ</th>
-                            <th>Tiền họ</th>
-                            <th>Ngày giao dịch</th>
-                            <th>Tiền khách trả</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="7">
-                                    Demo data
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5"  [(selection)]="selected" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <span>In</span>
+                        </th>
+                        <th>
+                            <span>STT</span>
+                        </th>
+                        <th>
+                            <span>Ngày họ</span>
+                        </th>
+                        <th>
+                            <span>Tiền họ</span>
+                        </th>
+                        <th>
+                            <span>Ngày giao dịch</span>
+                        </th>
+                        <th>
+                            <span>Tiền khách trả</span>
+                        </th>
+                        <th> <p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-lichSuDongTien >
+                    <tr [pSelectableRow]="lichSuDongTien">
+                        <td></td>
+                        <td></td>
+                        <td>{{lichSuDongTien.ngaybatdau}}</td>
+                        <td>{{lichSuDongTien.sotien}}</td>
+                        <td>{{lichSuDongTien.ngayketthuc}}</td>
+                        <td>{{lichSuDongTien.sotien}}</td>
+                        <td><p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox></td>
+                    </tr>
+                </ng-template>
+                </table>
+
         </p-tabPanel>
         <p-tabPanel header="Đóng hợp đồng">
             <div class="row">

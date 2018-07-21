@@ -2,9 +2,11 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.domain.BatHo;
+import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.repository.BatHoRepository;
+import com.tindung.jhip.repository.LichSuDongTienRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
@@ -15,8 +17,10 @@ import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
+import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.BatHoMapper;
+import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
@@ -26,10 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -48,16 +50,20 @@ public class BatHoServiceImpl implements BatHoService {
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
     private final LichSuDongTienService lichSuDongTienService;
+    private final LichSuDongTienRepository lichSuDongTienRepository;
+    private final LichSuDongTienMapper lichSuDongTienMapper;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
 
-    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
+    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository,LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
         this.batHoMapper = batHoMapper;
         this.batHoRepository = batHoRepository;
         this.hopDongService = hopDongService;
         this.nhanVienService = nhanVienService;
         this.cuaHangService = cuaHangService;
         this.lichSuDongTienService = lichSuDongTienService;
+        this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
+        this.lichSuDongTienMapper = lichSuDongTienMapper;
     }
 
     /**
@@ -105,8 +111,8 @@ public class BatHoServiceImpl implements BatHoService {
                     soChuKy++;
                 }
 
-                long soTienTrongChuKy = Math.round(((tongtien / soChuKy) * 1000) * 1000);//lam tron den 1000d
-                while (day < tongsongay) {
+                long soTienTrongChuKy = Math.round((tongtien/soChuKy)*1000)/1000;//lam tron den 1000d
+                while (day < soChuKy) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
@@ -128,12 +134,19 @@ public class BatHoServiceImpl implements BatHoService {
                 lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
-
+                //save lich su thao tac bat ho
+                LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+                lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
+                lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
+                lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+                
+                
                 return batHoMapper.toDto(batHo);
             } else {
-           
-                    throw new InternalServerErrorException("Không được sửa bat họ");
-                
+
+                throw new InternalServerErrorException("Không được sửa bat họ");
 
             }
         }
@@ -192,6 +205,17 @@ public class BatHoServiceImpl implements BatHoService {
             return null;
 
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<LichSuDongTienDTO> findByHopDong(Long id) {
+        log.debug("Request to get all LichSuDongTiens by HopDong: {}", id);
+        List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(batHoRepository.findOne(id).getHopdongbh().getId());
+        List<LichSuDongTienDTO> collect = findByHopDong.stream()
+                .map(lichSuDongTienMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
     }
 
     /**

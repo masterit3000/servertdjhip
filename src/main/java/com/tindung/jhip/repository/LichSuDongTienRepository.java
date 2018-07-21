@@ -18,5 +18,4 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h where h.id =:idhopdong")
     List<LichSuDongTien> findByHopDong(@Param(value = "idhopdong")long idhopdong);
-    
 }

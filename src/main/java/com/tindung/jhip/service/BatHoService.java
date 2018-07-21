@@ -1,6 +1,7 @@
 package com.tindung.jhip.service;
 
 import com.tindung.jhip.service.dto.BatHoDTO;
+import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public interface BatHoService {
      * @return the list of entities
      */
     List<BatHoDTO> findAll();
+
+    List<LichSuDongTienDTO> findByHopDong(Long id);
 
     /**
      * Get the "id" batHo.

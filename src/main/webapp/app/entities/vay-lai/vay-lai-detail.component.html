@@ -88,7 +88,7 @@
                             <tr>
                                 <td>Số ngày:</td>
                                 <td>
-                                    <input type="number" pInputText>
+                                    {{vayLai.thoigianvay}}
                                 </td>
                             </tr>
                             <tr>
@@ -116,22 +116,36 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>STT</th>
-                            <th colspan="3">Ngày</th>
-                            <th>Số ngày</th>
-                            <th>Tiền lãi</th>
-                            <th>Tiền khác</th>
-                            <th>Tổng lãi</th>
-                            <th>Tiền khách trả</th>
-                            <th></th>
-                            <th></th>
-                        </thead>
-                        <tbody>
+                    <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>STT</th>
+                                <th colspan="3">Ngày</th>
+                                <th>Số ngày</th>
+                                <th>Tiền lãi</th>
+                                <th>Tiền khác</th>
+                                <th>Tổng lãi</th>
+                                <th>Tiền khách trả</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </ng-template>>
+                        <ng-template pTemplate="body" let-lichSuDongTien>
+                            <tr [pSelectableRow]="lichSuDongTien">
 
-                        </tbody>
-                    </table>
+                                <td>1</td>
+                                <td>{{lichSuDongTien.ngaybatdau}}</td>
+                                <td>---></td>
+                                <td>{{lichSuDongTien.ngayketthuc}}</td>
+                                <td>{{vayLai.songay}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </ng-template>
+
+
+                    </p-table>
                 </div>
             </div>
         </p-tabPanel>

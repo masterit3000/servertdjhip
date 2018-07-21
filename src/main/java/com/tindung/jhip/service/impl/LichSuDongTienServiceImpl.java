@@ -56,9 +56,11 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     public List<LichSuDongTienDTO> findAll() {
         log.debug("Request to get all LichSuDongTiens");
         return lichSuDongTienRepository.findAll().stream()
-            .map(lichSuDongTienMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(lichSuDongTienMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
+
+
 
     /**
      * Get one lichSuDongTien by id.
@@ -84,4 +86,5 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         log.debug("Request to delete LichSuDongTien : {}", id);
         lichSuDongTienRepository.delete(id);
     }
+
 }

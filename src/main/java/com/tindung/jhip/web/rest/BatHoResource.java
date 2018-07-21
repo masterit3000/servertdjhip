@@ -1,16 +1,14 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.tindung.jhip.domain.User;
-import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.BatHoService;
+import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.UserService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
 import com.tindung.jhip.service.dto.BatHoDTO;
-import com.tindung.jhip.service.dto.NhanVienDTO;
-import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +36,13 @@ public class BatHoResource {
     private final BatHoService batHoService;
     private final UserService userService;
     private final NhanVienService nhanVienService;
+    private final LichSuDongTienService lichSuDongTienService;
 
-    public BatHoResource(BatHoService batHoService, UserService userService,NhanVienService nhanVienService) {
+    public BatHoResource(LichSuDongTienService lichSuDongTienService,BatHoService batHoService, UserService userService, NhanVienService nhanVienService) {
         this.batHoService = batHoService;
         this.userService = userService;
         this.nhanVienService = nhanVienService;
-                
+        this.lichSuDongTienService = lichSuDongTienService;
 
     }
 
@@ -102,8 +101,21 @@ public class BatHoResource {
     @Timed
     public List<BatHoDTO> getAllBatHos() {
         log.debug("REST request to get all BatHos");
-        
+
         return batHoService.findAll();
+    }
+
+    /**
+     * Get lịch sử đóng tiền theo id của hợp đồng
+     *
+     * @param id: id của hợp đồng tương ứng
+     * @return list lịch sử đóng tiền theo hợp đồng
+     */
+    @GetMapping("/bat-hos/lichsudongtien/{id}")
+    @Timed
+    public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
+        return batHoService.findByHopDong(id);
     }
 
     /**
@@ -117,13 +129,12 @@ public class BatHoResource {
     @Timed
     public ResponseEntity<BatHoDTO> getBatHo(@PathVariable Long id) {
         log.debug("REST request to get BatHo : {}", id);
-        
-        
+
         BatHoDTO batHoDTO = batHoService.findOne(id);
-        
+
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(batHoDTO));
     }
-
+   
     /**
      * DELETE /bat-hos/:id : delete the "id" batHo.
      *
