@@ -1,61 +1,63 @@
 <div *ngIf="vayLai">
     <h2>
-        <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.id}}</h2>
+        <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.tienvay}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span>
-        </dt>
-        <dd>
-            <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.thoigianvay}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.chukylai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.lai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span>
-        </dt>
-        <dd>
-            <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.thulaitruoc}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.hopdongvl">Hopdongvl</span>
-        </dt>
-        <dd>
-            <div *ngIf="vayLai.hopdongvlId">
-                <a [routerLink]="['/hop-dong', vayLai.hopdongvlId]">{{vayLai.hopdongvlId}}</a>
-            </div>
-        </dd>
-    </dl>
-
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover text-left">
+                <tr>
+                    <th>Mã hợp đồng</th>
+                    <td colspan="2">{{vayLai.hopdongvl.mahopdong}}</td>
+                </tr>
+                <tr>
+                    <th>ID khách hàng</th>
+                    <td colspan="2">
+                        <a href="#">{{vayLai.hopdongvl.khachHangId}}
+                            <i>(Xem chi tiết khách hàng)</i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Tiền vay</th>
+                    <td colspan="2">{{vayLai.tienvay}}</td>
+                </tr>
+                <tr>
+                    <th>Ngày vay</th>
+                    <td>{{vayLai.hopdongvl.ngaytao}}</td>
+                    <td>(ngModel = Ngày tạo + Số ngày)</td>
+                </tr>
+                <tr>
+                    <th>Số ngày vay</th>
+                    <td colspan="2">{{vayLai.thoigianvay}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>Lãi</th>
+                    <td>{{vayLai.lai}}</td>
+                </tr>
+                <tr>
+                    <th>Hình thức lãi</th>
+                    <td>{{vayLai.hinhthuclai}}</td>
+                </tr>
+                <tr>
+                    <th>Cách tính lãi</th>
+                    <td>{{vayLai.cachtinhlai}}</td>
+                </tr>
+                <tr>
+                    <th>Đã đóng</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+                <tr>
+                    <th>Còn lại</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>

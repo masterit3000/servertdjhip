@@ -12,29 +12,18 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.ten" for="field_ten">Ten</label>
+                <label class="form-control-label" for="field_ten">Đại diện cửa hàng</label>
                 <input type="text" class="form-control" name="ten" id="field_ten" [(ngModel)]="cuaHang.ten" required/>
-                <div [hidden]="!(editForm.controls.ten?.dirty && editForm.controls.ten?.invalid)">
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.ten?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
             </div>
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.diachi" for="field_diachi">Diachi</label>
-                <input type="text" class="form-control" name="diachi" id="field_diachi" [(ngModel)]="cuaHang.diachi" maxlength="200" />
-                <div [hidden]="!(editForm.controls.diachi?.dirty && editForm.controls.diachi?.invalid)">
-                    <small class="form-text text-danger" [hidden]="!editForm.controls.diachi?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                        translateValues="{ max: 200 }">
-                        This field cannot be longer than 200 characters.
-                    </small>
-                </div>
+                <input type="text" class="form-control" name="diachi" id="field_diachi" [(ngModel)]="cuaHang.diachi" maxlength="200" required/>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.dienthoai" for="field_dienthoai">Dienthoai</label>
-                <input type="text" class="form-control" name="dienthoai" id="field_dienthoai" [(ngModel)]="cuaHang.dienthoai" />
+                <input type="text" class="form-control" name="dienthoai" id="field_dienthoai" [(ngModel)]="cuaHang.dienthoai" required/>
             </div>
             <div class="form-group col-md-6">
                 <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.trangthai" for="field_trangthai">Trangthai</label>
@@ -47,16 +36,29 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.ngayTao" for="field_ngayTao">Ngay Tao</label>
                         <div class="d-flex">
-                                <p-calendar  id="field_ngayTao" [(ngModel)]="cuaHang.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ></p-calendar>
-                            <!-- <input  readonly id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="cuaHang.ngayTao" /> -->
+                            <p-calendar id="field_ngayTao" [(ngModel)]="cuaHang.ngayTao" dateFormat="dd.mm.yy" name="ngayTao"></p-calendar>
                         </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.tinh" for="field_xa">Tinh</label>
+                        <select class="form-control" id="field_tinh" name="tinh">
+                            <option [ngValue]="null"></option>
+                            <!-- <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option> -->
+                        </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                        <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.huyen" for="field_xa">Huyen</label>
+                        <select class="form-control" id="field_huyen" name="huyen">
+                            <option [ngValue]="null"></option>
+                            <!-- <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option> -->
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
                         <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.xa" for="field_xa">Xa</label>
                         <select class="form-control" id="field_xa" name="xa" [(ngModel)]="cuaHang.xaId">
                             <option [ngValue]="null"></option>
@@ -65,17 +67,11 @@
                     </div>
                 </div>
             </div>
-                <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.ghiChu" for="field_ghiChu">Ghi Chu</label>
-                            <textarea [rows]="5" [cols]="30" type="text" class="form-control" name="ghiChu" id="field_ghiChu" [(ngModel)]="cuaHang.ghiChu"
-                                maxlength="3000"></textarea>
-                            <div [hidden]="!(editForm.controls.ghiChu?.dirty && editForm.controls.ghiChu?.invalid)">
-                                <small class="form-text text-danger" [hidden]="!editForm.controls.ghiChu?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                                    translateValues="{ max: 3000 }">
-                                    This field cannot be longer than 3000 characters.
-                                </small>
-                    </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servertdjhipApp.cuaHang.ghiChu" for="field_ghiChu">Ghi Chu</label>
+                    <textarea [rows]="5" [cols]="30" type="text" class="form-control" name="ghiChu" id="field_ghiChu" [(ngModel)]="cuaHang.ghiChu"
+                        maxlength="3000"></textarea>
                 </div>
             </div>
         </div>
