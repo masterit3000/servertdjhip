@@ -16,16 +16,22 @@ import {
     khachHangRoute,
     khachHangPopupRoute
 } from './';
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { CheckThongTinKhachHangComponent } from './check-thong-tin-khach-hang/check-thong-tin-khach-hang.component';
 import { KhachCanVayComponent } from './khach-can-vay/khach-can-vay.component';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 import { CalendarModule } from 'primeng/calendar';
 import {
     BrowserAnimationsModule,
     NoopAnimationsModule
 } from '@angular/platform-browser/animations';
+import { KhachHangChucNangComponent } from './khach-hang-chuc-nang/khach-hang-chuc-nang.component';
+import { KhachHangMoiComponent } from './khach-hang-chuc-nang/khach-hang-moi/khach-hang-moi.component';
 // 2 module nay phai cho vao de co hieu ugn day du
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { FormsModule } from '@angular/forms';
 
 const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
 
@@ -36,10 +42,16 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         AutoCompleteModule,
         RouterModule.forChild(ENTITY_STATES),
         CalendarModule,
+        InputTextModule,
+        InputTextareaModule,
         BrowserAnimationsModule,
         NoopAnimationsModule,
         TooltipModule,
-        TableModule
+        TableModule,
+        InputTextModule,
+        InputTextareaModule,
+        KeyFilterModule,
+        FormsModule
     ],
     declarations: [
         KhachHangComponent,
@@ -49,7 +61,9 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         KhachHangPopupComponent,
         KhachHangDeletePopupComponent,
         CheckThongTinKhachHangComponent,
-        KhachCanVayComponent
+        KhachCanVayComponent,
+        KhachHangChucNangComponent,
+        KhachHangMoiComponent
     ],
     entryComponents: [
         KhachHangComponent,

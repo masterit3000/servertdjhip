@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     ThuChiService,
@@ -12,19 +12,15 @@ import {
     ThuChiDeletePopupComponent,
     ThuChiDeleteDialogComponent,
     thuChiRoute,
-    thuChiPopupRoute,
+    thuChiPopupRoute
 } from './';
 import { ThuHoatDongComponent } from './thu-hoat-dong/thu-hoat-dong.component';
 import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
-import {SpinnerModule} from 'primeng/spinner';
+import { SpinnerModule } from 'primeng/spinner';
 import { GopVonComponent } from './gop-von/gop-von.component';
 import { RutVonComponent } from './rut-von/rut-von.component';
 
-
-const ENTITY_STATES = [
-    ...thuChiRoute,
-    ...thuChiPopupRoute,
-];
+const ENTITY_STATES = [...thuChiRoute, ...thuChiPopupRoute];
 
 @NgModule({
     imports: [
@@ -43,21 +39,16 @@ const ENTITY_STATES = [
         ThuHoatDongComponent,
         ChiHoatDongComponent,
         GopVonComponent,
-        RutVonComponent,
-     
+        RutVonComponent
     ],
     entryComponents: [
         ThuChiComponent,
         ThuChiDialogComponent,
         ThuChiPopupComponent,
         ThuChiDeleteDialogComponent,
-        ThuChiDeletePopupComponent,
+        ThuChiDeletePopupComponent
     ],
-    providers: [
-        ThuChiService,
-        ThuChiPopupService,
-       
-    ],
+    providers: [ThuChiService, ThuChiPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ServertdjhipThuChiModule {}

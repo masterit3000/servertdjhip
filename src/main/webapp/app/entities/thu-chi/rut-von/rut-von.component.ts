@@ -9,106 +9,115 @@ import { Observable } from '../../../../../../../node_modules/rxjs/Observable';
 import { NhanVien, NhanVienService } from '../../nhan-vien';
 
 @Component({
-  selector: 'jhi-rut-von',
-  templateUrl: './rut-von.component.html',
-  styles: []
+    selector: 'jhi-rut-von',
+    templateUrl: './rut-von.component.html',
+    styles: []
 })
 export class RutVonComponent implements OnInit {
-  thuChis: ThuChi[];
-  currentAccount: any;
-  eventSubscriber: Subscription;
-  thuchi: ThuChi;
-  tungay : Date;
-  denngay : Date;
-  isSaving: boolean;
-  nhanviens: NhanVien[];
-  
-  
+    thuChis: ThuChi[];
+    currentAccount: any;
+    eventSubscriber: Subscription;
+    thuchi: ThuChi;
+    tungay: Date;
+    denngay: Date;
+    isSaving: boolean;
+    nhanviens: NhanVien[];
 
-
-  constructor(
-      // public activeModal: NgbActiveModal,
-      private thuChiService: ThuChiService,
-      private jhiAlertService: JhiAlertService,
-      private nhanVienService: NhanVienService,
-      private eventManager: JhiEventManager,
-      private principal: Principal
-  ) {
-      this.thuchi = new ThuChi();
-  }
-  timkiem(){
-           // console.log(this.tungay);
+    constructor(
+        // public activeModal: NgbActiveModal,
+        private thuChiService: ThuChiService,
+        private jhiAlertService: JhiAlertService,
+        private nhanVienService: NhanVienService,
+        private eventManager: JhiEventManager,
+        private principal: Principal
+    ) {
+        this.thuchi = new ThuChi();
+    }
+    timkiem() {
+        // console.log(this.tungay);
         // console.log(this.denngay);
-        this.thuChiService.findByTime(this.tungay, this.denngay, THUCHI.RUTVON).subscribe(
+        this.thuChiService
+            .findByTime(this.tungay, this.denngay, THUCHI.RUTVON)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    // clear() {
+    //     this.activeModal.dismiss('cancel');
+    // }
+    save() {
+        this.thuchi.thuchi = THUCHI.RUTVON;
+        this.isSaving = true;
+        if (this.thuchi.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.thuChiService.update(this.thuchi)
+            );
+        } else {
+            this.subscribeToSaveResponse(
+                this.thuChiService.create(this.thuchi)
+            );
+        }
+    }
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
+        result.subscribe(
+            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
+    }
+    private onSaveSuccess(result: ThuChi) {
+        this.eventManager.broadcast({
+            name: 'thuChiListModification',
+            content: 'OK'
+        });
+        this.isSaving = false;
+        // this.activeModal.dismiss(result);
+        this.jhiAlertService.success('them moi thanh cong', null, null);
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+
+    loadAll() {
+        this.thuChiService.query().subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-      
-  }
-  // clear() {
-  //     this.activeModal.dismiss('cancel');
-  // }
-  save() {
-      this.thuchi.thuchi = THUCHI.RUTVON;
-      this.isSaving = true;
-      if (this.thuchi.id !== undefined) {
-          this.subscribeToSaveResponse(
-              this.thuChiService.update(this.thuchi));
-      } else {
-          this.subscribeToSaveResponse(
-              this.thuChiService.create(this.thuchi));
-      }
-  }
-  private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
-      result.subscribe(
-          (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body), 
-          (res: HttpErrorResponse) => this.onSaveError());
-  }
-  private onSaveSuccess(result: ThuChi) {
-      this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
-      this.isSaving = false;
-      // this.activeModal.dismiss(result);
-      this.jhiAlertService.success('them moi thanh cong', null, null);
-  }
+    }
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        //   this.registerChangeInThuChis();
+        this.nhanVienService.query().subscribe(
+            (res: HttpResponse<NhanVien[]>) => {
+                this.nhanviens = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
 
-  private onSaveError() {
-      this.isSaving = false;
-  }
+    ngOnDestroy() {
+        //   this.eventManager.destroy(this.eventSubscriber);
+    }
 
- 
+    trackId(index: number, item: ThuChi) {
+        return item.id;
+    }
+    registerChangeInThuChis() {
+        this.eventSubscriber = this.eventManager.subscribe(
+            'thuChiListModification',
+            response => this.loadAll()
+        );
+    }
 
-  loadAll() {
-      this.thuChiService.query().subscribe(
-          (res: HttpResponse<ThuChi[]>) => {
-              this.thuChis = res.body;
-          },
-          (res: HttpErrorResponse) => this.onError(res.message)
-      );
-  }
-  ngOnInit() {
-      this.loadAll();
-      this.principal.identity().then((account) => {
-          this.currentAccount = account;
-      });
-    //   this.registerChangeInThuChis();
-      this.nhanVienService.query()
-      .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-  }
-
-  ngOnDestroy() {
-    //   this.eventManager.destroy(this.eventSubscriber);
-  }
-
-  trackId(index: number, item: ThuChi) {
-      return item.id;
-  }
-  registerChangeInThuChis() {
-      this.eventSubscriber = this.eventManager.subscribe('thuChiListModification', (response) => this.loadAll());
-  }
-
-  private onError(error) {
-      this.jhiAlertService.error(error.message, null, null);
-  }
+    private onError(error) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
 }

@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ServertdjhipSharedModule } from '../../shared';
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import {
     BatHoService,
     BatHoPopupService,
@@ -33,9 +33,9 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
-import {TooltipModule} from 'primeng/tooltip';
-import {SpinnerModule} from 'primeng/spinner';
-import {CheckboxModule} from 'primeng/checkbox';
+import { TooltipModule } from 'primeng/tooltip';
+import { SpinnerModule } from 'primeng/spinner';
+import { CheckboxModule } from 'primeng/checkbox';
 
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 

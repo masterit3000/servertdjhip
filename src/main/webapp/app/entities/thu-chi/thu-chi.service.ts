@@ -90,8 +90,8 @@ export class ThuChiService {
     private convertDateToString(d: Date): String {
 
         let m = d.getMonth() + 1;
-        let mm = m < 10 ? "0" + m : m;
-        return d.getFullYear() + " " + mm + " " + d.getDate();
+        let mm = m < 10 ? '0' + m : m;
+        return d.getFullYear() + ' ' + mm + ' ' + d.getDate();
 
     }
 }

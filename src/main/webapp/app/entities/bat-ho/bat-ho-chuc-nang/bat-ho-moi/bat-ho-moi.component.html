@@ -10,7 +10,6 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <jhi-alert-error></jhi-alert-error>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
@@ -62,7 +61,8 @@
                                     <button class="btn btn-primary float-left" (click)="timKhachHang()">Tìm kiếm</button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
+                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                                        [routerLink]="khachHangMoi">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
@@ -98,8 +98,8 @@
                                                 <tr *ngFor="let khachHang of khachHangs">
                                                     <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.cmnd}}</td>
+                                                    <td>{{khachHang.diachi}}</td>
                                                     <td>{{khachHang.dienthoai}}</td>
-                                                    <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.trangthai}}</td>
                                                     <td>
                                                         <input type="radio" name="selectKhachHang" [checked]="(idx === 0)" (change)="onSelectionChange(khachHang.id)" [value]="khachHang.id">
@@ -148,7 +148,10 @@
                                             <td>1.000.000</td>
                                             <td>15/7/2018</td>
                                             <td>1.000.000</td>
-                                            <td><p-checkbox binary="true"></p-checkbox></td> <!--https://www.primefaces.org/primeng/#/checkbox-->
+                                            <td>
+                                                <p-checkbox binary="true"></p-checkbox>
+                                            </td>
+                                            <!--https://www.primefaces.org/primeng/#/checkbox-->
                                         </tr>
                                     </tbody>
                                 </table>
