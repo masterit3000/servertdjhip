@@ -36,10 +36,12 @@ public class LichSuDongTienResource {
     }
 
     /**
-     * POST  /lich-su-dong-tiens : Create a new lichSuDongTien.
+     * POST /lich-su-dong-tiens : Create a new lichSuDongTien.
      *
      * @param lichSuDongTienDTO the lichSuDongTienDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new lichSuDongTienDTO, or with status 400 (Bad Request) if the lichSuDongTien has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new lichSuDongTienDTO, or with status 400 (Bad Request) if the
+     * lichSuDongTien has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/lich-su-dong-tiens")
@@ -51,17 +53,18 @@ public class LichSuDongTienResource {
         }
         LichSuDongTienDTO result = lichSuDongTienService.save(lichSuDongTienDTO);
         return ResponseEntity.created(new URI("/api/lich-su-dong-tiens/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /lich-su-dong-tiens : Updates an existing lichSuDongTien.
+     * PUT /lich-su-dong-tiens : Updates an existing lichSuDongTien.
      *
      * @param lichSuDongTienDTO the lichSuDongTienDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated lichSuDongTienDTO,
-     * or with status 400 (Bad Request) if the lichSuDongTienDTO is not valid,
-     * or with status 500 (Internal Server Error) if the lichSuDongTienDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * lichSuDongTienDTO, or with status 400 (Bad Request) if the
+     * lichSuDongTienDTO is not valid, or with status 500 (Internal Server
+     * Error) if the lichSuDongTienDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/lich-su-dong-tiens")
@@ -73,27 +76,29 @@ public class LichSuDongTienResource {
         }
         LichSuDongTienDTO result = lichSuDongTienService.save(lichSuDongTienDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, lichSuDongTienDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, lichSuDongTienDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /lich-su-dong-tiens : get all the lichSuDongTiens.
+     * GET /lich-su-dong-tiens : get all the lichSuDongTiens.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of lichSuDongTiens in body
+     * @return the ResponseEntity with status 200 (OK) and the list of
+     * lichSuDongTiens in body
      */
     @GetMapping("/lich-su-dong-tiens")
     @Timed
     public List<LichSuDongTienDTO> getAllLichSuDongTiens() {
         log.debug("REST request to get all LichSuDongTiens");
         return lichSuDongTienService.findAll();
-        }
+    }
 
     /**
-     * GET  /lich-su-dong-tiens/:id : get the "id" lichSuDongTien.
+     * GET /lich-su-dong-tiens/:id : get the "id" lichSuDongTien.
      *
      * @param id the id of the lichSuDongTienDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the lichSuDongTienDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * lichSuDongTienDTO, or with status 404 (Not Found)
      */
     @GetMapping("/lich-su-dong-tiens/{id}")
     @Timed
@@ -103,8 +108,9 @@ public class LichSuDongTienResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(lichSuDongTienDTO));
     }
 
+
     /**
-     * DELETE  /lich-su-dong-tiens/:id : delete the "id" lichSuDongTien.
+     * DELETE /lich-su-dong-tiens/:id : delete the "id" lichSuDongTien.
      *
      * @param id the id of the lichSuDongTienDTO to delete
      * @return the ResponseEntity with status 200 (OK)

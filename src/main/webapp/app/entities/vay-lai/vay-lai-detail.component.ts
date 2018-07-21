@@ -6,7 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { VayLai } from './vay-lai.model';
 import { VayLaiService } from './vay-lai.service';
-
+import { LichSuDongTien } from '../lich-su-dong-tien/lich-su-dong-tien.model';
 @Component({
     selector: 'jhi-vay-lai-detail',
     templateUrl: './vay-lai-detail.component.html'
@@ -14,6 +14,8 @@ import { VayLaiService } from './vay-lai.service';
 export class VayLaiDetailComponent implements OnInit, OnDestroy {
 
     vayLai: VayLai;
+    lichSuDongTiens: LichSuDongTien[];
+    selected: LichSuDongTien;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -27,8 +29,15 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
+            this.lichSuDongTien(params['id']);
         });
         this.registerChangeInVayLais();
+    }
+    lichSuDongTien(id) {
+        this.vayLaiService.findByHopDong(id)
+            .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien[]>) => {
+                this.lichSuDongTiens = vayLaiResponse.body;
+            });
     }
 
     load(id) {

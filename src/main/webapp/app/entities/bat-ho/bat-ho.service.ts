@@ -5,6 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { BatHo } from './bat-ho.model';
 import { createRequestOption } from '../../shared';
+import { LichSuDongTien } from '../lich-su-dong-tien';
 
 export type EntityResponseType = HttpResponse<BatHo>;
 
@@ -12,7 +13,7 @@ export type EntityResponseType = HttpResponse<BatHo>;
 export class BatHoService {
 
     private resourceUrl =  SERVER_API_URL + 'api/bat-hos';
-
+    private lichSuDongTien = 'lichsudongtien';
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -30,6 +31,10 @@ export class BatHoService {
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<BatHo>(`${this.resourceUrl}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
+        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, {observe: 'response' })
+            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<BatHo[]>> {

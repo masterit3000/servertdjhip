@@ -5,14 +5,14 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { VayLai } from './vay-lai.model';
 import { createRequestOption } from '../../shared';
-
+import { LichSuDongTien } from '../lich-su-dong-tien';
 export type EntityResponseType = HttpResponse<VayLai>;
 
 @Injectable()
 export class VayLaiService {
 
     private resourceUrl =  SERVER_API_URL + 'api/vay-lais';
-
+    private lichSuDongTien = 'lichsudongtien';
     constructor(private http: HttpClient) { }
 
     create(vayLai: VayLai): Observable<EntityResponseType> {
@@ -36,6 +36,10 @@ export class VayLaiService {
         const options = createRequestOption(req);
         return this.http.get<VayLai[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
+    }
+    findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
+        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, {observe: 'response' })
+            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

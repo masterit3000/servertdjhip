@@ -35,7 +35,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import {TooltipModule} from 'primeng/tooltip';
 import {SpinnerModule} from 'primeng/spinner';
-
+import {CheckboxModule} from 'primeng/checkbox';
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
 @NgModule({
@@ -54,6 +54,7 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         FormsModule,
         TooltipModule,
         TableModule,
+        CheckboxModule,
         SpinnerModule
     ],
     declarations: [
