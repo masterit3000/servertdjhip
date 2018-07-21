@@ -62,10 +62,13 @@
                                         tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-left" (click)="timKhachHang()">Tìm kiếm</button>
+                                    <button class="btn btn-primary float-left" (click)="timKhachHang()">
+                                        <span class="pi pi-search"></span>
+                                        <span>Tìm kiếm</span>
+                                    </button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" routerLink="/khachHangMoi">
+                                    <button class="btn btn-primary float-right " routerLink="/khachHangMoi">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
