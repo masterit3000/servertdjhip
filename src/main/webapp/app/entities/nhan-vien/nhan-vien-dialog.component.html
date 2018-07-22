@@ -1,7 +1,10 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myNhanVienLabel" jhiTranslate="servertdjhipApp.nhanVien.home.createOrEditLabel">Create or edit a Nhan Vien</h4>
+        <h4>
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span class="modal-title" id="myNhanVienLabel" jhiTranslate="servertdjhipApp.nhanVien.home.createOrEditLabel">Create or edit a Nhan Vien</span>
+        </h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
