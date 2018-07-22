@@ -72,77 +72,32 @@
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Từ ngày:
-                                </td>
-                                <td>15/04/1999</td>
-                            </tr>
-                            <tr>
-                                <td>Đến ngày:</td>
-                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Số ngày:</td>
-                                <td>
-                                    {{vayLai.thoigianvay}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tiền lãi:</td>
-                                <td>999 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Tiền khác:</td>
-                                <td>
-                                    <input type="number" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tổng tiền lãi:</td>
-                                <td>999 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đóng lãi</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
                     <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th>STT</th>
-                                <th colspan="3">Ngày</th>
+                                <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
                                 <th>Tiền lãi</th>
                                 <th>Tiền khác</th>
                                 <th>Tổng lãi</th>
                                 <th>Tiền khách trả</th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
                             </tr>
                         </ng-template>>
                         <ng-template pTemplate="body" let-lichSuDongTien>
                             <tr [pSelectableRow]="lichSuDongTien">
-
-                                <td>1</td>
-                                <td>{{lichSuDongTien.ngaybatdau}}</td>
-                                <td>---></td>
-                                <td>{{lichSuDongTien.ngayketthuc}}</td>
+                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.songay}}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td>
+                                    <p-tableCheckbox [value]="null"></p-tableCheckbox>
+                                </td>
                             </tr>
                         </ng-template>
 
