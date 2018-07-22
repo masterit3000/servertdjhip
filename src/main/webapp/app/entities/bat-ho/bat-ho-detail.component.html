@@ -87,9 +87,9 @@
                 <ng-template pTemplate="body" let-lichSuDongTien >
                     <tr [pSelectableRow]="lichSuDongTien">
                         <td></td>
-                        <td>{{lichSuDongTien.ngaybatdau}}</td>
+                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
-                        <td>{{lichSuDongTien.ngayketthuc}}</td>
+                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
                         <td><p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox></td>
                     </tr>
