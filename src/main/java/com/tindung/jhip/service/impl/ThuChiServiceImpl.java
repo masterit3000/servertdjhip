@@ -92,6 +92,15 @@ public class ThuChiServiceImpl implements ThuChiService {
         return thuChiMapper.toDto(thuChi);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<ThuChiDTO> findAllThuTheoLoai(THUCHI thuchi) {
+        log.debug("Request to get all ThuChi");
+        return thuChiRepository.findAllThuChiTheoLoai(thuchi).stream()
+                .map(thuChiMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
     /**
      * Delete the thuChi by id.
      *
@@ -137,4 +146,5 @@ public class ThuChiServiceImpl implements ThuChiService {
         }
         throw new InternalError("Khong cos quyen");
     }
+
 }

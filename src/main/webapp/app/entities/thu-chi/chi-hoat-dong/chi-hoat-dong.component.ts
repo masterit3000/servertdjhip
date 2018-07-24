@@ -72,7 +72,7 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.thuChiService.query().subscribe(
+        this.thuChiService.findAllThuChiTheoLoai(THUCHI.CHI).subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
             },

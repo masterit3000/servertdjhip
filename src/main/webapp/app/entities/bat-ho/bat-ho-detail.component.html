@@ -23,7 +23,7 @@
                 <tr>
                     <th>Họ từ ngày</th>
                     <td>{{batHo.hopdong.ngaytao}}</td>
-                    <td>(ngModel = Ngày tạo + Số ngày)</td>
+                    <td>{{batHo.hopdong.ngaytao}}</td>
                 </tr>
                 <tr>
                     <th>Tỷ lệ</th>
@@ -81,17 +81,21 @@
                         <th>
                             <span>Tiền khách trả</span>
                         </th>
-                        <th> <p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th>
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-lichSuDongTien >
+                <ng-template pTemplate="body" let-lichSuDongTien>
                     <tr [pSelectableRow]="lichSuDongTien">
                         <td></td>
                         <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
                         <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
-                        <td><p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox></td>
+                        <td>
+                            <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+                        </td>
                     </tr>
                 </ng-template>
                 </table>
@@ -184,13 +188,24 @@
                 <div class="col-md-12">
                     <h3>Lịch sử nhắc nợ</h3>
                     <br />
-                    <table class="table table-bordered text-center">
-                        <thead>
+                    <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+                        <ng-template pTemplate="header">
                             <th>STT</th>
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Nội dung</th>
-                        </thead>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
+                            <tr [pSelectableRow]="lichSuThaoTacHopDong">
+                                <td></td>
+                                <td>{{lichSuThaoTacHopDong.thoigian}}</td>
+                                <td>{{lichSuThaoTacHopDong.nhanVienId}}</td>
+                                <td>{{lichSuThaoTacHopDong.noidung}}</td>
+                                <td>
+                                    <p-tableCheckbox [value]="lichSuThaoTacHopDong"></p-tableCheckbox>
+                                </td>
+                            </tr>
+                        </ng-template>
                     </table>
                 </div>
             </div>
@@ -198,7 +213,7 @@
                 <div class="col-md-12">
                     <h3>Lịch sử thao tác</h3>
                     <br />
-                    <table class="table table-bordered text-center">
+                    <p-table class="table table-bordered text-center">
                         <thead>
                             <th>STT</th>
                             <th>Ngày</th>
@@ -207,7 +222,7 @@
                             <th>Số tiền ghi có</th>
                             <th>Nội dung</th>
                         </thead>
-                    </table>
+                    </p-table>
                 </div>
             </div>
         </p-tabPanel>

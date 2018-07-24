@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Spring Data JPA repository for the ThuChi entity.
@@ -26,5 +27,9 @@ public interface ThuChiRepository extends JpaRepository<ThuChi, Long> {
 
     @Query("select t from ThuChi t  inner join t.cuaHang c  where t.thoigian between  ?1 and ?2 and t.thuchi=?3 and c.id=?4")
     public List<ThuChi> findbyTime(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi, Long cuahangID);
+
+    @Query("select t from ThuChi t where t.thuchi =?1")
+    public List<ThuChi> findAllThuChiTheoLoai(@Param(value = "thuchi") THUCHI thuchi);
+
 
 }

@@ -1,6 +1,7 @@
 package com.tindung.jhip.service;
 
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
+import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.dto.VayLaiDTO;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public interface VayLaiService {
      */
     List<VayLaiDTO> findAll();
     List<LichSuDongTienDTO> findByHopDong(Long id);
+    List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id);
     /**
      * Get the "id" vayLai.
      *

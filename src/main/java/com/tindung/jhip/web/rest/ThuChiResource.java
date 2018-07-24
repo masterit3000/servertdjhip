@@ -99,6 +99,34 @@ public class ThuChiResource {
         return thuChiService.findAll();
     }
 
+    //
+    @GetMapping("/thu-chis/loai/{thuchi}")
+    @Timed
+    public List<ThuChiDTO> getAllThuTheoLoai(@PathVariable String thuchi) {
+        log.debug("REST request to get all ThuChis");
+        
+                THUCHI loai = THUCHI.THU;
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
+        switch (thuchi) {
+            case "0":
+                loai = THUCHI.THU;
+                break;
+            case "1":
+                loai = THUCHI.CHI;
+                break;
+            case "2":
+                loai = THUCHI.GOPVON;
+                break;
+            case "3":
+                loai = THUCHI.RUTVON;
+                break;
+
+        }
+        return thuChiService.findAllThuTheoLoai(loai);
+    }
+
+
+
     /**
      * GET /thu-chis : get all the thuChis.
      *
