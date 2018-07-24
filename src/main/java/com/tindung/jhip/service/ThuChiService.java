@@ -25,6 +25,8 @@ public interface ThuChiService {
      */
     List<ThuChiDTO> findAll();
 
+    List<ThuChiDTO> findAllThuTheoLoai(THUCHI thuchi);
+
     /**
      * Get the "id" thuChi.
      *

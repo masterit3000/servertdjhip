@@ -7,6 +7,7 @@ import { JhiEventManager } from 'ng-jhipster';
 import { BatHo } from './bat-ho.model';
 import { BatHoService } from './bat-ho.service';
 import { LichSuDongTien } from '../lich-su-dong-tien/lich-su-dong-tien.model';
+import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 @Component({
     selector: 'jhi-bat-ho-detail',
     templateUrl: './bat-ho-detail.component.html'
@@ -15,6 +16,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
     batHo: BatHo;
     lichSuDongTiens :LichSuDongTien[];
+    lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
     selected: LichSuDongTien;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
@@ -30,6 +32,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
             this.lichSuDongTien(params['id']);
+            this.lichSuThaoTacHopDong(params['id']);
         });
         this.registerChangeInBatHos();
     }
@@ -39,6 +42,13 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.lichSuDongTiens = batHoResponse.body;
             });
     }
+    lichSuThaoTacHopDong(id) {
+        this.batHoService.findThaoTacByHopDong(id)
+            .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
+                this.lichSuThaoTacHopDongs = batHoResponse.body;
+            });
+    }
+    
     load(id) {
         this.batHoService.find(id)
             .subscribe((batHoResponse: HttpResponse<BatHo>) => {

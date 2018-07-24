@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
-
+import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 import { VayLai } from './vay-lai.model';
 import { createRequestOption } from '../../shared';
 import { LichSuDongTien } from '../lich-su-dong-tien';
@@ -11,8 +11,10 @@ export type EntityResponseType = HttpResponse<VayLai>;
 @Injectable()
 export class VayLaiService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/vay-lais';
+    private resourceUrl = SERVER_API_URL + 'api/vay-lais';
     private lichSuDongTien = 'lichsudongtien';
+
+    private lichSuThaoTacHopDong = 'lichsuthaotac';
     constructor(private http: HttpClient) { }
 
     create(vayLai: VayLai): Observable<EntityResponseType> {
@@ -28,7 +30,7 @@ export class VayLaiService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<VayLai>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<VayLai>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -38,17 +40,20 @@ export class VayLaiService {
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
     findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
-        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, {observe: 'response' })
+        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
-
+    findThaoTacByHopDong(id: number): Observable<HttpResponse<LichSuThaoTacHopDong[]>> {
+        return this.http.get<LichSuThaoTacHopDong[]>(`${this.resourceUrl}/${this.lichSuThaoTacHopDong}/${id}`, { observe: 'response' })
+            .map((res: HttpResponse<LichSuThaoTacHopDong[]>) => this.convertArrayResponse(res));
+    }
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: VayLai = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<VayLai[]>): HttpResponse<VayLai[]> {
@@ -57,7 +62,7 @@ export class VayLaiService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

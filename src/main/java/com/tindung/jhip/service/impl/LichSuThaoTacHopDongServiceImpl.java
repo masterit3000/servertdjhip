@@ -103,21 +103,8 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
 
     @Override
     public List<LichSuThaoTacHopDongDTO> findByHopDong(long idhopdong) {
-        Long idCuaHangByUserLogin = cuaHangService.findIDByUserLogin();
-        long idCuaHangByHopDong = hopDongService.findOne(idhopdong).getCuaHangId();
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            if (idCuaHangByHopDong == idCuaHangByUserLogin) {
-
                 List<LichSuThaoTacHopDong> findByHopDong = lichSuThaoTacHopDongRepository.findByHopDong(idhopdong);
                 List<LichSuThaoTacHopDongDTO> collect = findByHopDong.stream().map(lichSuThaoTacHopDongMapper::toDto).collect(Collectors.toList());
                 return collect;
-
-            }
-        } else {
-            List<LichSuThaoTacHopDong> findByHopDong = lichSuThaoTacHopDongRepository.findByHopDong(idhopdong);
-            List<LichSuThaoTacHopDongDTO> collect = findByHopDong.stream().map(lichSuThaoTacHopDongMapper::toDto).collect(Collectors.toList());
-            return collect;
-        }
-        throw new InternalServerErrorException("Loi lay lich su dong tien");
     }
 }

@@ -139,15 +139,6 @@ public class VayLaiServiceImpl implements VayLaiService {
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
 
-                //
-                LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-                lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
-                lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-                lichSuThaoTacHopDongDTO.setNoidung("Tạo mới vay lãi");
-                lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
-                
-                 
                 return vayLaiMapper.toDto(vayLai);
 
             } else {
@@ -237,6 +228,13 @@ public class VayLaiServiceImpl implements VayLaiService {
         List<LichSuDongTienDTO> collect = findByHopDong.stream()
                 .map(lichSuDongTienMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
+    }
+
+    @Override
+    public List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id) {
+        log.debug("Request to get all LichSuThaoTacs by HopDong: {}", id);
+        List<LichSuThaoTacHopDongDTO> collect = lichSuThaoTacHopDongService.findByHopDong(vayLaiRepository.findOne(id).getHopdongvl().getId());
         return collect;
     }
 

@@ -3,12 +3,14 @@ package com.tindung.jhip.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.service.LichSuDongTienService;
+import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.UserService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
 import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
+import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,12 +40,14 @@ public class BatHoResource {
     private final UserService userService;
     private final NhanVienService nhanVienService;
     private final LichSuDongTienService lichSuDongTienService;
+    private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
 
-    public BatHoResource(LichSuDongTienService lichSuDongTienService,BatHoService batHoService, UserService userService, NhanVienService nhanVienService) {
+    public BatHoResource(LichSuThaoTacHopDongService lichSuThaoTacHopDongService, LichSuDongTienService lichSuDongTienService, BatHoService batHoService, UserService userService, NhanVienService nhanVienService) {
         this.batHoService = batHoService;
         this.userService = userService;
         this.nhanVienService = nhanVienService;
         this.lichSuDongTienService = lichSuDongTienService;
+        this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
 
     }
 
@@ -63,6 +68,16 @@ public class BatHoResource {
             throw new BadRequestAlertException("A new batHo cannot already have an ID", ENTITY_NAME, "idexists");
         }
         BatHoDTO result = batHoService.save(batHoDTO);
+
+        //
+        //save lich su thao tac bat ho
+        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
+        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+        lichSuThaoTacHopDongDTO.setNoidung("Tao moi bat ho");
+        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+        //
         return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
@@ -118,6 +133,13 @@ public class BatHoResource {
         return batHoService.findByHopDong(id);
     }
 
+    @GetMapping("/bat-hos/lichsuthaotac/{id}")
+    @Timed
+    public List<LichSuThaoTacHopDongDTO> getLichSuThaoTacByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get LichSuThaoTac by HopDong: {}", id);
+        return batHoService.findThaoTacByHopDong(id);
+    }
+
     /**
      * GET /bat-hos/:id : get the "id" batHo.
      *
@@ -134,7 +156,7 @@ public class BatHoResource {
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(batHoDTO));
     }
-   
+
     /**
      * DELETE /bat-hos/:id : delete the "id" batHo.
      *

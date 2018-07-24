@@ -30,6 +30,8 @@ public class HopDongDTO implements Serializable {
 
     private Long khachHangId;
 
+    private String khachHangTen;
+
     private Long cuaHangId;
 
     private Long nhanVienId;
@@ -106,6 +108,14 @@ public class HopDongDTO implements Serializable {
 
     public void setHopdonggocId(Long hopDongId) {
         this.hopdonggocId = hopDongId;
+    }
+
+    public String getKhachHangTen() {
+        return khachHangTen;
+    }
+
+    public void setKhachHangTen(String khachHangTen) {
+        this.khachHangTen = khachHangTen;
     }
 
     @Override

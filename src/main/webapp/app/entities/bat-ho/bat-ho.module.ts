@@ -33,16 +33,9 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
-<<<<<<< HEAD
-import {TooltipModule} from 'primeng/tooltip';
-import {SpinnerModule} from 'primeng/spinner';
-import {CheckboxModule} from 'primeng/checkbox';
-=======
 import { TooltipModule } from 'primeng/tooltip';
 import { SpinnerModule } from 'primeng/spinner';
 import { CheckboxModule } from 'primeng/checkbox';
-
->>>>>>> origin/tung5
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
 @NgModule({
@@ -61,13 +54,8 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         FormsModule,
         TooltipModule,
         TableModule,
-<<<<<<< HEAD
         CheckboxModule,
         SpinnerModule
-=======
-        SpinnerModule,
-        CheckboxModule
->>>>>>> origin/tung5
     ],
     declarations: [
         BatHoComponent,
@@ -96,4 +84,4 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
     providers: [BatHoService, BatHoPopupService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ServertdjhipBatHoModule {}
+export class ServertdjhipBatHoModule { }

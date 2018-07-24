@@ -1,4 +1,5 @@
 import { BaseEntity } from './../../shared';
+import { NhanVien } from '../nhan-vien';
 
 export class LichSuThaoTacHopDong implements BaseEntity {
     constructor(
@@ -7,6 +8,7 @@ export class LichSuThaoTacHopDong implements BaseEntity {
         public noidung?: string,
         public nhanVienId?: number,
         public hopDongId?: number,
+        public nhanVien?: NhanVien
     ) {
     }
 }

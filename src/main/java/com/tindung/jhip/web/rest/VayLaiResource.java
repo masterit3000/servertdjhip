@@ -1,8 +1,11 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.service.LichSuThaoTacHopDongService;
+import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.VayLaiService;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
+import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
 import com.tindung.jhip.service.dto.VayLaiDTO;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +35,13 @@ public class VayLaiResource {
     private static final String ENTITY_NAME = "vayLai";
 
     private final VayLaiService vayLaiService;
+    private final NhanVienService nhanVienService;
+    private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
 
-    public VayLaiResource(VayLaiService vayLaiService) {
+    public VayLaiResource(VayLaiService vayLaiService, NhanVienService nhanVienService, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
         this.vayLaiService = vayLaiService;
+        this.nhanVienService = nhanVienService;
+        this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
     }
 
     /**
@@ -53,6 +61,15 @@ public class VayLaiResource {
             throw new BadRequestAlertException("A new vayLai cannot already have an ID", ENTITY_NAME, "idexists");
         }
         VayLaiDTO result = vayLaiService.save(vayLaiDTO);
+
+        //
+        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdongvl().getId());
+        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+        lichSuThaoTacHopDongDTO.setNoidung("Tạo mới vay lãi");
+        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+        //
         return ResponseEntity.created(new URI("/api/vay-lais/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
@@ -99,6 +116,13 @@ public class VayLaiResource {
     public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
         log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
         return vayLaiService.findByHopDong(id);
+    }
+
+    @GetMapping("/vay-lais/lichsuthaotac/{id}")
+    @Timed
+    public List<LichSuThaoTacHopDongDTO> getLichSuThaoTacByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get LichSuThaoTac by HopDong: {}", id);
+        return vayLaiService.findThaoTacByHopDong(id);
     }
 
     /**

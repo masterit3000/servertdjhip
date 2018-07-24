@@ -54,7 +54,7 @@ public class BatHoServiceImpl implements BatHoService {
     private final LichSuDongTienMapper lichSuDongTienMapper;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
 
-    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository,LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
+    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
         this.batHoMapper = batHoMapper;
         this.batHoRepository = batHoRepository;
         this.hopDongService = hopDongService;
@@ -102,7 +102,6 @@ public class BatHoServiceImpl implements BatHoService {
                 Double tongtien = batHo.getTongtien();
                 ZonedDateTime ngaytao = hopdong.getNgaytao();
 
-                int day = 0;
                 ZonedDateTime batdau = ngaytao;
 //            Date date = new Date(batdau.)
 //batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
@@ -111,8 +110,8 @@ public class BatHoServiceImpl implements BatHoService {
                     soChuKy++;
                 }
 
-                long soTienTrongChuKy = Math.round((tongtien/soChuKy)*1000)/1000;//lam tron den 1000d
-                while (day < tongsongay) {
+                long soTienTrongChuKy = Math.round((tongtien / soChuKy));//lam tron den 1000d
+                for (int i = 0; i < soChuKy - 1; i++) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
@@ -120,7 +119,6 @@ public class BatHoServiceImpl implements BatHoService {
                     batdau = batdau.plusDays(chuky);
                     lichSuDongTienDTO.setNgayketthuc(batdau);
                     lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
-                    day += chuky;
                     lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                     lichSuDongTienService.save(lichSuDongTienDTO);
                 }
@@ -134,15 +132,7 @@ public class BatHoServiceImpl implements BatHoService {
                 lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
-                //save lich su thao tac bat ho
-                LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-                lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
-                lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-                lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
-                lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
-                
-                
+
                 return batHoMapper.toDto(batHo);
             } else {
 
@@ -215,6 +205,14 @@ public class BatHoServiceImpl implements BatHoService {
         List<LichSuDongTienDTO> collect = findByHopDong.stream()
                 .map(lichSuDongTienMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
+
+    }
+
+    @Override
+    public List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id) {
+        log.debug("Request to get all LichSuThaoTacs by HopDong: {}", id);
+        List<LichSuThaoTacHopDongDTO> collect = lichSuThaoTacHopDongService.findByHopDong(batHoRepository.findOne(id).getHopdongbh().getId());
         return collect;
     }
 

@@ -82,7 +82,7 @@ export class ThuHoatDongComponent implements OnInit {
     }
 
     loadAll() {
-        this.thuChiService.query().subscribe(
+        this.thuChiService.findAllThuChiTheoLoai(THUCHI.THU).subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
             },

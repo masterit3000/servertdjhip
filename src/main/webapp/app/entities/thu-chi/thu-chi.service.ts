@@ -14,9 +14,8 @@ export type EntityResponseType = HttpResponse<ThuChi>;
 export class ThuChiService {
 
     private resourceUrl = SERVER_API_URL + 'api/thu-chis';
-
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
-
+    private thuchi='loai';
     create(thuChi: ThuChi): Observable<EntityResponseType> {
         const copy = this.convert(thuChi);
         return this.http.post<ThuChi>(this.resourceUrl, copy, { observe: 'response' })
@@ -47,6 +46,10 @@ export class ThuChiService {
     query(req?: any): Observable<HttpResponse<ThuChi[]>> {
         const options = createRequestOption(req);
         return this.http.get<ThuChi[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+    }
+    findAllThuChiTheoLoai(loaithuchi: THUCHI): Observable<HttpResponse<ThuChi[]>> {
+        return this.http.get<ThuChi[]>(`${this.resourceUrl}/${this.thuchi}/${loaithuchi}`, { observe: 'response' })
             .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
     }
 
