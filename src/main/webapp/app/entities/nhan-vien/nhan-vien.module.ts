@@ -20,6 +20,7 @@ import {
 import { PhanQuyenNhanVienComponent } from './phan-quyen-nhan-vien/phan-quyen-nhan-vien.component';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { NhanVienMoiComponent } from './nhan-vien-moi/nhan-vien-moi.component';
 
 const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
 
@@ -41,7 +42,8 @@ const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
         NhanVienDeleteDialogComponent,
         NhanVienPopupComponent,
         NhanVienDeletePopupComponent,
-        PhanQuyenNhanVienComponent
+        PhanQuyenNhanVienComponent,
+        NhanVienMoiComponent
     ],
     entryComponents: [
         NhanVienComponent,
