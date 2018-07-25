@@ -33,6 +33,7 @@ import {
     ErrorComponent
 } from './layouts';
 import { SidebarModule } from 'primeng/primeng';
+import { QuanLyComponent } from './quan-ly/quan-ly.component';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import { SidebarModule } from 'primeng/primeng';
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
+        QuanLyComponent
     ],
     providers: [
         ProfileService,
