@@ -1,96 +1,77 @@
-
-
 <div class="main-content">
-  <div class="container-fluid">
-      <!-- title -->
-      
-      <div class="row">
-          <div class="col-md-8">
-            <span class="glyphicon-calendar">(icon)</span>
-          <h4>Hợp đồng vay tiền</h4>
-          </div>
-          
-      </div>
-      <!--  -->
-      <div class="form-vertical">
-      <div class="form-group">
-          <!-- search -->
-          <div class="row">
-              <div class="col-md-2">
-                  <label class="control-label">Khách hàng</label>
-                  <input type="text"  name="keysearch" class="form-control" placeholder="Tên, SĐT, CMND">
-              </div>
-              <div class="col-md-2">
-                  <label class="control-label">Trạng thái</label>
-              
-                  <select class="custom-select mr-sm-2" >
-                      
-                      <option selected>Tất cả</option>                  
-                      <option value="1">Chờ Nhận</option>
-                      <option value="2">Đã nhận</option>
-                      <option value="3">Đang vay</option>
-                      <option value="4">Đã tất toán</option>
-                      <option value="5">Đã hủy</option>
-                      </select>
-                      
-                      
-              </div>
-              <div class="col-md-1">
-                  
-                  <button class="btn btn-info " style="margin-top: 0px" >Tìm</button>
-              </div>
-          
-         
-          </div>
-      </div> 
-      <div class="form-group">
-           
-          <table class="table table-my-hover table-bordered table-checkable">
-              <thead>
-              <tr>
-                  <th class="align-center">#</th>
-                  <th class="hidden-xs">Tên khách hàng</th>
-                  <th>Gói vay</th>
-                  <th>Địa chỉ</th>
-                  <th class="align-center">Số tiền cần vay</th>
-                  <th class="align-center">Trạng thái</th>
-                  <th class="align-center"></th>
-              </tr>
-              </thead>
-              <tbody>
-              <input type="hidden" id="data-customername" value="">
-              <input type="hidden" id="data-totalmoney" value="">
-              <input type="hidden" id="data-loantime" value="">
-              <input type="hidden" id="data-cityname" value="">
-              <input type="hidden" id="data-districtname" value="">
-              <input type="hidden" id="data-phone" value="">
-              <input type="hidden" id="ActionIDAccept" value="1">
-              <input type="hidden" id="data-LoanID" value="">
-              </tbody>
-          </table>
-          <div class="row">
-                  
-                  <div class="col-md-12">
-                      <div style="float: right;">
-                      <form class="inline">
-                          <button> ← Prev</button>
-                          <button>1</button>
-                          <button>Next →</button>
-
-                      </form>
-                      </div>
-                  </div> 
-                      
-          
-              </div>
-       
-          <!-- kết quả  -->
-          
-      </div>
-      </div>
-  
-
-      
-  </div>
-</div>    
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>
+                    <i class="fa fa-money" width="20%" aria-hidden="true"></i>
+                    Hợp đồng vay tiền
+                </h2>
+            </div>
+        </div>
+        <div class="form-vertical">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label class="control-label">Khách hàng</label>
+                        <input type="text" name="keysearch" class="form-control" placeholder="Tên khách hàng / CMND">
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="control-label">Trạng thái</label>
+                        <select class="custom-select">
+                            <option selected>Tất cả</option>
+                            <option value="1">Chờ Nhận</option>
+                            <option value="2">Đã nhận</option>
+                            <option value="3">Đang vay</option>
+                            <option value="4">Đã tất toán</option>
+                            <option value="5">Đã hủy</option>
+                        </select>
+                    </div>
+                    <div class="col-md-7">
+                        <br/>
+                        <button class="btn btn-info pull-left" style="margin-top: 0px">
+                            <i class="pi pi-search" aria-hidden="true"></i>
+                            Tìm kiếm
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <table class="table table-my-hover table-bordered table-checkable">
+                    <thead>
+                        <tr>
+                            <th class="align-center">#</th>
+                            <th class="hidden-xs">Tên khách hàng</th>
+                            <th>Gói vay</th>
+                            <th>Địa chỉ</th>
+                            <th class="align-center">Số tiền cần vay</th>
+                            <th class="align-center">Trạng thái</th>
+                            <th class="align-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <input type="hidden" id="data-customername" value="">
+                        <input type="hidden" id="data-totalmoney" value="">
+                        <input type="hidden" id="data-loantime" value="">
+                        <input type="hidden" id="data-cityname" value="">
+                        <input type="hidden" id="data-districtname" value="">
+                        <input type="hidden" id="data-phone" value="">
+                        <input type="hidden" id="ActionIDAccept" value="1">
+                        <input type="hidden" id="data-LoanID" value="">
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float: right;">
+                            <form class="inline">
+                                <button> ← Prev</button>
+                                <button>1</button>
+                                <button>Next →</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- kết quả  -->
+            </div>
+        </div>
+    </div>
+</div>
