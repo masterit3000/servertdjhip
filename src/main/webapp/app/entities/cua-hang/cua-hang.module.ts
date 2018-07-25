@@ -21,7 +21,6 @@ import { ThongTinChiTietCuaHangComponent } from './thong-tin-chi-tiet-cua-hang/t
 import { CauHinhHangHoaComponent } from './cau-hinh-hang-hoa/cau-hinh-hang-hoa.component';
 import { NhapTienQuyDauNgayComponent } from './nhap-tien-quy-dau-ngay/nhap-tien-quy-dau-ngay.component';
 import {TableModule} from 'primeng/table';
-import { CuaHangMoiComponent } from './cua-hang-moi/cua-hang-moi.component';
 
 const ENTITY_STATES = [...cuaHangRoute, ...cuaHangPopupRoute];
 
@@ -44,8 +43,7 @@ const ENTITY_STATES = [...cuaHangRoute, ...cuaHangPopupRoute];
         TongQuatChuoiCuaHangComponent,
         ThongTinChiTietCuaHangComponent,
         CauHinhHangHoaComponent,
-        NhapTienQuyDauNgayComponent,
-        CuaHangMoiComponent
+        NhapTienQuyDauNgayComponent
     ],
     entryComponents: [
         CuaHangComponent,
