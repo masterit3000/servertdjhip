@@ -36,6 +36,8 @@ import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { SpinnerModule } from 'primeng/spinner';
 import { CheckboxModule } from 'primeng/checkbox';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
 @NgModule({
@@ -55,8 +57,8 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         TooltipModule,
         TableModule,
         SpinnerModule,
-        CheckboxModule
-    ],
+        CheckboxModule,
+        ConfirmDialogModule
     declarations: [
         BatHoComponent,
         BatHoDetailComponent,

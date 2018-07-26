@@ -7,15 +7,13 @@
         <div class="col-md-6">
             <table class="table table-bordered table-hover text-left">
                 <tr>
-                    <th>Mã hợp đồng</th>
-                    <td colspan="2">{{vayLai.hopdongvl.mahopdong}}</td>
-                </tr>
-                <tr>
-                    <th>ID khách hàng</th>
-                    <td colspan="2">
-                        <a href="#">{{vayLai.hopdongvl.khachHangId}}
-                            <i>(Xem chi tiết khách hàng)</i>
-                        </a>
+                    <th>Tên khách hàng</th>
+                    <td>
+                        <a>vayLai.hopdongvl.ten</a>
+                    </td>
+                    <td>
+                        ID:
+                        <a>{{vayLai.hopdongvl.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -24,7 +22,7 @@
                 </tr>
                 <tr>
                     <th>Ngày vay</th>
-                    <td>{{vayLai.hopdongvl.ngaytao}}</td>
+                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <td>(ngModel = Ngày tạo + Số ngày)</td>
                 </tr>
                 <tr>
@@ -41,11 +39,11 @@
                 </tr>
                 <tr>
                     <th>Hình thức lãi</th>
-                    <td>{{vayLai.hinhthuclai}}</td>
+                    <td><span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span></td>
                 </tr>
                 <tr>
                     <th>Cách tính lãi</th>
-                    <td>{{vayLai.cachtinhlai}}</td>
+                    <td><span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span></td>
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
@@ -62,17 +60,17 @@
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>
     </button>
-
     <button type="button" [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
         class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;
         <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
+    <button type="button" class="btn btn-danger">Đóng hợp đồng</button>
     <p-tabView>
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-12">
-                    <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">Ngày</th>
@@ -90,18 +88,16 @@
                             <tr [pSelectableRow]="lichSuDongTien">
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                                <td>{{vayLai.songay}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{vayLai.chukylai}}</td>
+                                <td>{{vayLai.lai}}</td>
+                                <td>0</td>
+                                <td>{{vayLai.lai}}</td>
+                                <td>{{vayLai.lai}}</td>
                                 <td>
-                                    <p-tableCheckbox [value]="null"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                                 </td>
                             </tr>
                         </ng-template>
-
-
                     </p-table>
                 </div>
             </div>

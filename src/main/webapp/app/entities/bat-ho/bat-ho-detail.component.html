@@ -7,13 +7,10 @@
         <div class="col-md-6">
             <table class="table table-bordered table-hover text-left">
                 <tr>
-                    <th>Mã hợp đồng</th>
-                    <td colspan="2">{{batHo.hopdong.mahopdong}}</td>
-                </tr>
-                <tr>
-                    <th>ID khách hàng</th>
-                    <td colspan="2">
-                        <a href="#">{{batHo.hopdong.khachHangId}} <i>(Xem chi tiết khách hàng)</i></a>
+                    <th>Tên khách hàng</th>
+                    <td><a>batHo.hopdong.ten</a></td>
+                    <td>
+                        ID: <a>{{batHo.hopdong.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -23,7 +20,7 @@
                 <tr>
                     <th>Họ từ ngày</th>
                     <td>{{batHo.hopdong.ngaytao}}</td>
-                    <td>{{batHo.hopdong.ngaytao}}</td>
+                    <!-- <td>{{batHo.hopdong.ngaytao}}</td> -->
                 </tr>
                 <tr>
                     <th>Tỷ lệ</th>
@@ -61,6 +58,7 @@
         <span class="fa fa-pencil"></span>&nbsp;
         <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
+    <button type="button" class="btn btn-danger">Đóng hợp đồng</button>
     <p-tabView>
         <p-tabPanel header="Lịch đóng tiền">
             <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8"  [(selection)]="selected" dataKey="id">
