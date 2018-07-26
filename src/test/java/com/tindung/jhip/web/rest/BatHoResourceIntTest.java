@@ -5,6 +5,8 @@ import com.tindung.jhip.ServertdjhipApp;
 import com.tindung.jhip.domain.BatHo;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.service.BatHoService;
+import com.tindung.jhip.service.LichSuDongTienService;
+import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.UserService;
 import com.tindung.jhip.service.dto.BatHoDTO;
@@ -54,7 +56,10 @@ public class BatHoResourceIntTest {
 
     private static final Integer DEFAULT_CHUKY = 1;
     private static final Integer UPDATED_CHUKY = 2;
-
+    @Autowired
+    private LichSuDongTienService lichSuDongTienService;
+    @Autowired
+    private LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     @Autowired
     private BatHoRepository batHoRepository;
 
@@ -86,7 +91,7 @@ public class BatHoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final BatHoResource batHoResource = new BatHoResource(batHoService,userService, nhanVienService);
+        final BatHoResource batHoResource = new BatHoResource(lichSuThaoTacHopDongService, lichSuDongTienService, batHoService, userService, nhanVienService);
         this.restBatHoMockMvc = MockMvcBuilders.standaloneSetup(batHoResource)
                 .setCustomArgumentResolvers(pageableArgumentResolver)
                 .setControllerAdvice(exceptionTranslator)

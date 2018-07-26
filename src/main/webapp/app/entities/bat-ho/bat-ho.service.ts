@@ -15,6 +15,7 @@ export class BatHoService {
     private resourceUrl =  SERVER_API_URL + 'api/bat-hos';
     private lichSuDongTien = 'lichsudongtien';
     private lichSuThaoTacHopDong = 'lichsuthaotac';
+    private dongTien="dongtien";
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -31,6 +32,10 @@ export class BatHoService {
 
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<BatHo>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    setDongTien(id: number): Observable<EntityResponseType> {
+        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${this.dongTien}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
     findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
@@ -51,6 +56,7 @@ export class BatHoService {
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
+
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: BatHo = this.convertItemFromServer(res.body);

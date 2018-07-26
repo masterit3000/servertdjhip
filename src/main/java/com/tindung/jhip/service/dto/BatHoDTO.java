@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -27,6 +26,26 @@ public class BatHoDTO implements Serializable {
     private Integer chuky;
 
     private HopDongDTO hopdong;
+
+    private Double tiendadong;
+
+    public Double getTiendadong() {
+        return tiendadong;
+    }
+
+    public void setTiendadong(Double tiendadong) {
+        this.tiendadong = tiendadong;
+    }
+
+    public Double getTienconlai() {
+        return tienconlai;
+    }
+
+    public void setTienconlai(Double tienconlai) {
+        this.tienconlai = tienconlai;
+    }
+    
+    private Double tienconlai;
 
     public Long getId() {
         return id;
@@ -76,8 +95,6 @@ public class BatHoDTO implements Serializable {
         this.hopdong = hopdong;
     }
 
-   
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,7 +105,7 @@ public class BatHoDTO implements Serializable {
         }
 
         BatHoDTO batHoDTO = (BatHoDTO) o;
-        if(batHoDTO.getId() == null || getId() == null) {
+        if (batHoDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), batHoDTO.getId());
@@ -101,12 +118,12 @@ public class BatHoDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "BatHoDTO{" +
-            "id=" + getId() +
-            ", tienduakhach=" + getTienduakhach() +
-            ", tongtien=" + getTongtien() +
-            ", tongsongay=" + getTongsongay() +
-            ", chuky=" + getChuky() +
-            "}";
+        return "BatHoDTO{"
+                + "id=" + getId()
+                + ", tienduakhach=" + getTienduakhach()
+                + ", tongtien=" + getTongtien()
+                + ", tongsongay=" + getTongsongay()
+                + ", chuky=" + getChuky()
+                + "}";
     }
 }

@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<LichSuDongTien>;
 export class LichSuDongTienService {
 
     private resourceUrl =  SERVER_API_URL + 'api/lich-su-dong-tiens';
+    private dongtien ='dongtien';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -27,6 +28,10 @@ export class LichSuDongTienService {
         const copy = this.convert(lichSuDongTien);
         return this.http.put<LichSuDongTien>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    setDongTien(id: number): Observable<EntityResponseType> {
+        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${this.dongtien}/${id}`, { observe: 'response'})
+        .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {

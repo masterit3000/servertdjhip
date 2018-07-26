@@ -2,6 +2,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ServertdjhipSharedModule } from '../../shared';
 import { TableModule } from 'primeng/table';
+import {GrowlModule} from 'primeng/growl';
+
 import {
     BatHoService,
     BatHoPopupService,
@@ -55,6 +57,7 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         TooltipModule,
         TableModule,
         CheckboxModule,
+        GrowlModule,
         SpinnerModule
     ],
     declarations: [

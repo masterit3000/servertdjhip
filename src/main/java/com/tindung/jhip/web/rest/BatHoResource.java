@@ -157,6 +157,16 @@ public class BatHoResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(batHoDTO));
     }
 
+    @GetMapping("/bat-hos/dongtien/{id}")
+    @Timed
+    public ResponseEntity<LichSuDongTienDTO> setDongTien(@PathVariable Long id) {
+        log.debug("REST request to get BatHo : {}", id);
+
+       LichSuDongTienDTO lichSuDongTienDTO = batHoService.setDongTien(id);
+
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(lichSuDongTienDTO));
+    }
+
     /**
      * DELETE /bat-hos/:id : delete the "id" batHo.
      *

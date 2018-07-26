@@ -24,8 +24,6 @@ import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -144,6 +142,21 @@ public class BatHoServiceImpl implements BatHoService {
 
     }
 
+    public BatHoDTO tinhTien(Long id) {
+        BatHoDTO batHo = batHoMapper.toDto(batHoRepository.findOne(id));
+        List< LichSuDongTienDTO> list = findByHopDong(batHo.getHopdong().getId());
+        Double tienDaDong = batHo.getTiendadong();
+        for (LichSuDongTienDTO lichSuDongTien : list) {
+            if (lichSuDongTien.getTrangthai() == DONGTIEN.DADONG) {
+                tienDaDong += lichSuDongTien.getSotien();
+            }
+
+        }
+        batHo.setTiendadong(tienDaDong);
+        return batHo;
+
+    }
+
     /**
      * Get all the batHos.
      *
@@ -236,6 +249,14 @@ public class BatHoServiceImpl implements BatHoService {
 
         }
         throw new InternalServerErrorException("Khong co quyen");
+    }
+
+    @Override
+    public LichSuDongTienDTO setDongTien(Long id) {
+        LichSuDongTien lichSuDongTien = null;
+        lichSuDongTien = lichSuDongTienRepository.findOne(id);
+        lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+        return lichSuDongTienMapper.toDto(lichSuDongTien);
     }
 
     private void validate(BatHoDTO bh) {

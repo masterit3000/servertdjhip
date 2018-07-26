@@ -1,4 +1,6 @@
 <div *ngIf="batHo">
+
+
     <h2>
         <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.id}}</h2>
     <hr>
@@ -9,7 +11,7 @@
                 <tr>
                     <th>ID khách hàng</th>
                     <td colspan="2">
-                        <a href="#">{{batHo.hopdong.khachHangId}}</a>
+                        <a href="#">{{batHo.hopdong.khachHangTen}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -39,7 +41,7 @@
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
-                    <td>(Dữ liệu demo)</td>
+                    <td>{{batHo.tiendadong}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
@@ -94,8 +96,10 @@
         <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
     <p-tabView>
+            <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5"  selectionMode="single" [(selection)]="selected" dataKey="id"
+             (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>
@@ -123,8 +127,9 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-lichSuDongTien>
                     <tr [pSelectableRow]="lichSuDongTien">
-                        <td></td>
-                        <td></td>
+                        <td>{{lichSuDongTien.id}}</td>
+                        <td>
+                        </td>
                         <td>{{lichSuDongTien.ngaybatdau}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
                         <td>{{lichSuDongTien.ngayketthuc}}</td>
@@ -224,7 +229,7 @@
                 <div class="col-md-12">
                     <h3>Lịch sử nhắc nợ</h3>
                     <br />
-                    <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+                    <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
                             <th>STT</th>
                             <th>Ngày</th>
@@ -237,12 +242,9 @@
                                 <td>{{lichSuThaoTacHopDong.thoigian}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienId}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
-                                <td>
-                                    <p-tableCheckbox [value]="lichSuThaoTacHopDong"></p-tableCheckbox>
-                                </td>
                             </tr>
                         </ng-template>
-                    </table>
+                        </table>
                 </div>
             </div>
             <div class="row">

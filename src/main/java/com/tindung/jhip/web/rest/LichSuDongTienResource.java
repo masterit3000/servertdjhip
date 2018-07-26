@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -80,6 +81,14 @@ public class LichSuDongTienResource {
                 .body(result);
     }
 
+    @GetMapping("/lich-su-dong-tiens/dongtien/{id}")
+    @Timed
+    public ResponseEntity<LichSuDongTienDTO> setDongTien(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to setDongtien LichSuDongTien : {}");
+        LichSuDongTienDTO result = lichSuDongTienService.setDongTien(id);
+       return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+    }
+
     /**
      * GET /lich-su-dong-tiens : get all the lichSuDongTiens.
      *
@@ -107,7 +116,6 @@ public class LichSuDongTienResource {
         LichSuDongTienDTO lichSuDongTienDTO = lichSuDongTienService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(lichSuDongTienDTO));
     }
-
 
     /**
      * DELETE /lich-su-dong-tiens/:id : delete the "id" lichSuDongTien.

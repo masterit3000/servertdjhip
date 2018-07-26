@@ -2,6 +2,7 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
+import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
@@ -60,8 +61,6 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
-
-
     /**
      * Get one lichSuDongTien by id.
      *
@@ -85,6 +84,12 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     public void delete(Long id) {
         log.debug("Request to delete LichSuDongTien : {}", id);
         lichSuDongTienRepository.delete(id);
+    }
+
+    public LichSuDongTienDTO setDongTien(Long id) {
+        LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
+        lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+        return lichSuDongTienMapper.toDto(lichSuDongTien);
     }
 
 }

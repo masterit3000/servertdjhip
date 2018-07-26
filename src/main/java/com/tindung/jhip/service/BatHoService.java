@@ -28,7 +28,7 @@ public interface BatHoService {
     List<LichSuDongTienDTO> findByHopDong(Long id);
 
     List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id);
-    
+
     /**
      * Get the "id" batHo.
      *
@@ -43,4 +43,6 @@ public interface BatHoService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+     LichSuDongTienDTO setDongTien(Long id);
 }

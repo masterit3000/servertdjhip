@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
-
+import {Message} from 'primeng/components/common/api';
 import { BatHo } from './bat-ho.model';
 import { BatHoService } from './bat-ho.service';
 import { LichSuDongTien } from '../lich-su-dong-tien/lich-su-dong-tien.model';
 import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
+import { LichSuDongTienService } from '../lich-su-dong-tien/lich-su-dong-tien.service';
 @Component({
     selector: 'jhi-bat-ho-detail',
     templateUrl: './bat-ho-detail.component.html'
@@ -15,9 +16,11 @@ import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 export class BatHoDetailComponent implements OnInit, OnDestroy {
 
     batHo: BatHo;
-    lichSuDongTiens :LichSuDongTien[];
+    lichSuDongTiens: LichSuDongTien[];
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
+    lichSuDongTienService: LichSuDongTienService;
     selected: LichSuDongTien;
+    msgs: Message[] = [];
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -48,7 +51,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.lichSuThaoTacHopDongs = batHoResponse.body;
             });
     }
-    
+
     load(id) {
         this.batHoService.find(id)
             .subscribe((batHoResponse: HttpResponse<BatHo>) => {
@@ -69,5 +72,16 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             'batHoListModification',
             (response) => this.load(this.batHo.id)
         );
+    }
+    onRowSelect(event) {
+        this.msgs=[{severity:'info', summary:'Da dong',detail:'id: ' + event.data.id}];
+        this.batHoService.setDongTien(event.data.id)
+        .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
+            this.batHo = batHoResponse.body;
+        });
+    }
+
+    onRowUnselect(event) {
+        this.msgs=[{severity:'info', summary:'Car Selected',detail:'Vin: ' + event.id}];
     }
 }

@@ -34,6 +34,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.tindung.jhip.domain.enumeration.HINHTHUCLAI;
 import com.tindung.jhip.domain.enumeration.TINHLAI;
+import com.tindung.jhip.service.LichSuThaoTacHopDongService;
+import com.tindung.jhip.service.NhanVienService;
+
 /**
  * Test class for the VayLaiResource REST controller.
  *
@@ -63,7 +66,10 @@ public class VayLaiResourceIntTest {
 
     private static final Boolean DEFAULT_THULAITRUOC = false;
     private static final Boolean UPDATED_THULAITRUOC = true;
-
+    @Autowired
+    private NhanVienService nhanVienService;
+    @Autowired
+    private  LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     @Autowired
     private VayLaiRepository vayLaiRepository;
 
@@ -92,12 +98,12 @@ public class VayLaiResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final VayLaiResource vayLaiResource = new VayLaiResource(vayLaiService);
+        final VayLaiResource vayLaiResource = new VayLaiResource(vayLaiService,nhanVienService,lichSuThaoTacHopDongService);
         this.restVayLaiMockMvc = MockMvcBuilders.standaloneSetup(vayLaiResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+                .setCustomArgumentResolvers(pageableArgumentResolver)
+                .setControllerAdvice(exceptionTranslator)
+                .setConversionService(createFormattingConversionService())
+                .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -108,13 +114,13 @@ public class VayLaiResourceIntTest {
      */
     public static VayLai createEntity(EntityManager em) {
         VayLai vayLai = new VayLai()
-            .tienvay(DEFAULT_TIENVAY)
-            .hinhthuclai(DEFAULT_HINHTHUCLAI)
-            .thoigianvay(DEFAULT_THOIGIANVAY)
-            .chukylai(DEFAULT_CHUKYLAI)
-            .lai(DEFAULT_LAI)
-            .cachtinhlai(DEFAULT_CACHTINHLAI)
-            .thulaitruoc(DEFAULT_THULAITRUOC);
+                .tienvay(DEFAULT_TIENVAY)
+                .hinhthuclai(DEFAULT_HINHTHUCLAI)
+                .thoigianvay(DEFAULT_THOIGIANVAY)
+                .chukylai(DEFAULT_CHUKYLAI)
+                .lai(DEFAULT_LAI)
+                .cachtinhlai(DEFAULT_CACHTINHLAI)
+                .thulaitruoc(DEFAULT_THULAITRUOC);
         return vayLai;
     }
 
@@ -131,9 +137,9 @@ public class VayLaiResourceIntTest {
         // Create the VayLai
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isCreated());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the VayLai in the database
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
@@ -159,9 +165,9 @@ public class VayLaiResourceIntTest {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the VayLai in the database
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
@@ -179,9 +185,9 @@ public class VayLaiResourceIntTest {
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
 
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
         assertThat(vayLaiList).hasSize(databaseSizeBeforeTest);
@@ -198,9 +204,9 @@ public class VayLaiResourceIntTest {
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
 
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
         assertThat(vayLaiList).hasSize(databaseSizeBeforeTest);
@@ -217,9 +223,9 @@ public class VayLaiResourceIntTest {
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
 
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
         assertThat(vayLaiList).hasSize(databaseSizeBeforeTest);
@@ -236,9 +242,9 @@ public class VayLaiResourceIntTest {
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
 
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
         assertThat(vayLaiList).hasSize(databaseSizeBeforeTest);
@@ -255,9 +261,9 @@ public class VayLaiResourceIntTest {
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
 
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
         assertThat(vayLaiList).hasSize(databaseSizeBeforeTest);
@@ -274,9 +280,9 @@ public class VayLaiResourceIntTest {
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(vayLai);
 
         restVayLaiMockMvc.perform(post("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isBadRequest());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isBadRequest());
 
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
         assertThat(vayLaiList).hasSize(databaseSizeBeforeTest);
@@ -290,16 +296,16 @@ public class VayLaiResourceIntTest {
 
         // Get all the vayLaiList
         restVayLaiMockMvc.perform(get("/api/vay-lais?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(vayLai.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tienvay").value(hasItem(DEFAULT_TIENVAY.doubleValue())))
-            .andExpect(jsonPath("$.[*].hinhthuclai").value(hasItem(DEFAULT_HINHTHUCLAI.toString())))
-            .andExpect(jsonPath("$.[*].thoigianvay").value(hasItem(DEFAULT_THOIGIANVAY)))
-            .andExpect(jsonPath("$.[*].chukylai").value(hasItem(DEFAULT_CHUKYLAI)))
-            .andExpect(jsonPath("$.[*].lai").value(hasItem(DEFAULT_LAI.doubleValue())))
-            .andExpect(jsonPath("$.[*].cachtinhlai").value(hasItem(DEFAULT_CACHTINHLAI.toString())))
-            .andExpect(jsonPath("$.[*].thulaitruoc").value(hasItem(DEFAULT_THULAITRUOC.booleanValue())));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(vayLai.getId().intValue())))
+                .andExpect(jsonPath("$.[*].tienvay").value(hasItem(DEFAULT_TIENVAY.doubleValue())))
+                .andExpect(jsonPath("$.[*].hinhthuclai").value(hasItem(DEFAULT_HINHTHUCLAI.toString())))
+                .andExpect(jsonPath("$.[*].thoigianvay").value(hasItem(DEFAULT_THOIGIANVAY)))
+                .andExpect(jsonPath("$.[*].chukylai").value(hasItem(DEFAULT_CHUKYLAI)))
+                .andExpect(jsonPath("$.[*].lai").value(hasItem(DEFAULT_LAI.doubleValue())))
+                .andExpect(jsonPath("$.[*].cachtinhlai").value(hasItem(DEFAULT_CACHTINHLAI.toString())))
+                .andExpect(jsonPath("$.[*].thulaitruoc").value(hasItem(DEFAULT_THULAITRUOC.booleanValue())));
     }
 
     @Test
@@ -310,16 +316,16 @@ public class VayLaiResourceIntTest {
 
         // Get the vayLai
         restVayLaiMockMvc.perform(get("/api/vay-lais/{id}", vayLai.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(vayLai.getId().intValue()))
-            .andExpect(jsonPath("$.tienvay").value(DEFAULT_TIENVAY.doubleValue()))
-            .andExpect(jsonPath("$.hinhthuclai").value(DEFAULT_HINHTHUCLAI.toString()))
-            .andExpect(jsonPath("$.thoigianvay").value(DEFAULT_THOIGIANVAY))
-            .andExpect(jsonPath("$.chukylai").value(DEFAULT_CHUKYLAI))
-            .andExpect(jsonPath("$.lai").value(DEFAULT_LAI.doubleValue()))
-            .andExpect(jsonPath("$.cachtinhlai").value(DEFAULT_CACHTINHLAI.toString()))
-            .andExpect(jsonPath("$.thulaitruoc").value(DEFAULT_THULAITRUOC.booleanValue()));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id").value(vayLai.getId().intValue()))
+                .andExpect(jsonPath("$.tienvay").value(DEFAULT_TIENVAY.doubleValue()))
+                .andExpect(jsonPath("$.hinhthuclai").value(DEFAULT_HINHTHUCLAI.toString()))
+                .andExpect(jsonPath("$.thoigianvay").value(DEFAULT_THOIGIANVAY))
+                .andExpect(jsonPath("$.chukylai").value(DEFAULT_CHUKYLAI))
+                .andExpect(jsonPath("$.lai").value(DEFAULT_LAI.doubleValue()))
+                .andExpect(jsonPath("$.cachtinhlai").value(DEFAULT_CACHTINHLAI.toString()))
+                .andExpect(jsonPath("$.thulaitruoc").value(DEFAULT_THULAITRUOC.booleanValue()));
     }
 
     @Test
@@ -327,7 +333,7 @@ public class VayLaiResourceIntTest {
     public void getNonExistingVayLai() throws Exception {
         // Get the vayLai
         restVayLaiMockMvc.perform(get("/api/vay-lais/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -342,19 +348,19 @@ public class VayLaiResourceIntTest {
         // Disconnect from session so that the updates on updatedVayLai are not directly saved in db
         em.detach(updatedVayLai);
         updatedVayLai
-            .tienvay(UPDATED_TIENVAY)
-            .hinhthuclai(UPDATED_HINHTHUCLAI)
-            .thoigianvay(UPDATED_THOIGIANVAY)
-            .chukylai(UPDATED_CHUKYLAI)
-            .lai(UPDATED_LAI)
-            .cachtinhlai(UPDATED_CACHTINHLAI)
-            .thulaitruoc(UPDATED_THULAITRUOC);
+                .tienvay(UPDATED_TIENVAY)
+                .hinhthuclai(UPDATED_HINHTHUCLAI)
+                .thoigianvay(UPDATED_THOIGIANVAY)
+                .chukylai(UPDATED_CHUKYLAI)
+                .lai(UPDATED_LAI)
+                .cachtinhlai(UPDATED_CACHTINHLAI)
+                .thulaitruoc(UPDATED_THULAITRUOC);
         VayLaiDTO vayLaiDTO = vayLaiMapper.toDto(updatedVayLai);
 
         restVayLaiMockMvc.perform(put("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isOk());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isOk());
 
         // Validate the VayLai in the database
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
@@ -379,9 +385,9 @@ public class VayLaiResourceIntTest {
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restVayLaiMockMvc.perform(put("/api/vay-lais")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
-            .andExpect(status().isCreated());
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(vayLaiDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the VayLai in the database
         List<VayLai> vayLaiList = vayLaiRepository.findAll();
@@ -397,8 +403,8 @@ public class VayLaiResourceIntTest {
 
         // Get the vayLai
         restVayLaiMockMvc.perform(delete("/api/vay-lais/{id}", vayLai.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
 
         // Validate the database is empty
         List<VayLai> vayLaiList = vayLaiRepository.findAll();

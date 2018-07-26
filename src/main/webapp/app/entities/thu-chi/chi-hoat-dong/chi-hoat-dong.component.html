@@ -29,7 +29,7 @@
                                             <span class="ui-inputgroup-addon">
                                                 <i class="fa fa-user"></i>
                                             </span>
-                                            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" >
+                                            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId">
                                                 <option [ngValue]="null"></option>
                                                 <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
                                             </select>
@@ -47,7 +47,9 @@
 
                                         <div class="ui-inputgroup">
                                             <!-- <span class="ui-inputgroup-addon">$</span> -->
-                                            <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" name="sotien" id="field_sotien" class="form-control" [(ngModel)]="thuchi.sotien" required>
+                                            <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                                name="sotien" id="field_sotien" class="form-control" [(ngModel)]="thuchi.sotien"
+                                                required>
 
                                         </div>
 
@@ -60,8 +62,8 @@
                                         <span style="color: red;">*</span>
                                     </label>
                                     <div class="col-md-8">
-                                        <textarea rows="2" cols="6" class="auto form-control" name="noidung" id="field_noidung"
-                                        [(ngModel)]="thuchi.noidung" required maxlength="3000"></textarea>
+                                        <textarea rows="2" cols="6" class="auto form-control" name="noidung" id="field_noidung" [(ngModel)]="thuchi.noidung" required
+                                            maxlength="3000"></textarea>
                                     </div>
                                 </div>
                                 <div class="row" style="padding-top: 5%">
@@ -77,20 +79,20 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <h4 >
+                                        <h4>
                                             <i class="fa fa-calendar" style="margin-right:2px;"></i>Lịch sử chi tiêu</h4>
                                     </div>
-                                    <div class="col-md-4" >
+                                    <div class="col-md-4">
                                         <label>Từ Ngày</label>
                                         <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
                                     </div>
-                                    <div class="col-md-4" >
+                                    <div class="col-md-4">
                                         <label>Đến Ngày</label>
                                         <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
-                                     </div>
+                                    </div>
 
-                                    <div class="col-md-1" >
-                                        <button class="btn btn-info" (click)="timkiem()" >Tìm </button>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-info" (click)="timkiem()">Tìm </button>
                                     </div>
                                 </div>
                             </div>
@@ -124,28 +126,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="hidden-xs">
-                                                    1
-                                                </td>
-                                                <td class="align-center">
-                                                    23:53 09/06/2018
-                                                </td>
-                                                <td class="align-center">
-                                                    asdasd
-                                                </td>
-
-                                                <td class="align-right">
-                                                    <span style="color:red">-1</span>
-                                                </td>
-
-                                                <td class="align-center">
-                                                    11
-                                                </td>
+                                            <tr *ngFor="let thuChi of thuChis ;trackBy: trackId">
                                                 <td>
-                                                    <i type="button" class="fa fa-print"></i>
-                                                    <i type="button" class="fa fa-trash"></i>
+                                                    <a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a>
                                                 </td>
+                                                <td>{{thuChi.noidung}}</td>
+                                                <td>{{thuChi.thoigian | date:'medium'}}</td>
+                                                <td>{{thuChi.sotien}}</td>
+
+                                                <td>
+                                                    <div *ngIf="thuChi.nhanVienId">
+                                                        <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]">{{thuChi.nhanVienId}}</a>
+                                                    </div>
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table>

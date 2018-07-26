@@ -6,6 +6,8 @@ export class BatHo implements BaseEntity {
     constructor(
         public id?: number,
         public tienduakhach?: number,
+        public tiendadong?: number,
+        public tienconlai?: number,
         public tongtien?: number,
         public tongsongay?: number,
         public chuky?: number,
