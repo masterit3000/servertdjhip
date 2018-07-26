@@ -38,7 +38,7 @@ export class ThuHoatDongComponent implements OnInit {
     }
     timkiem() {
         // console.log(this.tungay);
-        // console.log(this.denngay);
+        console.log(this.denngay);
         this.thuChiService
             .findByTime(this.tungay, this.denngay, THUCHI.THU)
             .subscribe(
@@ -82,7 +82,19 @@ export class ThuHoatDongComponent implements OnInit {
     }
 
     loadAll() {
-        this.thuChiService.findAllThuChiTheoLoai(THUCHI.THU).subscribe(
+        // this.thuChiService.findAllThuChiTheoLoai(THUCHI.THU).subscribe(
+        //     (res: HttpResponse<ThuChi[]>) => {
+        //         this.thuChis = res.body;
+        //     },
+        //     (res: HttpErrorResponse) => this.onError(res.message)
+        // );
+        this.tungay = new Date();
+        this.denngay = new Date();
+        console.log(this.tungay);
+        
+        this.thuChiService
+        .findByTime(this.tungay, this.denngay, THUCHI.THU)
+        .subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
             },

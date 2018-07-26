@@ -102,28 +102,40 @@
                                         <thead>
                                             <tr>
                                                 <th class="hidden-xs">
-                                                    STT
+                                                    ID
+                                                </th>
+                                                <th class="align-center">
+                                                    Nội Dung
                                                 </th>
                                                 <th class="align-center">
                                                     Ngày
                                                 </th>
-                                                <th class="align-center">
-                                                    Nhân viên
-                                                </th>
-
-
                                                 <th class="align-right">
                                                     Số tiền
                                                 </th>
-                                                <th class="align-center">
-                                                    Ghi chú
+                                                <th class="align-right">
+                                                    Nhân viên
                                                 </th>
-                                                <th width="60px">
-                                                    &nbsp;
-                                                </th>
+                                             
+                                              
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr *ngFor="let thuChi of thuChis ;trackBy: trackId">
+                                                <td><a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a></td>
+                                                <td>{{thuChi.noidung}}</td>
+                                                <td>{{thuChi.thoigian | date:'medium'}}</td>
+                                                <td>{{thuChi.sotien}}</td>
+                                               
+                                                <td>
+                                                    <div *ngIf="thuChi.nhanVienId">
+                                                        <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]" >{{thuChi.nhanVienId}}</a>
+                                                    </div>
+                                                </td>
+                                                                   
+                                            </tr>
+                                        </tbody>
+                                        <!-- <tbody>
                                             <tr>
                                                 <td class="hidden-xs">
                                                     1
@@ -147,7 +159,7 @@
                                                     <i type="button" class="fa fa-trash"></i>
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                        </tbody> -->
                                     </table>
                                 </div>
 

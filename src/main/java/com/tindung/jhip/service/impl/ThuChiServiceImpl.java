@@ -51,6 +51,7 @@ public class ThuChiServiceImpl implements ThuChiService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
             if (thuChiDTO.getId() == null) {//them moi
                 thuChiDTO.setThoigian(ZonedDateTime.now());
+                
                 thuChiDTO.setCuaHangId(cuaHangService.findIDByUserLogin());
                 ThuChi thuChi = thuChiMapper.toEntity(thuChiDTO);
 //            thuChi.setThoigian(ZonedDateTime.now());

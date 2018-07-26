@@ -82,7 +82,19 @@ export class RutVonComponent implements OnInit {
     }
 
     loadAll() {
-        this.thuChiService.query().subscribe(
+        // this.thuChiService.findAllThuChiTheoLoai(THUCHI.RUTVON).subscribe(
+        //     (res: HttpResponse<ThuChi[]>) => {
+        //         this.thuChis = res.body;
+        //     },
+        //     (res: HttpErrorResponse) => this.onError(res.message)
+        // );
+        this.tungay = new Date();
+        this.denngay = new Date();
+        console.log(this.tungay);
+        
+        this.thuChiService
+        .findByTime(this.tungay, this.denngay, THUCHI.RUTVON)
+        .subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
             },
