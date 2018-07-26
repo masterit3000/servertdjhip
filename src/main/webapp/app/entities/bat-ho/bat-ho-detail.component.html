@@ -1,15 +1,16 @@
 <div *ngIf="batHo">
     <h2>
-        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.id}}</h2>
+        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.hopdong.mahopdong}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <div class="row">
         <div class="col-md-6">
             <table class="table table-bordered table-hover text-left">
                 <tr>
-                    <th>ID khách hàng</th>
-                    <td colspan="2">
-                        <a href="#">{{batHo.hopdong.khachHangId}}</a>
+                    <th>Tên khách hàng</th>
+                    <td><a>batHo.hopdong.ten</a></td>
+                    <td>
+                        ID: <a>{{batHo.hopdong.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -19,7 +20,7 @@
                 <tr>
                     <th>Họ từ ngày</th>
                     <td>{{batHo.hopdong.ngaytao}}</td>
-                    <td>{{batHo.hopdong.ngaytao}}</td>
+                    <!-- <td>{{batHo.hopdong.ngaytao}}</td> -->
                 </tr>
                 <tr>
                     <th>Tỷ lệ</th>
@@ -48,59 +49,21 @@
             </table>
         </div>
     </div>
-    <!-- <dl class="row-md jh-entity-details">
-        <dt>
-            <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
-        </dt>
-        <dd>
-            <span>{{batHo.tienduakhach}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span>
-        </dt>
-        <dd>
-            <span>{{batHo.tongtien}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span>
-        </dt>
-        <dd>
-            <span>{{batHo.tongsongay}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
-        </dt>
-        <dd>
-            <span>{{batHo.chuky}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.batHo.hopdongbh">Hopdongbh</span>
-        </dt>
-        <dd>
-            <div *ngIf="batHo.hopdongbhId">
-                <a [routerLink]="['/hop-dong', batHo.hopdongbhId]">{{batHo.hopdongbhId}}</a>
-            </div>
-        </dd>
-    </dl> -->
-
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>
     </button>
-
     <button type="button" [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
         class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;
         <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
+    <button type="button" class="btn btn-danger">Đóng hợp đồng</button>
     <p-tabView>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8"  [(selection)]="selected" dataKey="id">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>
-                            <span>In</span>
-                        </th>
                         <th>
                             <span>STT</span>
                         </th>
@@ -124,10 +87,9 @@
                 <ng-template pTemplate="body" let-lichSuDongTien>
                     <tr [pSelectableRow]="lichSuDongTien">
                         <td></td>
-                        <td></td>
-                        <td>{{lichSuDongTien.ngaybatdau}}</td>
+                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
-                        <td>{{lichSuDongTien.ngayketthuc}}</td>
+                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
                         <td>
                             <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
