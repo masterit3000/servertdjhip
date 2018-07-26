@@ -5,7 +5,7 @@
     <groupId>com.tindung.jhip</groupId>
     <artifactId>servertdjhip</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Servertdjhip</name>
 
     <properties>
