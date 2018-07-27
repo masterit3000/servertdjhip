@@ -6,7 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 import {Message} from 'primeng/components/common/api';
 import { BatHo } from './bat-ho.model';
 import { BatHoService } from './bat-ho.service';
-import { LichSuDongTien } from '../lich-su-dong-tien/lich-su-dong-tien.model';
+import { LichSuDongTien, DONGTIEN } from '../lich-su-dong-tien/lich-su-dong-tien.model';
 import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 import { LichSuDongTienService } from '../lich-su-dong-tien/lich-su-dong-tien.service';
 @Component({
@@ -21,6 +21,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     lichSuDongTienService: LichSuDongTienService;
     selected: LichSuDongTien;
     msgs: Message[] = [];
+    tiendadong:number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -36,6 +37,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
             this.lichSuDongTien(params['id']);
             this.lichSuThaoTacHopDong(params['id']);
+    
         });
         this.registerChangeInBatHos();
     }
@@ -43,7 +45,13 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.batHoService.findByHopDong(id)
             .subscribe((batHoResponse: HttpResponse<LichSuDongTien[]>) => {
                 this.lichSuDongTiens = batHoResponse.body;
+                this.tiendadong=0;
+                for(let i=0;i<batHoResponse.body.length;i++){
+                    if(batHoResponse.body[i].trangthai)
+                    this.tiendadong = this.tiendadong + batHoResponse.body[i].sotien;
+                }
             });
+            
     }
     lichSuThaoTacHopDong(id) {
         this.batHoService.findThaoTacByHopDong(id)
@@ -84,4 +92,5 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     onRowUnselect(event) {
         this.msgs=[{severity:'info', summary:'Car Selected',detail:'Vin: ' + event.id}];
     }
+
 }

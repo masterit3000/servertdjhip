@@ -142,21 +142,6 @@ public class BatHoServiceImpl implements BatHoService {
 
     }
 
-    public BatHoDTO tinhTien(Long id) {
-        BatHoDTO batHo = batHoMapper.toDto(batHoRepository.findOne(id));
-        List< LichSuDongTienDTO> list = findByHopDong(batHo.getHopdong().getId());
-        Double tienDaDong = batHo.getTiendadong();
-        for (LichSuDongTienDTO lichSuDongTien : list) {
-            if (lichSuDongTien.getTrangthai() == DONGTIEN.DADONG) {
-                tienDaDong += lichSuDongTien.getSotien();
-            }
-
-        }
-        batHo.setTiendadong(tienDaDong);
-        return batHo;
-
-    }
-
     /**
      * Get all the batHos.
      *

@@ -39,9 +39,9 @@
                     <th>Tổng tiền phải đóng</th>
                     <td>{{batHo.tongtien}}</td>
                 </tr>
-                <tr>
+                <tr >
                     <th>Đã đóng</th>
-                    <td>{{batHo.tiendadong}}</td>
+                    <td>{{tiendadong}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
@@ -98,7 +98,7 @@
     <p-tabView>
             <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5"  selectionMode="single" [(selection)]="selected" dataKey="id"
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5"   [(selection)]="selected" dataKey="id"
              (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
@@ -129,6 +129,7 @@
                     <tr [pSelectableRow]="lichSuDongTien">
                         <td>{{lichSuDongTien.id}}</td>
                         <td>
+                            {{lichSuDongTien.trangthai}}
                         </td>
                         <td>{{lichSuDongTien.ngaybatdau}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
