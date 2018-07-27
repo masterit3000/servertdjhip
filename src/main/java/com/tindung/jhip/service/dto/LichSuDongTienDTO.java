@@ -32,6 +32,15 @@ public class LichSuDongTienDTO implements Serializable {
     private String ghiChu;
 
     private Long nhanVienId;
+    private String nhanVienTen;
+
+    public String getNhanVienTen() {
+        return nhanVienTen;
+    }
+
+    public void setNhanVienTen(String nhanVienTen) {
+        this.nhanVienTen = nhanVienTen;
+    }
 
     private Long hopDongId;
 

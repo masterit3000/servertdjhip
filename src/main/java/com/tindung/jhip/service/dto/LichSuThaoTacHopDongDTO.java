@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -25,6 +24,15 @@ public class LichSuThaoTacHopDongDTO implements Serializable {
     private Long nhanVienId;
 
     private Long hopDongId;
+    private String nhanVienTen;
+
+    public String getNhanVienTen() {
+        return nhanVienTen;
+    }
+
+    public void setNhanVienTen(String nhanVienTen) {
+        this.nhanVienTen = nhanVienTen;
+    }
 
     public Long getId() {
         return id;
@@ -76,7 +84,7 @@ public class LichSuThaoTacHopDongDTO implements Serializable {
         }
 
         LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = (LichSuThaoTacHopDongDTO) o;
-        if(lichSuThaoTacHopDongDTO.getId() == null || getId() == null) {
+        if (lichSuThaoTacHopDongDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), lichSuThaoTacHopDongDTO.getId());
@@ -89,10 +97,10 @@ public class LichSuThaoTacHopDongDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "LichSuThaoTacHopDongDTO{" +
-            "id=" + getId() +
-            ", thoigian='" + getThoigian() + "'" +
-            ", noidung='" + getNoidung() + "'" +
-            "}";
+        return "LichSuThaoTacHopDongDTO{"
+                + "id=" + getId()
+                + ", thoigian='" + getThoigian() + "'"
+                + ", noidung='" + getNoidung() + "'"
+                + "}";
     }
 }

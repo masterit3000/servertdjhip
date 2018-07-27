@@ -36,10 +36,12 @@ public class LichSuThaoTacHopDongResource {
     }
 
     /**
-     * POST  /lich-su-thao-tac-hop-dongs : Create a new lichSuThaoTacHopDong.
+     * POST /lich-su-thao-tac-hop-dongs : Create a new lichSuThaoTacHopDong.
      *
      * @param lichSuThaoTacHopDongDTO the lichSuThaoTacHopDongDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new lichSuThaoTacHopDongDTO, or with status 400 (Bad Request) if the lichSuThaoTacHopDong has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new lichSuThaoTacHopDongDTO, or with status 400 (Bad Request) if the
+     * lichSuThaoTacHopDong has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/lich-su-thao-tac-hop-dongs")
@@ -51,17 +53,19 @@ public class LichSuThaoTacHopDongResource {
         }
         LichSuThaoTacHopDongDTO result = lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
         return ResponseEntity.created(new URI("/api/lich-su-thao-tac-hop-dongs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /lich-su-thao-tac-hop-dongs : Updates an existing lichSuThaoTacHopDong.
+     * PUT /lich-su-thao-tac-hop-dongs : Updates an existing
+     * lichSuThaoTacHopDong.
      *
      * @param lichSuThaoTacHopDongDTO the lichSuThaoTacHopDongDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated lichSuThaoTacHopDongDTO,
-     * or with status 400 (Bad Request) if the lichSuThaoTacHopDongDTO is not valid,
-     * or with status 500 (Internal Server Error) if the lichSuThaoTacHopDongDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * lichSuThaoTacHopDongDTO, or with status 400 (Bad Request) if the
+     * lichSuThaoTacHopDongDTO is not valid, or with status 500 (Internal Server
+     * Error) if the lichSuThaoTacHopDongDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/lich-su-thao-tac-hop-dongs")
@@ -73,27 +77,29 @@ public class LichSuThaoTacHopDongResource {
         }
         LichSuThaoTacHopDongDTO result = lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, lichSuThaoTacHopDongDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, lichSuThaoTacHopDongDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /lich-su-thao-tac-hop-dongs : get all the lichSuThaoTacHopDongs.
+     * GET /lich-su-thao-tac-hop-dongs : get all the lichSuThaoTacHopDongs.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of lichSuThaoTacHopDongs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of
+     * lichSuThaoTacHopDongs in body
      */
     @GetMapping("/lich-su-thao-tac-hop-dongs")
     @Timed
     public List<LichSuThaoTacHopDongDTO> getAllLichSuThaoTacHopDongs() {
         log.debug("REST request to get all LichSuThaoTacHopDongs");
         return lichSuThaoTacHopDongService.findAll();
-        }
+    }
 
     /**
-     * GET  /lich-su-thao-tac-hop-dongs/:id : get the "id" lichSuThaoTacHopDong.
+     * GET /lich-su-thao-tac-hop-dongs/:id : get the "id" lichSuThaoTacHopDong.
      *
      * @param id the id of the lichSuThaoTacHopDongDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the lichSuThaoTacHopDongDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * lichSuThaoTacHopDongDTO, or with status 404 (Not Found)
      */
     @GetMapping("/lich-su-thao-tac-hop-dongs/{id}")
     @Timed
@@ -104,7 +110,8 @@ public class LichSuThaoTacHopDongResource {
     }
 
     /**
-     * DELETE  /lich-su-thao-tac-hop-dongs/:id : delete the "id" lichSuThaoTacHopDong.
+     * DELETE /lich-su-thao-tac-hop-dongs/:id : delete the "id"
+     * lichSuThaoTacHopDong.
      *
      * @param id the id of the lichSuThaoTacHopDongDTO to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -116,4 +123,12 @@ public class LichSuThaoTacHopDongResource {
         lichSuThaoTacHopDongService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/lich-su-thao-tac-hop-dongs/lichsuthaotac/{id}")
+    @Timed
+    public List<LichSuThaoTacHopDongDTO> getLichSuThaoTacByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get LichSuThaoTac by HopDong: {}", id);
+        return lichSuThaoTacHopDongService.findByHopDong(id);
+    }
+
 }

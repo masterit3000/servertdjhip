@@ -126,19 +126,6 @@ public class BatHoResource {
      * @param id: id của hợp đồng tương ứng
      * @return list lịch sử đóng tiền theo hợp đồng
      */
-    @GetMapping("/bat-hos/lichsudongtien/{id}")
-    @Timed
-    public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
-        log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
-        return batHoService.findByHopDong(id);
-    }
-
-    @GetMapping("/bat-hos/lichsuthaotac/{id}")
-    @Timed
-    public List<LichSuThaoTacHopDongDTO> getLichSuThaoTacByHopDong(@PathVariable Long id) {
-        log.debug("REST request to get LichSuThaoTac by HopDong: {}", id);
-        return batHoService.findThaoTacByHopDong(id);
-    }
 
     /**
      * GET /bat-hos/:id : get the "id" batHo.

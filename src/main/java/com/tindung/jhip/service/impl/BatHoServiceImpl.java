@@ -194,26 +194,6 @@ public class BatHoServiceImpl implements BatHoService {
 
         }
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<LichSuDongTienDTO> findByHopDong(Long id) {
-        log.debug("Request to get all LichSuDongTiens by HopDong: {}", id);
-        List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(batHoRepository.findOne(id).getHopdongbh().getId());
-        List<LichSuDongTienDTO> collect = findByHopDong.stream()
-                .map(lichSuDongTienMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
-        return collect;
-
-    }
-
-    @Override
-    public List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id) {
-        log.debug("Request to get all LichSuThaoTacs by HopDong: {}", id);
-        List<LichSuThaoTacHopDongDTO> collect = lichSuThaoTacHopDongService.findByHopDong(batHoRepository.findOne(id).getHopdongbh().getId());
-        return collect;
-    }
-
     /**
      * Delete the batHo by id. F
      *

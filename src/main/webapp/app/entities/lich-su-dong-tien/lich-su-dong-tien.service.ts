@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
-
 import { LichSuDongTien } from './lich-su-dong-tien.model';
 import { createRequestOption } from '../../shared';
 
@@ -15,7 +14,7 @@ export class LichSuDongTienService {
 
     private resourceUrl =  SERVER_API_URL + 'api/lich-su-dong-tiens';
     private dongtien ='dongtien';
-
+    private lichSuDongTien = 'lichsudongtien';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(lichSuDongTien: LichSuDongTien): Observable<EntityResponseType> {
@@ -42,6 +41,10 @@ export class LichSuDongTienService {
     query(req?: any): Observable<HttpResponse<LichSuDongTien[]>> {
         const options = createRequestOption(req);
         return this.http.get<LichSuDongTien[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
+    }
+    findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
+        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
 

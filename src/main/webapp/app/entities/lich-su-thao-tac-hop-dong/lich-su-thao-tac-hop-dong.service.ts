@@ -14,7 +14,7 @@ export type EntityResponseType = HttpResponse<LichSuThaoTacHopDong>;
 export class LichSuThaoTacHopDongService {
 
     private resourceUrl =  SERVER_API_URL + 'api/lich-su-thao-tac-hop-dongs';
-
+    private lichSuThaoTacHopDong = 'lichsuthaotac';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(lichSuThaoTacHopDong: LichSuThaoTacHopDong): Observable<EntityResponseType> {
@@ -37,6 +37,10 @@ export class LichSuThaoTacHopDongService {
     query(req?: any): Observable<HttpResponse<LichSuThaoTacHopDong[]>> {
         const options = createRequestOption(req);
         return this.http.get<LichSuThaoTacHopDong[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<LichSuThaoTacHopDong[]>) => this.convertArrayResponse(res));
+    }
+    findThaoTacByHopDong(id: number): Observable<HttpResponse<LichSuThaoTacHopDong[]>> {
+        return this.http.get<LichSuThaoTacHopDong[]>(`${this.resourceUrl}/${this.lichSuThaoTacHopDong}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<LichSuThaoTacHopDong[]>) => this.convertArrayResponse(res));
     }
 

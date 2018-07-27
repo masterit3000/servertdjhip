@@ -1,150 +1,103 @@
 <div *ngIf="vayLai">
     <h2>
-        <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.id}}</h2>
+        <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.tienvay}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span>
-        </dt>
-        <dd>
-            <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.thoigianvay}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.chukylai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.lai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span>
-        </dt>
-        <dd>
-            <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span>
-        </dt>
-        <dd>
-            <span>{{vayLai.thulaitruoc}}</span>
-        </dd>
-        <dt>
-            <span jhiTranslate="servertdjhipApp.vayLai.hopdongvl">Hopdongvl</span>
-        </dt>
-        <dd>
-            <div *ngIf="vayLai.hopdongvlId">
-                <a [routerLink]="['/hop-dong', vayLai.hopdongvlId]">{{vayLai.hopdongvlId}}</a>
-            </div>
-        </dd>
-    </dl>
-
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover text-left">
+                <tr>
+                    <th>Tên khách hàng</th>
+                    <td>
+                        <a>vayLai.hopdongvl.ten</a>
+                    </td>
+                    <td>
+                        ID:
+                        <a>{{vayLai.hopdongvl.khachHangId}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Tiền vay</th>
+                    <td colspan="2">{{vayLai.tienvay}}</td>
+                </tr>
+                <tr>
+                    <th>Ngày vay</th>
+                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
+                    <td>(ngModel = Ngày tạo + Số ngày)</td>
+                </tr>
+                <tr>
+                    <th>Số ngày vay</th>
+                    <td colspan="2">{{vayLai.thoigianvay}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>Lãi</th>
+                    <td>{{vayLai.lai}}</td>
+                </tr>
+                <tr>
+                    <th>Hình thức lãi</th>
+                    <td><span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span></td>
+                </tr>
+                <tr>
+                    <th>Cách tính lãi</th>
+                    <td><span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span></td>
+                </tr>
+                <tr>
+                    <th>Đã đóng</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+                <tr>
+                    <th>Còn lại</th>
+                    <td>(Dữ liệu demo)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>
     </button>
-
     <button type="button" [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
         class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;
         <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
+    <button type="button" class="btn btn-danger">Đóng hợp đồng</button>
     <p-tabView>
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Từ ngày:
-                                </td>
-                                <td>15/04/1999</td>
-                            </tr>
-                            <tr>
-                                <td>Đến ngày:</td>
-                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Số ngày:</td>
-                                <td>
-                                    {{vayLai.thoigianvay}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tiền lãi:</td>
-                                <td>999 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Tiền khác:</td>
-                                <td>
-                                    <input type="number" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tổng tiền lãi:</td>
-                                <td>999 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đóng lãi</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th>STT</th>
-                                <th colspan="3">Ngày</th>
+                                <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
                                 <th>Tiền lãi</th>
                                 <th>Tiền khác</th>
                                 <th>Tổng lãi</th>
                                 <th>Tiền khách trả</th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                </th>
                             </tr>
                         </ng-template>>
                         <ng-template pTemplate="body" let-lichSuDongTien>
                             <tr [pSelectableRow]="lichSuDongTien">
-
-                                <td>1</td>
-                                <td>{{lichSuDongTien.ngaybatdau}}</td>
-                                <td>---></td>
-                                <td>{{lichSuDongTien.ngayketthuc}}</td>
-                                <td>{{vayLai.songay}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                                <td>{{vayLai.chukylai}}</td>
+                                <td>{{vayLai.lai}}</td>
+                                <td>0</td>
+                                <td>{{vayLai.lai}}</td>
+                                <td>{{vayLai.lai}}</td>
+                                <td>
+                                    <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+                                </td>
                             </tr>
                         </ng-template>
-
-
                     </p-table>
                 </div>
             </div>

@@ -7,8 +7,9 @@ export class LichSuThaoTacHopDong implements BaseEntity {
         public thoigian?: any,
         public noidung?: string,
         public nhanVienId?: number,
+        public nhanVienTen?: string,
         public hopDongId?: number,
-        public nhanVien?: NhanVien
+
     ) {
     }
 }

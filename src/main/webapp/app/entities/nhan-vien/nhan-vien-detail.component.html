@@ -1,66 +1,83 @@
-
 <div *ngIf="nhanVien">
-    <h2><span jhiTranslate="servertdjhipApp.nhanVien.detail.title">Nhan Vien</span> {{nhanVien.id}}</h2>
+    <h2>
+        <span jhiTranslate="servertdjhipApp.nhanVien.detail.title">Nhan Vien</span> {{nhanVien.ten}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.ten">Ten</span></dt>
-        <dd>
-            <span>{{nhanVien.ten}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.diachi">Diachi</span></dt>
-        <dd>
-            <span>{{nhanVien.diachi}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.dienthoai">Dienthoai</span></dt>
-        <dd>
-            <span>{{nhanVien.dienthoai}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.cmnd">Cmnd</span></dt>
-        <dd>
-            <span>{{nhanVien.cmnd}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.trangthai">Trangthai</span></dt>
-        <dd>
-            <span jhiTranslate="{{'servertdjhipApp.TrangThaiNhanVien.' + nhanVien.trangthai}}">{{nhanVien.trangthai}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.ngayTao">Ngay Tao</span></dt>
-        <dd>
-            <span>{{nhanVien.ngayTao | date:'medium'}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.ghiChu">Ghi Chu</span></dt>
-        <dd>
-            <span>{{nhanVien.ghiChu}}</span>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.xa">Xa</span></dt>
-        <dd>
-            <div *ngIf="nhanVien.xaId">
-                <a [routerLink]="['/xa', nhanVien.xaId]">{{nhanVien.xaId}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.cuaHang">Cua Hang</span></dt>
-        <dd>
-            <div *ngIf="nhanVien.cuaHangId">
-                <a [routerLink]="['/cua-hang', nhanVien.cuaHangId]">{{nhanVien.cuaHangId}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="servertdjhipApp.nhanVien.user">User</span></dt>
-        <dd>
-            {{nhanVien.userId}}
-        </dd>
-    </dl>
-
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Họ tên</th>
+                        <td>{{nhanVien.ten}}</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ</th>
+                        <td>{{nhanVien.diachi}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tỉnh</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Huyện</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Xã</th>
+                        <td>{{nhanVien.xaId}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày tạo</th>
+                        <td>{{nhanVien.ngayTao | date:"dd/MM/yyyy"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Điện thoại</th>
+                        <td>{{nhanVien.dienthoai}}</td>
+                    </tr>
+                    <tr>
+                        <th>Số chứng minh thư</th>
+                        <td>{{nhanVien.cmnd}}</td>
+                    </tr>
+                    <tr>
+                        <th>Trạng thái</th>
+                        <td>
+                            <span jhiTranslate="{{'servertdjhipApp.TrangThaiNhanVien.' + nhanVien.trangthai}}">{{nhanVien.trangthai}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Thuộc cửa hàng</th>
+                        <td>
+                            <div *ngIf="nhanVien.cuaHangId">
+                                <a [routerLink]="['/cua-hang', nhanVien.cuaHangId]">{{nhanVien.cuaHangId}}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>User</th>
+                        <td>{{nhanVien.userId}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ghi chú</th>
+                        <td>{{nhanVien.ghiChu}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;
+        <span jhiTranslate="entity.action.back"> Back</span>
     </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'nhan-vien/'+ nhanVien.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'nhan-vien/'+ nhanVien.id + '/edit'} }]" replaceUrl="true"
+        queryParamsHandling="merge" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;
+        <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
 </div>

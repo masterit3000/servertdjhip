@@ -3,17 +3,23 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.repository.BatHoRepository;
+import com.tindung.jhip.repository.HopDongRepository;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
+import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.tindung.jhip.service.CuaHangService;
+import com.tindung.jhip.service.NhanVienService;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Service Implementation for managing LichSuDongTien.
@@ -28,10 +34,21 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     private final LichSuDongTienMapper lichSuDongTienMapper;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper) {
+    private final HopDongRepository hopDongRepository;
+
+//    @Autowired
+    private final CuaHangService cuaHangService;
+
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, CuaHangService cuaHangService) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
+        this.hopDongRepository = hopDongRepository;
+        this.cuaHangService = cuaHangService;
     }
+
+
+
+
 
     /**
      * Save a lichSuDongTien.
@@ -90,6 +107,18 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
         lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
         return lichSuDongTienMapper.toDto(lichSuDongTien);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<LichSuDongTienDTO> findByHopDong(Long id) {
+
+            List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
+            List<LichSuDongTienDTO> collect = findByHopDong.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
     }
 
 }

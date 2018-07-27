@@ -86,7 +86,7 @@ public class LichSuDongTienResource {
     public ResponseEntity<LichSuDongTienDTO> setDongTien(@PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to setDongtien LichSuDongTien : {}");
         LichSuDongTienDTO result = lichSuDongTienService.setDongTien(id);
-       return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 
     /**
@@ -129,5 +129,12 @@ public class LichSuDongTienResource {
         log.debug("REST request to delete LichSuDongTien : {}", id);
         lichSuDongTienService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/lich-su-dong-tiens/lichsudongtien/{id}")
+    @Timed
+    public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
+        return lichSuDongTienService.findByHopDong(id);
     }
 }

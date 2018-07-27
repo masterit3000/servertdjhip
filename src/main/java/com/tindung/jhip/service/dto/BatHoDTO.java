@@ -27,26 +27,6 @@ public class BatHoDTO implements Serializable {
 
     private HopDongDTO hopdong;
 
-    private Double tiendadong;
-
-    public Double getTiendadong() {
-        return tiendadong;
-    }
-
-    public void setTiendadong(Double tiendadong) {
-        this.tiendadong = tiendadong;
-    }
-
-    public Double getTienconlai() {
-        return tienconlai;
-    }
-
-    public void setTienconlai(Double tienconlai) {
-        this.tienconlai = tienconlai;
-    }
-    
-    private Double tienconlai;
-
     public Long getId() {
         return id;
     }
