@@ -18,6 +18,7 @@ export class BatHoComponent implements OnInit, OnDestroy {
     text: any;
     selected: BatHo;
     none: any;
+    keyTimBatHo:string;
     constructor(
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,
@@ -55,5 +56,17 @@ export class BatHoComponent implements OnInit, OnDestroy {
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    timBatHo() {
+        // const query = event.query;
+        // console.log(query);
+        this.batHoService
+            .findBatHoByTenOrCMND(this.keyTimBatHo)
+            .subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

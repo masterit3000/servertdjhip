@@ -13,7 +13,7 @@ export class VayLaiService {
 
     private resourceUrl = SERVER_API_URL + 'api/vay-lais';
     private lichSuDongTien = 'lichsudongtien';
-
+    private resourceUrlTimVayLai = SERVER_API_URL +'api/tim-vay-lais-by-ten-cmnd';
     private lichSuThaoTacHopDong = 'lichsuthaotac';
     constructor(private http: HttpClient) { }
 
@@ -38,14 +38,6 @@ export class VayLaiService {
         const options = createRequestOption(req);
         return this.http.get<VayLai[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
-    }
-    findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
-        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, { observe: 'response' })
-            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
-    }
-    findThaoTacByHopDong(id: number): Observable<HttpResponse<LichSuThaoTacHopDong[]>> {
-        return this.http.get<LichSuThaoTacHopDong[]>(`${this.resourceUrl}/${this.lichSuThaoTacHopDong}/${id}`, { observe: 'response' })
-            .map((res: HttpResponse<LichSuThaoTacHopDong[]>) => this.convertArrayResponse(res));
     }
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
@@ -79,5 +71,15 @@ export class VayLaiService {
     private convert(vayLai: VayLai): VayLai {
         const copy: VayLai = Object.assign({}, vayLai);
         return copy;
+    }
+    findVayLaiByTenOrCMND(query: any): Observable<HttpResponse<VayLai[]>> {
+        // const options = createRequestOption(req);
+        return this.http
+            .get<VayLai[]>(`${this.resourceUrlTimVayLai}/${query}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<VayLai[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 }

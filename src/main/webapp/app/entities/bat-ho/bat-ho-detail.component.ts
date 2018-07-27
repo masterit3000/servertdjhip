@@ -45,7 +45,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     lichSuThaoTacHopDong(id) {
 
     }
-
+    // convertotEnum
     load(id) {
         this.batHoService
             .find(id)
@@ -57,14 +57,12 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                         this.lichSuDongTiens = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
-                            if (lichSuDongTienResponse.body[i].trangthai === DONGTIEN['DADONG']) {
+                            if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
                                 this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
-                            }else{
-                                this.tiendadong = 100;
                             }
                         }
                     });
-                this.lichSuThaoTacHopDongService.findThaoTacByHopDong(id)
+                this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.batHo.hopdong.id)
                     .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
                         this.lichSuThaoTacHopDongs = batHoResponse.body;
                     });
@@ -87,7 +85,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     }
     onRowSelect(event) {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
-        this.batHoService.setDongTien(event.data.id)
+        this.lichSuDongTienService.setDongTien(event.data.id)
             .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
                 this.batHo = batHoResponse.body;
             });

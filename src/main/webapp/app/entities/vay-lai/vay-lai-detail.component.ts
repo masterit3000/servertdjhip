@@ -6,8 +6,10 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { VayLai } from './vay-lai.model';
 import { VayLaiService } from './vay-lai.service';
-import { LichSuDongTien } from '../lich-su-dong-tien/lich-su-dong-tien.model';
+import { LichSuDongTien, DONGTIEN } from '../lich-su-dong-tien/lich-su-dong-tien.model';
 import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
+import { LichSuDongTienService } from '../lich-su-dong-tien/lich-su-dong-tien.service';
+import { LichSuThaoTacHopDongService } from '../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
 @Component({
     selector: 'jhi-vay-lai-detail',
     templateUrl: './vay-lai-detail.component.html'
@@ -17,12 +19,15 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     vayLai: VayLai;
     lichSuDongTiens: LichSuDongTien[];
     selected: LichSuDongTien;
+    tiendadong: number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
+        private lichSuDongTienService: LichSuDongTienService,
+        private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
         private route: ActivatedRoute
     ) {
     }
@@ -30,27 +35,28 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
-            this.lichSuDongTien(params['id']);
         });
         this.registerChangeInVayLais();
     }
-    lichSuDongTien(id) {
-        this.vayLaiService.findByHopDong(id)
-            .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien[]>) => {
-                this.lichSuDongTiens = vayLaiResponse.body;
-            });
-    }
-    lichSuThaoTacHopDong(id) {
-        this.vayLaiService.findThaoTacByHopDong(id)
-            .subscribe((vayLaiResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
-                this.lichSuThaoTacHopDongs = vayLaiResponse.body;
-            });
-    }
-
     load(id) {
         this.vayLaiService.find(id)
             .subscribe((vayLaiResponse: HttpResponse<VayLai>) => {
                 this.vayLai = vayLaiResponse.body;
+                this.lichSuDongTienService
+                    .findByHopDong(this.vayLai.hopdongvl.id)
+                    .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
+                        this.lichSuDongTiens = lichSuDongTienResponse.body;
+                        this.tiendadong = 0;
+                        for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
+                            if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
+                                this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
+                            }
+                        }
+                    });
+                this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.vayLai.hopdongvl.id)
+                    .subscribe((vayLaiResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
+                        this.lichSuThaoTacHopDongs = vayLaiResponse.body;
+                    });
             });
     }
     previousState() {

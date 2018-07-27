@@ -116,7 +116,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                 }
 
                 long soTienTrongChuKy = Math.round(((tongTienVay / soChuKy) * 1000) / 1000);//lam tron den 1000d
-                while (day < soNgayVay) {
+                for (int i = 0; i < soChuKy - 1; i++) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
@@ -221,21 +221,13 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<LichSuDongTienDTO> findByHopDong(Long id) {
-        log.debug("Request to get all LichSuDongTiens by HopDong: {}", id);
-        List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(vayLaiRepository.findOne(id).getHopdongvl().getId());
-        List<LichSuDongTienDTO> collect = findByHopDong.stream()
-                .map(lichSuDongTienMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
-        return collect;
-    }
+    public List<VayLaiDTO> findByNameOrCMND(String key) {
+        log.debug("Request to get all KhachHangs");
+        key = new StringBuffer("%").append(key).append("%").toString();
 
-    @Override
-    public List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id) {
-        log.debug("Request to get all LichSuThaoTacs by HopDong: {}", id);
-        List<LichSuThaoTacHopDongDTO> collect = lichSuThaoTacHopDongService.findByHopDong(vayLaiRepository.findOne(id).getHopdongvl().getId());
-        return collect;
+        return vayLaiRepository.findByNameOrCMND(key).stream()
+                .map(vayLaiMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

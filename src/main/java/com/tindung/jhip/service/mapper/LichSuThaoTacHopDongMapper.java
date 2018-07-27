@@ -18,7 +18,6 @@ public interface LichSuThaoTacHopDongMapper extends EntityMapper<LichSuThaoTacHo
     LichSuThaoTacHopDongDTO toDto(LichSuThaoTacHopDong lichSuThaoTacHopDong);
 
     @Mapping(source = "nhanVienId", target = "nhanVien")
-    @Mapping(source = "nhanVienTen", target = "nhanVien.ten")
     @Mapping(source = "hopDongId", target = "hopDong")
     LichSuThaoTacHopDong toEntity(LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO);
 

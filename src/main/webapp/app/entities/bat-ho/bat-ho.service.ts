@@ -6,7 +6,6 @@ import { SERVER_API_URL } from '../../app.constants';
 import { BatHo } from './bat-ho.model';
 import { createRequestOption } from '../../shared';
 import { LichSuDongTien } from '../lich-su-dong-tien';
-import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 export type EntityResponseType = HttpResponse<BatHo>;
 
 @Injectable()
@@ -14,6 +13,7 @@ export class BatHoService {
 
     private resourceUrl =  SERVER_API_URL + 'api/bat-hos';
     private dongTien="dongtien";
+    private resourceUrlTimBatHo = SERVER_API_URL +'api/tim-bat-hos-by-ten-cmnd';
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -76,6 +76,17 @@ export class BatHoService {
     private convert(batHo: BatHo): BatHo {
         const copy: BatHo = Object.assign({}, batHo);
         return copy;
+    }
+
+    findBatHoByTenOrCMND(query: any): Observable<HttpResponse<BatHo[]>> {
+        // const options = createRequestOption(req);
+        return this.http
+            .get<BatHo[]>(`${this.resourceUrlTimBatHo}/${query}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<BatHo[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 
 }

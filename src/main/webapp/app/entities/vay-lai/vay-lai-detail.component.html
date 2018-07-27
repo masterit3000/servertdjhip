@@ -39,11 +39,15 @@
                 </tr>
                 <tr>
                     <th>Hình thức lãi</th>
-                    <td><span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span></td>
+                    <td>
+                        <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
+                    </td>
                 </tr>
                 <tr>
                     <th>Cách tính lãi</th>
-                    <td><span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span></td>
+                    <td>
+                        <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
+                    </td>
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
@@ -396,16 +400,22 @@
                 <div class="col-md-12">
                     <h3>Lịch sử thao tác</h3>
                     <br />
-                    <table class="table table-bordered text-center">
-                        <thead>
+                    <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
+                        <ng-template pTemplate="header">
                             <th>STT</th>
                             <th>Ngày</th>
                             <th>Nhân viên</th>
-                            <th>Số tiền ghi nợ</th>
-                            <th>Số tiền ghi có</th>
                             <th>Nội dung</th>
-                        </thead>
-                    </table>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
+                            <tr [pSelectableRow]="lichSuThaoTacHopDong">
+                                <td></td>
+                                <td>{{lichSuThaoTacHopDong.thoigian}}</td>
+                                <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
+                                <td>{{lichSuThaoTacHopDong.noidung}}</td>
+                            </tr>
+                        </ng-template>
+                        </table>
                 </div>
             </div>
         </p-tabPanel>

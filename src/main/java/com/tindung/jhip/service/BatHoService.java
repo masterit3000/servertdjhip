@@ -43,4 +43,5 @@ public interface BatHoService {
     void delete(Long id);
 
      LichSuDongTienDTO setDongTien(Long id);
+     List<BatHoDTO> findByNameOrCMND(String key);
 }

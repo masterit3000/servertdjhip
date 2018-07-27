@@ -126,7 +126,6 @@ public class BatHoResource {
      * @param id: id của hợp đồng tương ứng
      * @return list lịch sử đóng tiền theo hợp đồng
      */
-
     /**
      * GET /bat-hos/:id : get the "id" batHo.
      *
@@ -149,9 +148,16 @@ public class BatHoResource {
     public ResponseEntity<LichSuDongTienDTO> setDongTien(@PathVariable Long id) {
         log.debug("REST request to get BatHo : {}", id);
 
-       LichSuDongTienDTO lichSuDongTienDTO = batHoService.setDongTien(id);
+        LichSuDongTienDTO lichSuDongTienDTO = batHoService.setDongTien(id);
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(lichSuDongTienDTO));
+    }
+
+    @GetMapping("/tim-bat-hos-by-ten-cmnd/{key}")
+    @Timed
+    public List<BatHoDTO> timBatHosByTenCMND(@PathVariable(name = "key") String key) {
+        log.debug("REST request to get all KhachHangs");
+        return batHoService.findByNameOrCMND(key);
     }
 
     /**

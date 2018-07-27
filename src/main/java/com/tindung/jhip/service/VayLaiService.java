@@ -24,8 +24,6 @@ public interface VayLaiService {
      * @return the list of entities
      */
     List<VayLaiDTO> findAll();
-    List<LichSuDongTienDTO> findByHopDong(Long id);
-    List<LichSuThaoTacHopDongDTO> findThaoTacByHopDong(Long id);
     /**
      * Get the "id" vayLai.
      *
@@ -40,4 +38,5 @@ public interface VayLaiService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    List<VayLaiDTO> findByNameOrCMND(String key);
 }

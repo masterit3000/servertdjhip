@@ -12,11 +12,12 @@ import { Principal } from '../../shared';
     templateUrl: './vay-lai.component.html'
 })
 export class VayLaiComponent implements OnInit, OnDestroy {
-vayLais: VayLai[];
+    vayLais: VayLai[];
     currentAccount: any;
     eventSubscriber: Subscription;
     selected: VayLai;
     none: any;
+    keyTimVayLai:string;
     constructor(
         private vayLaiService: VayLaiService,
         private jhiAlertService: JhiAlertService,
@@ -54,5 +55,15 @@ vayLais: VayLai[];
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    timVayLai() {
+        this.vayLaiService
+            .findVayLaiByTenOrCMND(this.keyTimVayLai)
+            .subscribe(
+                (res: HttpResponse<VayLai[]>) => {
+                    this.vayLais = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

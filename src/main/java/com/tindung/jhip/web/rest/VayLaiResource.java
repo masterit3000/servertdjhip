@@ -111,18 +111,12 @@ public class VayLaiResource {
         return vayLaiService.findAll();
     }
 
-    @GetMapping("/vay-lais/lichsudongtien/{id}")
-    @Timed
-    public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
-        log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
-        return vayLaiService.findByHopDong(id);
-    }
 
-    @GetMapping("/vay-lais/lichsuthaotac/{id}")
+    @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}")
     @Timed
-    public List<LichSuThaoTacHopDongDTO> getLichSuThaoTacByHopDong(@PathVariable Long id) {
-        log.debug("REST request to get LichSuThaoTac by HopDong: {}", id);
-        return vayLaiService.findThaoTacByHopDong(id);
+    public List<VayLaiDTO> timBatHosByTenCMND(@PathVariable(name = "key") String key) {
+        log.debug("REST request to get all KhachHangs");
+        return vayLaiService.findByNameOrCMND(key);
     }
 
     /**

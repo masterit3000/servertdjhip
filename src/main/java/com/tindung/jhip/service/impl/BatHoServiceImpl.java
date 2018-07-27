@@ -16,6 +16,7 @@ import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.dto.HopDongDTO;
+import com.tindung.jhip.service.dto.KhachHangDTO;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
@@ -194,6 +195,7 @@ public class BatHoServiceImpl implements BatHoService {
 
         }
     }
+
     /**
      * Delete the batHo by id. F
      *
@@ -222,6 +224,16 @@ public class BatHoServiceImpl implements BatHoService {
         lichSuDongTien = lichSuDongTienRepository.findOne(id);
         lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
         return lichSuDongTienMapper.toDto(lichSuDongTien);
+    }
+
+    @Override
+    public List<BatHoDTO> findByNameOrCMND(String key) {
+        log.debug("Request to get all KhachHangs");
+        key = new StringBuffer("%").append(key).append("%").toString();
+
+        return batHoRepository.findByNameOrCMND(key).stream()
+                .map(batHoMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     private void validate(BatHoDTO bh) {

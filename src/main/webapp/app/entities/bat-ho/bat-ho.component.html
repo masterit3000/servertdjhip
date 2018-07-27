@@ -17,14 +17,14 @@
     <div class="ui-g-2">
         <pe-step label="Float label">
             <span class="ui-float-label">
-                <input id="float-input" name="float" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND" tooltipPosition="top"
+                <input id="float-input" name="keyTimBatHo"  [(ngModel)]="keyTimBatHo" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND" tooltipPosition="top"
                     tooltipEvent="focus">
-                <label for="float-input">Tên khách hàng</label>
+                <label for="float-input" >Tên khách hàng</label>
             </span>
         </pe-step>
     </div>
     <div class="ui-g-2">
-        <button class="btn btn-primary float-right">Tìm kiếm</button>
+        <button class="btn btn-primary float-right" (click)="timBatHo()">Tìm kiếm</button>
     </div>
     <div class="table-responsive" *ngIf="batHos">
         <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id"  >
