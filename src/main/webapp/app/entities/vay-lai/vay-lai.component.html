@@ -28,7 +28,7 @@
         <button class="btn btn-primary float-right" (click)="timVayLai()">Tìm kiếm</button>
     </div>
     <br/>
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="vayLais">
         <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
@@ -41,7 +41,6 @@
                     <th>
                         <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
                     </th>
-                    <!-- <th><span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span></th> -->
                     <th>
                         <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
                     </th>
@@ -51,23 +50,16 @@
                     <th>
                         <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
                     </th>
-                    <!-- <th><span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span></th> -->
-                    <!-- <th><span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span></th> -->
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-vayLai>
                 <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai', vayLai.id ]">
-                    <td>
-                        {{vayLai.id}}
-                    </td>
+                    <td>{{vayLai.id}}</td>
                     <td>{{vayLai.hopdongvl.khachHangTen}}</td>
                     <td>{{vayLai.tienvay}}</td>
-                    <!-- <td jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</td> -->
                     <td>{{vayLai.thoigianvay}}</td>
                     <td>{{vayLai.chukylai}}</td>
                     <td>{{vayLai.lai}}</td>
-                    <!-- <td jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</td> -->
-                    <!-- <td>{{vayLai.thulaitruoc}}</td> -->
                 </tr>
             </ng-template>
         </p-table>
