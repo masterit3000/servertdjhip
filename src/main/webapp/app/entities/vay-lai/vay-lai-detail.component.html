@@ -402,14 +402,12 @@
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
-                            <th>STT</th>
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Nội dung</th>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
-                                <td></td>
                                 <td>{{lichSuThaoTacHopDong.thoigian}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>

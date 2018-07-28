@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th>Họ từ ngày</th>
-                    <td>{{batHo.hopdong.ngaytao}}</td>
+                    <td>{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <!-- <td>{{batHo.hopdong.ngaytao}}</td> -->
                 </tr>
                 <tr>
@@ -98,7 +98,7 @@
                     <tr [pSelectableRow]="lichSuDongTien">
                         <td>{{lichSuDongTien.id}}</td>
                         <td>
-                            {{lichSuDongTien.trangthai}}
+                            <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                         </td>
                         <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.sotien}}</td>
