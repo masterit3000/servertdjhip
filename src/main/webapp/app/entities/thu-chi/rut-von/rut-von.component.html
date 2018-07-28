@@ -4,8 +4,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="modal-header">
-                    <h2>Rút vốn</h2>
-                    <div style="border-top:1px solid #cecece;height:5px;"></div>
+                    <h2>
+                        <i class="fa fa-money" width="20%" aria-hidden="true"></i>
+                        Rút vốn
+                    </h2>
                 </div>
             </div>
         </div>
@@ -22,18 +24,12 @@
                                         Người rút vốn
                                         <span style="color: red;">*</span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <!-- <input type="text" class="form-control" data-rule-required="true" data-msg-required="Không để trống trường này!"> -->
-
-                                        <div class="ui-inputgroup">
-                                            <span class="ui-inputgroup-addon">
-                                                <i class="fa fa-user"></i>
-                                            </span>
-                                            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId">
-                                                <option [ngValue]="null"></option>
-                                                <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens">{{nhanVienOption.ten}}</option>
-                                            </select>
-                                        </div>
+                                    <div class="col-md-8 form-group">
+                                        <!-- <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/> -->
+                                        <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" required >
+                                           
+                                            <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -41,36 +37,24 @@
                                         Số tiền
                                         <span style="color: red;">*</span>
                                     </label>
-                                    <div class="col-md-8">
-                                        <!-- <input type="text" class="inputAmountUSD form-control has-success" data-rule-required="true" data-msg-required="Không để trống trường này!" -->
-                                        <!-- size="10"> -->
-
-                                        <div class="ui-inputgroup">
-                                            <!-- <span class="ui-inputgroup-addon">$</span> -->
-                                            <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                                name="sotien" id="field_sotien" class="form-control" [(ngModel)]="thuchi.sotien"
-                                                required>
-                                                <!-- [(ngModel)]="thuChis.sotien" required> -->
-
-
-                                        </div>
-
+                                    <div class="col-md-6 form-group">
+                                        <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" name="sotien"
+                                            id="field_sotien" class="form-control" [(ngModel)]="thuchi.sotien" required>
                                     </div>
                                 </div>
-
-                                <div class="row" style="padding-top: 5%">
+                                <div class="row">
                                     <label class="col-md-4 control-label">
                                         Lý do rút vốn
                                         <span style="color: red;">*</span>
                                     </label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 form-group">
                                         <textarea rows="2" cols="6" class="auto form-control" name="noidung" id="field_noidung" [(ngModel)]="thuchi.noidung" required
                                             maxlength="3000"></textarea>
                                     </div>
                                 </div>
-                                <div class="row" style="padding-top: 5%">
+                                <div class="row">
                                     <div class=" col-md-12">
-                                        <button class="btn btn-xs btn-info pull-right" (click)="save()">Rút</button>
+                                        <button class="btn btn-xs btn-primary pull-right" (click)="save()">Thu tiền</button>
                                     </div>
                                 </div>
                             </form>
@@ -82,24 +66,20 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <h4>
-                                            <i class="fa fa-calendar" style="margin-right:2px;"></i>Lịch sử rút vốn</h4>
+                                            <i class="fa fa-calendar" style="margin-right:2px;"></i>Lịch sử thu</h4>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Từ Ngày</label>
                                         <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <label>Đến Ngày</label>
                                         <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
-                                    </div>
-
-                                    <div class="col-md-1">
-                                        <button class="btn btn-info" (click)="timkiem()">Tìm </button>
+                                        <button class="btn btn-info pull-right" (click)="timkiem()">
+                                            <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="widget-content">
                                 <div>
                                     <table class="table table-striped table-checkable table-hover table-bordered">
@@ -120,8 +100,6 @@
                                                 <th class="align-right">
                                                     Nhân viên
                                                 </th>
-                                             
-                                              
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -131,50 +109,32 @@
                                                 </td>
                                                 <td>{{thuChi.noidung}}</td>
                                                 <td>{{thuChi.thoigian | date:'medium'}}</td>
-                                                <td>{{thuChi.sotien}}</td>
-
-                                                <td>
-                                                    <div *ngIf="thuChi.nhanVienId">
+                                                <td>{{thuChi.sotien | currency:"VND":true:'2.0-0'}}</td>
+                                                <td>{{thuChi.tenNhanVien}}
+                                                    <!-- <div *ngIf="thuChi.nhanVienId">
                                                         <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]">{{thuChi.nhanVienId}}</a>
-                                                    </div>
+                                                    </div> -->
+                                                    <!-- <div *ngIf="thuChi.tenNhanVien">
+                                                        <a [routerLink]="['../nhan-vien', thuChi.tenNhanVien  ]">{{thuChi.tenNhanVien}}</a>
+                                                    </div> -->
                                                 </td>
-
                                             </tr>
                                         </tbody>
-                                        <!-- <tbody>
-                                          <tr>
-                                              <td class="hidden-xs">
-                                                  1
-                                              </td>
-                                              <td class="align-center">
-                                                  23:53 09/06/2018
-                                              </td>
-                                              <td class="align-center">
-                                                  asdasd
-                                              </td>
+                                        <tfoot>
+                                                 <th>Tổng tiền</th>
+                                                 <th></th>
+                                                 <th></th>
+                                                 <th style="color: red">{{tongTien | currency:"VND":true:'2.0-0'}}</th>
+                                                 <th></th>
 
-                                              <td class="align-right">
-                                                  <span style="color:red">-1</span>
-                                              </td>
-
-                                              <td class="align-center">
-                                                  11
-                                              </td>
-                                              <td>
-                                                  <i type="button" class="fa fa-print"></i>
-                                                  <i type="button" class="fa fa-trash"></i>
-                                              </td>
-                                          </tr>
-                                      </tbody> -->
+                                        </tfoot>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

@@ -21,6 +21,7 @@ export class GopVonComponent implements OnInit {
     denngay: Date;
     isSaving: boolean;
     nhanviens: NhanVien[];
+    tongTien: number;
 
     constructor(
         // public activeModal: NgbActiveModal,
@@ -31,15 +32,23 @@ export class GopVonComponent implements OnInit {
         private principal: Principal
     ) {
         this.thuchi = new ThuChi();
+        this.tongTien = 0;
     }
     timkiem() {
         // console.log(this.tungay);
         // console.log(this.denngay);
+        this.tongTien = 0;
         this.thuChiService
             .findByTime(this.tungay, this.denngay, THUCHI.GOPVON)
             .subscribe(
                 (res: HttpResponse<ThuChi[]>) => {
                     this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTien =this.tongTien+ element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTien);
+                        
+                    });
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -96,6 +105,12 @@ export class GopVonComponent implements OnInit {
         .subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
+                this.thuChis.forEach(element => {
+                    this.tongTien =this.tongTien+ element.sotien;
+                    console.log(element.sotien);
+                    console.log(this.tongTien);
+                    
+                });
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
