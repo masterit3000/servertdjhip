@@ -63,7 +63,7 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         GrowlModule,
         SpinnerModule,
         ConfirmDialogModule
-    ],
+    ],   
     declarations: [
         BatHoComponent,
         BatHoDetailComponent,
