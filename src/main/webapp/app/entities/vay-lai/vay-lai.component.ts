@@ -15,6 +15,7 @@ export class VayLaiComponent implements OnInit, OnDestroy {
     vayLais: VayLai[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    text: any;
     selected: VayLai;
     none: any;
     keyTimVayLai:string;
