@@ -164,18 +164,18 @@
                             </div>
                         </div>
                         </p-tabView>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-                                <span class="fa fa-ban"></span>&nbsp;
-                                <span jhiTranslate="entity.action.cancel">Cancel</span>
-                            </button>
-                            <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
-                                <span class="fa fa-save"></span>&nbsp;
-                                <span jhiTranslate="entity.action.save">Save</span>
-                            </button>
-                        </div>
                     </p-fieldset>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+                    <span class="fa fa-ban"></span>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;
+                    <span jhiTranslate="entity.action.save">Save</span>
+                </button>
             </div>
         </div>
     </div>
