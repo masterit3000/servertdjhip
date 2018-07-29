@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <th>Bát họ</th>
-                    <td colspan="2">{{batHo.tongtien}}</td>
+                    <td colspan="2">{{batHo.tongtien |currency : 'VND' : true : '2.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Họ từ ngày</th>
@@ -37,19 +37,19 @@
             <table class="table table-hover table-bordered">
                 <tr>
                     <th>Số tiền đưa khách (lãi)</th>
-                    <td>{{batHo.tienduakhach}}</td>
+                    <td>{{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Tổng tiền phải đóng</th>
-                    <td>{{batHo.tongtien}}</td>
+                    <td>{{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
-                    <td>{{tiendadong}}</td>
+                    <td>{{tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
-                    <td>{{batHo.tongtien-tiendadong}}</td>
+                    <td>{{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -101,9 +101,9 @@
                             {{lichSuDongTien.trangthai}}
                         </td>
                         <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                        <td>{{lichSuDongTien.sotien}}</td>
+                        <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                        <td>{{lichSuDongTien.sotien}}</td>
+                        <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
                             <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                         </td>
