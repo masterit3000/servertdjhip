@@ -23,6 +23,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     tiendadong: number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    dongHD: boolean = false;
 
     constructor(
         private eventManager: JhiEventManager,
@@ -40,6 +41,13 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
         });
         this.registerChangeInBatHos();
+    }
+
+    hienDongHD() {
+        this.dongHD = true;
+    }
+    dongDongHD(){
+        this.dongHD = false;
     }
 
     lichSuThaoTacHopDong(id) {

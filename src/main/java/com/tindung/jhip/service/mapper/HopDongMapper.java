@@ -12,7 +12,6 @@ import org.mapstruct.*;
 public interface HopDongMapper extends EntityMapper<HopDongDTO, HopDong> {
 
     @Mapping(source = "khachHang.id", target = "khachHangId")
-    @Mapping(source = "khachHang.ten", target = "khachHangTen")
     @Mapping(source = "cuaHang.id", target = "cuaHangId")
     @Mapping(source = "nhanVien.id", target = "nhanVienId")
     @Mapping(source = "hopdonggoc.id", target = "hopdonggocId")

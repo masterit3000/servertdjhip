@@ -13,6 +13,7 @@ public interface ThuChiMapper extends EntityMapper<ThuChiDTO, ThuChi> {
 
     @Mapping(source = "cuaHang.id", target = "cuaHangId")
     @Mapping(source = "nhanVien.id", target = "nhanVienId")
+    @Mapping(source = "nhanVien.ten", target = "tenNhanVien")
     ThuChiDTO toDto(ThuChi thuChi);
 
     @Mapping(source = "cuaHangId", target = "cuaHang")

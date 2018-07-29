@@ -24,12 +24,8 @@
                 </tr>
                 <tr>
                     <th>Họ từ ngày</th>
-                    <td>{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
+                    <td colspan="2">{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <!-- <td>{{batHo.hopdong.ngaytao}}</td> -->
-                </tr>
-                <tr>
-                    <th>Tỷ lệ</th>
-                    <td colspan="2">(Dữ liệu demo)</td>
                 </tr>
             </table>
         </div>
@@ -58,12 +54,29 @@
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>
     </button>
-    <button type="button" [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+    <!-- <button type="button" [routerLink]="['/', { outlets: { popup: 'bat-ho/'+ batHo.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
         class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;
         <span jhiTranslate="entity.action.edit"> Edit</span>
+    </button> -->
+    <button type="button" (click)="hienDongHD()" class="btn btn-danger">
+        <span class="fa-ban fa"></span>&nbsp; Đóng hợp đồng
     </button>
-    <button type="button" class="btn btn-danger">Đóng hợp đồng</button>
+    <p-dialog modal="true" [(visible)]="dongHD">
+        <p-header>
+            Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
+        </p-header>
+        Số tiền còn phải đóng: {{batHo.tongtien-tiendadong}}đ
+        <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
+        <p-footer>
+            <button type="button" class="btn btn-danger">
+                <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
+            </button>
+            <button type="button" (click)="dongDongHD()" class="btn btn-success">
+                <span class="fa fa-close"></span>&nbsp; Hủy
+            </button>
+        </p-footer>
+    </p-dialog>
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
@@ -109,32 +122,7 @@
                         </td>
                     </tr>
                 </ng-template>
-                </table>
-
-        </p-tabPanel>
-        <p-tabPanel header="Đóng hợp đồng">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-borderles">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Chú ý:
-                                </td>
-                                <td rowspan="3">
-                                    <button class="btn btn-primary float-right">Đóng hợp đồng</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Số kỳ còn phải đóng: (DATA)</td>
-                            </tr>
-                            <tr>
-                                <td>Nợ cũ: (DATA)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            </p-table>
         </p-tabPanel>
         <p-tabPanel header="Nợ">
             <div class="row">
@@ -209,7 +197,7 @@
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
                                 <td></td>
-                                <td>{{lichSuThaoTacHopDong.thoigian}}</td>
+                                <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
                             </tr>

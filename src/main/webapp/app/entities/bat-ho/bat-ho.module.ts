@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ServertdjhipSharedModule } from '../../shared';
 import { TableModule } from 'primeng/table';
 import {GrowlModule} from 'primeng/growl';
-
+import {DialogModule} from 'primeng/dialog';
 import {
     BatHoService,
     BatHoPopupService,
@@ -62,8 +62,9 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         CheckboxModule,
         GrowlModule,
         SpinnerModule,
-        ConfirmDialogModule
-    ],
+        ConfirmDialogModule,
+        DialogModule
+    ],   
     declarations: [
         BatHoComponent,
         BatHoDetailComponent,
