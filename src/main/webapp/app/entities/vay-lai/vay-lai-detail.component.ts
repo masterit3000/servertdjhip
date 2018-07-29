@@ -23,6 +23,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
+    dongHD: boolean = false;
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -37,6 +38,12 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
         });
         this.registerChangeInVayLais();
+    }
+    hienDongHD() {
+        this.dongHD = true;
+    }
+    dongDongHD(){
+        this.dongHD = false;
     }
     load(id) {
         this.vayLaiService.find(id)

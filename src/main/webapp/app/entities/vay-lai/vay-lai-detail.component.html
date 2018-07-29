@@ -64,12 +64,24 @@
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>
     </button>
-    <button type="button" [routerLink]="['/', { outlets: { popup: 'vay-lai/'+ vayLai.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
-        class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;
-        <span jhiTranslate="entity.action.edit"> Edit</span>
+    <button type="button" (click)="hienDongHD()" class="btn btn-danger">
+        <span class="fa-ban fa"></span>&nbsp; Đóng hợp đồng
     </button>
-    <button type="button" class="btn btn-danger">Đóng hợp đồng</button>
+    <p-dialog modal="true" [(visible)]="dongHD">
+        <p-header>
+            Bạn chuẩn bị đóng hợp đồng {{vayLai.hopdongvl.mahopdong}}
+        </p-header>
+        Số tiền còn phải đóng: (vayLai.tongtien-tiendadong)đ
+        <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
+        <p-footer>
+            <button type="button" class="btn btn-danger">
+                <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
+            </button>
+            <button type="button" (click)="dongDongHD()" class="btn btn-success">
+                <span class="fa fa-close"></span>&nbsp; Hủy
+            </button>
+        </p-footer>
+    </p-dialog>
     <p-tabView>
         <p-tabPanel header="Đóng lãi">
             <div class="row">
@@ -274,50 +286,6 @@
                         </thead>
                         <tbody>
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="Đóng hợp đồng">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>Ngày đóng HĐ: </td>
-                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tiền cầm: </td>
-                                <td>0 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Nợ cũ: </td>
-                                <td>0 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Tiền lãi: </td>
-                                <td>0 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Tiền khác: </td>
-                                <td>
-                                    <input type="number" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tổng tiền chuộc: </td>
-                                <td>0 vnđ</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đóng HĐ</button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
