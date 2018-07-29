@@ -34,6 +34,13 @@ import {
 } from './layouts';
 import { SidebarModule } from 'primeng/primeng';
 import { QuanLyComponent } from './quan-ly/quan-ly.component';
+import { BatHoComponent } from './quan-ly/bat-ho/bat-ho.component';
+import { VayLaiComponent } from './quan-ly/vay-lai/vay-lai.component';
+import { KhachHangComponent } from './quan-ly/khach-hang/khach-hang.component';
+import { CuaHangComponent } from './quan-ly/cua-hang/cua-hang.component';
+import { NhanVienComponent } from './quan-ly/nhan-vien/nhan-vien.component';
+import { ThongKeComponent } from './quan-ly/thong-ke/thong-ke.component';
+import { BaoCaoComponent } from './quan-ly/bao-cao/bao-cao.component';
 
 @NgModule({
     imports: [
@@ -57,7 +64,14 @@ import { QuanLyComponent } from './quan-ly/quan-ly.component';
         PageRibbonComponent,
         ActiveMenuDirective,
         FooterComponent,
-        QuanLyComponent
+        QuanLyComponent,
+        BatHoComponent,
+        VayLaiComponent,
+        KhachHangComponent,
+        CuaHangComponent,
+        NhanVienComponent,
+        ThongKeComponent,
+        BaoCaoComponent
     ],
     providers: [
         ProfileService,
