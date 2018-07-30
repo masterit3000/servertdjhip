@@ -6,6 +6,7 @@ import { VayLaiService } from '../../vay-lai.service';
 import { VayLai } from '../../vay-lai.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HopDong } from '../../../hop-dong';
+import { Observable } from '../../../../../../../../node_modules/rxjs/Observable';
 
 @Component({
     selector: 'jhi-vay-lai-moi',
@@ -18,6 +19,7 @@ export class VayLaiMoiComponent implements OnInit {
     keyTimKhachHang: String;
     khachhangid: any;
     mahopdong: any;
+    isSaving: boolean;
 
     constructor(
         private khachHangService: KhachHangService,
@@ -36,28 +38,59 @@ export class VayLaiMoiComponent implements OnInit {
     }
 
     ngOnInit() {}
+    // save() {
+    //     console.log(this.vayLai);
+
+    //     this.VayLaiService.create(this.vayLai).subscribe(
+    //         (res: HttpResponse<VayLai>) => {
+    //             this.jhiAlertService.info(
+    //                 'them vay lai thanh cong',
+    //                 null,
+    //                 null
+    //             );
+    //         }, // thanh cong thi goi
+    //         (err: HttpErrorResponse) => {
+    //             console.log(err);
+    //             this.jhiAlertService.error(err.message, null, null);
+    //         } // loi thi goi ham nay
+    //     );
+
+    //     // VayLai.hopdong.khachangid = this.khachhangid;
+    //     // VayLai.hopdong.mahopdong = this.mahopdong;
+    //     // this.VayLaiService.cre
+    // }
+    clear() {this.previousState();}
     save() {
-        console.log(this.vayLai);
-
-        this.VayLaiService.create(this.vayLai).subscribe(
-            (res: HttpResponse<VayLai>) => {
-                this.jhiAlertService.info(
-                    'them vay lai thanh cong',
-                    null,
-                    null
-                );
-            }, // thanh cong thi goi
-            (err: HttpErrorResponse) => {
-                console.log(err);
-                this.jhiAlertService.error(err.message, null, null);
-            } // loi thi goi ham nay
-        );
-
-        // VayLai.hopdong.khachangid = this.khachhangid;
-        // VayLai.hopdong.mahopdong = this.mahopdong;
-        // this.VayLaiService.cre
+        this.isSaving = true;
+        if (this.vayLai.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.VayLaiService.update(this.vayLai));
+        } else {
+            this.subscribeToSaveResponse(
+                this.VayLaiService.create(this.vayLai));
+        }
     }
 
+    private subscribeToSaveResponse(result: Observable<HttpResponse<VayLai>>) {
+        result.subscribe((res: HttpResponse<VayLai>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess(result: VayLai) {
+        this.eventManager.broadcast({ name: 'vayLaiListModification', content: 'OK'});
+        this.isSaving = false;
+        // this.activeModal.dismiss(result);
+        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.previousState();
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+
+    previousState() {
+        window.history.back();
+    }
     timKhachHang() {
         // const query = event.query;
         // console.log(query);

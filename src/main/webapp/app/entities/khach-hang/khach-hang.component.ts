@@ -20,13 +20,25 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     text: any;
     khachHang: any;
     none: any;
+    keyTimKhachHang: String;
     constructor(
         private khachHangService: KhachHangService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {}
-
+    timKhachHang() {
+        // const query = event.query;
+        // console.log(query);
+        this.khachHangService
+            .findKhachHangByTenOrCMND(this.keyTimKhachHang)
+            .subscribe(
+                (res: HttpResponse<KhachHang[]>) => {
+                    this.khachHangs = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
     loadAll() {
         this.khachHangService.query().subscribe(
             (res: HttpResponse<KhachHang[]>) => {
