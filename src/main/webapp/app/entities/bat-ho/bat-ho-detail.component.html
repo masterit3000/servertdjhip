@@ -2,7 +2,7 @@
 
 
     <h2>
-        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.hopdong.mahopdong}}</h2>
+        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span></h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <div class="row">
@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                     <th>Còn lại</th>
-                    <td>{{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
+                    <td>{{tienchuadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -240,30 +240,31 @@
                             <tr>
                                 <td>Bát họ mới:</td>
                                 <td>
-                                    <input type="number" pInputText>
+                                    <input  [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"  pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tiền đưa khách:</td>
                                 <td>
-                                    <input type="number" pInputText>
+                                    <input   [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach" pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Bốc trong vòng:</td>
                                 <td>
-                                    <input type="number" pInputText>
+                                    <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"  pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Số ngày đóng tiền:</td>
                                 <td>
-                                    <input type="number" pInputText>
+                                    <input [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" pInputText>
                                 </td>
                             </tr>
+                            <tr><td>Số tiền đưa khách thực tế : {{batHo.tienduakhach}}-{{tienchuadong}}-{{tienNo-tienTra}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)}}</td></tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đảo họ</button>
+                                    <button (click)="save()" class="btn btn-primary">Đảo họ</button>
                                 </td>
                             </tr>
                         </tbody>

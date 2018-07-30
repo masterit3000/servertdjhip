@@ -16,7 +16,6 @@ public interface HopDongMapper extends EntityMapper<HopDongDTO, HopDong> {
     @Mapping(source = "cuaHang.id", target = "cuaHangId")
     @Mapping(source = "nhanVien.id", target = "nhanVienId")
     @Mapping(source = "hopdonggoc.id", target = "hopdonggocId")
-    
     HopDongDTO toDto(HopDong hopDong);
 
     @Mapping(source = "khachHangId", target = "khachHang")
