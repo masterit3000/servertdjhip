@@ -1,0 +1,69 @@
+<div>
+  <h2>
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
+      <button class="btn btn-primary float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
+          <span class="fa fa-plus"></span>
+          <span jhiTranslate="servertdjhipApp.nhanVien.home.createLabel">
+              Create new Nhan Vien
+          </span>
+      </button>
+  </h2>
+  <hr/>
+  <div>
+      <div>
+          <h3><i class="pi pi-search" aria-hidden="true"></i>Tìm nhân viên</h3>
+          <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+              field="ten" [size]="30" placeholder="Tên nhân viên " [minLength]="1"></p-autoComplete>
+          <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+              field="cmnd" [size]="10" placeholder="CMND" [minLength]="1"></p-autoComplete>
+          <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+              field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+          <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
+              field="userId" [size]="20" placeholder="User" [minLength]="1"></p-autoComplete>
+          <!-- {{nhanVien? nhanVien.ten || nhanVien: 'none'}}
+          <button type="submit" [routerLink]="['../nhan-vien', nhanVien? nhanVien.id || nhanVien: 'none' ]" class="btn btn-primary float-right">Tìm kiếm</button> -->
+      </div>
+  </div>
+  <br/>
+  <div class="table-responsive" *ngIf="nhanViens">
+      <p-table [value]="nhanViens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>
+                      <span jhiTranslate="global.field.id">ID</span>
+                  </th>
+                  <th>
+                      <span jhiTranslate="servertdjhipApp.nhanVien.ten">Ten</span>
+                  </th>
+                  <th>
+                      <span jhiTranslate="servertdjhipApp.nhanVien.diachi">Diachi</span>
+                  </th>
+                  <th>
+                      <span jhiTranslate="servertdjhipApp.nhanVien.dienthoai">Dienthoai</span>
+                  </th>
+                  <th>
+                      <span jhiTranslate="servertdjhipApp.nhanVien.cmnd">Cmnd</span>
+                  </th>
+                  <th>
+                      <span jhiTranslate="servertdjhipApp.nhanVien.trangthai">Trangthai</span>
+                  </th>
+                  <th>
+                      <span jhiTranslate="servertdjhipApp.nhanVien.user">User</span>
+                  </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-nhanVien>
+              <tr [pSelectableRow]="nhanVien" [routerLink]="['../nhan-vien', nhanVien.id ]">
+                  <td>{{nhanVien.id}}</td>
+                  <td>{{nhanVien.ten}}</td>
+                  <td>{{nhanVien.diachi}}</td>
+                  <td>{{nhanVien.dienthoai}}</td>
+                  <td>{{nhanVien.cmnd}}</td>
+                  <td>{{nhanVien.trangthai}}</td>
+                  <td>{{nhanVien.userId}}</td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+</div>

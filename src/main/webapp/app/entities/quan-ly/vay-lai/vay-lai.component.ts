@@ -3,24 +3,24 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { BatHo } from '../../bat-ho/bat-ho.model';
-import { BatHoService } from '../../bat-ho/bat-ho.service';
+import { VayLai } from '../../vay-lai/vay-lai.model';
+import { VayLaiService } from '../../vay-lai/vay-lai.service';
 import { Principal } from '../../../shared';
 
 @Component({
-    selector: 'bat-ho-admin',
-    templateUrl: './bat-ho.component.html'
+    selector: 'vay-lai-admin',
+    templateUrl: './vay-lai.component.html'
 })
-export class BatHoAdminComponent implements OnInit, OnDestroy {
-    batHos: BatHo[];
+export class VayLaiAdminComponent implements OnInit, OnDestroy {
+    vayLais: VayLai[];
     currentAccount: any;
     eventSubscriber: Subscription;
     text: any;
-    selected: BatHo;
+    selected: VayLai;
     none: any;
-    keyTimBatHo: string;
+    keyTimVayLai:string;
     constructor(
-        private batHoService: BatHoService,
+        private vayLaiService: VayLaiService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
@@ -28,9 +28,9 @@ export class BatHoAdminComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.batHoService.query().subscribe(
-            (res: HttpResponse<BatHo[]>) => {
-                this.batHos = res.body;
+        this.vayLaiService.query().subscribe(
+            (res: HttpResponse<VayLai[]>) => {
+                this.vayLais = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -40,31 +40,29 @@ export class BatHoAdminComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInBatHos();
+        this.registerChangeInVayLais();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: BatHo) {
+    trackId(index: number, item: VayLai) {
         return item.id;
     }
-    registerChangeInBatHos() {
-        this.eventSubscriber = this.eventManager.subscribe('batHoListModification', (response) => this.loadAll());
+    registerChangeInVayLais() {
+        this.eventSubscriber = this.eventManager.subscribe('vayLaiListModification', (response) => this.loadAll());
     }
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-    timBatHo() {
-        // const query = event.query;
-        // console.log(query);
-        this.batHoService
-            .findBatHoByTenOrCMND(this.keyTimBatHo)
+    timVayLai() {
+        this.vayLaiService
+            .findVayLaiByTenOrCMND(this.keyTimVayLai)
             .subscribe(
-                (res: HttpResponse<BatHo[]>) => {
-                    this.batHos = res.body;
+                (res: HttpResponse<VayLai[]>) => {
+                    this.vayLais = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );

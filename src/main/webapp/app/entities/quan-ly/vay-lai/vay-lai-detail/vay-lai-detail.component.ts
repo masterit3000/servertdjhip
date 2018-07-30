@@ -3,64 +3,54 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
-import { Message } from 'primeng/components/common/api';
-import { BatHo } from '../../../bat-ho/bat-ho.model';
-import { BatHoService } from '../../../bat-ho/bat-ho.service';
+
+import { VayLai } from '../../../vay-lai/vay-lai.model';
+import { VayLaiService } from '../../../vay-lai/vay-lai.service';
 import { LichSuDongTien, DONGTIEN } from '../../../lich-su-dong-tien/lich-su-dong-tien.model';
 import { LichSuThaoTacHopDong } from '../../../lich-su-thao-tac-hop-dong';
 import { LichSuDongTienService } from '../../../lich-su-dong-tien/lich-su-dong-tien.service';
 import { LichSuThaoTacHopDongService } from '../../../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
 @Component({
-    selector: 'bat-ho-detail-admin',
-    templateUrl: './bat-ho-detail.component.html'
+    selector: 'vay-lai-detail-admin',
+    templateUrl: './vay-lai-detail.component.html'
 })
-export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
-    batHo: BatHo;
+export class VayLaiDetailAdminComponent implements OnInit, OnDestroy {
+
+    vayLai: VayLai;
     lichSuDongTiens: LichSuDongTien[];
-    lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
     selected: LichSuDongTien;
-    msgs: Message[] = [];
     tiendadong: number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
     dongHD: boolean = false;
-
     constructor(
         private eventManager: JhiEventManager,
-        private batHoService: BatHoService,
+        private vayLaiService: VayLaiService,
         private lichSuDongTienService: LichSuDongTienService,
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
-        private route: ActivatedRoute,
-        // private confirmationService: ConfirmationService
-    ) { }
-
-    ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
-            this.load(params['id']);
-            this.lichSuThaoTacHopDong(params['id']);
-
-        });
-        this.registerChangeInBatHos();
+        private route: ActivatedRoute
+    ) {
     }
 
+    ngOnInit() {
+        this.subscription = this.route.params.subscribe((params) => {
+            this.load(params['id']);
+        });
+        this.registerChangeInVayLais();
+    }
     hienDongHD() {
         this.dongHD = true;
     }
     dongDongHD(){
         this.dongHD = false;
     }
-
-    lichSuThaoTacHopDong(id) {
-
-    }
-    // convertotEnum
     load(id) {
-        this.batHoService
-            .find(id)
-            .subscribe((batHoResponse: HttpResponse<BatHo>) => {
-                this.batHo = batHoResponse.body;
+        this.vayLaiService.find(id)
+            .subscribe((vayLaiResponse: HttpResponse<VayLai>) => {
+                this.vayLai = vayLaiResponse.body;
                 this.lichSuDongTienService
-                    .findByHopDong(this.batHo.hopdong.id)
+                    .findByHopDong(this.vayLai.hopdongvl.id)
                     .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
                         this.lichSuDongTiens = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
@@ -70,9 +60,9 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                             }
                         }
                     });
-                this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.batHo.hopdong.id)
-                    .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
-                        this.lichSuThaoTacHopDongs = batHoResponse.body;
+                this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.vayLai.hopdongvl.id)
+                    .subscribe((vayLaiResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
+                        this.lichSuThaoTacHopDongs = vayLaiResponse.body;
                     });
             });
     }
@@ -85,22 +75,10 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    registerChangeInBatHos() {
+    registerChangeInVayLais() {
         this.eventSubscriber = this.eventManager.subscribe(
-            'batHoListModification',
-            response => this.load(this.batHo.id)
+            'vayLaiListModification',
+            (response) => this.load(this.vayLai.id)
         );
     }
-    onRowSelect(event) {
-        this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
-        this.lichSuDongTienService.setDongTien(event.data.id)
-            .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
-                this.batHo = batHoResponse.body;
-            });
-    }
-
-    onRowUnselect(event) {
-        this.msgs = [{ severity: 'info', summary: 'Car Selected', detail: 'Vin: ' + event.id }];
-    }
-
 }

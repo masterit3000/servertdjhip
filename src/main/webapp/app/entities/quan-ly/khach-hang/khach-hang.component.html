@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <i class="fa fa-vcard-o" width="20%" aria-hidden="true"></i>
+        <span jhiTranslate="servertdjhipApp.khachHang.home.title">Khach Hangs</span>
+        <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
+                Create new Khach Hang
+            </span>
+        </button>
+    </h2>
+    <hr/>
+    <div>
+        <div>
+            <h3>
+                <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm khách hàng</h3>
+            <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="ten" [size]="20" placeholder="Tên khách hàng" [minLength]="1" pTooltip="Nhập tên khách hàng" tooltipPosition="top"
+                tooltipEvent="hover"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="cmnd" [size]="20" placeholder="CMND" [minLength]="1" pTooltip="Nhập số chứng minh thư nhân dân của khách hàng"
+                tooltipPosition="top" tooltipEvent="hover"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
+                field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+            <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang:none]" class="btn btn-primary">Tìm kiếm</button>
+            <!--TODO: Chuyển sang selection-->
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="khachHangs">
+        <p-table [value]="khachHangs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">ID</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.cmnd">Cmnd</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-khachHang>
+                <tr [pSelectableRow]="khachHang" [routerLink]="['../khach-hang-admin', khachHang.id ]">
+                    <td>{{khachHang.id}}</td>
+                    <td>{{khachHang.ten}}</td>
+                    <td>{{khachHang.diachi}}</td>
+                    <td>{{khachHang.dienthoai}}</td>
+                    <td>{{khachHang.cmnd}}</td>
+                    <td>{{khachHang.trangthai}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

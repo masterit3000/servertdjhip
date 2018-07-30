@@ -1,9 +1,9 @@
 {
     "servertdjhipApp": {
         "TrangThaiCuaHang" : {
-            "null": "",
-            "DUNGHOATDONG": "DUNGHOATDONG",
-            "HOATDONG": "HOATDONG"
+            "null": "Lựa chọn",
+            "DUNGHOATDONG": "Dừng hoạt động",
+            "HOATDONG": "Hoạt động"
         }
     }
 }

@@ -1,0 +1,82 @@
+<div *ngIf="nhanVien">
+  <h2>
+    <span jhiTranslate="servertdjhipApp.nhanVien.detail.title">Nhan Vien</span> {{nhanVien.ten}}</h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered table-hover">
+        <tbody>
+          <tr>
+            <th>Họ tên</th>
+            <td>{{nhanVien.ten}}</td>
+          </tr>
+          <tr>
+            <th>Địa chỉ</th>
+            <td>{{nhanVien.diachi}}</td>
+          </tr>
+          <tr>
+            <th>Tỉnh</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Huyện</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Xã</th>
+            <td>{{nhanVien.xaId}}</td>
+          </tr>
+          <tr>
+            <th>Ngày tạo</th>
+            <td>{{nhanVien.ngayTao | date:"dd/MM/yyyy"}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-bordered table-hover">
+        <tbody>
+          <tr>
+            <th>Điện thoại</th>
+            <td>{{nhanVien.dienthoai}}</td>
+          </tr>
+          <tr>
+            <th>Số chứng minh thư</th>
+            <td>{{nhanVien.cmnd}}</td>
+          </tr>
+          <tr>
+            <th>Trạng thái</th>
+            <td>
+              <span>{{nhanVien.trangthai}}</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Thuộc cửa hàng</th>
+            <td>
+              <div *ngIf="nhanVien.cuaHangId">
+                <a [routerLink]="['/cua-hang', nhanVien.cuaHangId]">{{nhanVien.cuaHangId}}</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>User</th>
+            <td>{{nhanVien.userId}}</td>
+          </tr>
+          <tr>
+            <th>Ghi chú</th>
+            <td>{{nhanVien.ghiChu}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button type="submit" (click)="previousState()" class="btn btn-info">
+    <span class="fa fa-arrow-left"></span>&nbsp;
+    <span jhiTranslate="entity.action.back"> Back</span>
+  </button>
+  <button type="button" [routerLink]="['/', { outlets: { popup: 'nhan-vien/'+ nhanVien.id + '/edit'} }]" replaceUrl="true"
+    queryParamsHandling="merge" class="btn btn-primary">
+    <span class="fa fa-pencil"></span>&nbsp;
+    <span jhiTranslate="entity.action.edit"> Edit</span>
+  </button>
+</div>
