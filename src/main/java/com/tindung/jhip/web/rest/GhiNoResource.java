@@ -36,10 +36,12 @@ public class GhiNoResource {
     }
 
     /**
-     * POST  /ghi-nos : Create a new ghiNo.
+     * POST /ghi-nos : Create a new ghiNo.
      *
      * @param ghiNoDTO the ghiNoDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new ghiNoDTO, or with status 400 (Bad Request) if the ghiNo has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new ghiNoDTO, or with status 400 (Bad Request) if the ghiNo has already
+     * an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/ghi-nos")
@@ -51,17 +53,18 @@ public class GhiNoResource {
         }
         GhiNoDTO result = ghiNoService.save(ghiNoDTO);
         return ResponseEntity.created(new URI("/api/ghi-nos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /ghi-nos : Updates an existing ghiNo.
+     * PUT /ghi-nos : Updates an existing ghiNo.
      *
      * @param ghiNoDTO the ghiNoDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated ghiNoDTO,
-     * or with status 400 (Bad Request) if the ghiNoDTO is not valid,
-     * or with status 500 (Internal Server Error) if the ghiNoDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * ghiNoDTO, or with status 400 (Bad Request) if the ghiNoDTO is not valid,
+     * or with status 500 (Internal Server Error) if the ghiNoDTO couldn't be
+     * updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/ghi-nos")
@@ -73,27 +76,36 @@ public class GhiNoResource {
         }
         GhiNoDTO result = ghiNoService.save(ghiNoDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ghiNoDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ghiNoDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /ghi-nos : get all the ghiNos.
+     * GET /ghi-nos : get all the ghiNos.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of ghiNos in body
+     * @return the ResponseEntity with status 200 (OK) and the list of ghiNos in
+     * body
      */
     @GetMapping("/ghi-nos")
     @Timed
     public List<GhiNoDTO> getAllGhiNos() {
         log.debug("REST request to get all GhiNos");
         return ghiNoService.findAll();
-        }
+    }
+
+    @GetMapping("/ghi-nos-by-hopdong/{id}")
+    @Timed
+    public List<GhiNoDTO> getGhiNoByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get all GhiNos");
+        return ghiNoService.findByHopDong(id);
+    }
 
     /**
-     * GET  /ghi-nos/:id : get the "id" ghiNo.
+     * GET /ghi-nos/:id : get the "id" ghiNo.
      *
      * @param id the id of the ghiNoDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the ghiNoDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * ghiNoDTO, or with status 404 (Not Found)
      */
     @GetMapping("/ghi-nos/{id}")
     @Timed
@@ -104,7 +116,7 @@ public class GhiNoResource {
     }
 
     /**
-     * DELETE  /ghi-nos/:id : delete the "id" ghiNo.
+     * DELETE /ghi-nos/:id : delete the "id" ghiNo.
      *
      * @param id the id of the ghiNoDTO to delete
      * @return the ResponseEntity with status 200 (OK)

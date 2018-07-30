@@ -3,8 +3,12 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.domain.GhiNo;
 import com.tindung.jhip.repository.GhiNoRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
+import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import com.tindung.jhip.service.mapper.GhiNoMapper;
+import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,10 +30,12 @@ public class GhiNoServiceImpl implements GhiNoService {
     private final GhiNoRepository ghiNoRepository;
 
     private final GhiNoMapper ghiNoMapper;
+    private final NhanVienService nhanVienService;
 
-    public GhiNoServiceImpl(GhiNoRepository ghiNoRepository, GhiNoMapper ghiNoMapper) {
+    public GhiNoServiceImpl(GhiNoRepository ghiNoRepository, GhiNoMapper ghiNoMapper, NhanVienService nhanVienService) {
         this.ghiNoRepository = ghiNoRepository;
         this.ghiNoMapper = ghiNoMapper;
+        this.nhanVienService = nhanVienService;
     }
 
     /**
@@ -41,9 +47,16 @@ public class GhiNoServiceImpl implements GhiNoService {
     @Override
     public GhiNoDTO save(GhiNoDTO ghiNoDTO) {
         log.debug("Request to save GhiNo : {}", ghiNoDTO);
-        GhiNo ghiNo = ghiNoMapper.toEntity(ghiNoDTO);
-        ghiNo = ghiNoRepository.save(ghiNo);
-        return ghiNoMapper.toDto(ghiNo);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+            if (ghiNoDTO.getId() == null) {//them moi
+                ghiNoDTO.setNgayghino(ZonedDateTime.now());
+                ghiNoDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                GhiNo ghiNo = ghiNoMapper.toEntity(ghiNoDTO);
+                ghiNo = ghiNoRepository.save(ghiNo);
+                return ghiNoMapper.toDto(ghiNo);
+            }
+        }
+        throw new InternalError("Khong cos quyen");
     }
 
     /**
@@ -56,8 +69,18 @@ public class GhiNoServiceImpl implements GhiNoService {
     public List<GhiNoDTO> findAll() {
         log.debug("Request to get all GhiNos");
         return ghiNoRepository.findAll().stream()
-            .map(ghiNoMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(ghiNoMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<GhiNoDTO> findByHopDong(Long id) {
+        log.debug("Request to get all GhiNos by hopdong");
+        
+        return ghiNoRepository.findByHopDong(id).stream()
+                .map(ghiNoMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -68,7 +91,8 @@ public class GhiNoServiceImpl implements GhiNoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public GhiNoDTO findOne(Long id) {
+    public GhiNoDTO findOne(Long id
+    ) {
         log.debug("Request to get GhiNo : {}", id);
         GhiNo ghiNo = ghiNoRepository.findOne(id);
         return ghiNoMapper.toDto(ghiNo);
@@ -80,7 +104,8 @@ public class GhiNoServiceImpl implements GhiNoService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id
+    ) {
         log.debug("Request to delete GhiNo : {}", id);
         ghiNoRepository.delete(id);
     }

@@ -37,4 +37,6 @@ public interface GhiNoService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    
+    public List<GhiNoDTO> findByHopDong(Long id);
 }

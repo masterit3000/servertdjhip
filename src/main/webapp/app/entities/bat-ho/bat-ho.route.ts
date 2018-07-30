@@ -6,7 +6,7 @@ import { BatHoDetailComponent } from './bat-ho-detail.component';
 import { BatHoPopupComponent } from './bat-ho-dialog.component';
 import { BatHoDeletePopupComponent } from './bat-ho-delete-dialog.component';
 import { BatHoMoiComponent } from './bat-ho-chuc-nang/bat-ho-moi/bat-ho-moi.component';
-import { KhachHangMoiComponent } from '../khach-hang/khach-hang-chuc-nang/khach-hang-moi/khach-hang-moi.component';
+// import { KhachHangMoiComponent } from '../khach-hang/khach-hang-chuc-nang/khach-hang-moi/khach-hang-moi.component';
 
 export const batHoRoute: Routes = [
     {
@@ -35,15 +35,15 @@ export const batHoRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     },
-    {
-        path: 'khachHangMoi',
-        component: KhachHangMoiComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'servertdjhipApp.batHo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    // {
+    //     path: 'khachHangMoi',
+    //     component: KhachHangMoiComponent,
+    //     data: {
+    //         authorities: ['ROLE_USER'],
+    //         pageTitle: 'servertdjhipApp.batHo.home.title'
+    //     },
+    //     canActivate: [UserRouteAccessService]
+    // }
 ];
 
 export const batHoPopupRoute: Routes = [

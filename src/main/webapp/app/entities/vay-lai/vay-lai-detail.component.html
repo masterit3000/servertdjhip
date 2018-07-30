@@ -51,11 +51,11 @@
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
-                    <td>(Dữ liệu demo)</td>
+                    <td>{{tiendadong}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
-                    <td>(Dữ liệu demo)</td>
+                    <td></td>
                 </tr>
             </table>
         </div>
@@ -86,14 +86,12 @@
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-12">
-                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id"  (onRowSelect)="onRowSelect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
                                 <th>Tiền lãi</th>
-                                <th>Tiền khác</th>
-                                <th>Tổng lãi</th>
                                 <th>Tiền khách trả</th>
                                 <th>
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
@@ -105,9 +103,6 @@
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.chukylai}}</td>
-                                <td>{{vayLai.lai}}</td>
-                                <td>0</td>
-                                <td>{{vayLai.lai}}</td>
                                 <td>{{vayLai.lai}}</td>
                                 <td>
                                     <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
