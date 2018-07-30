@@ -87,7 +87,7 @@
                                         <span>Tìm kiếm</span></button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" routerLink="/khachHangMoi">
+                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
@@ -124,8 +124,8 @@
                                                 <tr *ngFor="let khachHang of khachHangs">
                                                     <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.cmnd}}</td>
+                                                    <td>{{khachHang.diachi}}</td>
                                                     <td>{{khachHang.dienthoai}}</td>
-                                                    <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.trangthai}}</td>
                                                     <td>
                                                         <input type="radio" name="selectKhachHang" [checked]="(idx === 0)" (change)="onSelectionChange(khachHang.id)" [value]="khachHang.id">

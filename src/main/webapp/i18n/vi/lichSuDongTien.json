@@ -22,7 +22,9 @@
             "trangthai": "Trạng thái",
             "ghiChu": "Ghi chú",
             "nhanVien": "Nhân viên",
-            "hopDong": "Hợp đồng"
+            "hopDong": "Hợp đồng",
+            "DADONG": "Đã đóng",
+            "CHUADONG": "Chưa đóng"
         }
     }
 }
