@@ -15,6 +15,7 @@ import com.tindung.jhip.domain.enumeration.THUCHI;
 public class ThuChiDTO implements Serializable {
 
     private Long id;
+    private String tenNhanVien;
 
     @NotNull
     @Size(max = 3000)
@@ -41,6 +42,14 @@ public class ThuChiDTO implements Serializable {
         this.id = id;
     }
 
+    public String getTenNhanVien() {
+        return tenNhanVien;
+    }
+
+    public void setTenNhanVien(String tenNhanVien) {
+        this.tenNhanVien = tenNhanVien;
+    }
+    
     public String getNoidung() {
         return noidung;
     }

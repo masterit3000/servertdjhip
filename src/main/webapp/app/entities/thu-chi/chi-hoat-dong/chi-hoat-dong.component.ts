@@ -22,6 +22,7 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
     thuchi: ThuChi;
     isSaving: boolean;
     nhanviens: NhanVien[];
+    tongTien: number;
 
     constructor(
         private thuChiService: ThuChiService,
@@ -31,14 +32,22 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         private principal: Principal
     ) {
         this.thuchi = new ThuChi();
+        this.tongTien = 0;
     }
     timkiem() {
 
             // console.log(this.tungay);
         // console.log(this.denngay);
+        this.tongTien = 0;
         this.thuChiService.findByTime(this.tungay, this.denngay, THUCHI.CHI).subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
+                this.thuChis.forEach(element => {
+                    this.tongTien =this.tongTien+ element.sotien;
+                    console.log(element.sotien);
+                    console.log(this.tongTien);
+                    
+                });
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -72,9 +81,27 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.thuChiService.findAllThuChiTheoLoai(THUCHI.CHI).subscribe(
+        // this.thuChiService.findAllThuChiTheoLoai(THUCHI.CHI).subscribe(
+        //     (res: HttpResponse<ThuChi[]>) => {
+        //         this.thuChis = res.body;
+        //     },
+        //     (res: HttpErrorResponse) => this.onError(res.message)
+        // );
+        this.tungay = new Date();
+        this.denngay = new Date();
+        console.log(this.tungay);
+        
+        this.thuChiService
+        .findByTime(this.tungay, this.denngay, THUCHI.CHI)
+        .subscribe(
             (res: HttpResponse<ThuChi[]>) => {
                 this.thuChis = res.body;
+                this.thuChis.forEach(element => {
+                    this.tongTien =this.tongTien+ element.sotien;
+                    console.log(element.sotien);
+                    console.log(this.tongTien);
+                    
+                });
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

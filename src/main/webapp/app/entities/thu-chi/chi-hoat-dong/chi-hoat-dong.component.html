@@ -26,7 +26,11 @@
                                         <span style="color: red;">*</span>
                                     </label>
                                     <div class="form-group col-md-8">
-                                        <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/>
+                                            <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" required >
+                                           
+                                                    <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
+                                                </select>
+                                        <!-- <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/> -->
                                     </div>
                                 </div>
                                 <div class="row">
@@ -83,29 +87,55 @@
                                         <thead>
                                             <tr>
                                                 <th class="hidden-xs">
-                                                    STT
+                                                    ID
+                                                </th>
+                                                <th class="align-center">
+                                                    Nội Dung
                                                 </th>
                                                 <th class="align-center">
                                                     Ngày
                                                 </th>
-                                                <th class="align-center">
-                                                    Nhân viên
-                                                </th>
                                                 <th class="align-right">
                                                     Số tiền
                                                 </th>
-                                                <th class="align-center">
-                                                    Ghi chú
+                                                <th class="align-right">
+                                                    Nhân viên
                                                 </th>
-                                                <th width="60px">
-                                                    &nbsp;
-                                                </th>
+                                             
+                                              
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let thuChi of thuChis ;trackBy: trackId">
-                                                <td>
-                                                    <a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a>
+                                                <td><a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a></td>
+                                                <td>{{thuChi.noidung}}</td>
+                                                <td>{{thuChi.thoigian | date:'medium'}}</td>
+                                                <td>{{thuChi.sotien | currency:"VND":true:'2.0-0'}}</td>
+                                               
+                                                <td>{{thuChi.tenNhanVien}}
+                                                    <!-- <div *ngIf="thuChi.nhanVienId">
+                                                        <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]" >{{thuChi.nhanVienId}}</a>
+                                                    </div> -->
+                                                </td>
+                                                                   
+                                            </tr>
+                                        </tbody>
+                                        <!-- <tbody>
+                                            <tr>
+                                                <td class="hidden-xs">
+                                                    1
+                                                </td>
+                                                <td class="align-center">
+                                                    23:53 09/06/2018
+                                                </td>
+                                                <td class="align-center">
+                                                    asdasd
+                                                </td>
+                                                <td class="align-right">
+                                                    <span style="color:red">-1</span>
+                                                </td>
+                                                <td class="align-center">
+                                                    11
                                                 </td>
                                                 <td>{{thuChi.noidung}}</td>
                                                 <td>{{thuChi.thoigian | date:'medium'}}</td>
@@ -118,7 +148,15 @@
                                                 </td>
 
                                             </tr>
-                                        </tbody>
+                                        </tbody> -->
+                                        <tfoot>
+                                            <th>Tổng tiền</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="color: red">{{tongTien | currency:"VND":true:'2.0-0'}}</th>
+                                            <th></th>
+
+                                   </tfoot>
                                     </table>
                                 </div>
                             </div>
