@@ -17,26 +17,38 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
+                                    <label class="form-control-label" for="field_mahopdong">
+                                        <span class="fa fa-credit-card"></span>
+                                        <span jhiTranslate="servertdjhipApp.hopDong.mahopdong">Mahopdong</span>
+                                    </label>
                                     <input [(ngModel)]="vayLai.hopdongvl.mahopdong" type="text" placeholder="VH-x / CD-x" class="form-control" name="mahopdong"
                                         id="field_mahopdong" pTooltip="Nhập mã hợp đồng
                                     Có định dạng 'VL-x/CD-x'" tooltipPosition="top" tooltipEvent="focus" required maxlength="20"
                                     />
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.tienvay" for="field_tienvay">Tienvay</label>
-                                    <p-spinner placeholder="0" [min]="0" [step]="500000" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay" class="form-control"
-                                        name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)" tooltipPosition="top"
-                                        tooltipEvent="hover" required></p-spinner>
+                                    <label class="form-control-label" for="field_tienvay">
+                                        <span class="fa fa-money"></span>
+                                        <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
+                                    </label>
+                                    <p-spinner placeholder="0" [min]="0" [step]="500000" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay"
+                                        class="form-control" name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)"
+                                        tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thoigianvay" for="field_thoigianvay">Thoigianvay</label>
+                                    <label class="form-control-label" for="field_thoigianvay">
+                                        <span class="fa fa-calendar-check-o"></span>
+                                        <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
+                                    </label>
                                     <input [(ngModel)]="vayLai.thoigianvay" [min]="0" type="number" pKeyFilter="pnum" class="form-control" pTooltip="Thời gian vay tính từ ngày tạo hợp đồng"
                                         tooltipPosition="top" tooltipEvent="focus" name="thoigianvay" id="field_thoigianvay"
                                         placeholder="0" required/>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.chukylai" for="field_chukylai">Chukylai</label>
+                                    <label class="form-control-label" for="field_chukylai">
+                                        <span class="fa fa-refresh"></span>
+                                        <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
+                                    </label>
                                     <input [(ngModel)]="vayLai.chukylai" type="number" pKeyFilter="pnum" placeholder="0" class="form-control" name="chukylai"
                                         id="field_chukylai" [min]="0" pTooltip="Nhập chu kỳ đóng lãi
                                         Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus"
@@ -45,7 +57,10 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.hinhthuclai" for="field_hinhthuclai">Hinhthuclai</label>
+                                    <label class="form-control-label" for="field_hinhthuclai">
+                                        <span class="fa fa-folder-open-o"></span>
+                                        <span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span>
+                                    </label>
                                     <select [(ngModel)]="vayLai.hinhthuclai" class="form-control" name="hinhthuclai" id="field_hinhthuclai" required>
                                         <option value="NGAY">{{'servertdjhipApp.HINHTHUCLAI.NGAY' | translate}}</option>
                                         <option value="THANG">{{'servertdjhipApp.HINHTHUCLAI.THANG' | translate}}</option>
@@ -55,7 +70,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.cachtinhlai" for="field_cachtinhlai">Cachtinhlai</label>
+                                    <label class="form-control-label" for="field_cachtinhlai">
+                                        <span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span>
+                                    </label>
                                     <select [(ngModel)]="vayLai.cachtinhlai" class="form-control" name="cachtinhlai" id="field_cachtinhlai" required>
                                         <option value="MOTTRIEU">{{'servertdjhipApp.TINHLAI.MOTTRIEU' | translate}}</option>
                                         <option value="CHUKY">{{'servertdjhipApp.TINHLAI.CHUKY' | translate}}</option>
@@ -63,13 +80,19 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.lai" for="field_lai">Lai</label>
-                                    <p-spinner placeholder="0" [min]="0" [step]="5000" [inputStyle]="{'width':'100%'}" [(ngModel)]="vayLai.lai" class="form-control" name="lai"
-                                        id="field_lai" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
+                                    <label class="form-control-label" for="field_lai">
+                                        <span class="fa fa-money"></span>
+                                        <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
+                                    </label>
+                                    <p-spinner placeholder="0" [min]="0" [step]="5000" [inputStyle]="{'width':'100%'}" [(ngModel)]="vayLai.lai" class="form-control"
+                                        name="lai" id="field_lai" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
                                         (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.vayLai.thulaitruoc" for="field_thulaitruoc">Thulaitruoc</label>
+                                    <label class="form-control-label" for="field_thulaitruoc">
+                                        <span class="fa fa-toggle-on"></span>
+                                        <span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span>
+                                    </label>
                                     <br />
                                     <p-inputSwitch name="thulaitruoc" class="form-control" id="field_thulaitruoc" onLabel="Có" offLabel="Không"></p-inputSwitch>
                                 </div>
@@ -84,7 +107,8 @@
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-left" (click)="timKhachHang()">
                                         <span class="pi pi-search"></span>
-                                        <span>Tìm kiếm</span></button>
+                                        <span>Tìm kiếm</span>
+                                    </button>
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-right jh-create-entity create-khach-hang" routerLink="/khachHangMoi">
@@ -143,7 +167,10 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
+                <label class="form-control-label" for="field_ghichu">
+                    <span class="fa fa-sticky-note-o"></span>
+                    <span jhiTranslate="servertdjhipApp.hopDong.ghichu">Ghichu</span>
+                </label>
                 <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
                     tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
             </div>
@@ -153,11 +180,11 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
                 <span class="fa fa-ban"></span>&nbsp;
                 <span jhiTranslate="entity.action.cancel">Cancel</span>
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-success">
                 <span class="fa fa-save"></span>&nbsp;
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>
