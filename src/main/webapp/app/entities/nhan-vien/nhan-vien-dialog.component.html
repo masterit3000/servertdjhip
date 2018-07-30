@@ -15,25 +15,40 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.ten" for="field_ten">Ten</label>
+                <label class="form-control-label" for="field_ten">
+                    <span class="fa fa-user"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.ten">Ten</span>
+                </label>
                 <input type="text" class="form-control" name="ten" id="field_ten" [(ngModel)]="nhanVien.ten" required/>
             </div>
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.diachi" for="field_diachi">Diachi</label>
+                <label class="form-control-label" for="field_diachi">
+                    <span class="fa fa-home"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.diachi">Diachi</span>
+                </label>
                 <input type="text" class="form-control" name="diachi" id="field_diachi" [(ngModel)]="nhanVien.diachi" maxlength="200" />
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.dienthoai" for="field_dienthoai">Dienthoai</label>
+                <label class="form-control-label" for="field_dienthoai">
+                    <span class="fa fa-phone"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.dienthoai">Dienthoai</span>
+                </label>
                 <input type="text" class="form-control" name="dienthoai" id="field_dienthoai" [(ngModel)]="nhanVien.dienthoai" />
             </div>
             <div class="form-group col-md-4">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.cmnd" for="field_cmnd">Cmnd</label>
+                <label class="form-control-label" for="field_cmnd">
+                    <span class="fa fa-address-card-o"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.cmnd">CMND</span>
+                </label>
                 <input type="text" class="form-control" name="cmnd" id="field_cmnd" [(ngModel)]="nhanVien.cmnd" maxlength="11" />
             </div>
             <div class="form-group col-md-4">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.trangthai" for="field_trangthai">Trangthai</label>
+                <label class="form-control-label" for="field_trangthai">
+                    <span class="fa fa-folder-open-o"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.trangthai">Trangthai</span>
+                </label>
                 <select class="form-control" name="trangthai" [(ngModel)]="nhanVien.trangthai" id="field_trangthai">
                     <option value="DUNGHOATDONG">{{'servertdjhipApp.TrangThaiNhanVien.DUNGHOATDONG' | translate}}</option>
                     <option value="NHANVIEN">{{'servertdjhipApp.TrangThaiNhanVien.NHANVIEN' | translate}}</option>
@@ -45,7 +60,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.ghiChu" for="field_ghiChu">Ghi Chu</label>
+                    <label class="form-control-label" for="field_ghiChu">
+                        <span class="fa fa-sticky-note-o"></span>
+                        <span jhiTranslate="servertdjhipApp.nhanVien.ghiChu">Ghi Chu</span>
+                    </label>
                     <textarea [rows]="5" [cols]="30" type="text" class="form-control" name="ghiChu" id="field_ghiChu" [(ngModel)]="nhanVien.ghiChu"
                         maxlength="3000"></textarea>
                 </div>
@@ -53,14 +71,20 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.tinh" for="field_xa">Tinh</label>
+                        <label class="form-control-label" for="field_xa">
+                            <span class="fa fa-map-o"></span>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.tinh">Tinh</span>
+                        </label>
                         <select class="form-control" id="field_tinh" name="tinh">
                             <option [ngValue]="null"></option>
                             <!-- <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option> -->
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.huyen" for="field_xa">Huyen</label>
+                        <label class="form-control-label" for="field_huyen">
+                            <span class="fa fa-map-o"></span>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.huyen">Huyen</span>
+                        </label>
                         <select class="form-control" id="field_huyen" name="huyen">
                             <option [ngValue]="null"></option>
                             <!-- <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option> -->
@@ -69,14 +93,20 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.xa" for="field_xa">Xa</label>
+                        <label class="form-control-label" for="field_xa">
+                            <span class="fa fa-map-o"></span>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.xa">Xa</span>
+                        </label>
                         <select class="form-control" id="field_xa" name="xa" [(ngModel)]="nhanVien.xaId">
                             <option [ngValue]="null"></option>
                             <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.user" for="field_user">User</label>
+                        <label class="form-control-label" for="field_user">
+                            <span class="fa fa-user"></span>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.user">User</span>
+                        </label>
                         <select class="form-control" id="field_user" name="user" [(ngModel)]="nhanVien.userId">
                             <option [ngValue]="null"></option>
                             <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
@@ -87,7 +117,11 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.nhanVien.ngayTao" for="field_ngayTao">Ngay Tao</label>
+                <label class="form-control-label" for="field_ngayTao">
+                    <span class="fa fa-calendar"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.ngayTao">
+                        Ngay Tao</span>
+                </label>
                 <div class="d-flex">
                     <p-calendar id="field_ngayTao" [(ngModel)]="nhanVien.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ng-readonly="true"></p-calendar>
                     <!-- <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="nhanVien.ngayTao" /> -->
@@ -96,11 +130,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;
             <span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success">
             <span class="fa fa-save"></span>&nbsp;
             <span jhiTranslate="entity.action.save">Save</span>
         </button>
