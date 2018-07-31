@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <th>Nợ</th>
-                    <td colspan="2">{{tienNo-tienTra}}</td>
+                    <td colspan="2">{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -68,7 +68,7 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{batHo.tongtien-tiendadong}}đ
+        Số tiền còn phải đóng: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button type="button" class="btn btn-danger">
