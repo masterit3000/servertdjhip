@@ -6,7 +6,6 @@ import { VayLaiDetailComponent } from './vay-lai-detail.component';
 import { VayLaiPopupComponent } from './vay-lai-dialog.component';
 import { VayLaiDeletePopupComponent } from './vay-lai-delete-dialog.component';
 import { VayLaiMoiComponent } from './vay-lai-chuc-nang/vay-lai-moi/vay-lai-moi.component';
-import { KhachHangMoiComponent } from '../khach-hang/khach-hang-chuc-nang/khach-hang-moi/khach-hang-moi.component';
 
 export const vayLaiRoute: Routes = [
     {
@@ -32,15 +31,6 @@ export const vayLaiRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'khachHangMoi',
-        component: KhachHangMoiComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService]
     }

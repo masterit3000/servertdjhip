@@ -26,7 +26,6 @@ import {
     NoopAnimationsModule
 } from '@angular/platform-browser/animations';
 import { KhachHangChucNangComponent } from './khach-hang-chuc-nang/khach-hang-chuc-nang.component';
-import { KhachHangMoiComponent } from './khach-hang-chuc-nang/khach-hang-moi/khach-hang-moi.component';
 // 2 module nay phai cho vao de co hieu ugn day du
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -62,8 +61,7 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         KhachHangDeletePopupComponent,
         CheckThongTinKhachHangComponent,
         KhachCanVayComponent,
-        KhachHangChucNangComponent,
-        KhachHangMoiComponent
+        KhachHangChucNangComponent
     ],
     entryComponents: [
         KhachHangComponent,
