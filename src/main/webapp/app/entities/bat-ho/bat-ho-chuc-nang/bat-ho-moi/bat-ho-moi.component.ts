@@ -7,6 +7,7 @@ import { BatHo } from '../../bat-ho.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HopDong } from '../../../hop-dong';
 import { Observable } from '../../../../../../../../node_modules/rxjs/Observable';
+import { Subscription } from '../../../../../../../../node_modules/rxjs';
 
 @Component({
     selector: 'jhi-bat-ho-moi',
@@ -20,13 +21,13 @@ export class BatHoMoiComponent implements OnInit {
     khachhangid: any;
     mahopdong: any;
     isSaving: boolean;
-    
+    eventSubscriber: Subscription;
     constructor(
         private khachHangService: KhachHangService,
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
     ) {
         this.batHo = new BatHo();
         this.batHo.hopdong = new HopDong();
@@ -40,7 +41,20 @@ export class BatHoMoiComponent implements OnInit {
     clear() {
         this.previousState();
     }
-    ngOnInit() {}
+    ngOnInit() {
+
+        this.eventSubscriber = this.eventManager // lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
+        .subscribe('khachHangListModification', response => {
+            // đăng ký lắng nghe sự kiện có tên khachHangListModification
+            // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
+            //this.loadAll(); // load lại data
+            // let kh : KhachHang = response;
+            console.log(response); // in ra xem sự kiện nổ ra truyền vào cái j
+            this.keyTimKhachHang = response.content.cmnd;
+            this.batHo.hopdong.khachHangId = response.content.id;
+            // this.timKhachHang();
+        });
+    }
     // save() {
     //     console.log(this.batHo);
     //     this.bathoService.create(this.batHo).subscribe(
@@ -102,7 +116,7 @@ export class BatHoMoiComponent implements OnInit {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    private onSelectionChange(khachangid) {
-        this.batHo.hopdong.khachHangId = khachangid;
+    onRowSelect(event) {
+        this.batHo.hopdong.khachHangId = event.data.id;
     }
 }
