@@ -55,7 +55,8 @@ public class KhachHangServiceImpl implements KhachHangService {
             }
 
             KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
-            khachHang = khachHangRepository.save(khachHang);
+            khachHang = khachHangRepository.saveAndFlush(khachHang);
+            
             return khachHangMapper.toDto(khachHang);
         }
 

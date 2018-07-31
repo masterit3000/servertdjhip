@@ -59,7 +59,7 @@ export class KhachHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        console.log(this.khachHang);
+        // console.log(this.khachHang);
         if (this.khachHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.khachHangService.update(this.khachHang));
@@ -76,7 +76,7 @@ export class KhachHangDialogComponent implements OnInit {
 
     private onSaveSuccess(result: KhachHang) {
 
-        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK111' });
+        this.eventManager.broadcast({ name: 'khachHangListModification', content: result });
         // cho xảy ra sự kiện khachHangListModification,
         // và truyền vào content 'ok111'' tương ứng, chỗ này truyền j vào cũng đc, cả 1 obj cũng đc
         this.isSaving = false;
