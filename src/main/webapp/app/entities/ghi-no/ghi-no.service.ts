@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<GhiNo>;
 export class GhiNoService {
 
     private resourceUrl =  SERVER_API_URL + 'api/ghi-nos';
+    private ghinoUrl = SERVER_API_URL + 'api/ghi-nos-by-hopdong';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -37,6 +38,10 @@ export class GhiNoService {
     query(req?: any): Observable<HttpResponse<GhiNo[]>> {
         const options = createRequestOption(req);
         return this.http.get<GhiNo[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<GhiNo[]>) => this.convertArrayResponse(res));
+    }
+    findByHopDong(id: number): Observable<HttpResponse<GhiNo[]>> {
+        return this.http.get<GhiNo[]>(`${this.ghinoUrl}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<GhiNo[]>) => this.convertArrayResponse(res));
     }
 

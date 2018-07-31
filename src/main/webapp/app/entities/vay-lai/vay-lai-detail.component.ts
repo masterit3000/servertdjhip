@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
-
+import { Message } from 'primeng/components/common/api';
 import { VayLai } from './vay-lai.model';
 import { VayLaiService } from './vay-lai.service';
 import { LichSuDongTien, DONGTIEN } from '../lich-su-dong-tien/lich-su-dong-tien.model';
@@ -23,6 +23,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
+    msgs: Message[] = [];
     dongHD: boolean = false;
     constructor(
         private eventManager: JhiEventManager,
@@ -80,5 +81,12 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             'vayLaiListModification',
             (response) => this.load(this.vayLai.id)
         );
+    }
+    onRowSelect(event) {
+        this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
+        this.lichSuDongTienService.setDongTien(event.data.id)
+            .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien>) => {
+                this.vayLai = vayLaiResponse.body;
+            });
     }
 }

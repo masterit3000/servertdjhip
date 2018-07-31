@@ -30,7 +30,7 @@ export class LichSuDongTienService {
     }
     setDongTien(id: number): Observable<EntityResponseType> {
         return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${this.dongtien}/${id}`, { observe: 'response'})
-        .map((res: EntityResponseType) => this.convertResponse(res));
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {

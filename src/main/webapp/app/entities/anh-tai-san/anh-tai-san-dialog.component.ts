@@ -54,7 +54,10 @@ export class AnhTaiSanDialogComponent implements OnInit {
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<AnhTaiSan>>) {
         result.subscribe((res: HttpResponse<AnhTaiSan>) =>
-            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+            {this.onSaveSuccess(res.body);
+            console.log(res);
+            }, (res: HttpErrorResponse) => this.onSaveError());
+
     }
 
     private onSaveSuccess(result: AnhTaiSan) {

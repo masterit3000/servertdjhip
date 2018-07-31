@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 import { Message } from 'primeng/components/common/api';
@@ -10,6 +10,10 @@ import { LichSuDongTien, DONGTIEN } from '../lich-su-dong-tien/lich-su-dong-tien
 import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 import { LichSuDongTienService } from '../lich-su-dong-tien/lich-su-dong-tien.service';
 import { LichSuThaoTacHopDongService } from '../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
+import { GhiNoService } from '../ghi-no/ghi-no.service';
+import { GhiNo, NOTRA } from '../ghi-no';
+import { Observable } from 'rxjs/Observable';
+
 @Component({
     selector: 'jhi-bat-ho-detail',
     templateUrl: './bat-ho-detail.component.html'
@@ -24,20 +28,27 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     dongHD: boolean = false;
+    ghiNo: GhiNo;
+    ghiNos: GhiNo[];
+    tienNo: number;
+    tienTra: number;
+    isSaving: boolean;
+
 
     constructor(
+
         private eventManager: JhiEventManager,
         private batHoService: BatHoService,
         private lichSuDongTienService: LichSuDongTienService,
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
+        private ghiNoService: GhiNoService,
         private route: ActivatedRoute,
         // private confirmationService: ConfirmationService
-    ) { }
+    ) { this.ghiNo = new GhiNo(); }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
-            this.lichSuThaoTacHopDong(params['id']);
 
         });
         this.registerChangeInBatHos();
@@ -46,13 +57,10 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     hienDongHD() {
         this.dongHD = true;
     }
-    dongDongHD(){
+    dongDongHD() {
         this.dongHD = false;
     }
 
-    lichSuThaoTacHopDong(id) {
-
-    }
     // convertotEnum
     load(id) {
         this.batHoService
@@ -74,6 +82,20 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                     .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
                         this.lichSuThaoTacHopDongs = batHoResponse.body;
                     });
+                this.ghiNoService.findByHopDong(this.batHo.hopdong.id)
+                    .subscribe((ghiNoResponse: HttpResponse<GhiNo[]>) => {
+                        this.ghiNos = ghiNoResponse.body;
+                        this.tienNo = 0;
+                        this.tienTra = 0;
+                        for (let i = 0; i < ghiNoResponse.body.length; i++) {
+                            if (ghiNoResponse.body[i].trangthai.toString() == "NO") {
+                                this.tienNo = this.tienNo + ghiNoResponse.body[i].sotien;
+                            } else {
+                                this.tienTra = this.tienTra + ghiNoResponse.body[i].sotien;
+                            }
+                        }
+
+                    });
             });
     }
     previousState() {
@@ -93,14 +115,71 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     }
     onRowSelect(event) {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
+        
         this.lichSuDongTienService.setDongTien(event.data.id)
             .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
                 this.batHo = batHoResponse.body;
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+        
+                });
             });
+
     }
 
-    onRowUnselect(event) {
-        this.msgs = [{ severity: 'info', summary: 'Car Selected', detail: 'Vin: ' + event.id }];
+    saveNo() {
+        this.isSaving = true;
+        if (this.ghiNo.id !== undefined) {
+            this.ghiNo.trangthai = NOTRA.NO;
+            this.ghiNo.hopDongId = this.batHo.hopdong.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.update(this.ghiNo));
+        } else {
+            this.ghiNo.trangthai = NOTRA.NO;
+            this.ghiNo.hopDongId = this.batHo.hopdong.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.create(this.ghiNo));
+        }
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params['id']);
+
+        });
+
     }
+    saveTraNo() {
+        this.isSaving = true;
+        if (this.ghiNo.id !== undefined) {
+            this.ghiNo.trangthai = NOTRA.TRA;
+            this.ghiNo.hopDongId = this.batHo.hopdong.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.update(this.ghiNo));
+        } else {
+            this.ghiNo.trangthai = NOTRA.TRA;
+            this.ghiNo.hopDongId = this.batHo.hopdong.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.create(this.ghiNo));
+        }
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params['id']);
+
+        });
+    }
+
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<GhiNo>>) {
+        result.subscribe((res: HttpResponse<GhiNo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess(result: GhiNo) {
+        this.eventManager.broadcast({ name: 'ghiNoListModification', content: 'OK' });
+        this.isSaving = false;
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+    
+
 
 }

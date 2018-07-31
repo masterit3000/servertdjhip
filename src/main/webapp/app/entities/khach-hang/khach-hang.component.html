@@ -11,8 +11,8 @@
     </h2>
     <jhi-alert></jhi-alert>
     <hr/>
-    <div>
-        <div>
+    <div class="row">
+        <!-- <div>
             <h3>
                 <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm khách hàng</h3>
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
@@ -24,7 +24,17 @@
             <p-autoComplete [(ngModel)]="khachHang" name="basic" [suggestions]="filteredKhachHangs" (completeMethod)="filterKhachHangs($event)"
                 field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
             <button type="submit" [routerLink]="['../khach-hang', khachHang? khachHang.id || khachHang:none]" class="btn btn-primary">Tìm kiếm</button>
-            <!--TODO: Chuyển sang selection-->
+            
+        </div> -->
+        <div class="col-md-4">
+            <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng" pTooltip="Nhập tên khách hàng/CMND"
+                tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary float-left" (click)="timKhachHang()">
+                <span class="pi pi-search"></span>
+                <span>Tìm kiếm</span>
+            </button>
         </div>
     </div>
     <br/>

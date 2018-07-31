@@ -6,6 +6,7 @@ import { BatHoService } from '../../bat-ho.service';
 import { BatHo } from '../../bat-ho.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HopDong } from '../../../hop-dong';
+import { Observable } from '../../../../../../../../node_modules/rxjs/Observable';
 
 @Component({
     selector: 'jhi-bat-ho-moi',
@@ -18,9 +19,11 @@ export class BatHoMoiComponent implements OnInit {
     keyTimKhachHang: String;
     khachhangid: any;
     mahopdong: any;
+    isSaving: boolean;
+    
     constructor(
         private khachHangService: KhachHangService,
-        private bathoService: BatHoService,
+        private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
@@ -34,25 +37,55 @@ export class BatHoMoiComponent implements OnInit {
         // this.batHo.hopdong = null;
     }
 
-    clear() {}
+    clear() {
+        this.previousState();
+    }
     ngOnInit() {}
-    save() {
-        console.log(this.batHo);
-        this.bathoService.create(this.batHo).subscribe(
-            (res: HttpResponse<BatHo>) => {
-                this.jhiAlertService.info('them bat ho thanh cong', null, null);
-            }, // thanh cong thi goi
-            (err: HttpErrorResponse) => {
-                console.log(err);
-                this.jhiAlertService.error(err.message, null, null);
-            } // loi thi goi ham nay
-        );
+    // save() {
+    //     console.log(this.batHo);
+    //     this.bathoService.create(this.batHo).subscribe(
+    //         (res: HttpResponse<BatHo>) => {
+    //             this.jhiAlertService.info('them bat ho thanh cong', null, null);
+    //             this
+    //         }, // thanh cong thi goi
+    //         (err: HttpErrorResponse) => {
+    //             console.log(err);
+    //             this.jhiAlertService.error(err.message, null, null);
+    //         } // loi thi goi ham nay
+    //     );
 
         // batHo.hopdong.khachangid = this.khachhangid;
         // batHo.hopdong.mahopdong = this.mahopdong;
         // this.bathoService.cre
+    // }
+    save() {
+        this.isSaving = true;
+        if (this.batHo.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.batHoService.update(this.batHo));
+        } else {
+            this.subscribeToSaveResponse(
+                this.batHoService.create(this.batHo));
+        }
+    }
+    private subscribeToSaveResponse(result: Observable<HttpResponse<BatHo>>) {
+        result.subscribe((res: HttpResponse<BatHo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
+    private onSaveSuccess(result: BatHo) {
+        this.eventManager.broadcast({ name: 'batHoListModification', content: 'OK'});
+        this.isSaving = false;
+        // this.activeModal.dismiss(result);
+        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.previousState();
     }
 
+    private onSaveError() {
+        this.isSaving = false;
+    }
+    previousState() {
+        window.history.back();
+    }
     timKhachHang() {
         // const query = event.query;
         // console.log(query);

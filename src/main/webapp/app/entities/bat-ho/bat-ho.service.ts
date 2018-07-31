@@ -32,10 +32,6 @@ export class BatHoService {
         return this.http.get<BatHo>(`${this.resourceUrl}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
-    setDongTien(id: number): Observable<EntityResponseType> {
-        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${this.dongTien}/${id}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
-    }
 
     query(req?: any): Observable<HttpResponse<BatHo[]>> {
         const options = createRequestOption(req);

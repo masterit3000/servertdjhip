@@ -18,12 +18,16 @@
                 </tr>
                 <tr>
                     <th>Bát họ</th>
-                    <td colspan="2">{{batHo.tongtien}}</td>
+                    <td colspan="2">{{batHo.tongtien |currency : 'VND' : true : '2.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Họ từ ngày</th>
                     <td colspan="2">{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <!-- <td>{{batHo.hopdong.ngaytao}}</td> -->
+                </tr>
+                <tr>
+                    <th>Nợ</th>
+                    <td colspan="2">{{tienNo-tienTra}}</td>
                 </tr>
             </table>
         </div>
@@ -31,19 +35,19 @@
             <table class="table table-hover table-bordered">
                 <tr>
                     <th>Số tiền đưa khách (lãi)</th>
-                    <td>{{batHo.tienduakhach}}</td>
+                    <td>{{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Tổng tiền phải đóng</th>
-                    <td>{{batHo.tongtien}}</td>
+                    <td>{{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
-                    <td>{{tiendadong}}</td>
+                    <td>{{tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
-                    <td>{{batHo.tongtien-tiendadong}}</td>
+                    <td>{{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -112,9 +116,9 @@
                             <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                         </td>
                         <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                        <td>{{lichSuDongTien.sotien}}</td>
+                        <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                        <td>{{lichSuDongTien.sotien}}</td>
+                        <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
                             <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                         </td>
@@ -125,7 +129,7 @@
         <p-tabPanel header="Nợ">
             <div class="row">
                 <div class="col-md-6">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" >
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
                         </thead>
@@ -133,12 +137,12 @@
                             <tr>
                                 <td>Số tiền nợ: </td>
                                 <td>
-                                    <input type="number" pInputText placeholder="0">
+                                    <input name="sotien"[(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button class="btn btn-primary float-right">Ghi nợ</button>
+                                    <button (click)="saveNo()" class="btn btn-primary float-right">Ghi nợ</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -153,12 +157,12 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <input type="number" pInputText placeholder="0">
+                                    <input [(ngModel)]="ghiNo.sotien"  pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button class="btn btn-primary float-right">Trả nợ</button>
+                                    <button (click)="saveTraNo()"class="btn btn-primary float-right">Trả nợ</button>
                                 </td>
                             </tr>
                         </tbody>
