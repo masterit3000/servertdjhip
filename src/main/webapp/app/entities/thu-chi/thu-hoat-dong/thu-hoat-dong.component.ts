@@ -92,6 +92,7 @@ export class ThuHoatDongComponent implements OnInit {
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.loadAll();
     }
 
     private onSaveError() {
