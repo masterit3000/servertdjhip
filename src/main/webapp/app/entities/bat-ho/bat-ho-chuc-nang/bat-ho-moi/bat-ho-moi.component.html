@@ -18,20 +18,29 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.mahopdong" for="field_mahopdong">Mahopdong</label>
+                                    <label class="form-control-label" for="field_mahopdong">
+                                        <span class="fa fa-credit-card"></span>
+                                        <span jhiTranslate="servertdjhipApp.hopDong.mahopdong">Mahopdong</span>
+                                    </label>
                                     <input [(ngModel)]="batHo.hopdong.mahopdong" type="text" class="form-control" name="mahopdong" id="field_mahopdong" placeholder="BH-x"
                                         required maxlength="20" pTooltip="Nhập mã hợp đồng
                                         Có định dạng 'BH-x'" tooltipPosition="top" tooltipEvent="focus" />
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongtien" for="field_tongtien">Tongtien</label>
+                                    <label class="form-control-label" for="field_tongtien">
+                                        <span class="fa fa-money"></span>
+                                        <span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span>
+                                    </label>
                                     <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                         [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"
                                         pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover"
                                         required></p-spinner>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tienduakhach" for="field_tienduakhach">Tienduakhach</label>
+                                    <label class="form-control-label" for="field_tienduakhach">
+                                        <span class="fa fa-money"></span>
+                                        <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
+                                    </label>
                                     <p-spinner thousandSeparator="." [step]="1000000" placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                         [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
                                         pTooltip="Nhập số tiền khách nhận
@@ -41,13 +50,19 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.tongsongay" for="field_tongsongay">Tongsongay</label>
+                                    <label class="form-control-label" for="field_tongsongay">
+                                        <span class="fa fa-calendar-check-o"></span>
+                                        <span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span>
+                                    </label>
                                     <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
                                         placeholder="0" [min]="0" pTooltip="Nhập tổng số ngày đóng tiền" tooltipPosition="top"
                                         tooltipEvent="focus" required/>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="form-control-label" jhiTranslate="servertdjhipApp.batHo.chuky" for="field_chuky">Chuky</label>
+                                    <label class="form-control-label" for="field_chuky">
+                                        <span class="fa fa-refresh"></span>
+                                        <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
+                                    </label>
                                     <input [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" placeholder="0"
                                         [min]="0" pTooltip="Nhập chu kỳ đóng tiền
                                         Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus"
@@ -122,12 +137,17 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="form-control-label" jhiTranslate="servertdjhipApp.hopDong.ghichu" for="field_ghichu">Ghichu</label>
+                    <label class="form-control-label" for="field_ghichu">
+                        <span class="fa fa-sticky-note-o"></span>
+                        <span jhiTranslate="servertdjhipApp.hopDong.ghichu">Ghichu</span>
+                    </label>
                     <textarea ngMode [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
                         tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-control-label">Tài sản / chứng từ</label>
+                    <label class="form-control-label">
+                        <span class="fa fa-image"></span>
+                        Tài sản / chứng từ</label>
                     <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>
@@ -168,11 +188,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
                     <span class="fa fa-ban"></span>&nbsp;
                     <span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
+                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-success">
                     <span class="fa fa-save"></span>&nbsp;
                     <span jhiTranslate="entity.action.save">Save</span>
                 </button>

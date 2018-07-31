@@ -1,7 +1,10 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myKhachHangLabel" jhiTranslate="servertdjhipApp.khachHang.home.createOrEditLabel">Create or edit a Khach Hang</h4>
+        <h4 class="modal-title" id="myKhachHangLabel">
+            <span class="fa fa-plus"></span>
+            <span jhiTranslate="servertdjhipApp.khachHang.home.createOrEditLabel">Create or edit a Khach Hang</span>
+        </h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
@@ -12,30 +15,45 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ten" for="field_ten">Ten</label>
+                <label class="form-control-label" for="field_ten">
+                    <span class="fa fa-user"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                </label>
                 <input type="text" placeholder="Tên khách hàng" class="form-control" name="ten" id="field_ten" [(ngModel)]="khachHang.ten"
                     pTooltip="Nhập họ tên đầy đủ của khách hàng" tooltipPosition="top" tooltipEvent="hover" required/>
             </div>
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.diachi" for="field_diachi">Diachi</label>
+                <label class="form-control-label" for="field_diachi">
+                    <span class="fa fa-home"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                </label>
                 <input type="text" class="form-control" name="diachi" id="field_diachi" [(ngModel)]="khachHang.diachi" pTooltip="Nhập địa chỉ của khách hàng"
                     tooltipPosition="top" tooltipEvent="Focus" maxlength="200" required />
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-3">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.dienthoai" for="field_dienthoai">Dienthoai</label>
+                <label class="form-control-label" for="field_dienthoai">
+                    <span class="fa fa-phone"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                </label>
                 <input type="text" class="form-control" name="dienthoai" id="field_dienthoai" [(ngModel)]="khachHang.dienthoai" pTooltip="Nhập số điện thoại của khách hàng"
                     tooltipPosition="top" tooltipEvent="Focus" required/>
             </div>
             <div class="form-group col-md-3">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cmnd" for="field_cmnd">Cmnd</label>
+                <label class="form-control-label" for="field_cmnd">
+                    <span class="fa fa-address-card-o"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.cmnd">Cmnd</span>
+                </label>
                 <input type="text" placeholder="Chứng minh thư" class="form-control" name="cmnd" id="field_cmnd" [(ngModel)]="khachHang.cmnd"
                     pTooltip="Nhập số chứng minh thư của khách hàng" tooltipPosition="top" tooltipEvent="Focus" maxlength="12"
                 />
             </div>
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.email" for="field_email">Email</label>
+                <label class="form-control-label" for="field_email">
+                    <span class="fa fa-envelope-o"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.email">Email</span>
+                </label>
                 <input type="text" class="form-control" name="email" id="field_email" [(ngModel)]="khachHang.email" pTooltip="Nhập email của khách hàng"
                     tooltipPosition="top" tooltipEvent="Focus" required/>
             </div>
@@ -44,7 +62,10 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.trangthai" for="field_trangthai">Trangthai</label>
+                        <label class="form-control-label" for="field_trangthai">
+                            <span class="fa fa-folder-open-o"></span>
+                            <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                        </label>
                         <select class="form-control" name="trangthai" [(ngModel)]="khachHang.trangthai" id="field_trangthai">
                             <option value="HOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
                             <option value="DUNGHOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.DUNGHOATDONG' | translate}}</option>
@@ -54,7 +75,10 @@
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.tinh" for="field_tinh">Tinh</label>
+                        <label class="form-control-label" for="field_tinh">
+                            <span class="fa fa-map-o"></span>
+                            <span jhiTranslate="servertdjhipApp.khachHang.tinh">Tinh</span>
+                        </label>
                         <select class="form-control" id="field_tinh" name="tinh">
                             <option [ngValue]="null"></option>
                         </select>
@@ -62,13 +86,19 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.huyen" for="field_huyen">Huyen</label>
+                        <label class="form-control-label" for="field_huyen">
+                            <span class="fa fa-map-o"></span>
+                            <span jhiTranslate="servertdjhipApp.khachHang.huyen">Huyen</span>
+                        </label>
                         <select class="form-control" id="field_huyen" name="huyen">
                             <option [ngValue]="null"></option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.xa" for="field_xa">Xa</label>
+                        <label class="form-control-label" for="field_xa">
+                            <span class="fa fa-map-o"></span>
+                            <span jhiTranslate="servertdjhipApp.khachHang.xa">Xa</span>
+                        </label>
                         <select class="form-control" id="field_xa" name="xa" [(ngModel)]="khachHang.xaId">
                             <option [ngValue]="null"></option>
                             <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
@@ -77,19 +107,28 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ghiChu" for="field_ghiChu">Ghi Chu</label>
+                <label class="form-control-label" for="field_ghiChu">
+                    <span class="fa fa-sticky-note-o"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.ghiChu">Ghi Chu</span>
+                </label>
                 <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" [(ngModel)]="khachHang.ghiChu" pTooltip="Điền thêm các thông tin khác"
                     tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.facebook" for="field_facebook">Facebook</label>
+                <label class="form-control-label" for="field_facebook">
+                    <span class="fa fa-facebook-square" style="color:#4267b2"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.facebook">Facebook</span>
+                </label>
                 <input type="text" class="form-control" name="facebook" id="field_facebook" [(ngModel)]="khachHang.facebook" pTooltip="Đường link facebook của khách hàng
                         (Có dạng facebook.com/abcxyz)" tooltipPosition="top" tooltipEvent="Focus" />
             </div>
             <div class="form-group col-md-6">
-                <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.ngayTao" for="field_ngayTao">Ngay Tao</label>
+                <label class="form-control-label" for="field_ngayTao">
+                    <span class="fa fa-calendar"></span>
+                    <span jhiTranslate="servertdjhipApp.khachHang.ngayTao">Ngay Tao</span>
+                </label>
                 <div class="d-flex">
                     <p-calendar id="field_ngayTao" [(ngModel)]="khachHang.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" disabled></p-calendar>
                 </div>
@@ -104,11 +143,11 @@
         </div> -->
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;
             <span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success">
             <span class="fa fa-save"></span>&nbsp;
             <span jhiTranslate="entity.action.save">Save</span>
         </button>

@@ -58,7 +58,6 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         FormsModule,
         TooltipModule,
         TableModule,
-        SpinnerModule,
         CheckboxModule,
         GrowlModule,
         SpinnerModule,

@@ -33,8 +33,7 @@ export const batHoRoute: Routes = [
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
-    
+    }
 ];
 
 export const batHoPopupRoute: Routes = [

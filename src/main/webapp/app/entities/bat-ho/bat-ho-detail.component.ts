@@ -121,7 +121,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     }
     onRowSelect(event) {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
-        
         this.lichSuDongTienService.setDongTien(event.data.id)
             .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
                 this.batHo = batHoResponse.body;

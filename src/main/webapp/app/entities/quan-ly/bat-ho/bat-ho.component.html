@@ -1,0 +1,57 @@
+<div>
+    <h2>
+        <i class="fa fa-credit-card" width="20%" aria-hidden="true"></i>
+        <span jhiTranslate="servertdjhipApp.batHo.home.title">Bat Hos</span>
+    </h2>
+    <hr/>
+    <h3>
+        <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm hợp đồng</h3>
+    <div class="ui-g-2">
+        <label class="float label">
+            <span class="ui-float-label">
+                <input id="float-input" name="keyTimBatHo" [(ngModel)]="keyTimBatHo" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND"
+                    tooltipPosition="top" tooltipEvent="focus">
+                <label for="float-input">Tên khách hàng</label>
+            </span>
+        </label>
+    </div>
+    <div class="ui-g-2">
+        <button class="btn btn-primary float-right" (click)="timBatHo()">Tìm kiếm</button>
+    </div>
+    <div class="table-responsive" *ngIf="batHos">
+        <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">ID</span>
+                    </th>
+                    <th>
+                        <span>Tên khách hàng</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-batHo>
+                <tr [pSelectableRow]="batHo" [routerLink]="['../bat-ho-admin', batHo.id ]">
+                    <td>{{batHo.id}}</td>
+                    <td>{{batHo.hopdong.khachHangTen}}</td>
+                    <td>{{batHo.tienduakhach}}</td>
+                    <td>{{batHo.tongtien}}</td>
+                    <td>{{batHo.tongsongay}}</td>
+                    <td>{{batHo.chuky}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

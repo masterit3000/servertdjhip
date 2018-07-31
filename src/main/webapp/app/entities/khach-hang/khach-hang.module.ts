@@ -61,7 +61,7 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         KhachHangDeletePopupComponent,
         CheckThongTinKhachHangComponent,
         KhachCanVayComponent,
-        KhachHangChucNangComponent,
+        KhachHangChucNangComponent
     ],
     entryComponents: [
         KhachHangComponent,
