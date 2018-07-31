@@ -1,0 +1,57 @@
+<div>
+    <h2>
+        <i class="fa fa-money" width="20%" aria-hidden="true"></i>
+        <span jhiTranslate="servertdjhipApp.vayLai.home.title">Vay Lais</span>
+    </h2>
+    <hr/>
+    <h3>
+        <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm hợp đồng</h3>
+    <div class="ui-g-2">
+        <label class="float label">
+            <span class="ui-float-label">
+                <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimVayLai" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND"
+                    tooltipPosition="top" tooltipEvent="focus">
+                <label for="float-input">Tên khách hàng</label>
+            </span>
+        </label>
+    </div>
+    <div class="ui-g-2">
+        <button class="btn btn-primary float-right" (click)="timVayLai()">Tìm kiếm</button>
+    </div>
+    <div class="table-responsive" *ngIf="vayLais">
+        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">ID</span>
+                    </th>
+                    <th>
+                        <span>Tên khách hàng</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-vayLai>
+                <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai', vayLai.id ]">
+                    <td>{{vayLai.id}}</td>
+                    <td>{{vayLai.hopdongvl.khachHangTen}}</td>
+                    <td>{{vayLai.tienvay}}</td>
+                    <td>{{vayLai.thoigianvay}}</td>
+                    <td>{{vayLai.chukylai}}</td>
+                    <td>{{vayLai.lai}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

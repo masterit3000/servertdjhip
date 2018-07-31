@@ -1,0 +1,222 @@
+<div *ngIf="cuaHang">
+    <h2>
+        <span>Cửa hàng</span> {{cuaHang.ten}}</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Quản lý cửa hàng</th>
+                        <td>cuaHang.quanLy</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ</th>
+                        <td>{{cuaHang.diachi}}</td>
+                    </tr>
+                    <tr>
+                        <th>Điện thoại</th>
+                        <td>{{cuaHang.dienthoai}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Tỉnh</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Huyện</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Xã</th>
+                        <td>{{cuaHang.xaId}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Trạng thái</th>
+                        <td>
+                            {{cuaHang.trangthai}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Ngày tạo</th>
+                        <td>{{cuaHang.ngayTao | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ghi chú</th>
+                        <td>{{cuaHang.ghiChu}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;
+        <span>Quay lại</span>
+    </button>
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;
+        <span>Chỉnh sửa</span>
+    </button>
+    <p-tabView>
+        <p-tabPanel header="Danh sách bát họ">
+            <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <span jhiTranslate="global.field.id">ID</span>
+                        </th>
+                        <th>
+                            <span>Tên khách hàng</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-batHo>
+                    <tr [pSelectableRow]="batHo" [routerLink]="['../../bat-ho-admin', batHo.id ]">
+                        <td>{{batHo.id}}</td>
+                        <td>{{batHo.hopdong.khachHangTen}}</td>
+                        <td>{{batHo.tienduakhach}}</td>
+                        <td>{{batHo.tongtien}}</td>
+                        <td>{{batHo.tongsongay}}</td>
+                        <td>{{batHo.chuky}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Danh sách vay lãi">
+            <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <span jhiTranslate="global.field.id">ID</span>
+                        </th>
+                        <th>
+                            <span>Tên khách hàng</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-vayLai>
+                    <tr [pSelectableRow]="vayLai" [routerLink]="['../../vay-lai-admin', vayLai.id ]">
+                        <td>{{vayLai.id}}</td>
+                        <td>{{vayLai.hopdongvl.khachHangTen}}</td>
+                        <td>{{vayLai.tienvay}}</td>
+                        <td>{{vayLai.thoigianvay}}</td>
+                        <td>{{vayLai.chukylai}}</td>
+                        <td>{{vayLai.lai}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Danh sách khách hàng">
+            <p-table [value]="khachHangs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <span jhiTranslate="global.field.id">ID</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.khachHang.cmnd">Cmnd</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-khachHang>
+                    <tr [pSelectableRow]="khachHang" [routerLink]="['../../khach-hang-admin', khachHang.id ]">
+                        <td>{{khachHang.id}}</td>
+                        <td>{{khachHang.ten}}</td>
+                        <td>{{khachHang.diachi}}</td>
+                        <td>{{khachHang.dienthoai}}</td>
+                        <td>{{khachHang.cmnd}}</td>
+                        <td>{{khachHang.trangthai}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Danh sách nhân viên">
+            <p-table [value]="nhanViens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <span jhiTranslate="global.field.id">ID</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.ten">Ten</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.diachi">Diachi</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.dienthoai">Dienthoai</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.cmnd">Cmnd</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.trangthai">Trangthai</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="servertdjhipApp.nhanVien.user">User</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-nhanVien>
+                    <tr [pSelectableRow]="nhanVien" [routerLink]="['../../nhan-vien-admin', nhanVien.id ]">
+                        <td>{{nhanVien.id}}</td>
+                        <td>{{nhanVien.ten}}</td>
+                        <td>{{nhanVien.diachi}}</td>
+                        <td>{{nhanVien.dienthoai}}</td>
+                        <td>{{nhanVien.cmnd}}</td>
+                        <td>{{nhanVien.trangthai}}</td>
+                        <td>{{nhanVien.userId}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+</div>

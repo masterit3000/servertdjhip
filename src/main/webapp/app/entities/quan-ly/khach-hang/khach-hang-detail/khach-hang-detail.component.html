@@ -1,0 +1,73 @@
+<div *ngIf="khachHang">
+    <h2>
+        <span jhiTranslate="servertdjhipApp.khachHang.detail.title">Khach Hang</span> {{khachHang.ten}}</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Tên khách hàng</th>
+                        <td>{{khachHang.ten}} - ID: {{khachHang.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Địa chỉ</th>
+                        <td>{{khachHang.diachi}}</td>
+                    </tr>
+                    <tr>
+                        <th>Điện thoại</th>
+                        <td>{{khachHang.dienthoai}}</td>
+                    </tr>
+                    <tr>
+                        <th>Số chứng minh thư</th>
+                        <td>{{khachHang.cmnd}}</td>
+                    </tr>
+                    <tr>
+                        <th>Trạng thái</th>
+                        <td>
+                            <span>{{khachHang.trangthai}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Ngày tạo</th>
+                        <td>{{khachHang.ngayTao | date:"dd/MM/yyyy"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{khachHang.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Facebook</th>
+                        <td>{{khachHang.facebook}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ghi chú</th>
+                        <td>{{khachHang.ghiChu}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tỉnh</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Huyện</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Xã</th>
+                        <td>{{khachHang.xaId}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;
+        <span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+</div>

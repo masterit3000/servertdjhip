@@ -1,0 +1,60 @@
+<div>
+  <h2>
+    <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
+    <span>Cửa hàng</span>
+    <button class="btn btn-primary float-right jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
+      <span class="fa fa-plus"></span>
+      <span>
+        Tạo cửa hàng mới
+      </span>
+    </button>
+  </h2>
+  <hr/>
+  <div>
+    <div>
+      <h3>
+        <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm cửa hàng</h3>
+      <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
+        field="ten" [size]="30" placeholder="Tên cửa hàng" [minLength]="1"></p-autoComplete>
+      <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
+        field="ten" [size]="30" placeholder="xã" [minLength]="1"></p-autoComplete>
+      <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
+        field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
+      <button type="submit" [routerLink]="['../cua-hang-admin', cuaHang? cuaHang.id || cuaHang:none]" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+
+  </div>
+  <br/>
+  <div class="table-responsive" *ngIf="cuaHangs">
+    <p-table [value]="cuaHangs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>
+            <span jhiTranslate="global.field.id">ID</span>
+          </th>
+          <th>
+            <span>Tên cửa hàng</span>
+          </th>
+          <th>
+            <span>Địa chỉ</span>
+          </th>
+          <th>
+            <span>Điện thoại</span>
+          </th>
+          <th>
+            <span>Trạng thái</span>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cuaHang>
+        <tr [pSelectableRow]="cuaHang" [routerLink]="['../cua-hang-admin', cuaHang.id ]">
+          <td>{{cuaHang.id}}</td>
+          <td>{{cuaHang.ten}}</td>
+          <td>{{cuaHang.diachi}}</td>
+          <td>{{cuaHang.dienthoai}}</td>
+          <td>{{cuaHang.trangthai}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

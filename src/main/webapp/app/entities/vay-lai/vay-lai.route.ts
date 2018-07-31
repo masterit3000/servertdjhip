@@ -33,7 +33,7 @@ export const vayLaiRoute: Routes = [
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
+    }
 ];
 
 export const vayLaiPopupRoute: Routes = [

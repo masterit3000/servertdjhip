@@ -45,9 +45,7 @@ export const khachHangRoute: Routes = [
             pageTitle: 'servertdjhipApp.khachHang.khachCanVay'
         },
         canActivate: [UserRouteAccessService]
-    },
-
-    
+    }
 ];
 
 export const khachHangPopupRoute: Routes = [

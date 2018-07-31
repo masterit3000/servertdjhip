@@ -1,0 +1,101 @@
+<div *ngIf="batHo">
+  <h2>
+    <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span> {{batHo.hopdong.mahopdong}}</h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered table-hover text-left">
+        <tr>
+          <th>Tên khách hàng</th>
+          <td>
+            <a>{{batHo.hopdong.khachHangTen}}</a>
+          </td>
+          <td>
+            ID:
+            <a>{{batHo.hopdong.khachHangId}}</a>
+          </td>
+        </tr>
+        <tr>
+          <th>Bát họ</th>
+          <td colspan="2">{{batHo.tongtien}}</td>
+        </tr>
+        <tr>
+          <th>Họ từ ngày</th>
+          <td colspan="2">{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
+          <!-- <td>{{batHo.hopdong.ngaytao}}</td> -->
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-hover table-bordered">
+        <tr>
+          <th>Số tiền đưa khách (lãi)</th>
+          <td>{{batHo.tienduakhach}}</td>
+        </tr>
+        <tr>
+          <th>Tổng tiền phải đóng</th>
+          <td>{{batHo.tongtien}}</td>
+        </tr>
+        <tr>
+          <th>Đã đóng</th>
+          <td>{{tiendadong}}</td>
+        </tr>
+        <tr>
+          <th>Còn lại</th>
+          <td>{{batHo.tongtien-tiendadong}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <button type="submit" (click)="previousState()" class="btn btn-info">
+    <span class="fa fa-arrow-left"></span>&nbsp;
+    <span jhiTranslate="entity.action.back"> Back</span>
+  </button>
+  <p-tabView>
+    <p-tabPanel header="Lịch đóng tiền" disabled>
+      <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+        (onRowUnselect)="onRowUnselect($event)">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              <span>STT</span>
+            </th>
+            <th>
+              <span>Trạng Thái</span>
+            </th>
+            <th>
+              <span>Ngày họ</span>
+            </th>
+            <th>
+              <span>Tiền họ</span>
+            </th>
+            <th>
+              <span>Ngày giao dịch</span>
+            </th>
+            <th>
+              <span>Tiền khách trả</span>
+            </th>
+            <th>
+              <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lichSuDongTien>
+          <tr [pSelectableRow]="lichSuDongTien">
+            <td>{{lichSuDongTien.id}}</td>
+            <td>
+              <span>{{lichSuDongTien.trangthai}}</span>
+            </td>
+            <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+            <td>{{lichSuDongTien.sotien}}</td>
+            <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+            <td>{{lichSuDongTien.sotien}}</td>
+            <td>
+              <!-- <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox> -->
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>
