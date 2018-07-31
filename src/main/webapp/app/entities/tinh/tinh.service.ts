@@ -71,4 +71,9 @@ export class TinhService {
         const copy: Tinh = Object.assign({}, tinh);
         return copy;
     }
+    getTinh(query: any): Observable<Tinh[]> {
+        return this.http
+            .get('/api/tinhs')
+            .map(response => response as Tinh[]);
+    }
 }

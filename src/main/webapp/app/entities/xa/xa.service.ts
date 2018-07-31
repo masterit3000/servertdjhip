@@ -71,4 +71,9 @@ export class XaService {
         const copy: Xa = Object.assign({}, xa);
         return copy;
     }
+    getXa(query: any): Observable<Xa[]> {
+        return this.http
+            .get('/api/xas')
+            .map(response => response as Xa[]);
+    }
 }
