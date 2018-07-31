@@ -16,70 +16,70 @@ const routes: Routes = [
   {
     path: 'bat-ho-admin', component: BatHoAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.batHo.home.title'
     },
   },
   {
     path: 'bat-ho-admin/:id', component: BatHoDetailAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.batHo.home.title'
     },
   },
   {
     path: 'vay-lai-admin', component: VayLaiAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.vayLai.home.title'
     },
   },
   {
     path: 'vay-lai-admin/:id', component: VayLaiDetailAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.vayLai.home.title'
     },
   },
   {
     path: 'khach-hang-admin', component: KhachHangAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.khachHang.home.title'
     },
   },
   {
     path: 'khach-hang-admin/:id', component: KhachHangDetailAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.khachHang.home.title'
     },
   },
   {
     path: 'cua-hang-admin', component: CuaHangAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.cuaHang.home.title'
     },
   },
   {
     path: 'cua-hang-admin/:id', component: CuaHangDetailAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.cuaHang.home.title'
     },
   },
   {
     path: 'nhan-vien-admin', component: NhanVienAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.nhanVien.home.title'
     },
   },
   {
     path: 'nhan-vien-admin/:id', component: NhanVienDetailAdminComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.nhanVien.home.title'
     },
   }
