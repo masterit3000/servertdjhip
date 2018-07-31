@@ -16,7 +16,7 @@ public class GhiNoDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+//    @NotNull
     private ZonedDateTime ngayghino;
 
     @NotNull
