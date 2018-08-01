@@ -300,7 +300,7 @@ public class BatHoServiceImpl implements BatHoService {
                 .map(batHoMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
-
+    
     private void validate(BatHoDTO bh) {
 
         if (bh.getTongsongay() < 0) {
@@ -319,4 +319,5 @@ public class BatHoServiceImpl implements BatHoService {
 
         }
     }
+
 }
