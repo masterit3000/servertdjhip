@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import {TableModule} from 'primeng/table';
 import { ServertdjhipSharedModule } from '../../shared';
 import {DialogModule} from 'primeng/dialog';
+import {GrowlModule} from 'primeng/growl';
 import {
     VayLaiService,
     VayLaiPopupService,
@@ -56,6 +57,7 @@ const ENTITY_STATES = [...vayLaiRoute, ...vayLaiPopupRoute];
         KeyFilterModule,
         TooltipModule,
         TableModule,
+        GrowlModule,
         SpinnerModule,
         DialogModule
     ],

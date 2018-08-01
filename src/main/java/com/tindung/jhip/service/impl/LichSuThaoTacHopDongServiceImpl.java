@@ -11,6 +11,7 @@ import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.mapper.LichSuThaoTacHopDongMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -57,9 +58,14 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
     @Override
     public LichSuThaoTacHopDongDTO save(LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO) {
         log.debug("Request to save LichSuThaoTacHopDong : {}", lichSuThaoTacHopDongDTO);
-        LichSuThaoTacHopDong lichSuThaoTacHopDong = lichSuThaoTacHopDongMapper.toEntity(lichSuThaoTacHopDongDTO);
-        lichSuThaoTacHopDong = lichSuThaoTacHopDongRepository.save(lichSuThaoTacHopDong);
-        return lichSuThaoTacHopDongMapper.toDto(lichSuThaoTacHopDong);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+            lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+            lichSuThaoTacHopDongDTO.setNhanVienId(cuaHangService.findIDByUserLogin());
+            LichSuThaoTacHopDong lichSuThaoTacHopDong = lichSuThaoTacHopDongMapper.toEntity(lichSuThaoTacHopDongDTO);
+            lichSuThaoTacHopDong = lichSuThaoTacHopDongRepository.save(lichSuThaoTacHopDong);
+            return lichSuThaoTacHopDongMapper.toDto(lichSuThaoTacHopDong);
+        }
+        throw new InternalError("Khong cos quyen");
     }
 
     /**
@@ -103,8 +109,8 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
 
     @Override
     public List<LichSuThaoTacHopDongDTO> findByHopDong(long idhopdong) {
-                List<LichSuThaoTacHopDong> findByHopDong = lichSuThaoTacHopDongRepository.findByHopDong(idhopdong);
-                List<LichSuThaoTacHopDongDTO> collect = findByHopDong.stream().map(lichSuThaoTacHopDongMapper::toDto).collect(Collectors.toList());
-                return collect;
+        List<LichSuThaoTacHopDong> findByHopDong = lichSuThaoTacHopDongRepository.findByHopDong(idhopdong);
+        List<LichSuThaoTacHopDongDTO> collect = findByHopDong.stream().map(lichSuThaoTacHopDongMapper::toDto).collect(Collectors.toList());
+        return collect;
     }
 }
