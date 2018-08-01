@@ -320,4 +320,16 @@ public class BatHoServiceImpl implements BatHoService {
         }
     }
 
+    //Tùng viết
+    @Override
+    @Transactional(readOnly = true)
+    public List<BatHoDTO> findByCuaHangId(Long id) {
+
+        List<BatHo> findByCuaHangId = batHoRepository.findByCuaHangId(id);
+        List<BatHoDTO> collect = findByCuaHangId.stream()
+            .map(batHoMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
+    }
+    //Tùng end
 }

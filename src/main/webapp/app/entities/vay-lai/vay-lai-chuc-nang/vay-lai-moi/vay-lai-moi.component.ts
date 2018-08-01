@@ -22,6 +22,7 @@ export class VayLaiMoiComponent implements OnInit {
     mahopdong: any;
     isSaving: boolean;
     eventSubscriber: Subscription;
+    selected: KhachHang;
 
     constructor(
         private khachHangService: KhachHangService,

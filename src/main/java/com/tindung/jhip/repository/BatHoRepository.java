@@ -21,4 +21,8 @@ public interface BatHoRepository extends JpaRepository<BatHo, Long> {
     @Query("select k from BatHo k inner join k.hopdongbh h inner join h.khachHang j where j.ten like :key or j.cmnd like :key ")
     public List<BatHo> findByNameOrCMND(@Param("key") String key);
 //    public Optional<BatHo> findOneByCuaHang(Long id, Long cuaHangId);
+    //Tùng viết
+    @Query(value = "select b from BatHo b inner join b.hopdongbh h inner join h.cuaHang c where c.id =:idcuahang")
+    public List<BatHo> findByCuaHangId(@Param(value = "idcuahang") Long cuaHangId);
+    //Tùng end
 }

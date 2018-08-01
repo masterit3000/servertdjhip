@@ -1,23 +1,23 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { CuaHang } from '../../../cua-hang/cua-hang.model';
-import { CuaHangService } from '../../../cua-hang/cua-hang.service';
-import { BatHo } from '../../../bat-ho/bat-ho.model';
-import { BatHoService } from '../../../bat-ho/bat-ho.service';
-import { Principal } from '../../../../shared';
-import { VayLai } from '../../../vay-lai/vay-lai.model';
-import { VayLaiService } from '../../../vay-lai/vay-lai.service';
-import { KhachHang } from '../../../khach-hang/khach-hang.model';
-import { KhachHangService } from '../../../khach-hang/khach-hang.service';
-import { NhanVien } from '../../../nhan-vien/nhan-vien.model';
-import { NhanVienService } from '../../../nhan-vien/nhan-vien.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
+import { JhiEventManager, JhiAlertService } from "ng-jhipster";
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
+import { CuaHang } from "../../../cua-hang/cua-hang.model";
+import { CuaHangService } from "../../../cua-hang/cua-hang.service";
+import { BatHo } from "../../../bat-ho/bat-ho.model";
+import { BatHoService } from "../../../bat-ho/bat-ho.service";
+import { Principal } from "../../../../shared";
+import { VayLai } from "../../../vay-lai/vay-lai.model";
+import { VayLaiService } from "../../../vay-lai/vay-lai.service";
+import { KhachHang } from "../../../khach-hang/khach-hang.model";
+import { KhachHangService } from "../../../khach-hang/khach-hang.service";
+import { NhanVien } from "../../../nhan-vien/nhan-vien.model";
+import { NhanVienService } from "../../../nhan-vien/nhan-vien.service";
 
 @Component({
-    selector: 'cua-hang-detail-admin',
-    templateUrl: './cua-hang-detail.component.html'
+    selector: "jhi-cua-hang-detail-admin",
+    templateUrl: "./cua-hang-detail.component.html"
 })
 export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     cuaHang: CuaHang;
@@ -36,7 +36,7 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     selected: BatHo;
     none: any;
     keyTimBatHo: string;
-    keyTimVayLai:string;
+    keyTimVayLai: string;
     constructor(
         private batHoService: BatHoService,
         private vayLaiService: VayLaiService,
@@ -47,8 +47,7 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private jhiAlertService: JhiAlertService,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.batHoService.query().subscribe(
@@ -80,14 +79,12 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     timBatHo() {
         // const query = event.query;
         // console.log(query);
-        this.batHoService
-            .findBatHoByTenOrCMND(this.keyTimBatHo)
-            .subscribe(
-                (res: HttpResponse<BatHo[]>) => {
-                    this.batHos = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo).subscribe(
+            (res: HttpResponse<BatHo[]>) => {
+                this.batHos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     private onError(error) {
@@ -95,12 +92,12 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe((params) => {
-            this.load(params['id']);
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params["id"]);
         });
         this.registerChangeInCuaHangs();
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInBatHos();
@@ -110,10 +107,16 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.cuaHangService.find(id)
+        this.cuaHangService
+            .find(id)
             .subscribe((cuaHangResponse: HttpResponse<CuaHang>) => {
                 this.cuaHang = cuaHangResponse.body;
             });
+        // this.batHoService                    <----------------THỦ PHẠM BUG
+        //     .findByCuaHangId(this.cuaHang.id)
+        //     .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
+        //         this.batHos = batHoResponse.body;
+        //     });
     }
     previousState() {
         window.history.back();
@@ -137,20 +140,26 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInBatHos() {
-        this.eventSubscriber = this.eventManager.subscribe('batHoListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            "batHoListModification",
+            response => this.loadAll()
+        );
     }
     registerChangeInVayLais() {
-        this.eventSubscriber = this.eventManager.subscribe('vayLaiListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            "vayLaiListModification",
+            response => this.loadAll()
+        );
     }
     registerChangeInCuaHangs() {
         this.eventSubscriber = this.eventManager.subscribe(
-            'cuaHangListModification',
-            (response) => this.load(this.cuaHang.id)
+            "cuaHangListModification",
+            response => this.load(this.cuaHang.id)
         );
     }
     registerChangeInKhachHangs() {
         this.eventSubscriber = this.eventManager // lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
-            .subscribe('khachHangListModification', response => {
+            .subscribe("khachHangListModification", response => {
                 // đăng ký lắng nghe sự kiện có tên khachHangListModification
                 // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
                 this.loadAll(); // load lại data
@@ -159,28 +168,24 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     }
     registerChangeInNhanViens() {
         this.eventSubscriber = this.eventManager.subscribe(
-            'nhanVienListModification',
+            "nhanVienListModification",
             response => this.loadAll()
         );
     }
     timVayLai() {
-        this.vayLaiService
-            .findVayLaiByTenOrCMND(this.keyTimVayLai)
-            .subscribe(
-                (res: HttpResponse<VayLai[]>) => {
-                    this.vayLais = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.vayLaiService.findVayLaiByTenOrCMND(this.keyTimVayLai).subscribe(
+            (res: HttpResponse<VayLai[]>) => {
+                this.vayLais = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
     filterKhachHangs(event: any) {
         const query = event.query;
         console.log(query);
-        this.khachHangService
-            .query(query)
-            .subscribe((khachHangs: any) => {
-                this.filteredKhachHangs = khachHangs;
-            });
+        this.khachHangService.query(query).subscribe((khachHangs: any) => {
+            this.filteredKhachHangs = khachHangs;
+        });
     }
     filterNhanViens(event: any) {
         const query = event.query;
