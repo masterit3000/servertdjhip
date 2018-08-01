@@ -83,8 +83,7 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                (onRowUnselect)="onRowUnselect($event)">
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)">
                 <ng-template pTemplate="header">
                     <tr>
                         <th colspan="2">
@@ -105,7 +104,8 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-lichSuDongTien>
-                    <tr [pSelectableRow]="lichSuDongTien">
+                    <!-- <tr [pSelectableRow]="lichSuDongTien" [class.ng-star-inserted]="{true}"> -->
+                    <tr [pSelectableRow]="lichSuDongTien" [className]="light">
                         <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>
@@ -116,7 +116,7 @@
 
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
-                            <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
                         </td>
                     </tr>
                 </ng-template>

@@ -67,7 +67,7 @@
                             <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
                         </label>
                         <select class="form-control" name="trangthai" [(ngModel)]="khachHang.trangthai" id="field_trangthai">
-                            <option value="HOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
+                            <option value="HOATDONG" selected>{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
                             <option value="DUNGHOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.DUNGHOATDONG' | translate}}</option>
                             <option value="CAPDO1">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO1' | translate}}</option>
                             <option value="CAPDO2">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO2' | translate}}</option>
@@ -83,7 +83,7 @@
                             <option [ngValue]="null"></option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="tinh" name="basic" [suggestions]="filteredTinhs" (completeMethod)="filterTinhs($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"  ></p-autoComplete>
                     </div>
                 </div>
                 <div class="row">
@@ -96,7 +96,7 @@
                             <option [ngValue]="null"></option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="huyen" name="basic" [suggestions]="filteredHuyens" (completeMethod)="filterHuyens($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Huyện" [minLength]="1"></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'90%'}" placeholder="Huyện" [minLength]="1" [dropdown]="true" ></p-autoComplete>
 
                     </div>
                     <div class="form-group col-md-6">
@@ -109,7 +109,7 @@
                             <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="xa" name="basic" [suggestions]="filteredXas" (completeMethod)="filterXas($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Xã" [minLength]="1"></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dataKey]="id" [dropdown]="true" ></p-autoComplete>
                     </div>
                 </div>
             </div>

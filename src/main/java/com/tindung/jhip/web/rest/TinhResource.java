@@ -39,10 +39,12 @@ public class TinhResource {
     }
 
     /**
-     * POST  /tinhs : Create a new tinh.
+     * POST /tinhs : Create a new tinh.
      *
      * @param tinhDTO the tinhDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new tinhDTO, or with status 400 (Bad Request) if the tinh has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new tinhDTO, or with status 400 (Bad Request) if the tinh has already an
+     * ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/tinhs")
@@ -54,17 +56,18 @@ public class TinhResource {
         }
         TinhDTO result = tinhService.save(tinhDTO);
         return ResponseEntity.created(new URI("/api/tinhs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /tinhs : Updates an existing tinh.
+     * PUT /tinhs : Updates an existing tinh.
      *
      * @param tinhDTO the tinhDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated tinhDTO,
-     * or with status 400 (Bad Request) if the tinhDTO is not valid,
-     * or with status 500 (Internal Server Error) if the tinhDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * tinhDTO, or with status 400 (Bad Request) if the tinhDTO is not valid, or
+     * with status 500 (Internal Server Error) if the tinhDTO couldn't be
+     * updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/tinhs")
@@ -76,27 +79,29 @@ public class TinhResource {
         }
         TinhDTO result = tinhService.save(tinhDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tinhDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, tinhDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /tinhs : get all the tinhs.
+     * GET /tinhs : get all the tinhs.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of tinhs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of tinhs in
+     * body
      */
     @GetMapping("/tinhs")
     @Timed
     public List<TinhDTO> getAllTinhs() {
         log.debug("REST request to get all Tinhs");
         return tinhService.findAll();
-        }
+    }
 
     /**
-     * GET  /tinhs/:id : get the "id" tinh.
+     * GET /tinhs/:id : get the "id" tinh.
      *
      * @param id the id of the tinhDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the tinhDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * tinhDTO, or with status 404 (Not Found)
      */
     @GetMapping("/tinhs/{id}")
     @Timed
@@ -106,8 +111,16 @@ public class TinhResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(tinhDTO));
     }
 
+    @GetMapping("/tinhs/tim/{query}")
+    @Timed
+    public List<TinhDTO> timTinh(@PathVariable String query) {
+        log.debug("REST request to get Tinh : {}", query);
+        List<TinhDTO> tinhs = tinhService.findByName(query);
+        return tinhs;
+    }
+
     /**
-     * DELETE  /tinhs/:id : delete the "id" tinh.
+     * DELETE /tinhs/:id : delete the "id" tinh.
      *
      * @param id the id of the tinhDTO to delete
      * @return the ResponseEntity with status 200 (OK)

@@ -56,8 +56,8 @@ public class TinhServiceImpl implements TinhService {
     public List<TinhDTO> findAll() {
         log.debug("Request to get all Tinhs");
         return tinhRepository.findAll().stream()
-            .map(tinhMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(tinhMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -83,5 +83,15 @@ public class TinhServiceImpl implements TinhService {
     public void delete(Long id) {
         log.debug("Request to delete Tinh : {}", id);
         tinhRepository.delete(id);
+    }
+
+    @Override
+    public List<TinhDTO> findByName(String query) {
+        log.debug("Request to get all Tinhs");
+        StringBuffer buffer = new StringBuffer(query);
+        buffer = buffer.append("%");
+        return tinhRepository.findByName(buffer.toString()).stream()
+                .map(tinhMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 }

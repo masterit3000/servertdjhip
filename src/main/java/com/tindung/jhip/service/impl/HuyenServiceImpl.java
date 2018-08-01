@@ -84,4 +84,12 @@ public class HuyenServiceImpl implements HuyenService {
         log.debug("Request to delete Huyen : {}", id);
         huyenRepository.delete(id);
     }
+
+    @Override
+    public List<HuyenDTO> findAllByTinh(Long idtinh) {
+         log.debug("Request to get all Huyens by tinh:"+idtinh);
+        return huyenRepository.findAllByTinh(idtinh).stream()
+            .map(huyenMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 }
