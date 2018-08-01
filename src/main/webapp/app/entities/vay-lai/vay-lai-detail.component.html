@@ -9,11 +9,11 @@
                 <tr>
                     <th>Tên khách hàng</th>
                     <td>
-                        <a>{{vayLai.hopdongvl.khachHangTen}}</a>
+                        <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangTen}}</a>
                     </td>
                     <td>
                         ID:
-                        <a>{{vayLai.hopdongvl.khachHangId}}</a>
+                        <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -73,7 +73,7 @@
         Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra}}}đ
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
-            <button type="button"(click)="dongHopDong()" class="btn btn-danger">
+            <button type="button" (click)="dongHopDong()" class="btn btn-danger">
                 <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
             </button>
             <button type="button" (click)="dongDongHD()" class="btn btn-success">
@@ -94,6 +94,7 @@
                                 <th>Trạng thái</th>
                                 <th>Chu kỳ lãi</th>
                                 <th>Tiền khách trả</th>
+
                                 <th>
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
@@ -108,6 +109,7 @@
                                 </td>
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+
                                 <td>
                                     <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                                 </td>
@@ -241,7 +243,7 @@
                             <tr>
                                 <td>Thời gian vay:</td>
                                 <td>
-                                    <input [(ngModel)]="vayLai.thoigianvay "  [min]="0" type="number" pKeyFilter="pnum" class="form-control" pInputText> Ngày
+                                    <input [(ngModel)]="vayLai.thoigianvay " [min]="0" type="number" pKeyFilter="pnum" class="form-control" pInputText> Ngày
                                 </td>
                             </tr>
                             <tr>
@@ -291,7 +293,7 @@
                             <tr>
                                 <td>Số tiền nợ: </td>
                                 <td>
-                                    <input name="sotien" [(ngModel)]="ghiNo.sotien"  pInputText placeholder="0">
+                                    <input name="sotien" [(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>

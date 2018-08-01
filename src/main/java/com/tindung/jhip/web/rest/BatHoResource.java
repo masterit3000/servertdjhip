@@ -196,4 +196,13 @@ public class BatHoResource {
         batHoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    //Tùng viết
+    @GetMapping("/bat-hos-by-cua-hang/{id}")
+    @Timed
+    public List<BatHoDTO> getBatHoByCuaHangId(@PathVariable Long cuaHangId) {
+        log.debug("REST request to get BatHo by CuaHangId: {}", cuaHangId);
+        return batHoService.findByCuaHangId(cuaHangId);
+    }
+    //Tùng end
 }

@@ -178,26 +178,33 @@
                     <span jhiTranslate="global.menu.dongTienTheoNgay">Dòng tiền theo ngày</span>
                 </a>
             </div>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/bat-ho-admin" (click)="activeMenuId = null">
-                <i class="fa fa-credit-card" width="20%" aria-hidden="true"></i>
-                <span jhiTranslate="global.menu.batHo">Bát họ</span>
+            <a id="quan-ly-menu" #menuquanly [class.active-menuitem]="menuquanly.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuquanly.id ? null : menuquanly.id)">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <span>Quản lý</span>
+                <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
             </a>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/vay-lai-admin" (click)="activeMenuId = null">
-                <i class="fa fa-money" width="20%" aria-hidden="true"></i>
-                <span jhiTranslate="global.menu.vayLai">Vay lãi</span>
-            </a>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/khach-hang-admin" (click)="activeMenuId = null">
-                <i class="fa fa-address-card-o" width="20%" aria-hidden="true"></i>
-                <span jhiTranslate="global.menu.khachHang">Khách hàng</span>
-            </a>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/cua-hang-admin" (click)="activeMenuId = null">
-                <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
-                <span jhiTranslate="global.menu.quanLyCuaHang">Cửa hàng</span>
-            </a>
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/nhan-vien-admin" (click)="activeMenuId = null">
-                <i class="fa fa-user" width="20%" aria-hidden="true"></i>
-                <span jhiTranslate="global.menu.quanLyNhanVien">Nhân viên</span>
-            </a>
+            <div [ngClass]="{submenushow: (menuquanly.id == activeMenuId), 'submenuhide': (menuquanly.id != activeMenuId)}">
+                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/bat-ho-admin" (click)="menuActive = false">
+                    <i class="fa fa-credit-card" width="20%" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.batHo">Bát họ</span>
+                </a>
+                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/vay-lai-admin" (click)="menuActive = false">
+                    <i class="fa fa-money" width="20%" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.vayLai">Vay lãi</span>
+                </a>
+                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/khach-hang-admin" (click)="menuActive = false">
+                    <i class="fa fa-address-card-o" width="20%" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.khachHang">Khách hàng</span>
+                </a>
+                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/cua-hang-admin" (click)="menuActive = false">
+                    <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.quanLyCuaHang">Cửa hàng</span>
+                </a>
+                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/nhan-vien-admin" (click)="menuActive = false">
+                    <i class="fa fa-user" width="20%" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.quanLyNhanVien">Nhân viên</span>
+                </a>
+            </div>
         </div>
     </div>
     <!-- </p-sidebar> -->

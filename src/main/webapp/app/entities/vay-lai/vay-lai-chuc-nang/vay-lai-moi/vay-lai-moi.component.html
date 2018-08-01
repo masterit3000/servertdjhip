@@ -120,12 +120,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <!--TODO: Scroll Panel PrimeNG-->
                                 <div class="col-md-12">
                                     <p-scrollPanel [style]="{width: '100%', height: '200px'}">
-                                        <table class="table table-striped table-hover text-center">
-                                            <thead>
+                                        <p-table [value]="khachHangs" [paginator]="true" selectionMode="single" [rows]="5" [(selection)]="selected" dataKey="id"
+                                            (onRowSelect)="onRowSelect($event)">
+                                            <!-- <table class="table table-striped table-hover text-center"> -->
+                                            <ng-template pTemplate="header">
                                                 <tr>
+
                                                     <th>
                                                         <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
                                                     </th>
@@ -141,22 +143,21 @@
                                                     <th>
                                                         <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
                                                     </th>
-                                                    <th>Chọn</th>
+
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let khachHang of khachHangs">
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-khachHang>
+                                                <tr [pSelectableRow]="khachHang">
+
                                                     <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.cmnd}}</td>
                                                     <td>{{khachHang.diachi}}</td>
                                                     <td>{{khachHang.dienthoai}}</td>
                                                     <td>{{khachHang.trangthai}}</td>
-                                                    <td>
-                                                        <input type="radio" name="selectKhachHang" [checked]="(idx === 0)" (change)="onSelectionChange(khachHang.id)" [value]="khachHang.id">
-                                                    </td>
+
                                                 </tr>
-                                            </tbody>
-                                        </table>
+                                            </ng-template>
+                                        </p-table>
                                     </p-scrollPanel>
                                 </div>
                             </div>

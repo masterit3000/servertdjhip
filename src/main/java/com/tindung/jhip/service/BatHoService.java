@@ -42,7 +42,9 @@ public interface BatHoService {
 
     LichSuDongTienDTO setDongTien(Long id);
 
-    List<BatHoDTO> findByNameOrCMND(String key);
+    // List<BatHoDTO> findByNameOrCMND(String key);
 
 //    BatHoDTO daoHo(BatHoDTO batHoDTO, Long id);
+    List<BatHoDTO> findByNameOrCMND(String key);
+    List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
 }

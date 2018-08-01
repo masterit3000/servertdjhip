@@ -10,11 +10,11 @@
                 <tr>
                     <th>Tên khách hàng</th>
                     <td>
-                        <a>{{batHo.hopdong.khachHangTen}}</a>
+                        <a [routerLink]="['../../khach-hang', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangTen}}</a>
                     </td>
                     <td>
                         ID:
-                        <a>{{batHo.hopdong.khachHangId}}</a>
+                        <a [routerLink]="['../../khach-hang', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <th>Nợ</th>
-                    <td colspan="2">{{tienNo-tienTra}}</td>
+                    <td colspan="2">{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -69,7 +69,7 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra}}đ
+        Số tiền còn phải đóng: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button (click)="dongHopDong()" type="button" class="btn btn-danger">
