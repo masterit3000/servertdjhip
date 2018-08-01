@@ -18,16 +18,19 @@
                 </tr>
                 <tr>
                     <th>Tiền vay</th>
-                    <td colspan="2">{{vayLai.tienvay}}</td>
+                    <td colspan="2">{{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Ngày vay</th>
-                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
-                    <td>(ngModel = Ngày tạo + Số ngày)</td  >
+                    <td colspan="2">{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                 </tr>
                 <tr>
                     <th>Số ngày vay</th>
                     <td colspan="2">{{vayLai.thoigianvay}}</td>
+                </tr>
+                <tr>
+                    <th>Nợ</th>
+                    <td colspan="2">{{tienNo-tienTra}}</td>
                 </tr>
             </table>
         </div>
@@ -35,13 +38,7 @@
             <table class="table table-hover table-bordered">
                 <tr>
                     <th>Lãi</th>
-                    <td>{{vayLai.lai}}</td>
-                </tr>
-                <tr>
-                    <th>Hình thức lãi</th>
-                    <td>
-                        <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
-                    </td>
+                    <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Cách tính lãi</th>
@@ -50,12 +47,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Đã đóng</th>
-                    <td>{{tiendadong}}</td>
+                    <th>Hình thức lãi</th>
+                    <td>
+                        <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <th>Còn lại</th>
-                    <td></td>
+                    <th>Đã đóng</th>
+                    <td>{{tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -71,10 +70,10 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{vayLai.hopdongvl.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: (vayLai.tongtien-tiendadong)đ
+        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra}}}đ
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
-            <button type="button" class="btn btn-danger">
+            <button type="button"(click)="dongHopDong()" class="btn btn-danger">
                 <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
             </button>
             <button type="button" (click)="dongDongHD()" class="btn btn-success">
@@ -83,27 +82,32 @@
         </p-footer>
     </p-dialog>
     <p-tabView>
+        <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-12">
-                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id"  (onRowSelect)="onRowSelect($event)">
+                    <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                        (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">Ngày</th>
-                                <th>Số ngày</th>
-                                <th>Tiền lãi</th>
+                                <th>Trạng thái</th>
+                                <th>Chu kỳ lãi</th>
                                 <th>Tiền khách trả</th>
                                 <th>
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
                             </tr>
-                        </ng-template>>
+                        </ng-template>
                         <ng-template pTemplate="body" let-lichSuDongTien>
                             <tr [pSelectableRow]="lichSuDongTien">
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                                <td>{{vayLai.chukylai}}</td>
-                                <td>{{vayLai.lai}}</td>
+                                <td>
+                                    <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                                </td>
+                                <td>{{vayLai.chukylai }}</td>
+                                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
                                     <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                                 </td>
@@ -121,31 +125,22 @@
                             <th colspan="2">Trả gốc</th>
                         </thead>
                         <tbody>
-                            <tr>
+                            <!-- <tr>
                                 <td>Ngày trả trước gốc:</td>
-                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
+                                
                                 <td>
                                     <p-calendar></p-calendar>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
-                                <td>Số tiền trả trước:</td>
+                                <td>Số tiền sau khi trả:</td>
                                 <td>
-                                    <input type="number" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ghi chú:</td>
-                                <td>
-                                    <span class="ui-float-label">
-                                        <textarea id="float-input" [rows]="1" [cols]="30" pInputTextarea></textarea>
-                                        <label for="float-input">Ghi chú</label>
-                                    </span>
+                                    <input [(ngModel)]="vayLai.tienvay" class="form-control" name="tienvay" id="field_tienvay">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đồng ý</button>
+                                    <button (click)="save()" class="btn btn-primary">Đồng ý</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -179,17 +174,16 @@
                             <th colspan="2">Vay thêm tiền</th>
                         </thead>
                         <tbody>
-                            <tr>
+                            <!-- <tr>
                                 <td>Ngày vay thêm gốc:</td>
-                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
                                 <td>
                                     <p-calendar></p-calendar>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
-                                <td>Số tiền vay thêm:</td>
+                                <td>Số tiền vay :</td>
                                 <td>
-                                    <input type="number" pInputText>
+                                    <input [(ngModel)]="vayLai.tienvay" class="form-control" name="tienvay" id="field_tienvay" pInputText>
                                 </td>
                             </tr>
                             <tr>
@@ -203,7 +197,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đồng ý</button>
+                                    <button (click)="save()" class="btn btn-primary">Đồng ý</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -241,13 +235,13 @@
                                 <td>Khách hàng:</td>
                                 <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
                                 <td>
-                                    (DATA)
+                                    {{vayLai.hopdongvl.khachHangTen}}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Gia hạn thêm:</td>
+                                <td>Thời gian vay:</td>
                                 <td>
-                                    <input type="number" pInputText> Ngày
+                                    <input [(ngModel)]="vayLai.thoigianvay "  [min]="0" type="number" pKeyFilter="pnum" class="form-control" pInputText> Ngày
                                 </td>
                             </tr>
                             <tr>
@@ -261,7 +255,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button class="btn btn-primary">Đồng ý</button>
+                                    <button (click)="save()" class="btn btn-primary">Đồng ý</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -297,12 +291,12 @@
                             <tr>
                                 <td>Số tiền nợ: </td>
                                 <td>
-                                    <input type="number" pInputText placeholder="0">
+                                    <input name="sotien" [(ngModel)]="ghiNo.sotien"  pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button class="btn btn-primary float-right">Ghi nợ</button>
+                                    <button (click)="saveNo()" class="btn btn-primary float-right">Ghi nợ</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -317,12 +311,12 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <input type="number" pInputText placeholder="0">
+                                    <input [(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button class="btn btn-primary float-right">Trả nợ</button>
+                                    <button (click)="saveTraNo()" class="btn btn-primary float-right">Trả nợ</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -377,30 +371,6 @@
                             </tr>
                         </ng-template>
                         </table>
-                </div>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="Lịch sử trả chậm">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>Hợp đồng</th>
-                            <th>Từ ngày</th>
-                            <th>Đến ngày</th>
-                            <th>Số ngày</th>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel header="Chứng từ">
-            <div class="row">
-                <div class="col-md-12">
-                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>
         </p-tabPanel>

@@ -1,11 +1,14 @@
 package com.tindung.jhip.service.impl;
 
+import com.tindung.jhip.domain.GhiNo;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.domain.enumeration.NOTRA;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.HopDongRepository;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
@@ -15,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.NhanVienService;
-
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import java.time.ZonedDateTime;
+import com.tindung.jhip.service.GhiNoService;
+import com.tindung.jhip.service.dto.GhiNoDTO;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,21 +39,20 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final LichSuDongTienRepository lichSuDongTienRepository;
 
     private final LichSuDongTienMapper lichSuDongTienMapper;
-
+    private final GhiNoService ghiNoService;
     private final HopDongRepository hopDongRepository;
-
+    private final NhanVienService nhanVienService;
 //    @Autowired
     private final CuaHangService cuaHangService;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, CuaHangService cuaHangService) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, CuaHangService cuaHangService) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
+        this.ghiNoService = ghiNoService;
         this.hopDongRepository = hopDongRepository;
+        this.nhanVienService = nhanVienService;
         this.cuaHangService = cuaHangService;
     }
-
-
-
 
 
     /**
@@ -103,22 +108,29 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         lichSuDongTienRepository.delete(id);
     }
 
+    @Override
     public LichSuDongTienDTO setDongTien(Long id) {
-        LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
-        lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
-        return lichSuDongTienMapper.toDto(lichSuDongTien);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
+            lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+            return lichSuDongTienMapper.toDto(lichSuDongTien);
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<LichSuDongTienDTO> findByHopDong(Long id) {
 
-            List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
-            List<LichSuDongTienDTO> collect = findByHopDong.stream()
-                    .map(lichSuDongTienMapper::toDto)
-                    .collect(Collectors.toCollection(LinkedList::new));
-            return collect;
+        List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
+        List<LichSuDongTienDTO> collect = findByHopDong.stream()
+                .map(lichSuDongTienMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
 
     }
+
 
 }

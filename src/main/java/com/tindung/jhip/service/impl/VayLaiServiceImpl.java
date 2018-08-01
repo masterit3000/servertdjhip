@@ -106,7 +106,12 @@ public class VayLaiServiceImpl implements VayLaiService {
                 Integer soNgayVay = vayLai.getThoigianvay();
                 Integer kyLai = vayLai.getChukylai();
                 ZonedDateTime ngayVay = hopdong.getNgaytao();
-
+                double tienTrongChuKi;
+                if (cachTinhLai.equals(TINHLAI.MOTTRIEU)) {
+                    tienTrongChuKi = lai * (tongTienVay / 1000000) * kyLai;
+                } else {
+                    tienTrongChuKi = lai * kyLai;
+                }
                 // xu li du lieu nhan ve
                 int day = 0;
                 ZonedDateTime batdau = ngayVay;
@@ -115,7 +120,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     soChuKy++;
                 }
 
-                long soTienTrongChuKy = Math.round(((tongTienVay / soChuKy) * 1000) / 1000);//lam tron den 1000d
+                long soTienTrongChuKy = Math.round(tienTrongChuKi * 1000) / 1000;//lam tron den 1000d
                 for (int i = 0; i < soChuKy - 1; i++) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
@@ -142,21 +147,80 @@ public class VayLaiServiceImpl implements VayLaiService {
                 return vayLaiMapper.toDto(vayLai);
 
             } else {
-                Long idCuaHang = cuaHangService.findIDByUserLogin();
-                VayLai findOne = vayLaiRepository.findOne(vayLaiDTO.getId());
-                Long idCuaHangVayLai = findOne.getHopdongvl().getCuaHang().getId();
-                if (Objects.equals(idCuaHang, idCuaHangVayLai)) {// vay lai cua cua hang hien tai moi cho sua
-                    vayLaiDTO.getHopdongvl().setCuaHangId(idCuaHangVayLai);//de phong user thay doi idcuahang
-                    HopDongDTO save = hopDongService.save(vayLaiDTO.getHopdongvl());
-                    vayLaiDTO.setHopdongvl(save);
-                    VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
-                    vayLai = vayLaiRepository.save(vayLai);
-                    return vayLaiMapper.toDto(vayLai);
 
+                HopDongDTO hopdong = vayLaiDTO.getHopdongvl();
+                hopdong.setLoaihopdong(LOAIHOPDONG.VAYLAI);
+                NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
+
+                hopdong.setNhanVienId(nhanVien.getId());
+                if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                    Long idCuaHang = cuaHangService.findIDByUserLogin();
+                    hopdong.setCuaHangId(idCuaHang);
+                }
+                hopdong.setNgaytao(ZonedDateTime.now());
+                hopdong = hopDongService.save(hopdong);
+                vayLaiDTO.setHopdongvl(hopdong);
+                VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
+                vayLai = vayLaiRepository.save(vayLai);
+                // lay du lieu nhan ve
+                Double tongTienVay = vayLai.getTienvay();
+                HINHTHUCLAI hinhThucLai = vayLai.getHinhthuclai();
+                Boolean thuLaiTruoc = vayLai.isThulaitruoc();
+                Float lai = vayLai.getLai();
+                TINHLAI cachTinhLai = vayLai.getCachtinhlai();
+                Integer soNgayVay = vayLai.getThoigianvay();
+                Integer kyLai = vayLai.getChukylai();
+                ZonedDateTime ngayVay = hopdong.getNgaytao();
+                double chuKyDaDong = 0;
+                int soNgayDaDong =0;
+                List<LichSuDongTienDTO> LSDT = lichSuDongTienService.findByHopDong(hopdong.getId());
+                for (LichSuDongTienDTO lichSuDongTienDTO : LSDT) {
+                    if (lichSuDongTienDTO.getTrangthai().equals(DONGTIEN.DADONG)) {
+                        chuKyDaDong++;
+                        soNgayDaDong++;
+                    }else if (lichSuDongTienDTO.getTrangthai().equals(DONGTIEN.CHUADONG)) {
+                        lichSuDongTienService.delete(lichSuDongTienDTO.getId());
+                    }
+                }
+                double tienTrongChuKi;
+                if (cachTinhLai.equals(TINHLAI.MOTTRIEU)) {
+                    tienTrongChuKi = lai * (tongTienVay / 1000000) * kyLai;
                 } else {
-                    throw new InternalServerErrorException("Sai cua hang");
+                    tienTrongChuKi = lai * kyLai - chuKyDaDong;
+                }
+                // xu li du lieu nhan ve
+                int day = 0;
+                ZonedDateTime batdau = ngayVay;
+                int soChuKy = (soNgayVay-soNgayDaDong) / kyLai;
+                if ((soNgayVay-soNgayDaDong) % kyLai != 0) {
+                    soChuKy++;
                 }
 
+                long soTienTrongChuKy = Math.round(tienTrongChuKi * 1000) / 1000;//lam tron den 1000d
+                for (int i = 0; i < soChuKy - 1; i++) {
+                    LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                    lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                    lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                    lichSuDongTienDTO.setNgaybatdau(batdau);
+                    batdau = batdau.plusDays(kyLai);
+                    lichSuDongTienDTO.setNgayketthuc(batdau);
+                    lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                    day += kyLai;
+                    lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                    lichSuDongTienService.save(lichSuDongTienDTO);
+                }
+                //phat cuoi
+                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setNgaybatdau(batdau);
+                batdau = ngayVay.plusDays(soNgayVay);
+                lichSuDongTienDTO.setNgayketthuc(batdau);
+                lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                lichSuDongTienService.save(lichSuDongTienDTO);
+
+                return vayLaiMapper.toDto(vayLai);
             }
 
         }

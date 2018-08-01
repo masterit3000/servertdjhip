@@ -1,6 +1,7 @@
 <div *ngIf="batHo">
     <h2>
-        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span></h2>
+        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span>
+    </h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <div class="row">
@@ -43,7 +44,7 @@
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
-                    <td>{{tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
+                    <td>{{batHo.tongtien-tienchuadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
@@ -68,10 +69,10 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{batHo.tongtien-tiendadong}}đ
+        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra}}đ
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
-            <button type="button" class="btn btn-danger">
+            <button (click)="dongHopDong()" type="button" class="btn btn-danger">
                 <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
             </button>
             <button type="button" (click)="dongDongHD()" class="btn btn-success">
@@ -86,14 +87,11 @@
                 (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>
-                            <span>STT</span>
+                        <th colspan="2">
+                            <span>Ngày họ</span>
                         </th>
                         <th>
                             <span>Trạng Thái</span>
-                        </th>
-                        <th>
-                            <span>Ngày họ</span>
                         </th>
                         <th>
                             <span>Tiền họ</span>
@@ -104,20 +102,18 @@
                         <th>
                             <span>Tiền khách trả</span>
                         </th>
-                        <th>
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-lichSuDongTien>
                     <tr [pSelectableRow]="lichSuDongTien">
-                        <td>{{lichSuDongTien.id}}</td>
+                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>
                             <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                         </td>
-                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
                             <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
@@ -129,7 +125,7 @@
         <p-tabPanel header="Nợ">
             <div class="row">
                 <div class="col-md-6">
-                    <table class="table table-bordered" >
+                    <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
                         </thead>
@@ -137,7 +133,7 @@
                             <tr>
                                 <td>Số tiền nợ: </td>
                                 <td>
-                                    <input name="sotien"[(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
+                                    <input name="sotien" [(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>
@@ -157,12 +153,12 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <input [(ngModel)]="ghiNo.sotien"  pInputText placeholder="0">
+                                    <input [(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()"class="btn btn-primary float-right">Trả nợ</button>
+                                    <button (click)="saveTraNo()" class="btn btn-primary float-right">Trả nợ</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -238,19 +234,20 @@
                             <tr>
                                 <td>Bát họ mới:</td>
                                 <td>
-                                    <input  [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"  pInputText>
+                                    <input [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien" pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tiền đưa khách:</td>
                                 <td>
-                                    <input   [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach" pInputText>
+                                    <input [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach" pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Bốc trong vòng:</td>
                                 <td>
-                                    <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"  pInputText>
+                                    <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
+                                        pInputText>
                                 </td>
                             </tr>
                             <tr>
@@ -259,7 +256,9 @@
                                     <input [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" pInputText>
                                 </td>
                             </tr>
-                            <tr><td>Số tiền đưa khách thực tế : {{batHo.tienduakhach}}-{{tienchuadong}}-{{tienNo-tienTra}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)}}</td></tr>
+                            <tr>
+                                <td>Số tiền đưa khách thực tế : {{batHo.tienduakhach}}-{{tienchuadong}}-{{tienNo-tienTra}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)}}</td>
+                            </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
                                     <button (click)="save()" class="btn btn-primary">Đảo họ</button>
