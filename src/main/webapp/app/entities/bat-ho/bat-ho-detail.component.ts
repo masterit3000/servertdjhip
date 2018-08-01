@@ -19,7 +19,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'jhi-bat-ho-detail',
     templateUrl: './bat-ho-detail.component.html',
-    styleUrls: ['./bat-ho-detail.component.scss']
+    // styleUrls: ['./bat-ho-detail.component.scss']
     
 })
 export class BatHoDetailComponent implements OnInit, OnDestroy {
