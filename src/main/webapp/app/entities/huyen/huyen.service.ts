@@ -71,4 +71,9 @@ export class HuyenService {
         const copy: Huyen = Object.assign({}, huyen);
         return copy;
     }
+    getHuyen(query: any): Observable<Huyen[]> {
+        return this.http
+            .get('/api/huyens')
+            .map(response => response as Huyen[]);
+    }
 }

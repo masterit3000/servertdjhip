@@ -32,8 +32,8 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-#        url: jdbc:mysql://localhost:3306/admin_test?useUnicode=true&characterEncoding=utf8&useSSL=false
         url: jdbc:mysql://localhost:3306/servertdjhip?useUnicode=true&characterEncoding=utf8&useSSL=false
+        # url: jdbc:mysql://localhost:3306/servertdjhip?useUnicode=true&characterEncoding=utf8&useSSL=false
         # url: jdbc:mysql://localhost:3306/servertdjhip?useUnicode=true&characterEncoding=utf8&useSSL=false
         # username: admin_td
         username: root

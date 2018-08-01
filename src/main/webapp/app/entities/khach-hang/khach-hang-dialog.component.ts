@@ -11,6 +11,8 @@ import { KhachHangPopupService } from './khach-hang-popup.service';
 import { KhachHangService } from './khach-hang.service';
 import { Xa, XaService } from '../xa';
 import { CuaHang, CuaHangService } from '../cua-hang';
+import { Tinh, TinhService } from '../tinh';
+import { HuyenService, Huyen } from '../huyen';
 // import { PlatformLocation } from '@angular/common';
 
 @Component({
@@ -22,15 +24,27 @@ export class KhachHangDialogComponent implements OnInit {
     khachHang: KhachHang;
     isSaving: boolean;
 
-    xas: Xa[];
+    
 
     cuahangs: CuaHang[];
+    filteredXas: Xa[];
+    filteredTinhs: Tinh[];
+    filteredHuyens: Huyen[];
+    xas: Xa[];
+    tinhs: Tinh[];
+    huyens: Huyen[];
+    xa: Xa;
+    tinh: Tinh;
+    huyen: Huyen;
+    
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private khachHangService: KhachHangService,
         private xaService: XaService,
+        private tinhService: TinhService,
+        private huyenService: HuyenService,
         private cuaHangService: CuaHangService,
         private eventManager: JhiEventManager,
         // location: PlatformLocation,
@@ -59,7 +73,7 @@ export class KhachHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        console.log(this.khachHang);
+        // console.log(this.khachHang);
         if (this.khachHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.khachHangService.update(this.khachHang));
@@ -76,7 +90,7 @@ export class KhachHangDialogComponent implements OnInit {
 
     private onSaveSuccess(result: KhachHang) {
 
-        this.eventManager.broadcast({ name: 'khachHangListModification', content: 'OK111' });
+        this.eventManager.broadcast({ name: 'khachHangListModification', content: result });
         // cho xảy ra sự kiện khachHangListModification,
         // và truyền vào content 'ok111'' tương ứng, chỗ này truyền j vào cũng đc, cả 1 obj cũng đc
         this.isSaving = false;
@@ -97,6 +111,54 @@ export class KhachHangDialogComponent implements OnInit {
 
     trackCuaHangById(index: number, item: CuaHang) {
         return item.id;
+    }
+    filterXas(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.xaService.getXa(query).subscribe((xas: any) => {
+            this.filteredXas = this.filterXa(query, xas);
+        });
+    }
+    filterXa(query: any, xas: Xa[]): Xa[] {
+        const filtered: any[] = [];
+        for (const Xa of xas) {
+            if (Xa.ten.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(Xa);
+            }
+        }
+        return filtered;
+    }
+    filterTinhs(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.tinhService.getTinh(query).subscribe((tinhs: any) => {
+            this.filteredTinhs = this.filterTinh(query, tinhs);
+        });
+    }
+    filterTinh(query: any, tinhs: Tinh[]): Tinh[] {
+        const filtered: any[] = [];
+        for (const Tinh of tinhs) {
+            if (Tinh.ten.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(Tinh);
+            }
+        }
+        return filtered;
+    }
+    filterHuyens(event: any) {
+        const query = event.query;
+        console.log(query);
+        this.huyenService.getHuyen(query).subscribe((huyens: any) => {
+            this.filteredHuyens = this.filterHuyen(query, huyens);
+        });
+    }
+    filterHuyen(query: any, huyens: Huyen[]): Huyen[] {
+        const filtered: any[] = [];
+        for (const Huyen of huyens) {
+            if (Huyen.ten.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                filtered.push(Huyen);
+            }
+        }
+        return filtered;
     }
 }
 

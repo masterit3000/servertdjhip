@@ -7,6 +7,7 @@ import { VayLai } from '../../vay-lai.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HopDong } from '../../../hop-dong';
 import { Observable } from '../../../../../../../../node_modules/rxjs/Observable';
+import { Subscription } from '../../../../../../../../node_modules/rxjs';
 
 @Component({
     selector: 'jhi-vay-lai-moi',
@@ -20,6 +21,7 @@ export class VayLaiMoiComponent implements OnInit {
     khachhangid: any;
     mahopdong: any;
     isSaving: boolean;
+    eventSubscriber: Subscription;
 
     constructor(
         private khachHangService: KhachHangService,
@@ -37,7 +39,20 @@ export class VayLaiMoiComponent implements OnInit {
         // this.VayLai.hopdong = null;
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        this.eventSubscriber = this.eventManager // lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
+        .subscribe('khachHangListModification', response => {
+            // đăng ký lắng nghe sự kiện có tên khachHangListModification
+            // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
+            //this.loadAll(); // load lại data
+            // let kh : KhachHang = response;
+            console.log(response); // in ra xem sự kiện nổ ra truyền vào cái j
+            this.keyTimKhachHang = response.content.cmnd;
+            this.vayLai.hopdongvl.khachHangId = response.content.id;
+            // this.timKhachHang();
+        });
+    }
     // save() {
     //     console.log(this.vayLai);
 
@@ -109,5 +124,8 @@ export class VayLaiMoiComponent implements OnInit {
 
     private onSelectionChange(khachangid) {
         this.vayLai.hopdongvl.khachHangId = khachangid;
+    }
+    onRowSelect(event) {
+        this.vayLai.hopdongvl.khachHangId = event.data.id;
     }
 }
