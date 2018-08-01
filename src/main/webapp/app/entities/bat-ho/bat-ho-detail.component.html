@@ -9,11 +9,11 @@
                 <tr>
                     <th>Tên khách hàng</th>
                     <td>
-                        <a>{{batHo.hopdong.khachHangTen}}</a>
+                        <a [routerLink]="['../../khach-hang', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangTen}}</a>
                     </td>
                     <td>
                         ID:
-                        <a>{{batHo.hopdong.khachHangId}}</a>
+                        <a [routerLink]="['../../khach-hang', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>

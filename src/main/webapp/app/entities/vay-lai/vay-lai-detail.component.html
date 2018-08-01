@@ -9,16 +9,16 @@
                 <tr>
                     <th>Tên khách hàng</th>
                     <td>
-                        <a>{{vayLai.hopdongvl.khachHangTen}}</a>
+                        <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangTen}}</a>
                     </td>
                     <td>
                         ID:
-                        <a>{{vayLai.hopdongvl.khachHangId}}</a>
+                        <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
                     <th>Tiền vay</th>
-                    <td colspan="2">{{vayLai.tienvay}}</td>
+                    <td colspan="2">{{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Ngày vay</th>
@@ -35,7 +35,7 @@
             <table class="table table-hover table-bordered">
                 <tr>
                     <th>Lãi</th>
-                    <td>{{vayLai.lai}}</td>
+                    <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Hình thức lãi</th>
@@ -92,7 +92,6 @@
                                 <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
                                 <th>Tiền lãi</th>
-                                <th>Tiền khách trả</th>
                                 <th>
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
@@ -103,7 +102,7 @@
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.chukylai}}</td>
-                                <td>{{vayLai.lai}}</td>
+                                <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
                                     <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                                 </td>
