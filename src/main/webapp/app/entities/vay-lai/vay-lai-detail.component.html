@@ -135,21 +135,11 @@
                             <tr>
                                 <td>Trả bớt gốc:</td>
                                 <td>
-                                    <input [(ngModel)]="traBotGoc" name="trabotgoc" id="field_tienvay">
+                                    <input #trabotgoc name="trabotgoc" id="field_tienvay">
 
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Số tiền sau khi trả bớt gốc:</td>
-                                <td>
-
-                                    <input [(ngModel)]="vayLai.tienvay" value="vayLai.tienvay-traBotGoc" class="form-control" name="tienvay" id="field_tienvay"
-                                        readonly>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="save()" class="btn btn-primary">Đồng ý</button>
+                                    <button (click)="traGoc(trabotgoc.value)" class="btn btn-primary">Đồng ý</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -189,12 +179,11 @@
                                     <p-calendar></p-calendar>
                                 </td>
                             </tr> -->
-                            <tr>
-                                <td>Số tiền vay :</td>
-                                <td>
-                                    <input [(ngModel)]="vayLai.tienvay" class="form-control" name="tienvay" id="field_tienvay" pInputText>
-                                </td>
-                            </tr>
+                            <td>Số tiền vay thêm</td>
+                            <td>
+                                <input #vaythem name="vaythemtien" id="field_tienvay">
+
+                            </td>
                             <tr>
                                 <td>Ghi chú:</td>
                                 <td>
@@ -206,7 +195,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="save()" class="btn btn-primary">Đồng ý</button>
+                                    <button (click)="vayThem(vaythem.value)" class="btn btn-primary">Đồng ý</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -250,7 +239,7 @@
                             <tr>
                                 <td>Thời gian vay:</td>
                                 <td>
-                                    <input [(ngModel)]="vayLai.thoigianvay " [min]="0" type="number" pKeyFilter="pnum" class="form-control" pInputText> Ngày
+                                    <input #giahan [min]="0" type="number" pKeyFilter="pnum" class="form-control" pInputText> Ngày
                                 </td>
                             </tr>
                             <tr>
@@ -264,7 +253,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="save()" class="btn btn-primary">Đồng ý</button>
+                                    <button (click)="giaHan(giahan.value)" class="btn btn-primary">Đồng ý</button>
                                 </td>
                             </tr>
                         </tbody>

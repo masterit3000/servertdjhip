@@ -171,7 +171,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                 Integer soNgayVay = vayLai.getThoigianvay();
                 Integer kyLai = vayLai.getChukylai();
                 ZonedDateTime ngayVay = hopdong.getNgaytao();
-                double chuKyDaDong = 0;
+                int chuKyDaDong = 0;
                 int soNgayDaDong =0;
                 List<LichSuDongTienDTO> LSDT = lichSuDongTienService.findByHopDong(hopdong.getId());
                 for (LichSuDongTienDTO lichSuDongTienDTO : LSDT) {
@@ -182,6 +182,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                         lichSuDongTienService.delete(lichSuDongTienDTO.getId());
                     }
                 }
+                vayLai.setThoigianvay(chuKyDaDong*kyLai);
                 double tienTrongChuKi;
                 if (cachTinhLai.equals(TINHLAI.MOTTRIEU)) {
                     tienTrongChuKi = lai * (tongTienVay / 1000000) * kyLai;
@@ -191,8 +192,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                 // xu li du lieu nhan ve
                 int day = 0;
                 ZonedDateTime batdau = ngayVay;
-                int soChuKy = (soNgayVay-soNgayDaDong*kyLai) / kyLai;
-                if ((soNgayVay-soNgayDaDong*kyLai) % kyLai != 0) {
+                int soChuKy = (soNgayVay-chuKyDaDong*kyLai) / kyLai;
+                if ((soNgayVay-chuKyDaDong*kyLai) % kyLai != 0) {
                     soChuKy++;
                 }
 
