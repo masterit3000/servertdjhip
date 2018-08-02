@@ -19,7 +19,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'jhi-bat-ho-detail',
     templateUrl: './bat-ho-detail.component.html',
-    
+
 })
 export class BatHoDetailComponent implements OnInit, OnDestroy {
     batHo: BatHo;
@@ -39,6 +39,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     tienNo: number;
     tienTra: number;
     isSaving: boolean;
+    lichSuThaoTacHopDong: LichSuThaoTacHopDong;
 
 
     constructor(
@@ -56,6 +57,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.batHoDao = new BatHo();
         this.lichSuDongTien = new LichSuDongTien();
         this.selected = new Array<LichSuDongTien>();
+        this.lichSuThaoTacHopDong = new LichSuThaoTacHopDong();
     }
     ngAfterViewInit() {
         // let j = 0;
@@ -86,22 +88,23 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.ghiNo.trangthai = NOTRA.TRA;
         this.ghiNo.hopDongId = this.batHo.hopdong.id;
         this.ghiNo.sotien = this.tienNo - this.tienTra;
-        
+
         this.subscribeToSaveResponse(
             this.ghiNoService.create(this.ghiNo));
         this.lichSuDongTienService.dongHopDong(this.batHo.hopdong.id)
-        .subscribe((response) => {
-            this.eventManager.broadcast({
-                name: 'lichSuDongTienListModification',
-                content: 'Đóng Hợp Đồng'
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Đóng Hợp Đồng'
+                });
+
+
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+
+                });
             });
-           
-            
-            this.subscription = this.route.params.subscribe(params => {
-                this.load(params['id']);
-    
-            });  
-        });
+        this.setNoiDung('đóng hợp đồng');
         this.dongDongHD();
 
     }
@@ -181,9 +184,9 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.subscription = this.route.params.subscribe(params => {
                     this.load(params['id']);
 
-                });  
+                });
             });
-
+        this.setNoiDung('đóng tiền');
 
     }
 
@@ -200,7 +203,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-
+        this.setNoiDung('ghi nợ');
     }
     saveTraNo() {
         this.isSaving = true;
@@ -215,7 +218,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-
+        this.setNoiDung('trả nợ');
     }
 
 
@@ -258,12 +261,27 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.jhiAlertService.success('them moi thanh cong', null, null);
         this.previousState();
     }
-    daoHo(){
+    daoHo() {
         this.dongHopDong();
         this.subscribeToSaveResponseBH(
-            this.batHoService.daoHo(this.batHoDao,this.batHo.hopdong.id));
+            this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id));
+        this.setNoiDung('đảo họ');
+    }
+    private setNoiDung(noidung: string) {
+        this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;
+        this.lichSuThaoTacHopDong.noidung = noidung;
+        this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
+        this.subscribeToSaveResponseLS(
+            this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong));
+    }
+    private subscribeToSaveResponseLS(result: Observable<HttpResponse<LichSuThaoTacHopDong>>) {
+        result.subscribe((res: HttpResponse<LichSuThaoTacHopDong>) =>
+            this.onSaveSuccessLS(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-
+    private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
+        this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
+        this.isSaving = false;
+    }
 
 }
