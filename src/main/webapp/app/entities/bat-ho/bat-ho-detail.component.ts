@@ -86,7 +86,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.ghiNo.trangthai = NOTRA.TRA;
         this.ghiNo.hopDongId = this.batHo.hopdong.id;
         this.ghiNo.sotien = this.tienNo - this.tienTra;
-
+        
         this.subscribeToSaveResponse(
             this.ghiNoService.create(this.ghiNo));
         this.lichSuDongTienService.dongHopDong(this.batHo.hopdong.id)
@@ -95,6 +95,8 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 name: 'lichSuDongTienListModification',
                 content: 'Đóng Hợp Đồng'
             });
+           
+            
             this.subscription = this.route.params.subscribe(params => {
                 this.load(params['id']);
     

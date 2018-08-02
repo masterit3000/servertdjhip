@@ -109,7 +109,7 @@
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
                                 </td>
                             </tr>
                         </ng-template>
