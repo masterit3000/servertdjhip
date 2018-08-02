@@ -59,8 +59,9 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
     public LichSuThaoTacHopDongDTO save(LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO) {
         log.debug("Request to save LichSuThaoTacHopDong : {}", lichSuThaoTacHopDongDTO);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
-            lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+
             lichSuThaoTacHopDongDTO.setNhanVienId(cuaHangService.findIDByUserLogin());
+            lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
             LichSuThaoTacHopDong lichSuThaoTacHopDong = lichSuThaoTacHopDongMapper.toEntity(lichSuThaoTacHopDongDTO);
             lichSuThaoTacHopDong = lichSuThaoTacHopDongRepository.save(lichSuThaoTacHopDong);
             return lichSuThaoTacHopDongMapper.toDto(lichSuThaoTacHopDong);

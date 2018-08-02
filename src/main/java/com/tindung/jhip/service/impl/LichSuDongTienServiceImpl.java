@@ -141,14 +141,14 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 lichSuDongTienRepository.delete(lichSuDongTien);
             }
         }
-        List<GhiNoDTO> ghiNos = ghiNoService.findByHopDong(id);
-        for (GhiNoDTO ghiNo : ghiNos) {
-            if(ghiNo.getTrangthai().equals(NOTRA.NO)){
-                tienConPhaiDong = tienConPhaiDong + ghiNo.getSotien();
-            }else if(ghiNo.getTrangthai().equals(NOTRA.TRA)){
-                tienConPhaiDong =  tienConPhaiDong  -ghiNo.getSotien();
-            }
-        }
+//        List<GhiNoDTO> ghiNos = ghiNoService.findByHopDong(id);
+//        for (GhiNoDTO ghiNo : ghiNos) {
+//            if(ghiNo.getTrangthai().equals(NOTRA.NO)){
+//                tienConPhaiDong = tienConPhaiDong + ghiNo.getSotien();
+//            }else if(ghiNo.getTrangthai().equals(NOTRA.TRA)){
+//                tienConPhaiDong =  tienConPhaiDong  -ghiNo.getSotien();
+//            }
+//        }
         LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
         lichSuDongTienDTO.setHopDongId(id);
         lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
