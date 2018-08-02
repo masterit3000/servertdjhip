@@ -2,7 +2,7 @@
     <h2>
         <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
         <span jhiTranslate="servertdjhipApp.cuaHang.home.title">Cua Hangs</span>
-        <button class="btn btn-primary float-right jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
+        <button class="btn btn-success float-right jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="servertdjhipApp.cuaHang.home.createLabel">
                 Create new Cua Hang
@@ -21,7 +21,9 @@
                 field="ten" [size]="30" placeholder="xã" [minLength]="1"></p-autoComplete>
             <p-autoComplete [(ngModel)]="cuaHang" name="basic" [suggestions]="filteredCuaHangs" (completeMethod)="filterCuaHangs($event)"
                 field="trangthai" [size]="30" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
-            <button type="submit" [routerLink]="['../cua-hang', cuaHang? cuaHang.id || cuaHang:none]" class="btn btn-primary">Tìm kiếm</button>
+            <button type="submit" [routerLink]="['../cua-hang', cuaHang? cuaHang.id || cuaHang:none]" class="btn btn-primary">
+                <span class="pi pi-search"></span>
+                Tìm kiếm</button>
         </div>
 
     </div>

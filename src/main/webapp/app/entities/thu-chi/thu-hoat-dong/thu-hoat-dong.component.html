@@ -27,7 +27,6 @@
                                     <div class="col-md-8 form-group">
                                         <!-- <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/> -->
                                         <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" required >
-                                           
                                             <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
                                         </select>
                                     </div>
