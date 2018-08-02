@@ -25,8 +25,6 @@ public interface BatHoService {
      */
     List<BatHoDTO> findAll();
 
-
-
     /**
      * Get the "id" batHo.
      *
@@ -43,6 +41,10 @@ public interface BatHoService {
     void delete(Long id);
 
     LichSuDongTienDTO setDongTien(Long id);
+
+    // List<BatHoDTO> findByNameOrCMND(String key);
+
+//    BatHoDTO daoHo(BatHoDTO batHoDTO, Long id);
     List<BatHoDTO> findByNameOrCMND(String key);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
 }

@@ -14,6 +14,34 @@ import com.tindung.jhip.domain.enumeration.TrangThaiCuaHang;
  */
 public class CuaHangDTO implements Serializable {
 
+    private String tenTinh;
+    private String tenHuyen;
+    private String tenXa;
+
+    public String getTenTinh() {
+        return tenTinh;
+    }
+
+    public void setTenTinh(String tenTinh) {
+        this.tenTinh = tenTinh;
+    }
+
+    public String getTenHuyen() {
+        return tenHuyen;
+    }
+
+    public void setTenHuyen(String tenHuyen) {
+        this.tenHuyen = tenHuyen;
+    }
+
+    public String getTenXa() {
+        return tenXa;
+    }
+
+    public void setTenXa(String tenXa) {
+        this.tenXa = tenXa;
+    }
+    
     private Long id;
 
     @NotNull

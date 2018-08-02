@@ -14,6 +14,9 @@ public interface NhanVienMapper extends EntityMapper<NhanVienDTO, NhanVien> {
     @Mapping(source = "xa.id", target = "xaId")
     @Mapping(source = "cuaHang.id", target = "cuaHangId")
     @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "xa.ten", target = "tenXa")
+    @Mapping(source = "xa.huyen.ten", target = "tenHuyen")
+    @Mapping(source = "xa.huyen.tinh.ten", target = "tenTinh")
     NhanVienDTO toDto(NhanVien nhanVien);
 
     @Mapping(source = "xaId", target = "xa")

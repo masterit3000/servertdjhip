@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Message } from 'primeng/components/common/api';
 import { VayLai } from './vay-lai.model';
 import { VayLaiService } from './vay-lai.service';
@@ -10,6 +9,10 @@ import { LichSuDongTien, DONGTIEN } from '../lich-su-dong-tien/lich-su-dong-tien
 import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 import { LichSuDongTienService } from '../lich-su-dong-tien/lich-su-dong-tien.service';
 import { LichSuThaoTacHopDongService } from '../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
+import { GhiNoService } from '../ghi-no/ghi-no.service';
+import { GhiNo, NOTRA } from '../ghi-no';
+import { Observable } from 'rxjs/Observable';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'jhi-vay-lai-detail',
     templateUrl: './vay-lai-detail.component.html'
@@ -20,18 +23,29 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     lichSuDongTiens: LichSuDongTien[];
     selected: LichSuDongTien;
     tiendadong: number;
+    tienchuadong:number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
+    lichSuDongTien: LichSuDongTien;
     msgs: Message[] = [];
     dongHD: boolean = false;
+    ghiNo: GhiNo;
+    ghiNos: GhiNo[];
+    tienNo: number;
+    tienTra: number;
+    isSaving: boolean;
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
         private lichSuDongTienService: LichSuDongTienService,
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
+        private jhiAlertService: JhiAlertService,
+        private ghiNoService: GhiNoService,
         private route: ActivatedRoute
     ) {
+        this.ghiNo = new GhiNo();
+        this.lichSuDongTien = new LichSuDongTien();
     }
 
     ngOnInit() {
@@ -43,8 +57,28 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     hienDongHD() {
         this.dongHD = true;
     }
-    dongDongHD(){
+    dongDongHD() {
         this.dongHD = false;
+    }
+    dongHopDong() {
+        this.ghiNo.trangthai = NOTRA.TRA;
+        this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
+        this.ghiNo.sotien = this.tienNo - this.tienTra;
+        this.subscribeToSaveResponse(
+            this.ghiNoService.create(this.ghiNo));
+        for(let i=0;i<this.lichSuDongTiens.length;i++){
+            if(this.lichSuDongTiens[i].trangthai.toString()=="CHUADONG"){
+                this.lichSuDongTienService.setDongTien(this.lichSuDongTiens[i].id)
+            .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien>) => {
+                this.lichSuDongTien = vayLaiResponse.body;
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+
+                });
+            });
+            }
+        }
+        this.dongDongHD();
     }
     load(id) {
         this.vayLaiService.find(id)
@@ -58,12 +92,28 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
                             if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
                                 this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
+                            }else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
+                                this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
                             }
                         }
                     });
                 this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.vayLai.hopdongvl.id)
                     .subscribe((vayLaiResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
                         this.lichSuThaoTacHopDongs = vayLaiResponse.body;
+                    });
+                this.ghiNoService.findByHopDong(this.vayLai.hopdongvl.id)
+                    .subscribe((ghiNoResponse: HttpResponse<GhiNo[]>) => {
+                        this.ghiNos = ghiNoResponse.body;
+                        this.tienNo = 0;
+                        this.tienTra = 0;
+                        for (let i = 0; i < ghiNoResponse.body.length; i++) {
+                            if (ghiNoResponse.body[i].trangthai.toString() == "NO") {
+                                this.tienNo = this.tienNo + ghiNoResponse.body[i].sotien;
+                            } else {
+                                this.tienTra = this.tienTra + ghiNoResponse.body[i].sotien;
+                            }
+                        }
+
                     });
             });
     }
@@ -84,9 +134,84 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     }
     onRowSelect(event) {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
+
         this.lichSuDongTienService.setDongTien(event.data.id)
             .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien>) => {
-                this.vayLai = vayLaiResponse.body;
+                this.lichSuDongTien = vayLaiResponse.body;
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+
+                });
             });
+
+    }
+    saveNo() {
+        this.isSaving = true;
+        if (this.ghiNo.id !== undefined) {
+            this.ghiNo.trangthai = NOTRA.NO;
+            this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.update(this.ghiNo));
+        } else {
+            this.ghiNo.trangthai = NOTRA.NO;
+            this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.create(this.ghiNo));
+        }
+
+    }
+    saveTraNo() {
+        this.isSaving = true;
+        if (this.ghiNo.id !== undefined) {
+            this.ghiNo.trangthai = NOTRA.TRA;
+            this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.update(this.ghiNo));
+        } else {
+            this.ghiNo.trangthai = NOTRA.TRA;
+            this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
+            this.subscribeToSaveResponse(
+                this.ghiNoService.create(this.ghiNo));
+        }
+
+    }
+    private subscribeToSaveResponse(result: Observable<HttpResponse<GhiNo>>) {
+        result.subscribe((res: HttpResponse<GhiNo>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess(result: GhiNo) {
+        this.eventManager.broadcast({ name: 'ghiNoListModification', content: 'OK' });
+        this.isSaving = false;
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params['id']);
+
+        });
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+
+    save() {
+        this.isSaving = true;
+        if (this.vayLai.id !== undefined) {
+            this.subscribeToSaveResponseVL(
+                this.vayLaiService.update(this.vayLai));
+        } else {
+            this.subscribeToSaveResponseVL(
+                this.vayLaiService.create(this.vayLai));
+        }
+    }
+    private subscribeToSaveResponseVL(result: Observable<HttpResponse<VayLai>>) {
+        result.subscribe((res: HttpResponse<VayLai>) =>
+            this.onSaveSuccessVL(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
+    private onSaveSuccessVL(result: VayLai) {
+        this.eventManager.broadcast({ name: 'vayLaiListModification', content: 'OK' });
+        this.isSaving = false;
+        // this.activeModal.dismiss(result);
+        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.previousState();
     }
 }

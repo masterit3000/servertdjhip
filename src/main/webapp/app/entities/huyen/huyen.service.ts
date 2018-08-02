@@ -76,4 +76,10 @@ export class HuyenService {
             .get('/api/huyens')
             .map(response => response as Huyen[]);
     }
+    getHuyenByTinh(query: any,idtinh: number): Observable<Huyen[]> {
+        let tinh = "tinh";
+        return this.http
+            .get(`${this.resourceUrl}/${tinh}/${idtinh}`)
+            .map(response => response as Huyen[]);
+    }
 }

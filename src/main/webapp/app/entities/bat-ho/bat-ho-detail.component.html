@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <th>Đã đóng</th>
-                    <td>{{tiendadong |currency : 'VND' : true : '1.0-0'}}</td>
+                    <td>{{batHo.tongtien-tienchuadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
                 <tr>
                     <th>Còn lại</th>
@@ -72,7 +72,7 @@
         Số tiền còn phải đóng: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
-            <button type="button" class="btn btn-danger">
+            <button (click)="dongHopDong()" type="button" class="btn btn-danger">
                 <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
             </button>
             <button type="button" (click)="dongDongHD()" class="btn btn-success">
@@ -83,18 +83,14 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                (onRowUnselect)="onRowUnselect($event)">
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>
-                            <span>STT</span>
+                        <th colspan="2">
+                            <span>Ngày họ</span>
                         </th>
                         <th>
                             <span>Trạng Thái</span>
-                        </th>
-                        <th>
-                            <span>Ngày họ</span>
                         </th>
                         <th>
                             <span>Tiền họ</span>
@@ -105,23 +101,22 @@
                         <th>
                             <span>Tiền khách trả</span>
                         </th>
-                        <th>
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-lichSuDongTien>
-                    <tr [pSelectableRow]="lichSuDongTien">
-                        <td>{{lichSuDongTien.id}}</td>
+                    <!-- <tr [pSelectableRow]="lichSuDongTien" [class.ng-star-inserted]="{true}"> -->
+                    <tr [pSelectableRow]="lichSuDongTien" [className]="light">
+                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>
                             <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                         </td>
-                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
-                            <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
                         </td>
                     </tr>
                 </ng-template>

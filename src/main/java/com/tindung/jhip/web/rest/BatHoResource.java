@@ -74,7 +74,7 @@ public class BatHoResource {
         LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
         lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
         lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuThaoTacHopDongDTO.setNoidung("Tao moi bat ho");
+        lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
         lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
         lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
         //
@@ -82,6 +82,29 @@ public class BatHoResource {
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
+
+//    @PostMapping("/dao-bat-hos/{id}")
+//    @Timed
+//    public ResponseEntity<BatHoDTO> daoBatHo(@Valid @RequestBody BatHoDTO batHoDTO,@PathVariable Long id) throws URISyntaxException {
+//        log.debug("REST request to save BatHo : {}", batHoDTO);
+//        if (batHoDTO.getId() != null) {
+//            throw new BadRequestAlertException("A new batHo cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+//        BatHoDTO result = batHoService.daoHo(batHoDTO,id);
+//
+//        //
+//        //save lich su thao tac bat ho
+//        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+//        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
+//        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+//        lichSuThaoTacHopDongDTO.setNoidung("Đảo bát họ");
+//        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+//        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+//        //
+//        return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
+//                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+//                .body(result);
+//    }
 
     /**
      * PUT /bat-hos : Updates an existing batHo.

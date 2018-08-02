@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
@@ -13,17 +13,21 @@ import { LichSuThaoTacHopDongService } from '../lich-su-thao-tac-hop-dong/lich-s
 import { GhiNoService } from '../ghi-no/ghi-no.service';
 import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
     selector: 'jhi-bat-ho-detail',
-    templateUrl: './bat-ho-detail.component.html'
+    templateUrl: './bat-ho-detail.component.html',
+    // styleUrls: ['./bat-ho-detail.component.scss']
+    
 })
 export class BatHoDetailComponent implements OnInit, OnDestroy {
     batHo: BatHo;
     lichSuDongTiens: LichSuDongTien[];
+    lichSuDongTien: LichSuDongTien;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
-    selected: LichSuDongTien;
+    selected: LichSuDongTien[];
     msgs: Message[] = [];
     tiendadong: number;
     tienchuadong: number;
@@ -47,21 +51,55 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private route: ActivatedRoute,
         // private confirmationService: ConfirmationService
-    ) { this.ghiNo = new GhiNo(); }
+    ) {
+        this.ghiNo = new GhiNo();
+        this.lichSuDongTien = new LichSuDongTien();
+        this.selected = new Array<LichSuDongTien>();
+    }
+    ngAfterViewInit() {
+        // let j = 0;
+        // if (this.lichSuDongTiens == null) this.ngAfterViewInit();
 
+    }
+    // ngOnChanges() {
+
+
+    // }
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
-
         });
         this.registerChangeInBatHos();
     }
 
     hienDongHD() {
         this.dongHD = true;
+
     }
     dongDongHD() {
         this.dongHD = false;
+
+    }
+
+    dongHopDong() {
+        this.ghiNo.trangthai = NOTRA.TRA;
+        this.ghiNo.hopDongId = this.batHo.hopdong.id;
+        this.ghiNo.sotien = this.tienNo - this.tienTra;
+
+        this.subscribeToSaveResponse(
+            this.ghiNoService.create(this.ghiNo));
+        for (let i = 0; i < this.lichSuDongTiens.length; i++) {
+            if (this.lichSuDongTiens[i].trangthai.toString() == "CHUADONG") {
+                this.lichSuDongTienService.setDongTien(this.lichSuDongTiens[i].id)
+                    .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
+                        this.lichSuDongTien = batHoResponse.body;
+                        this.subscription = this.route.params.subscribe(params => {
+                            this.load(params['id']);
+                        });
+                    });
+            }
+        }
+        this.dongDongHD();
     }
 
     // convertotEnum
@@ -79,8 +117,19 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
                             if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
                                 this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
-                            }else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
-                                this.tienchuadong = this.tienchuadong  + lichSuDongTienResponse.body[i].sotien;
+                                // this.selected[j++] = this.lichSuDongTiens[i];
+
+                            } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
+                                this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
+                            }
+
+                        }
+                        let j = 0;
+                        for (let i = 0; i < this.lichSuDongTiens.length; i++) {
+                            if (this.lichSuDongTiens[i].trangthai.toString() == 'DADONG') {
+                                this.selected[j++] = this.lichSuDongTiens[i];
+                                console.log(this.lichSuDongTiens[i]);
+
                             }
                         }
                     });
@@ -103,6 +152,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
                     });
             });
+
     }
     previousState() {
         window.history.back();
@@ -123,12 +173,13 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
         this.lichSuDongTienService.setDongTien(event.data.id)
             .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
-                this.batHo = batHoResponse.body;
-                this.subscription = this.route.params.subscribe(params => {
-                    this.load(params['id']);
-        
-                });
+                this.lichSuDongTien = batHoResponse.body;
+                // this.subscription = this.route.params.subscribe(params => {
+                //     this.load(params['id']);
+
+                // });  
             });
+
 
     }
 
@@ -187,6 +238,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponseBH(
                 this.batHoService.update(this.batHo));
         } else {
+            this.dongHopDong();
             this.subscribeToSaveResponseBH(
                 this.batHoService.create(this.batHo));
         }
@@ -196,12 +248,13 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.onSaveSuccessBH(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
     private onSaveSuccessBH(result: BatHo) {
-        this.eventManager.broadcast({ name: 'batHoListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'batHoListModification', content: 'OK' });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);
         this.previousState();
     }
+
 
 
 }

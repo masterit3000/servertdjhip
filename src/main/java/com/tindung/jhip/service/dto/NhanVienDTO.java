@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -13,6 +12,34 @@ import com.tindung.jhip.domain.enumeration.TrangThaiNhanVien;
  * A DTO for the NhanVien entity.
  */
 public class NhanVienDTO implements Serializable {
+
+    private String tenTinh;
+    private String tenHuyen;
+    private String tenXa;
+
+    public String getTenTinh() {
+        return tenTinh;
+    }
+
+    public void setTenTinh(String tenTinh) {
+        this.tenTinh = tenTinh;
+    }
+
+    public String getTenHuyen() {
+        return tenHuyen;
+    }
+
+    public void setTenHuyen(String tenHuyen) {
+        this.tenHuyen = tenHuyen;
+    }
+
+    public String getTenXa() {
+        return tenXa;
+    }
+
+    public void setTenXa(String tenXa) {
+        this.tenXa = tenXa;
+    }
 
     private Long id;
 
@@ -138,7 +165,7 @@ public class NhanVienDTO implements Serializable {
         }
 
         NhanVienDTO nhanVienDTO = (NhanVienDTO) o;
-        if(nhanVienDTO.getId() == null || getId() == null) {
+        if (nhanVienDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), nhanVienDTO.getId());
@@ -151,15 +178,15 @@ public class NhanVienDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "NhanVienDTO{" +
-            "id=" + getId() +
-            ", ten='" + getTen() + "'" +
-            ", diachi='" + getDiachi() + "'" +
-            ", dienthoai='" + getDienthoai() + "'" +
-            ", cmnd='" + getCmnd() + "'" +
-            ", trangthai='" + getTrangthai() + "'" +
-            ", ngayTao='" + getNgayTao() + "'" +
-            ", ghiChu='" + getGhiChu() + "'" +
-            "}";
+        return "NhanVienDTO{"
+                + "id=" + getId()
+                + ", ten='" + getTen() + "'"
+                + ", diachi='" + getDiachi() + "'"
+                + ", dienthoai='" + getDienthoai() + "'"
+                + ", cmnd='" + getCmnd() + "'"
+                + ", trangthai='" + getTrangthai() + "'"
+                + ", ngayTao='" + getNgayTao() + "'"
+                + ", ghiChu='" + getGhiChu() + "'"
+                + "}";
     }
 }

@@ -24,7 +24,7 @@ export class KhachHangDialogComponent implements OnInit {
     khachHang: KhachHang;
     isSaving: boolean;
 
-    
+
 
     cuahangs: CuaHang[];
     filteredXas: Xa[];
@@ -36,7 +36,7 @@ export class KhachHangDialogComponent implements OnInit {
     xa: Xa;
     tinh: Tinh;
     huyen: Huyen;
-    
+
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -73,7 +73,8 @@ export class KhachHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        // console.log(this.khachHang);
+        this.khachHang.xaId = this.xa.id;
+        console.log(this.khachHang);
         if (this.khachHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.khachHangService.update(this.khachHang));
@@ -115,9 +116,10 @@ export class KhachHangDialogComponent implements OnInit {
     filterXas(event: any) {
         const query = event.query;
         console.log(query);
-        this.xaService.getXa(query).subscribe((xas: any) => {
-            this.filteredXas = this.filterXa(query, xas);
-        });
+        this.filteredXas = this.filterXa(query, this.huyen.xas);
+        // this.xaService.getXa(query).subscribe((xas: any) => {
+        //     this.filteredXas = this.filterXa(query, xas);
+        // });
     }
     filterXa(query: any, xas: Xa[]): Xa[] {
         const filtered: any[] = [];
@@ -132,7 +134,11 @@ export class KhachHangDialogComponent implements OnInit {
         const query = event.query;
         console.log(query);
         this.tinhService.getTinh(query).subscribe((tinhs: any) => {
-            this.filteredTinhs = this.filterTinh(query, tinhs);
+            
+            console.log(tinhs);
+            // this.filteredTinhs = this.filterTinh(query, tinhs);
+            this.filteredTinhs =  tinhs;
+
         });
     }
     filterTinh(query: any, tinhs: Tinh[]): Tinh[] {
@@ -147,9 +153,10 @@ export class KhachHangDialogComponent implements OnInit {
     filterHuyens(event: any) {
         const query = event.query;
         console.log(query);
-        this.huyenService.getHuyen(query).subscribe((huyens: any) => {
-            this.filteredHuyens = this.filterHuyen(query, huyens);
-        });
+        this.filteredHuyens =this.filterHuyen(query, this.tinh.huyens);
+        // this.huyenService.getHuyenByTinh(query, this.tinh.id).subscribe((huyens: any) => {
+        //     this.filteredHuyens = this.filterHuyen(query, huyens);
+        // });
     }
     filterHuyen(query: any, huyens: Huyen[]): Huyen[] {
         const filtered: any[] = [];

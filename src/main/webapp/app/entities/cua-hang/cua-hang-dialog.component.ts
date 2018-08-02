@@ -55,6 +55,7 @@ export class CuaHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.cuaHang.xaId = this.xa.id;
         if (this.cuaHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.cuaHangService.update(this.cuaHang));
@@ -89,9 +90,10 @@ export class CuaHangDialogComponent implements OnInit {
     filterXas(event: any) {
         const query = event.query;
         console.log(query);
-        this.xaService.getXa(query).subscribe((xas: any) => {
-            this.filteredXas = this.filterXa(query, xas);
-        });
+        this.filteredXas = this.filterXa(query, this.huyen.xas);
+        // this.xaService.getXa(query).subscribe((xas: any) => {
+        //     this.filteredXas = this.filterXa(query, xas);
+        // });
     }
     filterXa(query: any, xas: Xa[]): Xa[] {
         const filtered: any[] = [];
@@ -106,7 +108,11 @@ export class CuaHangDialogComponent implements OnInit {
         const query = event.query;
         console.log(query);
         this.tinhService.getTinh(query).subscribe((tinhs: any) => {
-            this.filteredTinhs = this.filterTinh(query, tinhs);
+            
+            console.log(tinhs);
+            // this.filteredTinhs = this.filterTinh(query, tinhs);
+            this.filteredTinhs =  tinhs;
+
         });
     }
     filterTinh(query: any, tinhs: Tinh[]): Tinh[] {
@@ -121,9 +127,10 @@ export class CuaHangDialogComponent implements OnInit {
     filterHuyens(event: any) {
         const query = event.query;
         console.log(query);
-        this.huyenService.getHuyen(query).subscribe((huyens: any) => {
-            this.filteredHuyens = this.filterHuyen(query, huyens);
-        });
+        this.filteredHuyens =this.filterHuyen(query, this.tinh.huyens);
+        // this.huyenService.getHuyenByTinh(query, this.tinh.id).subscribe((huyens: any) => {
+        //     this.filteredHuyens = this.filterHuyen(query, huyens);
+        // });
     }
     filterHuyen(query: any, huyens: Huyen[]): Huyen[] {
         const filtered: any[] = [];

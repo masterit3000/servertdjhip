@@ -39,10 +39,12 @@ public class HuyenResource {
     }
 
     /**
-     * POST  /huyens : Create a new huyen.
+     * POST /huyens : Create a new huyen.
      *
      * @param huyenDTO the huyenDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new huyenDTO, or with status 400 (Bad Request) if the huyen has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new huyenDTO, or with status 400 (Bad Request) if the huyen has already
+     * an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/huyens")
@@ -54,17 +56,18 @@ public class HuyenResource {
         }
         HuyenDTO result = huyenService.save(huyenDTO);
         return ResponseEntity.created(new URI("/api/huyens/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /huyens : Updates an existing huyen.
+     * PUT /huyens : Updates an existing huyen.
      *
      * @param huyenDTO the huyenDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated huyenDTO,
-     * or with status 400 (Bad Request) if the huyenDTO is not valid,
-     * or with status 500 (Internal Server Error) if the huyenDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * huyenDTO, or with status 400 (Bad Request) if the huyenDTO is not valid,
+     * or with status 500 (Internal Server Error) if the huyenDTO couldn't be
+     * updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/huyens")
@@ -76,27 +79,36 @@ public class HuyenResource {
         }
         HuyenDTO result = huyenService.save(huyenDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, huyenDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, huyenDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /huyens : get all the huyens.
+     * GET /huyens : get all the huyens.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of huyens in body
+     * @return the ResponseEntity with status 200 (OK) and the list of huyens in
+     * body
      */
     @GetMapping("/huyens")
     @Timed
     public List<HuyenDTO> getAllHuyens() {
         log.debug("REST request to get all Huyens");
         return huyenService.findAll();
-        }
+    }
+
+    @GetMapping("/huyens/tinh/{idtinh}")
+    @Timed
+    public List<HuyenDTO> getAllHuyensbyTinh(@PathVariable(name = "idtinh") Long idtinh) {
+        log.debug("REST request to get all Huyens");
+        return huyenService.findAllByTinh(idtinh);
+    }
 
     /**
-     * GET  /huyens/:id : get the "id" huyen.
+     * GET /huyens/:id : get the "id" huyen.
      *
      * @param id the id of the huyenDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the huyenDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * huyenDTO, or with status 404 (Not Found)
      */
     @GetMapping("/huyens/{id}")
     @Timed
@@ -107,7 +119,7 @@ public class HuyenResource {
     }
 
     /**
-     * DELETE  /huyens/:id : delete the "id" huyen.
+     * DELETE /huyens/:id : delete the "id" huyen.
      *
      * @param id the id of the huyenDTO to delete
      * @return the ResponseEntity with status 200 (OK)

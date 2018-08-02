@@ -73,7 +73,7 @@ export class TinhService {
     }
     getTinh(query: any): Observable<Tinh[]> {
         return this.http
-            .get('/api/tinhs')
+            .get('/api/tinhs/tim/'+query)
             .map(response => response as Tinh[]);
     }
 }

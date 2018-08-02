@@ -12,6 +12,9 @@ import org.mapstruct.*;
 public interface CuaHangMapper extends EntityMapper<CuaHangDTO, CuaHang> {
 
     @Mapping(source = "xa.id", target = "xaId")
+    @Mapping(source = "xa.ten", target = "tenXa")
+    @Mapping(source = "xa.huyen.ten", target = "tenHuyen")
+    @Mapping(source = "xa.huyen.tinh.ten", target = "tenTinh")
     CuaHangDTO toDto(CuaHang cuaHang);
 
     @Mapping(source = "xaId", target = "xa")

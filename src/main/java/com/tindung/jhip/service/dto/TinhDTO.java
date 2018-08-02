@@ -1,10 +1,8 @@
 package com.tindung.jhip.service.dto;
 
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,6 +14,15 @@ public class TinhDTO implements Serializable {
 
     @NotNull
     private String ten;
+    private List<HuyenDTO> huyens;
+
+    public List<HuyenDTO> getHuyens() {
+        return huyens;
+    }
+
+    public void setHuyens(List<HuyenDTO> huyens) {
+        this.huyens = huyens;
+    }
 
     public Long getId() {
         return id;
@@ -43,7 +50,7 @@ public class TinhDTO implements Serializable {
         }
 
         TinhDTO tinhDTO = (TinhDTO) o;
-        if(tinhDTO.getId() == null || getId() == null) {
+        if (tinhDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), tinhDTO.getId());
@@ -56,9 +63,9 @@ public class TinhDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "TinhDTO{" +
-            "id=" + getId() +
-            ", ten='" + getTen() + "'" +
-            "}";
+        return "TinhDTO{"
+                + "id=" + getId()
+                + ", ten='" + getTen() + "'"
+                + "}";
     }
 }

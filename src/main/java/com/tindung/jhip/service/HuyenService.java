@@ -37,4 +37,6 @@ public interface HuyenService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    public List<HuyenDTO> findAllByTinh(Long idtinh);
 }
