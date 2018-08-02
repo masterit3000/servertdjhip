@@ -9,11 +9,11 @@
                 <tr>
                     <th>Tên khách hàng</th>
                     <td>
-                        <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangTen}}</a>
+                        <a>{{vayLai.hopdongvl.khachHangTen}}</a>
                     </td>
                     <td>
                         ID:
-                        <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
+                        <a>{{vayLai.hopdongvl.khachHangId}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +70,7 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{vayLai.hopdongvl.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra}}}đ
+        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra|currency : 'VND' : true : '1.0-0'}}
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button type="button" (click)="dongHopDong()" class="btn btn-danger">
@@ -94,7 +94,6 @@
                                 <th>Trạng thái</th>
                                 <th>Chu kỳ lãi</th>
                                 <th>Tiền khách trả</th>
-
                                 <th>
                                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                 </th>
@@ -109,7 +108,6 @@
                                 </td>
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-
                                 <td>
                                     <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
                                 </td>
@@ -135,9 +133,18 @@
                                 </td>
                             </tr> -->
                             <tr>
-                                <td>Số tiền sau khi trả:</td>
+                                <td>Trả bớt gốc:</td>
                                 <td>
-                                    <input [(ngModel)]="vayLai.tienvay" class="form-control" name="tienvay" id="field_tienvay">
+                                    <input [(ngModel)]="traBotGoc" name="trabotgoc" id="field_tienvay">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số tiền sau khi trả bớt gốc:</td>
+                                <td>
+
+                                    <input [(ngModel)]="vayLai.tienvay" value="vayLai.tienvay-traBotGoc" class="form-control" name="tienvay" id="field_tienvay"
+                                        readonly>
                                 </td>
                             </tr>
                             <tr>

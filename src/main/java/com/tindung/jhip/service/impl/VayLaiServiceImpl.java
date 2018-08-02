@@ -191,8 +191,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                 // xu li du lieu nhan ve
                 int day = 0;
                 ZonedDateTime batdau = ngayVay;
-                int soChuKy = (soNgayVay-soNgayDaDong) / kyLai;
-                if ((soNgayVay-soNgayDaDong) % kyLai != 0) {
+                int soChuKy = (soNgayVay-soNgayDaDong*kyLai) / kyLai;
+                if ((soNgayVay-soNgayDaDong*kyLai) % kyLai != 0) {
                     soChuKy++;
                 }
 
@@ -317,5 +317,6 @@ public class VayLaiServiceImpl implements VayLaiService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+    
 
 }

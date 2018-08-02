@@ -15,6 +15,7 @@ export class LichSuDongTienService {
     private resourceUrl =  SERVER_API_URL + 'api/lich-su-dong-tiens';
     private dongtien ='dongtien';
     private lichSuDongTien = 'lichsudongtien';
+    private donghopdong =SERVER_API_URL + 'api/dong-hop-dong';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(lichSuDongTien: LichSuDongTien): Observable<EntityResponseType> {
@@ -50,6 +51,9 @@ export class LichSuDongTienService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+    }
+    dongHopDong(id: number): Observable<HttpResponse<any>> {
+        return this.http.get<any>(`${this.donghopdong}/${id}`, { observe: 'response'});
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

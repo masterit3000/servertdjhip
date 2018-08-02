@@ -54,7 +54,6 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         this.cuaHangService = cuaHangService;
     }
 
-
     /**
      * Save a lichSuDongTien.
      *
@@ -132,5 +131,33 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     }
 
+    @Override
+    public void dongHopDong(Long id) {
+        List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
+        double tienConPhaiDong=0;
+        for (LichSuDongTien lichSuDongTien : findByHopDong) {
+            if(lichSuDongTien.getTrangthai().equals(DONGTIEN.CHUADONG)){
+                tienConPhaiDong += lichSuDongTien.getSotien();
+                lichSuDongTienRepository.delete(lichSuDongTien);
+            }
+        }
+        List<GhiNoDTO> ghiNos = ghiNoService.findByHopDong(id);
+        for (GhiNoDTO ghiNo : ghiNos) {
+            if(ghiNo.getTrangthai().equals(NOTRA.NO)){
+                tienConPhaiDong = tienConPhaiDong + ghiNo.getSotien();
+            }else if(ghiNo.getTrangthai().equals(NOTRA.TRA)){
+                tienConPhaiDong =  tienConPhaiDong  -ghiNo.getSotien();
+            }
+        }
+        LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+        lichSuDongTienDTO.setHopDongId(id);
+        lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
+        lichSuDongTienDTO.setNgayketthuc(ZonedDateTime.now());
+        lichSuDongTienDTO.setSotien(tienConPhaiDong);
+        lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+        lichSuDongTienDTO.setTrangthai(DONGTIEN.DADONG);
+        LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
+        lichSuDongTienRepository.save(lichSuDongTien);
+    }
 
 }
