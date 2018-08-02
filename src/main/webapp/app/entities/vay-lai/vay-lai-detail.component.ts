@@ -23,7 +23,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     lichSuDongTiens: LichSuDongTien[];
     selected: LichSuDongTien;
     tiendadong: number;
-    tienchuadong:number;
+    tienchuadong: number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
@@ -35,6 +35,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     tienNo: number;
     tienTra: number;
     isSaving: boolean;
+    traBotGoc: number;
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -64,21 +65,22 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.ghiNo.trangthai = NOTRA.TRA;
         this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
         this.ghiNo.sotien = this.tienNo - this.tienTra;
+
         this.subscribeToSaveResponse(
             this.ghiNoService.create(this.ghiNo));
-        for(let i=0;i<this.lichSuDongTiens.length;i++){
-            if(this.lichSuDongTiens[i].trangthai.toString()=="CHUADONG"){
-                this.lichSuDongTienService.setDongTien(this.lichSuDongTiens[i].id)
-            .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien>) => {
-                this.lichSuDongTien = vayLaiResponse.body;
+        this.lichSuDongTienService.dongHopDong(this.vayLai.hopdongvl.id)
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Đóng Hợp Đồng'
+                });
                 this.subscription = this.route.params.subscribe(params => {
                     this.load(params['id']);
 
                 });
             });
-            }
-        }
         this.dongDongHD();
+
     }
     load(id) {
         this.vayLaiService.find(id)
@@ -89,10 +91,11 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                     .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
                         this.lichSuDongTiens = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
+                        this.tienchuadong =0;
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
                             if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
                                 this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
-                            }else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
+                            } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
                                 this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
                             }
                         }

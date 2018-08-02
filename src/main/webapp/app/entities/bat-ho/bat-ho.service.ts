@@ -12,7 +12,7 @@ export type EntityResponseType = HttpResponse<BatHo>;
 export class BatHoService {
 
     private resourceUrl = SERVER_API_URL + 'api/bat-hos';
-    private daoHoUrl = SERVER_API_URL + 'api/bat-hos';
+    private daoHoUrl = SERVER_API_URL + 'api/dao-bat-hos';
     private resourceUrlBatHoByCuaHang = SERVER_API_URL + 'api/bat-hos-by-cua-hang';
     // private resourceUrl =  SERVER_API_URL + 'api/bat-hos';
     private dongTien = 'dongtien';

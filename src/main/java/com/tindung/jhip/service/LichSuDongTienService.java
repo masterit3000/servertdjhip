@@ -43,4 +43,5 @@ public interface LichSuDongTienService {
 
     List<LichSuDongTienDTO> findByHopDong(Long id);
     
+    void dongHopDong(Long id);
 }

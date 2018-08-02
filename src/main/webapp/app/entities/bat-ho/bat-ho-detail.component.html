@@ -50,6 +50,12 @@
                     <th>Còn lại</th>
                     <td>{{tienchuadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
+                <tr>
+                    <th>Hợp đồng gốc</th>
+                    <td>
+                        <a [routerLink]="['../../hop-dong', batHo.hopdong.hopdonggocId ]">{{batHo.hopdong.hopdonggocId}}</a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -69,7 +75,7 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
+        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra|currency : 'VND' : true : '1.0-0'}}
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button (click)="dongHopDong()" type="button" class="btn btn-danger">
@@ -94,9 +100,6 @@
                         </th>
                         <th>
                             <span>Tiền họ</span>
-                        </th>
-                        <th>
-                            <span>Ngày giao dịch</span>
                         </th>
                         <th>
                             <span>Tiền khách trả</span>
@@ -223,49 +226,51 @@
         <p-tabPanel header="Đảo họ">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>Ngày đảo họ:</td>
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bát họ mới:</td>
-                                <td>
-                                    <input [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tiền đưa khách:</td>
-                                <td>
-                                    <input [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bốc trong vòng:</td>
-                                <td>
-                                    <input [(ngModel)]="batHo.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
-                                        pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Số ngày đóng tiền:</td>
-                                <td>
-                                    <input [(ngModel)]="batHo.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Số tiền đưa khách thực tế : {{batHo.tienduakhach}}-{{tienchuadong}}-{{tienNo-tienTra}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="save()" class="btn btn-primary">Đảo họ</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <form name="editForm" role="form" novalidate #editForm="ngForm">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Ngày đảo họ:</td>
+                                    <td>
+                                        <p-calendar></p-calendar>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bát họ mới:</td>
+                                    <td>
+                                        <input [(ngModel)]="batHoDao.tongtien" class="form-control" name="tongtien" id="field_tongtien" pInputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiền đưa khách:</td>
+                                    <td>
+                                        <input [(ngModel)]="batHoDao.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach" pInputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bốc trong vòng:</td>
+                                    <td>
+                                        <input [(ngModel)]="batHoDao.tongsongay" type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
+                                            pInputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Số ngày đóng tiền:</td>
+                                    <td>
+                                        <input [(ngModel)]="batHoDao.chuky" type="number" pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky" pInputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Số tiền đưa khách thực tế : {{batHoDao.tienduakhach}}-{{tienchuadong}}-{{tienNo-tienTra}}={{batHoDao.tienduakhach-tienchuadong-(tienNo-tienTra)}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-center bolder-table-last">
+                                        <button type="submit" (click)="daoHo()" class="btn btn-primary">Đảo họ</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
             </div>
         </p-tabPanel>

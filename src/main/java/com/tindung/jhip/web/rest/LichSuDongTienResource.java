@@ -131,6 +131,14 @@ public class LichSuDongTienResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    @GetMapping("/dong-hop-dong/{id}")
+    @Timed
+    public ResponseEntity<Void> dongHopDong(@PathVariable Long id) {
+        log.debug("REST request to delete LichSuDongTien : {}", id);
+        lichSuDongTienService.dongHopDong(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
+    }
+
     @GetMapping("/lich-su-dong-tiens/lichsudongtien/{id}")
     @Timed
     public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
