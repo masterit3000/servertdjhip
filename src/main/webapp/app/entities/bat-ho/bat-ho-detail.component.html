@@ -244,7 +244,7 @@
                                 <td>Bát họ mới:</td>
                                 <td>
                                     <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"
+                                        [(ngModel)]="batHoDao.tongtien" class="form-control" name="tongtien" id="field_tongtien"
                                         pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover"
                                         required></p-spinner>
                                 </td>
@@ -253,7 +253,7 @@
                                 <td>Tiền đưa khách:</td>
                                 <td>
                                     <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
+                                        [(ngModel)]="batHoDao.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
                                         pTooltip="Nhập số tiền khách nhận
                                         (Tiền lãi - chưa tính bát họ gốc)
                                         (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
@@ -262,25 +262,25 @@
                             <tr>
                                 <td>Bốc trong vòng:</td>
                                 <td>
-                                    <input [(ngModel)]="batHo.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
+                                    <input [(ngModel)]="batHoDao.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
                                         pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Số ngày đóng tiền:</td>
                                 <td>
-                                    <input [(ngModel)]="batHo.chuky" type="number" [min]='0' pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky"
+                                    <input [(ngModel)]="batHoDao.chuky" type="number" [min]='0' pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky"
                                         pInputText>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">Số tiền đưa khách thực tế : {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}-{{tienchuadong
+                                <td colspan="2">Số tiền đưa khách thực tế : {{batHoDao.tienduakhach |currency : 'VND' : true : '1.0-0'}}-{{tienchuadong
                                     |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)
                                     |currency : 'VND' : true : '1.0-0'}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="save()" class="btn btn-primary">Đảo họ</button>
+                                    <button (click)="daoHo()" class="btn btn-primary">Đảo họ</button>
                                 </td>
                             </tr>
                         </tbody>
