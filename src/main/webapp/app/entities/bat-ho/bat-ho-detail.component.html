@@ -1,6 +1,6 @@
 <div *ngIf="batHo">
     <h2>
-        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span>
+        <span>Bát họ {{batHo.hopdong.mahopdong}}</span>
     </h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
@@ -122,9 +122,9 @@
                 </ng-template>
             </p-table>
         </p-tabPanel>
-        <p-tabPanel header="Nợ">
-            <div class="row">
-                <div class="col-md-4 offset-md-1">
+        <p-tabPanel header="Ghi nợ">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
@@ -147,7 +147,11 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-4 offset-md-2">
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Trả nợ">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
@@ -228,60 +232,53 @@
         </p-tabPanel>
         <p-tabPanel header="Đảo họ">
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>Ngày đảo họ:</td>
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bát họ mới:</td>
-                                <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien"
-                                        pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover"
-                                        required></p-spinner>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tiền đưa khách:</td>
-                                <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
-                                        pTooltip="Nhập số tiền khách nhận
+                <div class="col-md-8" style="background-color: azure">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3 form-group">
+                            <label class="form-control-label">
+                                Bát họ mới
+                            </label>
+                            <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                [(ngModel)]="batHo.tongtien" class="form-control" name="tongtien" id="field_tongtien" pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)"
+                                tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="form-control-label">
+                                Tiền đưa khách
+                            </label>
+                            <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                [(ngModel)]="batHo.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
+                                pTooltip="Nhập số tiền khách nhận
                                         (Tiền lãi - chưa tính bát họ gốc)
                                         (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bốc trong vòng:</td>
-                                <td>
-                                    <input [(ngModel)]="batHo.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
-                                        pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Số ngày đóng tiền:</td>
-                                <td>
-                                    <input [(ngModel)]="batHo.chuky" type="number" [min]='0' pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky"
-                                        pInputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">Số tiền đưa khách thực tế : {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}-{{tienchuadong
-                                    |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)
-                                    |currency : 'VND' : true : '1.0-0'}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="save()" class="btn btn-primary">Đảo họ</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="form-control-label">
+                                Bốc trong vòng
+                            </label>
+                            <input [(ngModel)]="batHo.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
+                                pInputText>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label class="form-control-label">
+                                Số ngày đóng tiền
+                            </label>
+                            <input [(ngModel)]="batHo.chuky" type="number" [min]='0' pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky"
+                                pInputText>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <span>Số tiền đưa khách thực tế : {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}-{{tienchuadong
+                                |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}={{batHo.tienduakhach-tienchuadong-(tienNo-tienTra)
+                                |currency : 'VND' : true : '1.0-0'}}</span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <button (click)="save()" class="btn btn-primary float-right">
+                                <span class="fa fa-refresh"></span>
+                                Đảo họ</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </p-tabPanel>

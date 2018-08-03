@@ -35,6 +35,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     tienNo: number;
     tienTra: number;
     isSaving: boolean;
+    danhSachTienGocs: any[];
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,

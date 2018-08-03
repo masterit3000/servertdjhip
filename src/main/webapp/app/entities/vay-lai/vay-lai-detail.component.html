@@ -121,7 +121,7 @@
         </p-tabPanel>
         <p-tabPanel header="Trả bớt gốc">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2">Trả gốc</th>
@@ -148,23 +148,21 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <h3>Danh sách tiền gốc</h3>
+                    <hr/>
                     <br />
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>STT</th>
+                    <p-table [value]="danhSachTienGocs" [paginator]="true" [rows]="5" dataKey="id">
+                        <ng-template pTemplate="header">
                             <th>Ngày</th>
+                            <th>Nhân viên</th>
                             <th>Nội dung</th>
                             <th>Số tiền</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
+                        </ng-template>
+                        <ng-template pTemplate="body">
 
-                        </tbody>
-                    </table>
+                        </ng-template>
+                    </p-table>
                 </div>
             </div>
         </p-tabPanel>
