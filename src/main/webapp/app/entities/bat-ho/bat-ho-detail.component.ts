@@ -19,11 +19,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'jhi-bat-ho-detail',
     templateUrl: './bat-ho-detail.component.html',
-    // styleUrls: ['./bat-ho-detail.component.scss']
-    
+
 })
 export class BatHoDetailComponent implements OnInit, OnDestroy {
     batHo: BatHo;
+    batHoDao: BatHo;
     lichSuDongTiens: LichSuDongTien[];
     lichSuDongTien: LichSuDongTien;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
@@ -39,6 +39,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     tienNo: number;
     tienTra: number;
     isSaving: boolean;
+    lichSuThaoTacHopDong: LichSuThaoTacHopDong;
 
 
     constructor(
@@ -53,8 +54,10 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         // private confirmationService: ConfirmationService
     ) {
         this.ghiNo = new GhiNo();
+        this.batHoDao = new BatHo();
         this.lichSuDongTien = new LichSuDongTien();
         this.selected = new Array<LichSuDongTien>();
+        this.lichSuThaoTacHopDong = new LichSuThaoTacHopDong();
     }
     ngAfterViewInit() {
         // let j = 0;
@@ -88,18 +91,22 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
         this.subscribeToSaveResponse(
             this.ghiNoService.create(this.ghiNo));
-        for (let i = 0; i < this.lichSuDongTiens.length; i++) {
-            if (this.lichSuDongTiens[i].trangthai.toString() == "CHUADONG") {
-                this.lichSuDongTienService.setDongTien(this.lichSuDongTiens[i].id)
-                    .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
-                        this.lichSuDongTien = batHoResponse.body;
-                        this.subscription = this.route.params.subscribe(params => {
-                            this.load(params['id']);
-                        });
-                    });
-            }
-        }
+        this.lichSuDongTienService.dongHopDong(this.batHo.hopdong.id)
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Đóng Hợp Đồng'
+                });
+
+
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+
+                });
+            });
+        this.setNoiDung('đóng hợp đồng');
         this.dongDongHD();
+
     }
 
     // convertotEnum
@@ -174,12 +181,12 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.lichSuDongTienService.setDongTien(event.data.id)
             .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
                 this.lichSuDongTien = batHoResponse.body;
-                // this.subscription = this.route.params.subscribe(params => {
-                //     this.load(params['id']);
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
 
-                // });  
+                });
             });
-
+        this.setNoiDung('đóng tiền');
 
     }
 
@@ -196,7 +203,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-
+        this.setNoiDung('ghi nợ');
     }
     saveTraNo() {
         this.isSaving = true;
@@ -211,7 +218,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-
+        this.setNoiDung('trả nợ');
     }
 
 
@@ -254,7 +261,27 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.jhiAlertService.success('them moi thanh cong', null, null);
         this.previousState();
     }
+    daoHo() {
+        this.dongHopDong();
+        this.subscribeToSaveResponseBH(
+            this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id));
+        this.setNoiDung('đảo họ');
+    }
+    private setNoiDung(noidung: string) {
+        this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;
+        this.lichSuThaoTacHopDong.noidung = noidung;
+        this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
+        this.subscribeToSaveResponseLS(
+            this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong));
+    }
+    private subscribeToSaveResponseLS(result: Observable<HttpResponse<LichSuThaoTacHopDong>>) {
+        result.subscribe((res: HttpResponse<LichSuThaoTacHopDong>) =>
+            this.onSaveSuccessLS(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
 
-
+    private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
+        this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
+        this.isSaving = false;
+    }
 
 }

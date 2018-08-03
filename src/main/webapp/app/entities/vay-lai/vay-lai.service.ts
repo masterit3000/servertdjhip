@@ -15,11 +15,19 @@ export class VayLaiService {
     private lichSuDongTien = 'lichsudongtien';
     private resourceUrlTimVayLai = SERVER_API_URL +'api/tim-vay-lais-by-ten-cmnd';
     private lichSuThaoTacHopDong = 'lichsuthaotac';
+    private thembotvaylai =SERVER_API_URL + 'api/them-bot-vay-lais';
+ 
     constructor(private http: HttpClient) { }
 
     create(vayLai: VayLai): Observable<EntityResponseType> {
         const copy = this.convert(vayLai);
         return this.http.post<VayLai>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    
+    themBotVayLai(vayLai: VayLai,id:number,tienVay:number): Observable<EntityResponseType> {
+        const copy = this.convert(vayLai);
+        return this.http.post<VayLai>(`${this.thembotvaylai}/${id}/${tienVay}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -82,4 +90,5 @@ export class VayLaiService {
                 this.convertArrayResponse(res)
             );
     }
+
 }

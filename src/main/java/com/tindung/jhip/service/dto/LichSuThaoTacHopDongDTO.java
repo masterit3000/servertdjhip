@@ -14,7 +14,7 @@ public class LichSuThaoTacHopDongDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+//    @NotNull
     private ZonedDateTime thoigian;
 
     @NotNull

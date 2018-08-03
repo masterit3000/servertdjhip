@@ -44,7 +44,8 @@ public interface BatHoService {
 
     // List<BatHoDTO> findByNameOrCMND(String key);
 
-//    BatHoDTO daoHo(BatHoDTO batHoDTO, Long id);
+    BatHoDTO daoHo(BatHoDTO batHoDTO, Long id);
     List<BatHoDTO> findByNameOrCMND(String key);
+    List<BatHoDTO> findByHopDong(Long id);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
 }

@@ -12,11 +12,12 @@ export type EntityResponseType = HttpResponse<BatHo>;
 export class BatHoService {
 
     private resourceUrl = SERVER_API_URL + 'api/bat-hos';
-    private daoHoUrl = SERVER_API_URL + 'api/bat-hos';
+    private daoHoUrl = SERVER_API_URL + 'api/dao-bat-hos';
     private resourceUrlBatHoByCuaHang = SERVER_API_URL + 'api/bat-hos-by-cua-hang';
     // private resourceUrl =  SERVER_API_URL + 'api/bat-hos';
     private dongTien = 'dongtien';
     private resourceUrlTimBatHo = SERVER_API_URL + 'api/tim-bat-hos-by-ten-cmnd';
+    private resourceUrlBatHoByHopDong = SERVER_API_URL + 'api/tim-bat-hos';
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -95,6 +96,11 @@ export class BatHoService {
     // Tùng add
     findByCuaHangId(id: number): Observable<HttpResponse<BatHo[]>> {
         return this.http.get<BatHo[]>(`${this.resourceUrlBatHoByCuaHang}/${id}`, {observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+
+    findByHopDong(id: number): Observable<HttpResponse<BatHo[]>> {
+        return this.http.get<BatHo[]>(`${this.resourceUrlBatHoByHopDong}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
 
