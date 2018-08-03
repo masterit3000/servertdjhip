@@ -111,7 +111,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
+                                    <button class="btn btn-success float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
@@ -183,7 +183,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
                 <span class="fa fa-ban"></span>&nbsp;
                 <span jhiTranslate="entity.action.cancel">Cancel</span>
             </button>
