@@ -35,6 +35,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     dongHD: boolean = false;
+    dongTien: boolean = false;
     ghiNo: GhiNo;
     ghiNos: GhiNo[];
     tienNo: number;
@@ -80,9 +81,18 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.dongHD = true;
 
     }
+
     dongDongHD() {
         this.dongHD = false;
 
+    }
+
+    hienDongTien(){
+        this.dongTien = true;
+    }
+
+    dongDongTien(){
+        this.dongTien = false;
     }
 
     dongHopDong() {

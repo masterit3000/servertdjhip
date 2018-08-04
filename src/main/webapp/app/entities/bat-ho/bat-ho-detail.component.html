@@ -1,6 +1,6 @@
 <div *ngIf="batHo">
     <h2>
-        <span jhiTranslate="servertdjhipApp.batHo.detail.title">Bat Ho</span>
+        <span>Bát họ {{batHo.hopdong.mahopdong}}</span>
     </h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
@@ -50,12 +50,6 @@
                     <th>Còn lại</th>
                     <td>{{tienchuadong |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
-                <tr>
-                    <th>Hợp đồng gốc</th>
-                    <td>
-                        <a [routerLink]="['../../hop-dong', batHo.hopdong.hopdonggocId ]">{{batHo.hopdong.hopdonggocId}}</a>
-                    </td>
-                </tr>
             </table>
         </div>
     </div>
@@ -89,7 +83,8 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)">
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="hienDongTien()"
+                (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
                         <th colspan="2">
@@ -104,11 +99,14 @@
                         <th>
                             <span>Tiền khách trả</span>
                         </th>
+                        <th>
+                            <span>Đóng tiền</span>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-lichSuDongTien>
                     <!-- <tr [pSelectableRow]="lichSuDongTien" [class.ng-star-inserted]="{true}"> -->
-                    <tr [pSelectableRow]="lichSuDongTien" [className]="light">
+                    <tr [pSelectableRow]="lichSuDongTien">
                         <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                         <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                         <td>
@@ -119,15 +117,30 @@
 
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
-                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"   ></p-tableCheckbox>
+                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
+            <p-dialog modal="true" [(visible)]="dongTien">
+                <p-header>
+                    Đóng tiền cho hợp đồng {{batHo.hopdong.mahopdong}}
+                </p-header>
+                Số tiền đóng: {{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}
+                <br/> Bạn có chắc chắn muốn đóng tiền?
+                <p-footer>
+                    <button (click)="onRowSelect($event)" type="button" class="btn btn-success">
+                        <span class="fa fa-check"></span>&nbsp; Xác nhận
+                    </button>
+                    <button type="button" (click)="dongDongTien()" class="btn btn-danger">
+                        <span class="fa fa-close"></span>&nbsp; Hủy
+                    </button>
+                </p-footer>
+            </p-dialog>
         </p-tabPanel>
-        <p-tabPanel header="Nợ">
-            <div class="row">
-                <div class="col-md-4 offset-md-1">
+        <p-tabPanel header="Ghi nợ">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
@@ -150,7 +163,11 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-4 offset-md-2">
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Trả nợ">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
@@ -177,33 +194,35 @@
         </p-tabPanel>
         <p-tabPanel header="Lịch sử">
             <div class="row">
-                <div class="col-md-12">
-                    <span class="ui-float-label">
-                        <textarea id="float-input" [rows]="5" [cols]="170" pInputTextarea></textarea>
-                        <label for="float-input">Ghi chú</label>
-                    </span>
+                <div class="col-md-5 table-bordered">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="ui-float-label" style="marin-top:10px">
+                                <textarea id="float-input" [rows]="5" [cols]="87" pInputTextarea></textarea>
+                                <label for="float-input">Ghi chú</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success float-right">
+                                <span class="fa fa-save"></span>
+                                Lưu</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-primary float-right">Lưu</button>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <h3>Lịch sử thao tác</h3>
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
-                            
+
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Nội dung</th>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
-                               
                                 <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
@@ -212,26 +231,10 @@
                         </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Lịch sử nhắc nợ</h3>
-                    <br />
-                    <p-table class="table table-bordered text-center">
-                        <thead>
-                            <th>STT</th>
-                            <th>Ngày</th>
-                            <th>Nhân viên</th>
-                            <th>Số tiền ghi nợ</th>
-                            <th>Số tiền ghi có</th>
-                            <th>Nội dung</th>
-                        </thead>
-                    </p-table>
-                </div>
-            </div>
         </p-tabPanel>
         <p-tabPanel header="Đảo họ">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
+            <div class="row justify-content-center" style="background-color: #e3e3e3">
+                <div class="col-md-4" style="background-color:white">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
@@ -262,8 +265,8 @@
                             <tr>
                                 <td>Bốc trong vòng:</td>
                                 <td>
-                                    <input [(ngModel)]="batHoDao.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay" id="field_tongsongay"
-                                        pInputText>
+                                    <input [(ngModel)]="batHoDao.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay"
+                                        id="field_tongsongay" pInputText>
                                 </td>
                             </tr>
                             <tr>
@@ -280,7 +283,9 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="daoHo()" class="btn btn-primary">Đảo họ</button>
+                                    <button (click)="daoHo()" class="btn btn-primary">
+                                        <span class="fa fa-refresh"></span>
+                                        Đảo họ</button>
                                 </td>
                             </tr>
                         </tbody>

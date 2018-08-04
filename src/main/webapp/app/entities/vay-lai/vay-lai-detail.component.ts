@@ -31,11 +31,14 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     lichSuDongTien: LichSuDongTien;
     msgs: Message[] = [];
     dongHD: boolean = false;
+    dongLai: boolean = false;
     ghiNo: GhiNo;
     ghiNos: GhiNo[];
     tienNo: number;
     tienTra: number;
     isSaving: boolean;
+    danhSachTienGocs: any[];
+    lichSuGiaHans: any[];
     index: number;
     constructor(
         private eventManager: JhiEventManager,
@@ -62,6 +65,12 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     }
     dongDongHD() {
         this.dongHD = false;
+    }
+    hienDongLai() {
+        this.dongLai = true;
+    }
+    dongDongLai() {
+        this.dongLai = false;
     }
     dongHopDong() {
         this.ghiNo.trangthai = NOTRA.TRA;
