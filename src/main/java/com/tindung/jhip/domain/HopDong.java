@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Objects;
 
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 
 /**
  * A HopDong.
@@ -42,6 +43,11 @@ public class HopDong implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "loaihopdong", nullable = false)
     private LOAIHOPDONG loaihopdong;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "trangthai", nullable = false)
+    private TRANGTHAIHOPDONG trangthaihopdong;
 
     @NotNull
     @Column(name = "ngaytao", nullable = false)
@@ -180,6 +186,14 @@ public class HopDong implements Serializable {
         this.nhanVien = nhanVien;
     }
 
+    public TRANGTHAIHOPDONG getTrangthaihopdong() {
+        return trangthaihopdong;
+    }
+
+    public void setTrangthaihopdong(TRANGTHAIHOPDONG trangthaihopdong) {
+        this.trangthaihopdong = trangthaihopdong;
+    }
+
     public HopDong getHopdonggoc() {
         return hopdonggoc;
     }
@@ -316,12 +330,12 @@ public class HopDong implements Serializable {
 
     @Override
     public String toString() {
-        return "HopDong{" +
-            "id=" + getId() +
-            ", mahopdong='" + getMahopdong() + "'" +
-            ", ghichu='" + getGhichu() + "'" +
-            ", loaihopdong='" + getLoaihopdong() + "'" +
-            ", ngaytao='" + getNgaytao() + "'" +
-            "}";
+        return "HopDong{"
+                + "id=" + getId()
+                + ", mahopdong='" + getMahopdong() + "'"
+                + ", ghichu='" + getGhichu() + "'"
+                + ", loaihopdong='" + getLoaihopdong() + "'"
+                + ", ngaytao='" + getNgaytao() + "'"
+                + "}";
     }
 }

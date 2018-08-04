@@ -83,7 +83,7 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Lịch đóng tiền">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="hienDongTien()"
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
                 (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
@@ -129,7 +129,7 @@
                 Số tiền đóng: {{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}
                 <br/> Bạn có chắc chắn muốn đóng tiền?
                 <p-footer>
-                    <button (click)="onRowSelect($event)" type="button" class="btn btn-success">
+                    <button  type="button" class="btn btn-success">
                         <span class="fa fa-check"></span>&nbsp; Xác nhận
                     </button>
                     <button type="button" (click)="dongDongTien()" class="btn btn-danger">

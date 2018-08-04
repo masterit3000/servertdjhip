@@ -5,6 +5,7 @@ import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.HopDongRepository;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
@@ -133,6 +134,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     @Override
     public void dongHopDong(Long id) {
+        hopDongRepository.findOne(id).setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
         List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
         double tienConPhaiDong=0;
         for (LichSuDongTien lichSuDongTien : findByHopDong) {

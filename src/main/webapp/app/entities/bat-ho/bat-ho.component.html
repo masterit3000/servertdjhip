@@ -51,6 +51,9 @@
                     <th>
                         <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
                     </th>
+                    <th>
+                        <span >Trạng thái</span>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-batHo>
@@ -61,6 +64,7 @@
                     <td>{{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>{{batHo.tongsongay}}</td>
                     <td>{{batHo.chuky}}</td>
+                    <td>{{batHo.hopdong.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
         </p-table>

@@ -25,6 +25,7 @@ import com.tindung.jhip.service.mapper.BatHoMapper;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
@@ -97,6 +98,7 @@ public class BatHoServiceImpl implements BatHoService {
                 }
 
                 hopdong.setNgaytao(ZonedDateTime.now());
+                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                 hopdong = hopDongService.save(hopdong);
                 batHoDTO.setHopdong(hopdong);
                 BatHo batHo = batHoMapper.toEntity(batHoDTO);
