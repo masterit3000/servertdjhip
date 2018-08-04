@@ -40,5 +40,11 @@
     <include file="config/liquibase/changelog/20180625141447_added_entity_constraints_AnhTaiSan.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_added_entity_constraints_NhatKy.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnum.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnumHopDong.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnumThuChi.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnumLichSuDongTien.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnumKhachHang.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnumNhanVien.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_SuaEnumCuaHang.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
