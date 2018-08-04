@@ -405,5 +405,16 @@ public class BatHoServiceImpl implements BatHoService {
                 .collect(Collectors.toCollection(LinkedList::new));
         return collect;
     }
+
     //Tùng end
+    @Override
+    public List<BatHoDTO> findByHopDong(Long id) {
+        List<BatHo> findByCuaHangId = batHoRepository.findByHopDong(id);
+        List<BatHoDTO> collect = findByCuaHangId.stream()
+                .map(batHoMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
+
+    }
+
 }

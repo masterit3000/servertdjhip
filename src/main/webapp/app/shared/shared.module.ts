@@ -14,7 +14,9 @@ import {
     JhiLoginModalComponent,
     Principal,
     HasAnyAuthorityDirective,
+   
 } from './';
+import { UploadFileService } from './upload-file.service';
 
 @NgModule({
     imports: [
@@ -34,7 +36,8 @@ import {
         CSRFService,
         AuthServerProvider,
         UserService,
-        DatePipe
+        DatePipe,
+        UploadFileService
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [

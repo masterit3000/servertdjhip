@@ -1,4 +1,4 @@
-package com.tindung.jhip.repository;
+ package com.tindung.jhip.repository;
 
 import com.tindung.jhip.domain.BatHo;
 import java.util.List;
@@ -25,4 +25,7 @@ public interface BatHoRepository extends JpaRepository<BatHo, Long> {
     @Query(value = "select b from BatHo b inner join b.hopdongbh h inner join h.cuaHang c where c.id =:idcuahang")
     public List<BatHo> findByCuaHangId(@Param(value = "idcuahang") Long cuaHangId);
     //Tùng end
+    
+    @Query(value = "select b from BatHo b inner join b.hopdongbh h  where h.id =:idhopdong")
+    public List<BatHo> findByHopDong(@Param(value = "idhopdong") Long hopdongId);
 }

@@ -81,4 +81,5 @@ export class LichSuThaoTacHopDongService {
         copy.thoigian = this.dateUtils.toDate(lichSuThaoTacHopDong.thoigian);
         return copy;
     }
+
 }
