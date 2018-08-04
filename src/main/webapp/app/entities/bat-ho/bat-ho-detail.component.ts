@@ -23,6 +23,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 })
 export class BatHoDetailComponent implements OnInit, OnDestroy {
     batHo: BatHo;
+    batHos: BatHo[];
     batHoDao: BatHo;
     lichSuDongTiens: LichSuDongTien[];
     lichSuDongTien: LichSuDongTien;
@@ -34,6 +35,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     dongHD: boolean = false;
+    dongTien: boolean = false;
     ghiNo: GhiNo;
     ghiNos: GhiNo[];
     tienNo: number;
@@ -79,9 +81,18 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.dongHD = true;
 
     }
+
     dongDongHD() {
         this.dongHD = false;
 
+    }
+
+    hienDongTien(){
+        this.dongTien = true;
+    }
+
+    dongDongTien(){
+        this.dongTien = false;
     }
 
     dongHopDong() {
@@ -282,6 +293,12 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
         this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
         this.isSaving = false;
+    }
+    findHopDong(){
+        this.batHoService.findByHopDong(this.batHo.hopdong.id)
+        .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
+            this.batHos = batHoResponse.body;
+        });
     }
 
 }

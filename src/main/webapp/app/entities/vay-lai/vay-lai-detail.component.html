@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th>Nợ</th>
-                    <td colspan="2">{{tienNo-tienTra}}</td>
+                    <td colspan="2">{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
             </table>
         </div>
@@ -84,203 +84,207 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Đóng lãi">
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="hienDongLai()"
+                (onRowUnselect)="onRowUnselect($event)">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="2">Ngày</th>
+                        <th>Trạng thái</th>
+                        <th>Chu kỳ lãi</th>
+                        <th>Tiền khách trả</th>
+                        <th>
+                            Đóng tiền
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-lichSuDongTien>
+                    <tr [pSelectableRow]="lichSuDongTien">
+                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                        <td>
+                            <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                        </td>
+                        <td>{{vayLai.chukylai }}</td>
+                        <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                        <td>
+                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-dialog modal="true" [(visible)]="dongLai">
+                <p-header>
+                    Đóng lãi cho hợp đồng {{vayLai.hopdongvl.mahopdong}}
+                </p-header>
+                Số tiền đóng: {{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}
+                <br/> Bạn có chắc chắn muốn đóng tiền?
+                <p-footer>
+                    <button (click)="onRowSelect($event)" type="button" class="btn btn-success">
+                        <span class="fa fa-check"></span>&nbsp; Xác nhận
+                    </button>
+                    <button type="button" (click)="dongDongLai()" class="btn btn-danger">
+                        <span class="fa fa-close"></span>&nbsp; Hủy
+                    </button>
+                </p-footer>
+            </p-dialog>
+        </p-tabPanel>
+        <p-tabPanel header="Trả bớt gốc">
             <div class="row">
-                <div class="col-md-12">
-                    <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                        (onRowUnselect)="onRowUnselect($event)">
+                <div class="col-md-4 table-bordered">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 style="margin-top:10px">
+                                <span class="fa fa-bitcoin"></span>
+                                Trả gốc
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Trả bớt gốc:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                class="form-control" name="trabotgoc" #trabotgoc id="field_trabotgoc" required></p-spinner>
+                        </div>
+                        <div class="col-md-3">
+                            <button (click)="traGoc(trabotgoc.value)" class="btn btn-success">
+                                <span class="fa fa-check"></span>
+                                Đồng ý</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h3>Danh sách tiền gốc</h3>
+                    <hr/>
+                    <br />
+                    <p-table [value]="danhSachTienGocs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
-                            <tr>
-                                <th colspan="2">Ngày</th>
-                                <th>Trạng thái</th>
-                                <th>Chu kỳ lãi</th>
-                                <th>Tiền khách trả</th>
-                                <th>
-                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                                </th>
-                            </tr>
+                            <th>Ngày</th>
+                            <th>Nhân viên</th>
+                            <th>Nội dung</th>
+                            <th>Số tiền</th>
                         </ng-template>
-                        <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr [pSelectableRow]="lichSuDongTien">
-                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                                <td>
-                                    <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
-                                </td>
-                                <td>{{vayLai.chukylai }}</td>
-                                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                                <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
-                                </td>
-                            </tr>
+                        <ng-template pTemplate="body">
+
                         </ng-template>
                     </p-table>
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Trả bớt gốc">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th colspan="2">Trả gốc</th>
-                        </thead>
-                        <tbody>
-                            <!-- <tr>
-                                <td>Ngày trả trước gốc:</td>
-                                
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr> -->
-                            <tr>
-                                <td>Trả bớt gốc:</td>
-                                <td>
-                                    <input #trabotgoc name="trabotgoc" id="field_tienvay">
-
-                                </td>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="traGoc(trabotgoc.value)" class="btn btn-primary">Đồng ý</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Danh sách tiền gốc</h3>
-                    <br />
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>STT</th>
-                            <th>Ngày</th>
-                            <th>Nội dung</th>
-                            <th>Số tiền</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </p-tabPanel>
         <p-tabPanel header="Vay thêm">
             <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th colspan="2">Vay thêm tiền</th>
-                        </thead>
-                        <tbody>
-                            <!-- <tr>
-                                <td>Ngày vay thêm gốc:</td>
-                                <td>
-                                    <p-calendar></p-calendar>
-                                </td>
-                            </tr> -->
-                            <td>Số tiền vay thêm</td>
-                            <td>
-                                <input #vaythem name="vaythemtien" id="field_tienvay">
-
-                            </td>
-                            <tr>
-                                <td>Ghi chú:</td>
-                                <td>
-                                    <span class="ui-float-label">
-                                        <textarea id="float-input" [rows]="1" [cols]="30" pInputTextarea></textarea>
-                                        <label for="float-input">Ghi chú</label>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="vayThem(vaythem.value)" class="btn btn-primary">Đồng ý</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-4 table-bordered">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 style="margin-top:10px">
+                                <span class="fa fa-bitcoin"></span>
+                                Vay thêm tiền
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Số tiền vay thêm:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                class="form-control" #vaythem name="vaythemtien" id="field_vaythemtien" required></p-spinner>
+                        </div>
+                        <div class="col-md-3">
+                            <button (click)="vayThem(vaythem.value)" class="btn btn-success">
+                                <span class="fa fa-check"></span>
+                                Đồng ý</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Ghi chú:</span>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="ui-float-label">
+                                <textarea id="float-input" [rows]="2" [cols]="24" pInputTextarea></textarea>
+                                <label for="float-input">Thông tin bổ sung</label>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <h3>Danh sách tiền gốc</h3>
+                    <hr/>
                     <br />
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>STT</th>
+                    <p-table [value]="danhSachTienGocs" [paginator]="true" [rows]="5" dataKey="id">
+                        <ng-template pTemplate="header">
                             <th>Ngày</th>
+                            <th>Nhân viên</th>
                             <th>Nội dung</th>
                             <th>Số tiền</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
+                        </ng-template>
+                        <ng-template pTemplate="body">
 
-                        </tbody>
-                    </table>
+                        </ng-template>
+                    </p-table>
                 </div>
             </div>
         </p-tabPanel>
         <p-tabPanel header="Gia hạn">
             <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th colspan="2">Gia hạn hợp đồng</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Khách hàng:</td>
-                                <!-- <td><p-calendar [(ngModel)]="value"></p-calendar></td> -->
-                                <td>
-                                    {{vayLai.hopdongvl.khachHangTen}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Thời gian vay:</td>
-                                <td>
-                                    <input #giahan [min]="0" type="number" pKeyFilter="pnum" class="form-control" pInputText> Ngày
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ghi chú:</td>
-                                <td>
-                                    <span class="ui-float-label">
-                                        <textarea id="float-input" [rows]="1" [cols]="30" pInputTextarea></textarea>
-                                        <label for="float-input">Ghi chú</label>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="giaHan(giahan.value)" class="btn btn-primary">Đồng ý</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-5 table-bordered">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 style="margin-top:10px">
+                                <span class="fa fa-calendar"></span>
+                                Gia hạn hợp đồng cho khách hàng: {{vayLai.hopdongvl.khachHangTen}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Thời gian vay:</span>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input #giahan [min]="0" type="number" class="form-control" pInputText>
+                        </div>
+                        <div class="col-md-1">
+                            <span>(Ngày)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Ghi chú:</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="ui-float-label">
+                                <textarea id="float-input" [rows]="2" [cols]="24" pInputTextarea></textarea>
+                                <label for="float-input">Thông tin bổ sung</label>
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <button (click)="giaHan(giahan.value)" class="btn btn-success">
+                                <span class="fa fa-check"></span>
+                                Đồng ý</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered text-center">
-                        <thead>
+                <div class="col-md-7">
+                    <p-table [value]="lichSuGiaHans" [paginator]="true" [rows]="8" dataKey="id">
+                        <ng-template pTemplate="header">
                             <th>STT</th>
                             <th>Gia hạn từ ngày</th>
                             <th>Đến ngày</th>
                             <th>Số ngày</th>
                             <th>Nội dung</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
+                        </ng-template>
+                        <ng-template pTemplate="body">
 
-                        </tbody>
-                    </table>
+                        </ng-template>
+                    </p-table>
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Nợ">
-            <div class="row">
-                <div class="col-md-6">
+        <p-tabPanel header="Ghi nợ">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng nợ lãi</th>
@@ -289,18 +293,25 @@
                             <tr>
                                 <td>Số tiền nợ: </td>
                                 <td>
-                                    <input name="sotien" [(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tienno" id="field_tienno" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveNo()" class="btn btn-primary float-right">Ghi nợ</button>
+                                    <button (click)="saveNo()" class="btn btn-danger float-right">
+                                        <span class="fa fa-balance-scale"></span>
+                                        Ghi nợ</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-6">
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Trả nợ">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
@@ -309,12 +320,15 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <input [(ngModel)]="ghiNo.sotien" pInputText placeholder="0">
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" class="btn btn-primary float-right">Trả nợ</button>
+                                    <button (click)="saveTraNo()" class="btn btn-success float-right">
+                                        <span class="fa fa-balance-scale"></span>
+                                        Trả nợ</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -324,51 +338,48 @@
         </p-tabPanel>
         <p-tabPanel header="Lịch sử">
             <div class="row">
-                <div class="col-md-12">
-                    <span class="ui-float-label">
-                        <textarea id="float-input" [rows]="5" [cols]="170" pInputTextarea></textarea>
-                        <label for="float-input">Ghi chú</label>
-                    </span>
+                <div class="col-md-5 table-bordered">
+                    <div class="row" style="marin-top:10px">
+                        <div class="col-md-12">
+                            <span class="ui-float-label" style="marin-top:10px">
+                                <textarea id="float-input" [rows]="5" [cols]="87" pInputTextarea></textarea>
+                                <label for="float-input">Ghi chú</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success float-right">
+                                <span class="fa fa-save"></span>
+                                Lưu</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-primary float-right">Lưu</button>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Lịch sử nhắc nợ</h3>
-                    <br />
-                    <table class="table table-bordered text-center">
-                        <thead>
-                            <th>STT</th>
-                            <th>Ngày</th>
-                            <th>Nhân viên</th>
-                            <th>Nội dung</th>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <h3>Lịch sử thao tác</h3>
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
+
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Nội dung</th>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
-                                <td>{{lichSuThaoTacHopDong.thoigian}}</td>
+                                <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
                             </tr>
                         </ng-template>
                         </table>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Chứng từ">
+            <div class="row">
+                <div class="col-md-12">
+                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>
         </p-tabPanel>
