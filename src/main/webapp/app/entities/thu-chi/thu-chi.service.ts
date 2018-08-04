@@ -94,7 +94,11 @@ export class ThuChiService {
 
         let m = d.getMonth() + 1;
         let mm = m < 10 ? '0' + m : m;
-        return d.getFullYear() + ' ' + mm + ' ' + d.getDate();
+        let day = d.getDate();
+        let sday = day<10? '0'+day:day;
+       
+        return d.getFullYear() + ' ' + mm + ' ' + sday;
 
     }
 }
+
