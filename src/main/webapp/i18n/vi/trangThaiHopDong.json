@@ -1,0 +1,11 @@
+{
+    "servertdjhipApp": {
+        "TrangThaiHopDong" : {
+            "null": "Lựa chọn",
+            "QUAHAN": "Quá hạn",
+            "DANGVAY": "Đang vay",
+            "DADONG": "Đã đóng"
+          
+        }
+    }
+}
