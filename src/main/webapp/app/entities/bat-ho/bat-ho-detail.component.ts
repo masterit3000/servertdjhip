@@ -306,5 +306,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.batHos = batHoResponse.body;
             });
     }
+   
 
 }

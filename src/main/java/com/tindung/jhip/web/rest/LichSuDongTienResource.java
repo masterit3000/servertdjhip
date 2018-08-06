@@ -2,6 +2,7 @@ package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Optional;
@@ -145,4 +150,24 @@ public class LichSuDongTienResource {
         log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
         return lichSuDongTienService.findByHopDong(id);
     }
+
+    @GetMapping("/bao-cao-lich-su-dong-tiens/{loaihopdong}/{start}/{end}")
+    @Timed
+    public List<LichSuDongTienDTO> baoCao(@PathVariable(name ="loaihopdong") String loaihopdong,@PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
+        log.debug("REST request to get baoCao LichSuDongTien: {}");
+        LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        return lichSuDongTienService.baoCao(loai,timeStart,timeEnd);
+    }
+
 }

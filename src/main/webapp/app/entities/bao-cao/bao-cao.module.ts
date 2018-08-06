@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BaoCaoRoutingModule } from './bao-cao-routing.module';
@@ -14,9 +14,19 @@ import { BaoCaoHopDongDaXoaComponent } from './bao-cao-hop-dong-da-xoa/bao-cao-h
 import { BaoCaoTinNhanComponent } from './bao-cao-tin-nhan/bao-cao-tin-nhan.component';
 import { BanGiaoCaComponent } from './ban-giao-ca/ban-giao-ca.component';
 import { DongTienTheoNgayComponent } from './dong-tien-theo-ngay/dong-tien-theo-ngay.component';
-
+import { BaoCaoBatHoComponent } from './bao-cao-bat-ho/bao-cao-bat-ho.component';
+import { BaoCaoVayLaiComponent } from './bao-cao-vay-lai/bao-cao-vay-lai.component';
+import { TableModule } from '../../../../../../node_modules/primeng/table';
+import { CalendarModule } from '../../../../../../node_modules/primeng/primeng';
+import { LichSuDongTienService } from '../lich-su-dong-tien';
+import { FormsModule } from '@angular/forms';
 @NgModule({
-    imports: [CommonModule, BaoCaoRoutingModule],
+    imports: [CommonModule,
+        BaoCaoRoutingModule,
+        TableModule,
+        CalendarModule,
+        FormsModule,
+    ],
     declarations: [
         SoQuyTienMatComponent,
         TongKetGiaoDichComponent,
@@ -29,7 +39,11 @@ import { DongTienTheoNgayComponent } from './dong-tien-theo-ngay/dong-tien-theo-
         BaoCaoHopDongDaXoaComponent,
         BaoCaoTinNhanComponent,
         BanGiaoCaComponent,
-        DongTienTheoNgayComponent
-    ]
+        DongTienTheoNgayComponent,
+        BaoCaoBatHoComponent,
+        BaoCaoVayLaiComponent
+    ],
+    providers: [LichSuDongTienService],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class BaoCaoModule {}
+export class BaoCaoModule { }

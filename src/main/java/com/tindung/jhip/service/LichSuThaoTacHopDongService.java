@@ -1,5 +1,7 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import java.util.List;
 
@@ -39,4 +41,6 @@ public interface LichSuThaoTacHopDongService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+
 }

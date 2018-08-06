@@ -4,6 +4,7 @@ import com.tindung.jhip.domain.GhiNo;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.NOTRA;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.BatHoRepository;
@@ -23,6 +24,7 @@ import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.time.ZonedDateTime;
 import com.tindung.jhip.service.GhiNoService;
+import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import java.util.LinkedList;
@@ -46,17 +48,19 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final GhiNoService ghiNoService;
     private final HopDongRepository hopDongRepository;
     private final NhanVienService nhanVienService;
+    private final HopDongService hopDongService;
 //    @Autowired
     private final CuaHangService cuaHangService;
     private final LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.ghiNoService = ghiNoService;
         this.hopDongRepository = hopDongRepository;
         this.nhanVienService = nhanVienService;
+        this.hopDongService = hopDongService;
         this.cuaHangService = cuaHangService;
         this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
@@ -182,6 +186,23 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
             LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
             lichSuDongTienRepository.save(lichSuDongTien);
         }
-        throw new InternalServerErrorException("Khong co quyen");
+
     }
+
+    @Override
+    public List<LichSuDongTienDTO> baoCao(LOAIHOPDONG loaihopdong,ZonedDateTime start, ZonedDateTime end) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(DONGTIEN.DADONG, loaihopdong,start,end);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+
+
 }
