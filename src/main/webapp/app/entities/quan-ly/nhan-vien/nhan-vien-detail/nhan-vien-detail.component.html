@@ -1,6 +1,6 @@
 <div *ngIf="nhanVien">
   <h2>
-    <span jhiTranslate="servertdjhipApp.nhanVien.detail.title">Nhan Vien</span> {{nhanVien.ten}}</h2>
+    <span>Nhân viên</span> {{nhanVien.ten}}</h2>
   <hr>
   <div class="row">
     <div class="col-md-6">
@@ -72,12 +72,12 @@
   </div>
   <button type="submit" (click)="previousState()" class="btn btn-info">
     <span class="fa fa-arrow-left"></span>&nbsp;
-    <span jhiTranslate="entity.action.back"> Back</span>
+    <span>Quay lại</span>
   </button>
   <button type="button" [routerLink]="['/', { outlets: { popup: 'nhan-vien/'+ nhanVien.id + '/edit'} }]" replaceUrl="true"
     queryParamsHandling="merge" class="btn btn-primary">
     <span class="fa fa-pencil"></span>&nbsp;
-    <span jhiTranslate="entity.action.edit"> Edit</span>
+    <span>Chỉnh sửa</span>
   </button>
   <p-tabView>
     <p-tabPanel header="Danh sách bát họ">
@@ -85,22 +85,22 @@
           <ng-template pTemplate="header">
               <tr>
                   <th>
-                      <span jhiTranslate="global.field.id">ID</span>
+                      <span>ID</span>
                   </th>
                   <th>
                       <span>Tên khách hàng</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.batHo.tienduakhach">Tienduakhach</span>
+                      <span>Tiền đưa khách</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.batHo.tongtien">Tongtien</span>
+                      <span>Tổng tiền</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.batHo.tongsongay">Tongsongay</span>
+                      <span>Tổng số ngày</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.batHo.chuky">Chuky</span>
+                      <span>Chu kỳ</span>
                   </th>
               </tr>
           </ng-template>
@@ -121,22 +121,22 @@
           <ng-template pTemplate="header">
               <tr>
                   <th>
-                      <span jhiTranslate="global.field.id">ID</span>
+                      <span>ID</span>
                   </th>
                   <th>
                       <span>Tên khách hàng</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
+                      <span>Số tiền vay</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
+                      <span>Thời gian vay</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
+                      <span>Chu kỳ lãi</span>
                   </th>
                   <th>
-                      <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
+                      <span>Tiền lãi</span>
                   </th>
               </tr>
           </ng-template>
