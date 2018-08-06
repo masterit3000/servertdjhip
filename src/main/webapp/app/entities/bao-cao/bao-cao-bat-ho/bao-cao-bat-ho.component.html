@@ -38,7 +38,10 @@
   <div class="table-responsive" >
     <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
       <ng-template pTemplate="header">
-        <tr>
+          <tr >
+              <th class="bg-primary text-white text-center" colspan="7" >Giao dịch vay họ</th>
+          </tr>
+        <tr >
           <th>
             <span jhiTranslate="global.field.id">#</span>
           </th>

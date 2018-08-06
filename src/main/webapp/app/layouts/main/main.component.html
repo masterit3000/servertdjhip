@@ -137,6 +137,10 @@
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span >Báo cáo bát họ</span>
                 </a>
+                <a routerLink="baoCaoVayLai" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
+                    <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
+                    <span >Báo cáo vay lãi</span>
+                </a>
                 <a routerLink="tongKetGiaoDich" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.tongKetGiaoDich">Tổng kết giao dịch</span>
