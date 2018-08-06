@@ -37,6 +37,10 @@
         <div class="col-md-6">
             <table class="table table-hover table-bordered">
                 <tr>
+                    <th>Tổng lãi</th>
+                    <td>{{tonglai |currency : 'VND' : true : '1.0-0'}}</td>
+                </tr>
+                <tr>
                     <th>Lãi</th>
                     <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
                 </tr>
@@ -84,7 +88,7 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Đóng lãi">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="hienDongLai()"
+            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
                 (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
@@ -192,7 +196,7 @@
                                 class="form-control" #vaythem name="vaythemtien" id="field_vaythemtien" required></p-spinner>
                         </div>
                         <div class="col-md-3">
-                            <button (click)="vayThem(vaythem.value)" class="btn btn-success">
+                            <button (click)="vayThem(vaythem.value)"  class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
@@ -363,12 +367,16 @@
 
                             <th>Ngày</th>
                             <th>Nhân viên</th>
+                            <th>Số tiên ghi nợ</th>
+                            <th>Số tiền ghi có</th>
                             <th>Nội dung</th>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
                                 <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
+                                <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
+                                <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
                             </tr>
                         </ng-template>

@@ -14,7 +14,7 @@ import { GhiNoService } from '../ghi-no/ghi-no.service';
 import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'jhi-bat-ho-detail',
@@ -42,6 +42,8 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     tienTra: number;
     isSaving: boolean;
     lichSuThaoTacHopDong: LichSuThaoTacHopDong;
+    soTienGhiNo: number;
+    soTienGhiCo: number;
 
 
     constructor(
@@ -52,6 +54,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
         private ghiNoService: GhiNoService,
         private jhiAlertService: JhiAlertService,
+        private router: Router,
         private route: ActivatedRoute,
         // private confirmationService: ConfirmationService
     ) {
@@ -87,11 +90,11 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
     }
 
-    hienDongTien(){
+    hienDongTien() {
         this.dongTien = true;
     }
 
-    dongDongTien(){
+    dongDongTien() {
         this.dongTien = false;
     }
 
@@ -99,7 +102,9 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.ghiNo.trangthai = NOTRA.TRA;
         this.ghiNo.hopDongId = this.batHo.hopdong.id;
         this.ghiNo.sotien = this.tienNo - this.tienTra;
-
+        if (this.ghiNo.sotien > 0) {
+            this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
+        }
         this.subscribeToSaveResponse(
             this.ghiNoService.create(this.ghiNo));
         this.lichSuDongTienService.dongHopDong(this.batHo.hopdong.id)
@@ -115,7 +120,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
                 });
             });
-        this.setNoiDung('đóng hợp đồng');
         this.dongDongHD();
 
     }
@@ -197,7 +201,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
                 });
             });
-        this.setNoiDung('đóng tiền');
+        this.setSoTienLichSuThaoTac('đóng tiền', 0, event.data.sotien);
 
     }
 
@@ -214,7 +218,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-        this.setNoiDung('ghi nợ');
+        this.setSoTienLichSuThaoTac('ghi nợ', this.ghiNo.sotien, 0);
     }
     saveTraNo() {
         this.isSaving = true;
@@ -229,7 +233,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-        this.setNoiDung('trả nợ');
+        this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
     }
 
 
@@ -269,17 +273,19 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.eventManager.broadcast({ name: 'batHoListModification', content: 'OK' });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
+        this.router.navigate(['/bat-ho', result.id]);
         this.jhiAlertService.success('them moi thanh cong', null, null);
-        this.previousState();
+
     }
     daoHo() {
         this.dongHopDong();
         this.subscribeToSaveResponseBH(
             this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id));
-        this.setNoiDung('đảo họ');
     }
-    private setNoiDung(noidung: string) {
+    private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
         this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;
+        this.lichSuThaoTacHopDong.soTienGhiNo = soTienGhiNo;
+        this.lichSuThaoTacHopDong.soTienGhiCo = soTienGhiCo;
         this.lichSuThaoTacHopDong.noidung = noidung;
         this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
         this.subscribeToSaveResponseLS(
@@ -294,11 +300,11 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
         this.isSaving = false;
     }
-    findHopDong(){
+    findHopDong() {
         this.batHoService.findByHopDong(this.batHo.hopdong.id)
-        .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
-            this.batHos = batHoResponse.body;
-        });
+            .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
+                this.batHos = batHoResponse.body;
+            });
     }
 
 }

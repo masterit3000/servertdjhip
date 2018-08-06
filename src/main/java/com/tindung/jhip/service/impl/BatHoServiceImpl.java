@@ -140,6 +140,15 @@ public class BatHoServiceImpl implements BatHoService {
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
 
+                LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+                lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
+                lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
+                lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+                lichSuThaoTacHopDongDTO.setSoTienGhiCo(0d);
+                lichSuThaoTacHopDongDTO.setSoTienGhiNo(batHo.getTienduakhach());
+                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+
                 return batHoMapper.toDto(batHo);
             } else {
                 throw new InternalServerErrorException("Không được sửa bat họ");
@@ -237,6 +246,7 @@ public class BatHoServiceImpl implements BatHoService {
         hopdong.setMahopdong("DH");
         hopdong.setHopdonggocId(id);
         hopdong.setNgaytao(ZonedDateTime.now());
+        hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
         hopdong.setKhachHangId(hopDongService.findOne(id).getKhachHangId());
         hopdong = hopDongService.save(hopdong);
         batHoDTO.setHopdong(hopdong);

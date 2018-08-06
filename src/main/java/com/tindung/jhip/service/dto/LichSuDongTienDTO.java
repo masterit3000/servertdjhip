@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -21,6 +20,17 @@ public class LichSuDongTienDTO implements Serializable {
 
     @NotNull
     private ZonedDateTime ngayketthuc;
+
+//    @NotNull
+    private ZonedDateTime ngaygiaodich;
+
+    public ZonedDateTime getNgaygiaodich() {
+        return ngaygiaodich;
+    }
+
+    public void setNgaygiaodich(ZonedDateTime ngaygiaodich) {
+        this.ngaygiaodich = ngaygiaodich;
+    }
 
     @NotNull
     private Double sotien;
@@ -118,7 +128,7 @@ public class LichSuDongTienDTO implements Serializable {
         }
 
         LichSuDongTienDTO lichSuDongTienDTO = (LichSuDongTienDTO) o;
-        if(lichSuDongTienDTO.getId() == null || getId() == null) {
+        if (lichSuDongTienDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), lichSuDongTienDTO.getId());
@@ -131,13 +141,13 @@ public class LichSuDongTienDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "LichSuDongTienDTO{" +
-            "id=" + getId() +
-            ", ngaybatdau='" + getNgaybatdau() + "'" +
-            ", ngayketthuc='" + getNgayketthuc() + "'" +
-            ", sotien=" + getSotien() +
-            ", trangthai='" + getTrangthai() + "'" +
-            ", ghiChu='" + getGhiChu() + "'" +
-            "}";
+        return "LichSuDongTienDTO{"
+                + "id=" + getId()
+                + ", ngaybatdau='" + getNgaybatdau() + "'"
+                + ", ngayketthuc='" + getNgayketthuc() + "'"
+                + ", sotien=" + getSotien()
+                + ", trangthai='" + getTrangthai() + "'"
+                + ", ghiChu='" + getGhiChu() + "'"
+                + "}";
     }
 }

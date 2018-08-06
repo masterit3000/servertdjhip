@@ -13,6 +13,7 @@ import { GhiNoService } from '../ghi-no/ghi-no.service';
 import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {Router} from "@angular/router";
 @Component({
     selector: 'jhi-vay-lai-detail',
     templateUrl: './vay-lai-detail.component.html'
@@ -20,6 +21,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 export class VayLaiDetailComponent implements OnInit, OnDestroy {
 
     vayLai: VayLai;
+    vayLaiMoi: VayLai;
     lichSuDongTiens: LichSuDongTien[];
     selected: LichSuDongTien;
     tiendadong: number;
@@ -39,7 +41,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     isSaving: boolean;
     danhSachTienGocs: any[];
     lichSuGiaHans: any[];
-    index: number;
+    tonglai: number;
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -47,11 +49,14 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
         private jhiAlertService: JhiAlertService,
         private ghiNoService: GhiNoService,
+        private router: Router,
         private route: ActivatedRoute
     ) {
         this.ghiNo = new GhiNo();
         this.lichSuDongTien = new LichSuDongTien();
         this.lichSuThaoTacHopDong = new LichSuThaoTacHopDong();
+        this.vayLaiMoi = new VayLai();
+     
     }
 
     ngOnInit() {
@@ -76,7 +81,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.ghiNo.trangthai = NOTRA.TRA;
         this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
         this.ghiNo.sotien = this.tienNo - this.tienTra;
-
+        this.setSoTienLichSuThaoTac('trả nợ',this.ghiNo.sotien,0)
         this.subscribeToSaveResponse(
             this.ghiNoService.create(this.ghiNo));
         this.lichSuDongTienService.dongHopDong(this.vayLai.hopdongvl.id)
@@ -90,8 +95,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
 
                 });
             });
-        this.setNoiDung('đóng hợp đồng');
-
+        
         this.dongDongHD();
 
     }
@@ -105,7 +109,9 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                         this.lichSuDongTiens = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
                         this.tienchuadong = 0;
+                        this.tonglai=0;
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
+                            this.tonglai += lichSuDongTienResponse.body[i].sotien;
                             if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
                                 this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
                             } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
@@ -159,7 +165,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
 
                 });
             });
-        this.setNoiDung('đóng tiền');
+        this.setSoTienLichSuThaoTac('đóng tiền',0,event.data.sotien);
 
     }
     saveNo() {
@@ -169,14 +175,14 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponse(
                 this.ghiNoService.update(this.ghiNo));
-            this.setNoiDung('ghi nợ');
+            this.setSoTienLichSuThaoTac('ghi nợ',this.ghiNo.sotien,0);
 
         } else {
             this.ghiNo.trangthai = NOTRA.NO;
             this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
-            this.setNoiDung('ghi nợ');
+            this.setSoTienLichSuThaoTac('ghi nợ',this.ghiNo.sotien,0);
 
         }
 
@@ -188,13 +194,13 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponse(
                 this.ghiNoService.update(this.ghiNo));
-            this.setNoiDung('trả nợ');
+            this.setSoTienLichSuThaoTac('trả nợ',0,this.ghiNo.sotien);
         } else {
             this.ghiNo.trangthai = NOTRA.TRA;
             this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
-            this.setNoiDung('trả nợ');  
+            this.setSoTienLichSuThaoTac('trả nợ',0,this.ghiNo.sotien);
         }
 
     }
@@ -227,22 +233,45 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         }
     }
     traGoc(traBotGoc: string) {
-        this.vayLai.tienvay = this.vayLai.tienvay - parseInt(traBotGoc);
+        this.vayLaiMoi.cachtinhlai = this.vayLai.cachtinhlai;
+        this.vayLaiMoi.thoigianvay = this.vayLai.thoigianvay;
+        this.vayLaiMoi.hinhthuclai = this.vayLai.hinhthuclai;
+        this.vayLaiMoi.chukylai= this.vayLai.chukylai;
+        this.vayLaiMoi.lai = this.vayLai.lai;
+        this.vayLaiMoi.thulaitruoc=this.vayLai.thulaitruoc;
+        this.vayLaiMoi.tienvay = this.vayLai.tienvay - parseInt(traBotGoc);
         this.subscribeToSaveResponseVL(
-            this.vayLaiService.update(this.vayLai));
-            this.setNoiDung('trả bớt gốc');  
+            this.vayLaiService.themBotVayLai(this.vayLaiMoi, this.vayLai.hopdongvl.id));
+        this.setSoTienLichSuThaoTac('trả bớt gốc',0,traBotGoc);
+
     }
     vayThem(vayThemGoc: string) {
-        this.vayLai.tienvay = this.vayLai.tienvay + parseInt(vayThemGoc);
+        this.vayLaiMoi.cachtinhlai = this.vayLai.cachtinhlai;
+        this.vayLaiMoi.thoigianvay = this.vayLai.thoigianvay;
+        this.vayLaiMoi.hinhthuclai = this.vayLai.hinhthuclai;
+        this.vayLaiMoi.chukylai= this.vayLai.chukylai;
+        this.vayLaiMoi.lai = this.vayLai.lai;
+        this.vayLaiMoi.thulaitruoc=this.vayLai.thulaitruoc;
+        this.vayLaiMoi.tienvay = this.vayLai.tienvay + parseInt(vayThemGoc);
         this.subscribeToSaveResponseVL(
-            this.vayLaiService.update(this.vayLai));
-            this.setNoiDung('vay thêm gốc');  
+            this.vayLaiService.themBotVayLai(this.vayLaiMoi, this.vayLai.hopdongvl.id));
+        this.setSoTienLichSuThaoTac('vay thêm gốc',vayThemGoc,0);
     }
     giaHan(ngayGiaHan: string) {
         this.vayLai.thoigianvay = this.vayLai.thoigianvay + parseInt(ngayGiaHan);
         this.subscribeToSaveResponseVL(
             this.vayLaiService.update(this.vayLai));
-            this.setNoiDung('gia hạn vay lãi');  
+        this.setSoTienLichSuThaoTac('gia hạn vay lãi',0,0);
+
+    }
+    private setSoTienLichSuThaoTac(noidung:string,soTienGhiNo,soTienGhiCo) {
+        this.lichSuThaoTacHopDong.hopDongId = this.vayLai.hopdongvl.id;
+        this.lichSuThaoTacHopDong.soTienGhiNo = soTienGhiNo;
+        this.lichSuThaoTacHopDong.soTienGhiCo = soTienGhiCo;
+        this.lichSuThaoTacHopDong.noidung = noidung;
+        this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
+        this.subscribeToSaveResponseLS(
+            this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong));
     }
     private subscribeToSaveResponseVL(result: Observable<HttpResponse<VayLai>>) {
         result.subscribe((res: HttpResponse<VayLai>) =>
@@ -253,23 +282,17 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);
-        this.previousState();
+        this.router.navigate(['/vay-lai',result.id]);
     }
-    private setNoiDung(noidung: string) {
-        this.lichSuThaoTacHopDong.hopDongId = this.vayLai.hopdongvl.id;
-        this.lichSuThaoTacHopDong.noidung = noidung;
-        this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
-        this.subscribeToSaveResponseLS(
-            this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong));
-    }
-    
+
+
     private subscribeToSaveResponseLS(result: Observable<HttpResponse<LichSuThaoTacHopDong>>) {
         result.subscribe((res: HttpResponse<LichSuThaoTacHopDong>) =>
             this.onSaveSuccessLS(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
-        this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
         this.isSaving = false;
     }
 }
