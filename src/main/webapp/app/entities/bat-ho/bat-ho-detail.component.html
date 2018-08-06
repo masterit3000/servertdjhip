@@ -165,7 +165,7 @@
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Trả nợ">
+        <p-tabPanel header="Trả nợ" >
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <table class="table table-bordered">
@@ -177,7 +177,7 @@
                                 <td>Số tiền trả: </td>
                                 <td>
                                     <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" required></p-spinner>
+                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>

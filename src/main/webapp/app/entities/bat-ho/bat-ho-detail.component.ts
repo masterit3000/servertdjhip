@@ -42,6 +42,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     tienTra: number;
     isSaving: boolean;
     lichSuThaoTacHopDong: LichSuThaoTacHopDong;
+    
 
 
     constructor(
@@ -300,5 +301,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.batHos = batHoResponse.body;
         });
     }
+   
 
 }

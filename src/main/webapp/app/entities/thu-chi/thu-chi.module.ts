@@ -19,6 +19,7 @@ import { ChiHoatDongComponent } from './chi-hoat-dong/chi-hoat-dong.component';
 import { SpinnerModule } from 'primeng/spinner';
 import { GopVonComponent } from './gop-von/gop-von.component';
 import { RutVonComponent } from './rut-von/rut-von.component';
+import { FormsModule } from '../../../../../../node_modules/@angular/forms';
 
 const ENTITY_STATES = [...thuChiRoute, ...thuChiPopupRoute];
 
@@ -27,7 +28,8 @@ const ENTITY_STATES = [...thuChiRoute, ...thuChiPopupRoute];
         ServertdjhipSharedModule,
         RouterModule.forChild(ENTITY_STATES),
         CalendarModule,
-        SpinnerModule
+        SpinnerModule,
+        FormsModule,
     ],
     declarations: [
         ThuChiComponent,
