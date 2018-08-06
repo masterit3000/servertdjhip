@@ -100,6 +100,9 @@
                             <span>Tiền khách trả</span>
                         </th>
                         <th>
+                            <span>Ngày giao dịch</span>
+                        </th>
+                        <th>
                             <span>Đóng tiền</span>
                         </th>
                     </tr>
@@ -112,10 +115,11 @@
                         <td>
                             <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                         </td>
-
+                        
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-
+                        
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                        <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                         <td>
                             <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
                         </td>
@@ -219,13 +223,18 @@
 
                             <th>Ngày</th>
                             <th>Nhân viên</th>
+                            <th>Số tiền ghi nợ</th>
+                            <th>Số tiền ghi trả</th>
                             <th>Nội dung</th>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
                                 <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
+                                <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
+                                <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
+                                
                             </tr>
                         </ng-template>
                         </table>

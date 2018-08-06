@@ -39,4 +39,5 @@ public interface VayLaiService {
      */
     void delete(Long id);
     List<VayLaiDTO> findByNameOrCMND(String key);
+    VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id);
 }

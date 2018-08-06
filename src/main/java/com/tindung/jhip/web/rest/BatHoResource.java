@@ -70,14 +70,6 @@ public class BatHoResource {
         BatHoDTO result = batHoService.save(batHoDTO);
 
         //
-        //save lich su thao tac bat ho
-        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
-        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
-        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
-        //
         return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
@@ -94,12 +86,6 @@ public class BatHoResource {
 
         //
         //save lich su thao tac bat ho
-        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
-        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuThaoTacHopDongDTO.setNoidung("Đảo bát họ");
-        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
         //
         return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
