@@ -83,7 +83,7 @@
                             <option [ngValue]="null"></option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="tinh" name="basic" [suggestions]="filteredTinhs" (completeMethod)="filterTinhs($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"  ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"></p-autoComplete>
                     </div>
                 </div>
                 <div class="row">
@@ -96,7 +96,7 @@
                             <option [ngValue]="null"></option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="huyen" name="basic" [suggestions]="filteredHuyens" (completeMethod)="filterHuyens($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Huyện" [minLength]="1" [dropdown]="true" ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Huyện" [minLength]="1" [dropdown]="true"></p-autoComplete>
 
                     </div>
                     <div class="form-group col-md-6">
@@ -109,7 +109,7 @@
                             <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="xa" name="basic" [suggestions]="filteredXas" (completeMethod)="filterXas($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dataKey]="id" [dropdown]="true" ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dataKey]="id" [dropdown]="true"></p-autoComplete>
                     </div>
                 </div>
             </div>
@@ -131,14 +131,14 @@
                 <input type="text" class="form-control" name="facebook" id="field_facebook" [(ngModel)]="khachHang.facebook" pTooltip="Đường link facebook của khách hàng
                         (Có dạng facebook.com/abcxyz)" tooltipPosition="top" tooltipEvent="Focus" />
             </div>
-            <div class="form-group col-md-6">
-                <label class="form-control-label" for="field_ngayTao">
-                    <span class="fa fa-calendar"></span>
-                    <span jhiTranslate="servertdjhipApp.khachHang.ngayTao">Ngay Tao</span>
-                </label>
-                <div class="d-flex">
-                    <p-calendar id="field_ngayTao" [(ngModel)]="khachHang.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" disabled></p-calendar>
-                </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="form-control-label">
+                    <span class="fa fa-image"></span>
+                    Chứng từ</label>
+                <!-- <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload> -->
+                <p-fileUpload multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
             </div>
         </div>
         <!-- <div class="form-group" *jhiHasAnyAuthority="'ROLE_ADMIN'">

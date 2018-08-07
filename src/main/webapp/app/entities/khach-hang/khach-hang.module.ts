@@ -31,6 +31,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormsModule } from '@angular/forms';
+import {FileUploadModule} from 'primeng/fileupload';
 
 const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
 
@@ -50,7 +51,8 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         InputTextModule,
         InputTextareaModule,
         KeyFilterModule,
-        FormsModule
+        FormsModule,
+        FileUploadModule
     ],
     declarations: [
         KhachHangComponent,
