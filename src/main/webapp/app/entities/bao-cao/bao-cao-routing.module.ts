@@ -14,6 +14,7 @@ import { BanGiaoCaComponent } from './ban-giao-ca/ban-giao-ca.component';
 import { DongTienTheoNgayComponent } from './dong-tien-theo-ngay/dong-tien-theo-ngay.component';
 import { BaoCaoBatHoComponent } from './bao-cao-bat-ho/bao-cao-bat-ho.component';
 
+
 const routes: Routes = [
   {
     path: 'soQuyTienMat', component: SoQuyTienMatComponent,
