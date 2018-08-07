@@ -2,12 +2,14 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.domain.GhiNo;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.repository.GhiNoRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import com.tindung.jhip.service.mapper.GhiNoMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,5 +110,19 @@ public class GhiNoServiceImpl implements GhiNoService {
     ) {
         log.debug("Request to delete GhiNo : {}", id);
         ghiNoRepository.delete(id);
+    }
+        @Override
+    public List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<GhiNo> ghiNos = ghiNoRepository.baocao(loaihopdong, start, end);
+            List<GhiNoDTO> collect = ghiNos.stream()
+                    .map(ghiNoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 }

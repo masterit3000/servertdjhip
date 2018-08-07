@@ -23,7 +23,8 @@ export class BaoCaoBatHoComponent implements OnInit {
   denngay: Date;
   nhanviens: NhanVien[];
   hopDong: HopDong;
-  lichSuDongTiens: LichSuDongTien[];
+  lichSuDongTienVLs: LichSuDongTien[];
+  lichSuDongTienBHs: LichSuDongTien[];
   lichSuDongTien: LichSuDongTien;
   currentAccount: any;
   eventSubscriber: Subscription;
@@ -32,7 +33,9 @@ export class BaoCaoBatHoComponent implements OnInit {
   nhanVien: NhanVien;
   ghiNos: GhiNo[];
   ghiNo: GhiNo;
-  tongTien: number;
+  tongTienBH: number;
+  tongTienVL: number;
+
 
 
   constructor(
@@ -44,25 +47,39 @@ export class BaoCaoBatHoComponent implements OnInit {
     private eventManager: JhiEventManager,
     private principal: Principal
   ) {
-    this.lichSuDongTiens = new Array<LichSuDongTien>();
-    this.tongTien = 0;
+    this.lichSuDongTienVLs = new Array<LichSuDongTien>();
+    this.lichSuDongTienBHs = new Array<LichSuDongTien>();
+    this.tongTienVL = 0;
+    this.tongTienBH = 0;
   }
 
   ngOnInit() {
-    this.loadLichSuDongTien();
+    this.loadLichSuDongTienBH();
+    this.loadLichSuDongTienVL();
     this.principal.identity().then(account => {
       this.currentAccount = account;
     });
     this.registerChangeInHopDongs();
   }
   timKiem() {
-    this.tongTien = 0;
+    this.tongTienVL = 0;
+    this.tongTienBH = 0;
     console.log(this.denngay);
     this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTiens = res.body;
-        this.lichSuDongTiens.forEach(element => {
-          this.tongTien = this.tongTien + element.sotien; 
+        this.lichSuDongTienBHs = res.body;
+        this.lichSuDongTienBHs.forEach(element => {
+          this.tongTienBH = this.tongTienBH + element.sotien; 
+          console.log(element.sotien);
+        });
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+    this.lichSuDongTienService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+      (res: HttpResponse<LichSuDongTien[]>) => {
+        this.lichSuDongTienVLs = res.body;
+        this.lichSuDongTienVLs.forEach(element => {
+          this.tongTienVL = this.tongTienVL + element.sotien; 
           console.log(element.sotien);
         });
       },
@@ -72,7 +89,10 @@ export class BaoCaoBatHoComponent implements OnInit {
   registerChangeInHopDongs() {
     this.eventSubscriber = this.eventManager.subscribe(
       'hopDongListModification',
-      response => this.loadLichSuDongTien()
+      response => {
+        this.loadLichSuDongTienBH();
+        this.loadLichSuDongTienVL();
+      }
     );
   }
   loadNhanVien() {
@@ -83,16 +103,30 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpErrorResponse) => this.onError(res.message)
     );
   }
-  loadLichSuDongTien() {
+  loadLichSuDongTienBH() {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
     this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTiens = res.body;
-        this.lichSuDongTiens.forEach(element => {
-          this.tongTien = this.tongTien + element.sotien; 
-          console.log(element.sotien);
+        this.lichSuDongTienBHs = res.body;
+        this.lichSuDongTienBHs.forEach(element => {
+          this.tongTienBH += element.sotien;
+        });
+
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+  loadLichSuDongTienVL() {
+    this.tungay = new Date();
+    this.denngay = new Date();
+    console.log(this.tungay);
+    this.lichSuDongTienService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+      (res: HttpResponse<LichSuDongTien[]>) => {
+        this.lichSuDongTienVLs = res.body;
+        this.lichSuDongTienVLs.forEach(element => {
+          this.tongTienVL+=element.sotien;
         });
 
       },
