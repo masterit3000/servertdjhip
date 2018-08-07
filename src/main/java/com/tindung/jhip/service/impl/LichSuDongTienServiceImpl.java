@@ -175,26 +175,28 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 //                tienConPhaiDong =  tienConPhaiDong  -ghiNo.getSotien();
 //            }
 //        }
-            LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-            lichSuDongTienDTO.setHopDongId(id);
-            lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
-            lichSuDongTienDTO.setNgayketthuc(ZonedDateTime.now());
-            lichSuDongTienDTO.setSotien(tienConPhaiDong);
-            lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-            lichSuDongTienDTO.setTrangthai(DONGTIEN.DADONG);
-            lichSuDongTienDTO.setNgaygiaodich(ZonedDateTime.now());
-            LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
-            lichSuDongTienRepository.save(lichSuDongTien);
+            if (tienConPhaiDong > 0) {
+                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                lichSuDongTienDTO.setHopDongId(id);
+                lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
+                lichSuDongTienDTO.setNgayketthuc(ZonedDateTime.now());
+                lichSuDongTienDTO.setSotien(tienConPhaiDong);
+                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setTrangthai(DONGTIEN.DADONG);
+                lichSuDongTienDTO.setNgaygiaodich(ZonedDateTime.now());
+                LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
+                lichSuDongTienRepository.save(lichSuDongTien);
+            }
         }
 
     }
 
     @Override
-    public List<LichSuDongTienDTO> baoCao(LOAIHOPDONG loaihopdong,ZonedDateTime start, ZonedDateTime end) {
+    public List<LichSuDongTienDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(DONGTIEN.DADONG, loaihopdong,start,end);
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(DONGTIEN.DADONG, loaihopdong, start, end);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -203,6 +205,5 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
-
 
 }

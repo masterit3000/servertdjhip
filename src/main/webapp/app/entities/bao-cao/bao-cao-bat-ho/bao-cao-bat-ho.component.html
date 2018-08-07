@@ -36,7 +36,7 @@
     </div>
 
     <div class="table-responsive">
-        <p-table [value]="lichSuDongTiens"  [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="lichSuDongTienBHs"  [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                     <tr>
                             <th colspan="7" class="bg-primary text-white text-center">Giao dịch bát họ</th>
@@ -93,7 +93,7 @@
         </p-table>
     </div>
     <div class="table-responsive">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
                 <ng-template pTemplate="header">
                     <tr>
                         <th colspan="7" class="bg-primary text-white text-center">Giao dịch vay lãi</th>
