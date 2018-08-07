@@ -38,6 +38,9 @@
         <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
+                    <th colspan="7" class="bg-primary text-white text-center">Giao dịch vay lãi</th>
+                </tr>
+                <tr>
                     <th>
                         <span jhiTranslate="global.field.id">#</span>
                     </th>
