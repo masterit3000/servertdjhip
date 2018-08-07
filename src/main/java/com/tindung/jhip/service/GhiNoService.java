@@ -1,6 +1,8 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.service.dto.GhiNoDTO;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -38,5 +40,6 @@ public interface GhiNoService {
      */
     void delete(Long id);
     
-    public List<GhiNoDTO> findByHopDong(Long id);
+    List<GhiNoDTO> findByHopDong(Long id);
+    List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
 }

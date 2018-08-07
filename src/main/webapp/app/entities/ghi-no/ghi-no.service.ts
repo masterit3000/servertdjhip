@@ -7,6 +7,7 @@ import { JhiDateUtils } from 'ng-jhipster';
 
 import { GhiNo } from './ghi-no.model';
 import { createRequestOption } from '../../shared';
+import { LOAIHOPDONG } from '../hop-dong';
 
 export type EntityResponseType = HttpResponse<GhiNo>;
 
@@ -15,7 +16,7 @@ export class GhiNoService {
 
     private resourceUrl =  SERVER_API_URL + 'api/ghi-nos';
     private ghinoUrl = SERVER_API_URL + 'api/ghi-nos-by-hopdong';
-
+    private baocaoUrl = SERVER_API_URL + 'api/bao-cao-ghi-nos';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(ghiNo: GhiNo): Observable<EntityResponseType> {
@@ -42,6 +43,12 @@ export class GhiNoService {
     }
     findByHopDong(id: number): Observable<HttpResponse<GhiNo[]>> {
         return this.http.get<GhiNo[]>(`${this.ghinoUrl}/${id}`, {observe: 'response' })
+            .map((res: HttpResponse<GhiNo[]>) => this.convertArrayResponse(res));
+    }
+    baoCao(loaihopdong: LOAIHOPDONG, start: Date, end: Date): Observable<HttpResponse<GhiNo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<GhiNo[]>(`${this.baocaoUrl}/${loaihopdong}/${startd}/${endd}`, {observe: 'response' })
             .map((res: HttpResponse<GhiNo[]>) => this.convertArrayResponse(res));
     }
 
@@ -79,7 +86,17 @@ export class GhiNoService {
     private convert(ghiNo: GhiNo): GhiNo {
         const copy: GhiNo = Object.assign({}, ghiNo);
 
-        copy.ngayghino = this.dateUtils.toDate(ghiNo.ngayghino);
+        // copy.ngayghino = this.dateUtils.toDate(ghiNo.ngayghino);
         return copy;
+    }
+    private convertDateToString(d: Date): String {
+
+        let m = d.getMonth() + 1;
+        let mm = m < 10 ? '0' + m : m;
+        let day = d.getDate();
+        let sday = day < 10 ? '0' + day : day;
+
+        return d.getFullYear() + ' ' + mm + ' ' + sday;
+
     }
 }
