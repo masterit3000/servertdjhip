@@ -33,6 +33,9 @@ export class BaoCaoBatHoComponent implements OnInit {
   nhanVien: NhanVien;
   ghiNos: GhiNo[];
   ghiNo: GhiNo;
+  tongTienBH: number;
+  tongTienVL: number;
+
 
 
   constructor(
@@ -46,6 +49,8 @@ export class BaoCaoBatHoComponent implements OnInit {
   ) {
     this.lichSuDongTienVLs = new Array<LichSuDongTien>();
     this.lichSuDongTienBHs = new Array<LichSuDongTien>();
+    this.tongTienVL = 0;
+    this.tongTienBH = 0;
   }
 
   ngOnInit() {
@@ -57,16 +62,26 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.registerChangeInHopDongs();
   }
   timKiem() {
+    this.tongTienVL = 0;
+    this.tongTienBH = 0;
     console.log(this.denngay);
     this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienBHs = res.body;
+        this.lichSuDongTienBHs.forEach(element => {
+          this.tongTienBH = this.tongTienBH + element.sotien; 
+          console.log(element.sotien);
+        });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
     this.lichSuDongTienService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienVLs = res.body;
+        this.lichSuDongTienVLs.forEach(element => {
+          this.tongTienVL = this.tongTienVL + element.sotien; 
+          console.log(element.sotien);
+        });
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -96,7 +111,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienBHs = res.body;
         this.lichSuDongTienBHs.forEach(element => {
-          console.log(element.sotien);
+          this.tongTienBH += element.sotien;
         });
 
       },
@@ -111,7 +126,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienVLs = res.body;
         this.lichSuDongTienVLs.forEach(element => {
-          console.log(element.sotien);
+          this.tongTienVL+=element.sotien;
         });
 
       },

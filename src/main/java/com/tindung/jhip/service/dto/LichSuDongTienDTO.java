@@ -14,7 +14,17 @@ import com.tindung.jhip.domain.enumeration.DONGTIEN;
 public class LichSuDongTienDTO implements Serializable {
 
     private Long id;
+    
+    private  String khachHangTen;
 
+    public String getKhachHangTen() {
+        return khachHangTen;
+    }
+
+    public void setKhachHangTen(String khachHangTen) {
+        this.khachHangTen = khachHangTen;
+    }
+    
     @NotNull
     private ZonedDateTime ngaybatdau;
 
