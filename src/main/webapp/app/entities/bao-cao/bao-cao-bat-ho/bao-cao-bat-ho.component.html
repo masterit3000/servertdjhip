@@ -39,7 +39,7 @@
         <p-table [value]="lichSuDongTiens"  [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                     <tr>
-                            <th colspan="7" class="bg-primary text-white text-center">Giao dịch bát họ</th>
+                            <th colspan="6" class="bg-primary text-white text-center">Giao dịch bát họ</th>
                         </tr>
                 <tr>
                     <th>
@@ -55,11 +55,9 @@
                         <span>Khách hàng</span>
                     </th>
                     <th>
-                        <span>Cho vay</span>
+                        <span>Số tiền</span>
                     </th>
-                    <th>
-                        <span>Thu về</span>
-                    </th>
+                    
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -72,22 +70,22 @@
                     <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                     <!-- <td>{{hopDong.nhanVienId}}</td>
                     <td>{{hopDong.khachHangTen}}</td> -->
+                    <td>{{lichSuDongTien.nhanVienTen}}</td>
+                    <td>{{lichSuDongTien.khachHangTen}}</td>
                     <td>{{lichSuDongTien.sotien}}</td>
-                    <td></td>
+                    <td>{{lichSuDongTien.trangthai}}</td>
                     <!-- <td>{{hopDong.trangthai}}</td> -->
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
-                        <strong>Tổng </strong>
+                        <strong>Tổng</strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">0</span>
+                        <span style="color:red">{{tongTien}}</span>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">0</span>
-                    </td>
+                   
                     <td></td>
                 </tr>
 
