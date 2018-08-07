@@ -18,12 +18,14 @@ import { BaoCaoBatHoComponent } from './bao-cao-bat-ho/bao-cao-bat-ho.component'
 import { BaoCaoVayLaiComponent } from './bao-cao-vay-lai/bao-cao-vay-lai.component';
 import { TableModule } from '../../../../../../node_modules/primeng/table';
 import { CalendarModule } from '../../../../../../node_modules/primeng/primeng';
-
+import { LichSuDongTienService } from '../lich-su-dong-tien';
+import { FormsModule } from '@angular/forms';
 @NgModule({
     imports: [CommonModule,
         BaoCaoRoutingModule,
         TableModule,
         CalendarModule,
+        FormsModule,
     ],
     declarations: [
         SoQuyTienMatComponent,
@@ -41,6 +43,7 @@ import { CalendarModule } from '../../../../../../node_modules/primeng/primeng';
         BaoCaoBatHoComponent,
         BaoCaoVayLaiComponent
     ],
+    providers: [LichSuDongTienService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BaoCaoModule { }

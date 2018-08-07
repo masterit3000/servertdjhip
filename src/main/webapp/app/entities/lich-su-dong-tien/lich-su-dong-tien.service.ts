@@ -6,16 +6,18 @@ import { SERVER_API_URL } from '../../app.constants';
 import { JhiDateUtils } from 'ng-jhipster';
 import { LichSuDongTien } from './lich-su-dong-tien.model';
 import { createRequestOption } from '../../shared';
+import { LOAIHOPDONG } from '../hop-dong';
 
 export type EntityResponseType = HttpResponse<LichSuDongTien>;
 
 @Injectable()
 export class LichSuDongTienService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/lich-su-dong-tiens';
-    private dongtien ='dongtien';
+    private resourceUrl = SERVER_API_URL + 'api/lich-su-dong-tiens';
+    private baocaoUrl = SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens';
+    private dongtien = 'dongtien';
     private lichSuDongTien = 'lichsudongtien';
-    private donghopdong =SERVER_API_URL + 'api/dong-hop-dong';
+    private donghopdong = SERVER_API_URL + 'api/dong-hop-dong';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(lichSuDongTien: LichSuDongTien): Observable<EntityResponseType> {
@@ -30,12 +32,12 @@ export class LichSuDongTienService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
     setDongTien(id: number): Observable<EntityResponseType> {
-        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${this.dongtien}/${id}`, { observe: 'response'})
+        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${this.dongtien}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<LichSuDongTien>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -45,20 +47,26 @@ export class LichSuDongTienService {
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
     findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
-        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, {observe: 'response' })
+        return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, { observe: 'response' })
+            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
+    }
+    baoCao(loaihopdong: LOAIHOPDONG, start: Date, end: Date): Observable<HttpResponse<LichSuDongTien[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<LichSuDongTien[]>(`${this.baocaoUrl}/${loaihopdong}/${startd}/${endd}`, { observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
     dongHopDong(id: number): Observable<HttpResponse<any>> {
-        return this.http.get<any>(`${this.donghopdong}/${id}`, { observe: 'response'});
+        return this.http.get<any>(`${this.donghopdong}/${id}`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: LichSuDongTien = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<LichSuDongTien[]>): HttpResponse<LichSuDongTien[]> {
@@ -67,7 +75,7 @@ export class LichSuDongTienService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -79,6 +87,8 @@ export class LichSuDongTienService {
             .convertDateTimeFromServer(lichSuDongTien.ngaybatdau);
         copy.ngayketthuc = this.dateUtils
             .convertDateTimeFromServer(lichSuDongTien.ngayketthuc);
+        copy.ngaygiaodich = this.dateUtils
+            .convertDateTimeFromServer(lichSuDongTien.ngaygiaodich);
         return copy;
     }
 
@@ -88,9 +98,20 @@ export class LichSuDongTienService {
     private convert(lichSuDongTien: LichSuDongTien): LichSuDongTien {
         const copy: LichSuDongTien = Object.assign({}, lichSuDongTien);
 
-        copy.ngaybatdau = this.dateUtils.toDate(lichSuDongTien.ngaybatdau);
+        // copy.ngaybatdau = this.dateUtils.toDate(lichSuDongTien.ngaybatdau);
 
-        copy.ngayketthuc = this.dateUtils.toDate(lichSuDongTien.ngayketthuc);
+        // copy.ngayketthuc = this.dateUtils.toDate(lichSuDongTien.ngayketthuc);
+        // copy.ngaygiaodich = this.dateUtils.toDate(lichSuDongTien.ngaygiaodich);
         return copy;
+    }
+    private convertDateToString(d: Date): String {
+
+        let m = d.getMonth() + 1;
+        let mm = m < 10 ? '0' + m : m;
+        let day = d.getDate();
+        let sday = day < 10 ? '0' + day : day;
+
+        return d.getFullYear() + ' ' + mm + ' ' + sday;
+
     }
 }
