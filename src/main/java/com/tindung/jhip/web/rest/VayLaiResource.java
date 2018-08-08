@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +66,6 @@ public class VayLaiResource {
         VayLaiDTO result = vayLaiService.save(vayLaiDTO);
 
         //
-
         //
         return ResponseEntity.created(new URI("/api/vay-lais/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -155,5 +157,14 @@ public class VayLaiResource {
         log.debug("REST request to delete VayLai : {}", id);
         vayLaiService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/bao-cao-vay-lais/{start}/{end}")
+    @Timed
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return vayLaiService.baoCao(timeStart, timeEnd);
     }
 }

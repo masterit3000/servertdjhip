@@ -18,6 +18,7 @@ export class BatHoService {
     private dongTien = 'dongtien';
     private resourceUrlTimBatHo = SERVER_API_URL + 'api/tim-bat-hos-by-ten-cmnd';
     private resourceUrlBatHoByHopDong = SERVER_API_URL + 'api/tim-bat-hos';
+    private baocaoUrl = SERVER_API_URL + 'api/bao-cao-bat-hos';
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -102,6 +103,22 @@ export class BatHoService {
     findByHopDong(id: number): Observable<HttpResponse<BatHo[]>> {
         return this.http.get<BatHo[]>(`${this.resourceUrlBatHoByHopDong}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+    baoCao(start: Date, end: Date): Observable<HttpResponse<BatHo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}`, {observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+    private convertDateToString(d: Date): String {
+
+        let m = d.getMonth() + 1;
+        let mm = m < 10 ? '0' + m : m;
+        let day = d.getDate();
+        let sday = day < 10 ? '0' + day : day;
+
+        return d.getFullYear() + ' ' + mm + ' ' + sday;
+
     }
 
 }

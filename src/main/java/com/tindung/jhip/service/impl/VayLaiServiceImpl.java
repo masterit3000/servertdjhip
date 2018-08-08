@@ -420,4 +420,19 @@ public class VayLaiServiceImpl implements VayLaiService {
 
     }
 
+    @Override
+    public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<VayLai> baoCao = vayLaiRepository.baocao(start, end);
+            List<VayLaiDTO> collect = baoCao.stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
+
 }

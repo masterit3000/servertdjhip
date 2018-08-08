@@ -379,12 +379,17 @@ public class BatHoServiceImpl implements BatHoService {
     @Override
     public List<BatHoDTO> findByNameOrCMND(String key
     ) {
-        log.debug("Request to get all KhachHangs");
-        key = new StringBuffer("%").append(key).append("%").toString();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
 
-        return batHoRepository.findByNameOrCMND(key).stream()
-                .map(batHoMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+            return batHoRepository.findByNameOrCMND(key).stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
     private void validate(BatHoDTO bh) {
@@ -427,6 +432,21 @@ public class BatHoServiceImpl implements BatHoService {
                 .collect(Collectors.toCollection(LinkedList::new));
         return collect;
 
+    }
+
+    @Override
+    public List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<BatHo> baoCao = batHoRepository.baocao(start, end);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
 }

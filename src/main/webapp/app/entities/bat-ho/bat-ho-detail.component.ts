@@ -104,9 +104,10 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.ghiNo.sotien = this.tienNo - this.tienTra;
         if (this.ghiNo.sotien > 0) {
             this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
+
+            this.subscribeToSaveResponse(
+                this.ghiNoService.create(this.ghiNo));
         }
-        this.subscribeToSaveResponse(
-            this.ghiNoService.create(this.ghiNo));
         this.lichSuDongTienService.dongHopDong(this.batHo.hopdong.id)
             .subscribe((response) => {
                 this.eventManager.broadcast({
@@ -306,6 +307,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.batHos = batHoResponse.body;
             });
     }
-   
+
 
 }
