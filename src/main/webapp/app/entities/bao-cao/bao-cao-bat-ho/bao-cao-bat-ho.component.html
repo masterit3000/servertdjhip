@@ -192,7 +192,7 @@
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienNoBh}}</span>
+                        <span style="color:red">{{tongTienTraVl-tongTienNoBh}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -246,7 +246,7 @@
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienNoVl}}</span>
+                        <span style="color:red">{{tongTienTraVl-tongTienNoVl}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -291,7 +291,7 @@
                     <td>{{batHo.nhanVienTen}}</td>
                     <td>{{batHo.khachHangTen}}</td>
                     <td>{{batHo.tienduakhach}}</td>
-                    <td>{{batHo.trangthai}}</td>
+                    <td>{{batHo.hopdong.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
@@ -345,7 +345,7 @@
                     <td>{{vayLai.nhanVienTen}}</td>
                     <td>{{vayLai.khachHangTen}}</td>
                     <td>{{vayLai.tienvay}}</td>
-                    <td>{{vayLai.trangthai}}</td>
+                    <td>{{vayLai.hopdongvl.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">

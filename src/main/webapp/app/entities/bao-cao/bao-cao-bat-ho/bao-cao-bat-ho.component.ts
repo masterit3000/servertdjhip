@@ -39,7 +39,9 @@ export class BaoCaoBatHoComponent implements OnInit {
   tongTienBHs: number;
   tongTienVLs: number;
   tongTienNoBh: number;
+  tongTienTraBh: number;
   tongTienNoVl: number;
+  tongTienTraVl: number;
   vayLai: VayLai;
   vayLais: VayLai[];
 
@@ -63,7 +65,9 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienBHs = 0;
     this.tongTienVLs = 0;
     this.tongTienNoBh = 0;
+    this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
+    this.tongTienTraVl = 0;
   }
 
   ngOnInit() {
@@ -110,7 +114,12 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoBHs = res.body;
         this.ghiNoBHs.forEach(element => {
-          this.tongTienNoBh+=element.sotien;
+          if (element.trangthai.toString() == 'NO') {
+            this.tongTienNoBh += element.sotien;
+          } else {
+            this.tongTienTraBh += element.sotien;
+
+          }
         });
 
       },
@@ -120,7 +129,12 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoVLs = res.body;
         this.ghiNoVLs.forEach(element => {
-          this.tongTienNoVl+=element.sotien;
+          if (element.trangthai.toString() == 'NO') {
+            this.tongTienNoVl += element.sotien;
+          } else {
+            this.tongTienTraVl += element.sotien;
+
+          }
         });
 
       },
@@ -130,7 +144,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
-          this.tongTienBHs+=element.tongtien;
+          this.tongTienBHs += element.tongtien;
         });
 
       },
@@ -140,7 +154,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<VayLai[]>) => {
         this.vayLais = res.body;
         this.vayLais.forEach(element => {
-          this.tongTienVLs+=element.tienvay;
+          this.tongTienVLs += element.tienvay;
         });
 
       },
@@ -201,7 +215,13 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoBHs = res.body;
         this.ghiNoBHs.forEach(element => {
-          this.tongTienNoBh+=element.sotien;
+          if (element.trangthai.toString() == 'NO') {
+            this.tongTienNoBh += element.sotien;
+          } else {
+            this.tongTienTraBh += element.sotien;
+
+          }
+
         });
 
       },
@@ -225,7 +245,12 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoVLs = res.body;
         this.ghiNoVLs.forEach(element => {
-          this.tongTienNoVl+=element.sotien;
+          if (element.trangthai.toString() == 'NO') {
+            this.tongTienNoVl += element.sotien;
+          } else {
+            this.tongTienTraVl += element.sotien;
+
+          }
         });
 
       },
@@ -240,7 +265,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
-          this.tongTienBHs+=element.tienduakhach;
+          this.tongTienBHs += element.tienduakhach;
         });
 
       },
@@ -255,7 +280,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<VayLai[]>) => {
         this.vayLais = res.body;
         this.vayLais.forEach(element => {
-          this.tongTienVLs+=element.tienvay;
+          this.tongTienVLs += element.tienvay;
         });
 
       },
