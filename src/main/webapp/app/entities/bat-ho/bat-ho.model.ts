@@ -12,7 +12,9 @@ export class BatHo implements BaseEntity {
         public tongsongay?: number,
         public chuky?: number,
         public hopdongbhId?: number,
-        public hopdong?: HopDong
+        public hopdong?: HopDong,
+        public nhanVienTen?: string,
+        public khachHangTen?: string,
     ) {
     }
 }

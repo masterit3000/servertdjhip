@@ -36,6 +36,10 @@ export class BaoCaoBatHoComponent implements OnInit {
   ghiNo: GhiNo;
   tongTienBH: number;
   tongTienVL: number;
+  tongTienBHs: number;
+  tongTienVLs: number;
+  tongTienNoBh: number;
+  tongTienNoVl: number;
   vayLai: VayLai;
   vayLais: VayLai[];
 
@@ -56,6 +60,10 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.lichSuDongTienBHs = new Array<LichSuDongTien>();
     this.tongTienVL = 0;
     this.tongTienBH = 0;
+    this.tongTienBHs = 0;
+    this.tongTienVLs = 0;
+    this.tongTienNoBh = 0;
+    this.tongTienNoVl = 0;
   }
 
   ngOnInit() {
@@ -73,6 +81,10 @@ export class BaoCaoBatHoComponent implements OnInit {
   timKiem() {
     this.tongTienVL = 0;
     this.tongTienBH = 0;
+    this.tongTienBHs = 0;
+    this.tongTienVLs = 0;
+    this.tongTienNoBh = 0;
+    this.tongTienNoVl = 0;
     console.log(this.denngay);
     this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
@@ -98,7 +110,17 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoBHs = res.body;
         this.ghiNoBHs.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienNoBh+=element.sotien;
+        });
+
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+    this.ghiNoService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+      (res: HttpResponse<GhiNo[]>) => {
+        this.ghiNoVLs = res.body;
+        this.ghiNoVLs.forEach(element => {
+          this.tongTienNoVl+=element.sotien;
         });
 
       },
@@ -108,7 +130,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienBHs+=element.tongtien;
         });
 
       },
@@ -118,7 +140,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<VayLai[]>) => {
         this.vayLais = res.body;
         this.vayLais.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienVLs+=element.tienvay;
         });
 
       },
@@ -179,22 +201,22 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoBHs = res.body;
         this.ghiNoBHs.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienNoBh+=element.sotien;
         });
 
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    this.ghiNoService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<GhiNo[]>) => {
-        this.ghiNoVLs = res.body;
-        this.ghiNoVLs.forEach(element => {
-          // this.tongTienVL+=element.sotien;
-        });
+    // this.ghiNoService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+    //   (res: HttpResponse<GhiNo[]>) => {
+    //     this.ghiNoVLs = res.body;
+    //     this.ghiNoVLs.forEach(element => {
+    //       // this.tongTienVL+=element.sotien;
+    //     });
 
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+    //   },
+    //   (res: HttpErrorResponse) => this.onError(res.message)
+    // );
   }
   loadLichGhiNoTienVL() {
     this.tungay = new Date();
@@ -203,7 +225,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<GhiNo[]>) => {
         this.ghiNoVLs = res.body;
         this.ghiNoVLs.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienNoVl+=element.sotien;
         });
 
       },
@@ -218,7 +240,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienBHs+=element.tienduakhach;
         });
 
       },
@@ -233,7 +255,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<VayLai[]>) => {
         this.vayLais = res.body;
         this.vayLais.forEach(element => {
-          // this.tongTienVL+=element.sotien;
+          this.tongTienVLs+=element.tienvay;
         });
 
       },

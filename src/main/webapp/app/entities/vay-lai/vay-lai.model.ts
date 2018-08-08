@@ -26,6 +26,8 @@ export class VayLai implements BaseEntity {
         public thulaitruoc?: boolean,
         public hopdongvlId?: number,
         public hopdongvl?: HopDong,
+        public nhanVienTen?: string,
+        public khachHangTen?: string,
     ) {
         this.thulaitruoc = false;
     }

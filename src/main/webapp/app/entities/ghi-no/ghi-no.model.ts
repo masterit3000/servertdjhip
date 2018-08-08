@@ -13,6 +13,8 @@ export class GhiNo implements BaseEntity {
         public trangthai?: NOTRA,
         public ghiChu?: string,
         public nhanVienId?: number,
+        public nhanVienTen?: string,
+        public khachHangTen?: string,
         public hopDongId?: number,
     ) {
     }
