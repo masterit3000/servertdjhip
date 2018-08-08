@@ -8,20 +8,20 @@
     </h2>
     <div class="widget-header">
         <div class="row">
-            <!-- <div class="col-md-3">
+            <div class="col-md-3">
                 <div class="row">
                     <label class="col-md-4 control-label">
                         Nhân Viên
 
                     </label>
                     <div class="col-md-8 form-group">
-                        <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/>
-                        <select class="form-control" id="field_nhanVien" name="nhanVien" required>
-                            <option *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
-                        </select>
+                        <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
+                        <select class="form-control"  name="nhanVien" [(ngModel)]="nhanVien.id" >
+                                <option  *ngFor="let nhanVien of nhanViens">{{nhanVien.ten}}</option>
+                            </select>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="col-md-4">
                 <label>Từ Ngày</label>
                 <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
@@ -187,12 +187,30 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
+                    <tr>
+                            <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                                <strong>Tổng nợ </strong>
+                            </td>
+                            <td align="right" style="background-color:#ECECEC">
+                                <span style="color:red">{{tongTienNoBh}}</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                                <strong>Tổng trả </strong>
+                            </td>
+                            <td align="right" style="background-color:#ECECEC">
+                                <span style="color:red">{{tongTienTraBh}}</span>
+                            </td>
+                            <td></td>
+                        </tr>
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraVl-tongTienNoBh}}</span>
+                        <span style="color:red">{{tongTienTraBh-tongTienNoBh}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -241,6 +259,24 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng nợ </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienNoVl}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng trả </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienTraVl}}</span>
+                    </td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
@@ -295,6 +331,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
+               
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>

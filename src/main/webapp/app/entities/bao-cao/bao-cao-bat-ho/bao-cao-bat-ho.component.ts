@@ -21,7 +21,6 @@ export class BaoCaoBatHoComponent implements OnInit {
   selected: BatHo;
   tungay: Date;
   denngay: Date;
-  nhanviens: NhanVien[];
   hopDong: HopDong;
   lichSuDongTienVLs: LichSuDongTien[];
   lichSuDongTienBHs: LichSuDongTien[];
@@ -68,9 +67,11 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
+    this.nhanVien = new NhanVien;
   }
 
   ngOnInit() {
+    this.loadNhanVien();
     this.loadLichSuDongTienBH();
     this.loadLichSuDongTienVL();
     this.loadLichGhiNoTienBH();
@@ -88,7 +89,9 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienBHs = 0;
     this.tongTienVLs = 0;
     this.tongTienNoBh = 0;
+    this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
+    this.tongTienTraVl = 0;
     console.log(this.denngay);
     this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
@@ -144,7 +147,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
-          this.tongTienBHs += element.tongtien;
+          this.tongTienBHs += element.tienduakhach;
         });
 
       },
