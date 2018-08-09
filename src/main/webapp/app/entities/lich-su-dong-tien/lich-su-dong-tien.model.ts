@@ -2,7 +2,8 @@ import { BaseEntity } from './../../shared';
 
 export const enum DONGTIEN {
     'CHUADONG',
-    'DADONG'
+    'DADONG',
+    'TRAGOC'
 }
 
 export class LichSuDongTien implements BaseEntity {

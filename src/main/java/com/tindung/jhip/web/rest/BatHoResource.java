@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
@@ -209,5 +210,22 @@ public class BatHoResource {
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return batHoService.baoCao(timeStart,timeEnd);
+    }
+    @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}")
+    @Timed
+    public List<BatHoDTO> findByTrangThai(@PathVariable(name = "start") String start, @PathVariable(name = "end")String end,@PathVariable(name = "trangthai")String trangthai) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        switch(trangthai){
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        }
+        return batHoService.findByTrangThai(timeStart,timeEnd,trangthaihopdong);
     }
 }

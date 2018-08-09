@@ -6,6 +6,7 @@ import { SERVER_API_URL } from '../../app.constants';
 import { BatHo } from './bat-ho.model';
 import { createRequestOption } from '../../shared';
 import { LichSuDongTien } from '../lich-su-dong-tien';
+import { TRANGTHAIHOPDONG } from '../hop-dong';
 export type EntityResponseType = HttpResponse<BatHo>;
 
 @Injectable()
@@ -19,6 +20,7 @@ export class BatHoService {
     private resourceUrlTimBatHo = SERVER_API_URL + 'api/tim-bat-hos-by-ten-cmnd';
     private resourceUrlBatHoByHopDong = SERVER_API_URL + 'api/tim-bat-hos';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-bat-hos';
+    private findbytrangthaiUrl = SERVER_API_URL + 'api/find-by-trangthai-bat-hos';
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -108,6 +110,12 @@ export class BatHoService {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
         return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}`, {observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+    findByTrangThai(start: Date, end: Date, trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<BatHo[]>(`${this.findbytrangthaiUrl}/${startd}/${endd}/${trangthai}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
     private convertDateToString(d: Date): String {

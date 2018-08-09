@@ -125,7 +125,7 @@ public class VayLaiResource {
 
     @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}")
     @Timed
-    public List<VayLaiDTO> timBatHosByTenCMND(@PathVariable(name = "key") String key) {
+    public List<VayLaiDTO> timVayLaisByTenCMND(@PathVariable(name = "key") String key) {
         log.debug("REST request to get all KhachHangs");
         return vayLaiService.findByNameOrCMND(key);
     }
@@ -167,4 +167,6 @@ public class VayLaiResource {
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return vayLaiService.baoCao(timeStart, timeEnd);
     }
+
+
 }

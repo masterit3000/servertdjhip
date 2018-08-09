@@ -151,9 +151,9 @@ public class LichSuDongTienResource {
         return lichSuDongTienService.findByHopDong(id);
     }
 
-    @GetMapping("/bao-cao-lich-su-dong-tiens/{loaihopdong}/{start}/{end}")
+    @GetMapping("/bao-cao-lich-su-dong-tiens/{dongtien}/{loaihopdong}/{start}/{end}")
     @Timed
-    public List<LichSuDongTienDTO> baoCao(@PathVariable(name ="loaihopdong") String loaihopdong,@PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
+    public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien,@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
         log.debug("REST request to get baoCao LichSuDongTien: {}");
         LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
@@ -167,7 +167,20 @@ public class LichSuDongTienResource {
                 loai = LOAIHOPDONG.BATHO;
                 break;
         }
-        return lichSuDongTienService.baoCao(loai,timeStart,timeEnd);
+        DONGTIEN loaidongtien = DONGTIEN.DADONG;
+        switch (dongtien) {
+            case "0":
+                loaidongtien = DONGTIEN.CHUADONG;
+                break;
+            case "1":
+                loaidongtien = DONGTIEN.DADONG;
+                break;
+            case "2":
+                loaidongtien = DONGTIEN.TRAGOC;
+                break;
+                
+        }
+        return lichSuDongTienService.baoCao(loaidongtien,loai, timeStart, timeEnd);
     }
 
 }
