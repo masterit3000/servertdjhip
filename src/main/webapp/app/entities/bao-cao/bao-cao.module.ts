@@ -20,12 +20,14 @@ import { TableModule } from '../../../../../../node_modules/primeng/table';
 import { CalendarModule } from '../../../../../../node_modules/primeng/primeng';
 import { LichSuDongTienService } from '../lich-su-dong-tien';
 import { FormsModule } from '@angular/forms';
+import { ServertdjhipSharedModule } from '../../shared';
 @NgModule({
     imports: [CommonModule,
         BaoCaoRoutingModule,
         TableModule,
         CalendarModule,
         FormsModule,
+        ServertdjhipSharedModule,
     ],
     declarations: [
         SoQuyTienMatComponent,
