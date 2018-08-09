@@ -103,4 +103,8 @@ export class KhachHangService {
                 this.convertArrayResponse(res)
             );
     }
+
+    public getImage(id: number): Observable<Blob> {
+        return this.http.get(SERVER_API_URL + 'api/download/anh-khach-hang/' + id, { responseType: 'blob' });
+    }
 }
