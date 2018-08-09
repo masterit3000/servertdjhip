@@ -16,6 +16,7 @@ export class VayLaiService {
     private resourceUrlTimVayLai = SERVER_API_URL +'api/tim-vay-lais-by-ten-cmnd';
     private lichSuThaoTacHopDong = 'lichsuthaotac';
     private thembotvaylai =SERVER_API_URL + 'api/them-bot-vay-lais';
+    private baocaoUrl = SERVER_API_URL + 'api/bao-cao-vay-lais';
  
     constructor(private http: HttpClient) { }
 
@@ -25,9 +26,9 @@ export class VayLaiService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
     
-    themBotVayLai(vayLai: VayLai,id:number,tienVay:number): Observable<EntityResponseType> {
+    themBotVayLai(vayLai: VayLai,id:number): Observable<EntityResponseType> {
         const copy = this.convert(vayLai);
-        return this.http.post<VayLai>(`${this.thembotvaylai}/${id}/${tienVay}`, copy, { observe: 'response' })
+        return this.http.post<VayLai>(`${this.thembotvaylai}/${id}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -89,6 +90,22 @@ export class VayLaiService {
             .map((res: HttpResponse<VayLai[]>) =>
                 this.convertArrayResponse(res)
             );
+    }
+    baoCao(start: Date, end: Date): Observable<HttpResponse<VayLai[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<VayLai[]>(`${this.baocaoUrl}/${startd}/${endd}`, {observe: 'response' })
+            .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
+    }
+    private convertDateToString(d: Date): String {
+
+        let m = d.getMonth() + 1;
+        let mm = m < 10 ? '0' + m : m;
+        let day = d.getDate();
+        let sday = day < 10 ? '0' + day : day;
+
+        return d.getFullYear() + ' ' + mm + ' ' + sday;
+
     }
 
 }

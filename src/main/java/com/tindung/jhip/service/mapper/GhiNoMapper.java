@@ -13,6 +13,8 @@ public interface GhiNoMapper extends EntityMapper<GhiNoDTO, GhiNo> {
 
     @Mapping(source = "nhanVien.id", target = "nhanVienId")
     @Mapping(source = "hopDong.id", target = "hopDongId")
+    @Mapping(source = "nhanVien.ten", target = "nhanVienTen")
+    @Mapping(source = "hopDong.khachHang.ten", target = "khachHangTen")
     GhiNoDTO toDto(GhiNo ghiNo);
 
     @Mapping(source = "nhanVienId", target = "nhanVien")

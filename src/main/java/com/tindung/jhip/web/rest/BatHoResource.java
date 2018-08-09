@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Optional;
@@ -70,14 +73,6 @@ public class BatHoResource {
         BatHoDTO result = batHoService.save(batHoDTO);
 
         //
-        //save lich su thao tac bat ho
-        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
-        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
-        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
-        //
         return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
@@ -94,12 +89,6 @@ public class BatHoResource {
 
         //
         //save lich su thao tac bat ho
-        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdong().getId());
-        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuThaoTacHopDongDTO.setNoidung("Đảo bát họ");
-        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
         //
         return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -211,5 +200,14 @@ public class BatHoResource {
     public List<BatHoDTO> findBatHoByHopDong(@PathVariable Long id) {
         log.debug("REST request to get all BatHos");
         return batHoService.findByHopDong(id);
+    }
+
+    @GetMapping("/bao-cao-bat-hos/{start}/{end}")
+    @Timed
+    public List<BatHoDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end")String end) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return batHoService.baoCao(timeStart,timeEnd);
     }
 }

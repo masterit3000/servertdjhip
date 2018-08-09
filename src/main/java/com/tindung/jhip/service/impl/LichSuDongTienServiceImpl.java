@@ -4,10 +4,13 @@ import com.tindung.jhip.domain.GhiNo;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.HopDongRepository;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
+import com.tindung.jhip.repository.LichSuThaoTacHopDongRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
@@ -21,11 +24,14 @@ import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.time.ZonedDateTime;
 import com.tindung.jhip.service.GhiNoService;
+import com.tindung.jhip.service.HopDongService;
+import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 
 /**
  * Service Implementation for managing LichSuDongTien.
@@ -42,16 +48,22 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final GhiNoService ghiNoService;
     private final HopDongRepository hopDongRepository;
     private final NhanVienService nhanVienService;
+    private final HopDongService hopDongService;
 //    @Autowired
     private final CuaHangService cuaHangService;
+    private final LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository;
+    private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, CuaHangService cuaHangService) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.ghiNoService = ghiNoService;
         this.hopDongRepository = hopDongRepository;
         this.nhanVienService = nhanVienService;
+        this.hopDongService = hopDongService;
         this.cuaHangService = cuaHangService;
+        this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
+        this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
     }
 
     /**
@@ -114,6 +126,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
             lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+            lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
             return lichSuDongTienMapper.toDto(lichSuDongTien);
         }
         throw new InternalServerErrorException("Khong co quyen");
@@ -133,14 +146,27 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     @Override
     public void dongHopDong(Long id) {
-        List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
-        double tienConPhaiDong=0;
-        for (LichSuDongTien lichSuDongTien : findByHopDong) {
-            if(lichSuDongTien.getTrangthai().equals(DONGTIEN.CHUADONG)){
-                tienConPhaiDong += lichSuDongTien.getSotien();
-                lichSuDongTienRepository.delete(lichSuDongTien);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            hopDongRepository.findOne(id).setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
+            List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
+            double tienConPhaiDong = 0;
+            for (LichSuDongTien lichSuDongTien : findByHopDong) {
+                if (lichSuDongTien.getTrangthai().equals(DONGTIEN.CHUADONG)) {
+                    tienConPhaiDong += lichSuDongTien.getSotien();
+                    lichSuDongTienRepository.delete(lichSuDongTien);
+                }
             }
-        }
+            LichSuThaoTacHopDongDTO lichSuThaoTacHopDong = new LichSuThaoTacHopDongDTO();
+            lichSuThaoTacHopDong.setHopDongId(id);
+            lichSuThaoTacHopDong.setNhanVienId(cuaHangService.findIDByUserLogin());
+            lichSuThaoTacHopDong.setSoTienGhiCo(tienConPhaiDong);
+            lichSuThaoTacHopDong.setSoTienGhiNo(0 * 1d);
+            lichSuThaoTacHopDong.setThoigian(ZonedDateTime.now());
+            lichSuThaoTacHopDong.setNoidung("đóng hợp đồng");
+            lichSuThaoTacHopDongService.save(lichSuThaoTacHopDong);
+
 //        List<GhiNoDTO> ghiNos = ghiNoService.findByHopDong(id);
 //        for (GhiNoDTO ghiNo : ghiNos) {
 //            if(ghiNo.getTrangthai().equals(NOTRA.NO)){
@@ -149,15 +175,35 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 //                tienConPhaiDong =  tienConPhaiDong  -ghiNo.getSotien();
 //            }
 //        }
-        LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-        lichSuDongTienDTO.setHopDongId(id);
-        lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
-        lichSuDongTienDTO.setNgayketthuc(ZonedDateTime.now());
-        lichSuDongTienDTO.setSotien(tienConPhaiDong);
-        lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuDongTienDTO.setTrangthai(DONGTIEN.DADONG);
-        LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
-        lichSuDongTienRepository.save(lichSuDongTien);
+            if (tienConPhaiDong > 0) {
+                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                lichSuDongTienDTO.setHopDongId(id);
+                lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
+                lichSuDongTienDTO.setNgayketthuc(ZonedDateTime.now());
+                lichSuDongTienDTO.setSotien(tienConPhaiDong);
+                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setTrangthai(DONGTIEN.DADONG);
+                lichSuDongTienDTO.setNgaygiaodich(ZonedDateTime.now());
+                LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
+                lichSuDongTienRepository.save(lichSuDongTien);
+            }
+        }
+
+    }
+
+    @Override
+    public List<LichSuDongTienDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(DONGTIEN.DADONG, loaihopdong, start, end);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 
 }

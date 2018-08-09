@@ -15,7 +15,25 @@ import com.tindung.jhip.domain.enumeration.NOTRA;
 public class GhiNoDTO implements Serializable {
 
     private Long id;
+    private String nhanVienTen;
+    private String khachHangTen;
 
+    public String getKhachHangTen() {
+        return khachHangTen;
+    }
+
+    public void setKhachHangTen(String khachHangTen) {
+        this.khachHangTen = khachHangTen;
+    }
+    
+
+    public String getNhanVienTen() {
+        return nhanVienTen;
+    }
+
+    public void setNhanVienTen(String nhanVienTen) {
+        this.nhanVienTen = nhanVienTen;
+    }
 //    @NotNull
     private ZonedDateTime ngayghino;
 

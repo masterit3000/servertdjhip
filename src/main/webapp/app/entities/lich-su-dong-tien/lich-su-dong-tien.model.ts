@@ -10,11 +10,15 @@ export class LichSuDongTien implements BaseEntity {
         public id?: number,
         public ngaybatdau?: any,
         public ngayketthuc?: any,
+        public ngaygiaodich?:any,
         public sotien?: number,
         public trangthai?: DONGTIEN,
         public ghiChu?: string,
         public nhanVienId?: number,
         public hopDongId?: number,
+        public nhanVienTen?: string,
+        public khachHangTen?: string,
+
     ) {
     }
 }

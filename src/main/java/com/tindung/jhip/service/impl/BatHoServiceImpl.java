@@ -25,6 +25,7 @@ import com.tindung.jhip.service.mapper.BatHoMapper;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
@@ -97,6 +98,7 @@ public class BatHoServiceImpl implements BatHoService {
                 }
 
                 hopdong.setNgaytao(ZonedDateTime.now());
+                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                 hopdong = hopDongService.save(hopdong);
                 batHoDTO.setHopdong(hopdong);
                 BatHo batHo = batHoMapper.toEntity(batHoDTO);
@@ -137,6 +139,15 @@ public class BatHoServiceImpl implements BatHoService {
                 lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
+
+                LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+                lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
+                lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
+                lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+                lichSuThaoTacHopDongDTO.setSoTienGhiCo(0d);
+                lichSuThaoTacHopDongDTO.setSoTienGhiNo(batHo.getTienduakhach());
+                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
 
                 return batHoMapper.toDto(batHo);
             } else {
@@ -235,6 +246,7 @@ public class BatHoServiceImpl implements BatHoService {
         hopdong.setMahopdong("DH");
         hopdong.setHopdonggocId(id);
         hopdong.setNgaytao(ZonedDateTime.now());
+        hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
         hopdong.setKhachHangId(hopDongService.findOne(id).getKhachHangId());
         hopdong = hopDongService.save(hopdong);
         batHoDTO.setHopdong(hopdong);
@@ -367,12 +379,17 @@ public class BatHoServiceImpl implements BatHoService {
     @Override
     public List<BatHoDTO> findByNameOrCMND(String key
     ) {
-        log.debug("Request to get all KhachHangs");
-        key = new StringBuffer("%").append(key).append("%").toString();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
 
-        return batHoRepository.findByNameOrCMND(key).stream()
-                .map(batHoMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+            return batHoRepository.findByNameOrCMND(key).stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
     private void validate(BatHoDTO bh) {
@@ -415,6 +432,21 @@ public class BatHoServiceImpl implements BatHoService {
                 .collect(Collectors.toCollection(LinkedList::new));
         return collect;
 
+    }
+
+    @Override
+    public List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<BatHo> baoCao = batHoRepository.baocao(start, end);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
 }

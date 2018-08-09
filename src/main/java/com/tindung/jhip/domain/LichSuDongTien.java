@@ -34,6 +34,18 @@ public class LichSuDongTien implements Serializable {
     @Column(name = "ngayketthuc", nullable = false)
     private ZonedDateTime ngayketthuc;
 
+//    @NotNull
+    @Column(name = "ngaygiaodich", nullable = false)
+    private ZonedDateTime ngaygiaodich;
+
+    public ZonedDateTime getNgaygiaodich() {
+        return ngaygiaodich;
+    }
+
+    public void setNgaygiaodich(ZonedDateTime ngaygiaodich) {
+        this.ngaygiaodich = ngaygiaodich;
+    }
+    
     @NotNull
     @Column(name = "sotien", nullable = false)
     private Double sotien;
@@ -176,13 +188,13 @@ public class LichSuDongTien implements Serializable {
 
     @Override
     public String toString() {
-        return "LichSuDongTien{" +
-            "id=" + getId() +
-            ", ngaybatdau='" + getNgaybatdau() + "'" +
-            ", ngayketthuc='" + getNgayketthuc() + "'" +
-            ", sotien=" + getSotien() +
-            ", trangthai='" + getTrangthai() + "'" +
-            ", ghiChu='" + getGhiChu() + "'" +
-            "}";
+        return "LichSuDongTien{"
+                + "id=" + getId()
+                + ", ngaybatdau='" + getNgaybatdau() + "'"
+                + ", ngayketthuc='" + getNgayketthuc() + "'"
+                + ", sotien=" + getSotien()
+                + ", trangthai='" + getTrangthai() + "'"
+                + ", ghiChu='" + getGhiChu() + "'"
+                + "}";
     }
 }

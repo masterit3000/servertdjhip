@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,29 +66,23 @@ public class VayLaiResource {
         VayLaiDTO result = vayLaiService.save(vayLaiDTO);
 
         //
-        LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-        lichSuThaoTacHopDongDTO.setHopDongId(result.getHopdongvl().getId());
-        lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuThaoTacHopDongDTO.setNoidung("Tạo mới vay lãi");
-        lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-        lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
         //
         return ResponseEntity.created(new URI("/api/vay-lais/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
 
-    @PostMapping("/them-bot-vay-lais/{id}/{tienVay}")
+    @PostMapping("/them-bot-vay-lais/{id}")
     @Timed
-    public ResponseEntity<VayLaiDTO> vay(@RequestBody VayLaiDTO vayLaiDTO,@PathVariable Long id,@PathVariable Double tienVay) throws URISyntaxException {
+    public ResponseEntity<VayLaiDTO> vay(@RequestBody VayLaiDTO vayLaiDTO, @PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to save VayLai : {}", vayLaiDTO);
         if (vayLaiDTO.getId() != null) {
             throw new BadRequestAlertException("A new vayLai cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        VayLaiDTO result = vayLaiService.vay(vayLaiDTO,id,tienVay);
+        VayLaiDTO result = vayLaiService.vay(vayLaiDTO, id);
 
         //
-        return ResponseEntity.created(new URI("/api/vay-lais/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/them-bot-vay-lais/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
@@ -160,5 +157,14 @@ public class VayLaiResource {
         log.debug("REST request to delete VayLai : {}", id);
         vayLaiService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/bao-cao-vay-lais/{start}/{end}")
+    @Timed
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return vayLaiService.baoCao(timeStart, timeEnd);
     }
 }

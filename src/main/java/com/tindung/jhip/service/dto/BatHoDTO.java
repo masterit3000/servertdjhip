@@ -12,7 +12,24 @@ import java.util.Objects;
 public class BatHoDTO implements Serializable {
 
     private Long id;
+    private String nhanVienTen;
+    private String khachHangTen;
 
+    public String getNhanVienTen() {
+        return nhanVienTen;
+    }
+
+    public void setNhanVienTen(String nhanVienTen) {
+        this.nhanVienTen = nhanVienTen;
+    }
+
+    public String getKhachHangTen() {
+        return khachHangTen;
+    }
+
+    public void setKhachHangTen(String khachHangTen) {
+        this.khachHangTen = khachHangTen;
+    }
     @NotNull
     private Double tienduakhach;
 

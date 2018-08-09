@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface BatHoMapper extends EntityMapper<BatHoDTO, BatHo> {
 
     @Mapping(source = "hopdongbh", target = "hopdong")
+    @Mapping(source = "hopdongbh.nhanVien.ten", target = "nhanVienTen")
+    @Mapping(source = "hopdongbh.khachHang.ten", target = "khachHangTen")
     BatHoDTO toDto(BatHo batHo);
 
     @Mapping(source = "hopdong", target = "hopdongbh")

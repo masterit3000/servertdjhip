@@ -25,6 +25,26 @@ public class LichSuThaoTacHopDongDTO implements Serializable {
 
     private Long hopDongId;
     private String nhanVienTen;
+    @NotNull
+    private Double soTienGhiNo;
+    @NotNull
+    private Double soTienGhiCo;
+    
+    public Double getSoTienGhiNo() {
+        return soTienGhiNo;
+    }
+
+    public void setSoTienGhiNo(Double soTienGhiNo) {
+        this.soTienGhiNo = soTienGhiNo;
+    }
+
+    public Double getSoTienGhiCo() {
+        return soTienGhiCo;
+    }
+
+    public void setSoTienGhiCo(Double soTienGhiCo) {
+        this.soTienGhiCo = soTienGhiCo;
+    }
 
     public String getNhanVienTen() {
         return nhanVienTen;

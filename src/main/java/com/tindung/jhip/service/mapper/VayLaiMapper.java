@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface VayLaiMapper extends EntityMapper<VayLaiDTO, VayLai> {
 
     @Mapping(source = "hopdongvl", target = "hopdongvl")
+    @Mapping(source = "hopdongvl.nhanVien.ten", target = "nhanVienTen")
+    @Mapping(source = "hopdongvl.khachHang.ten", target = "khachHangTen")
     VayLaiDTO toDto(VayLai vayLai);
 
     @Mapping(source = "hopdongvl", target = "hopdongvl")

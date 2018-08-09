@@ -1,0 +1,365 @@
+<div>
+
+    <h2>
+        <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
+        <span>Báo cáo tiền mặt</span>
+
+
+    </h2>
+    <div class="widget-header">
+        <div class="row">
+            <!-- <div class="col-md-3">
+                <div class="row">
+                    <label class="col-md-4 control-label">
+                        Nhân Viên
+
+                    </label>
+                    <div class="col-md-8 form-group">
+                        <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/>
+                        <select class="form-control" id="field_nhanVien" name="nhanVien" required>
+                            <option *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-md-4">
+                <label>Từ Ngày</label>
+                <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+            </div>
+            <div class="col-md-5">
+                <label>Đến Ngày</label>
+                <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+                <button class="btn btn-info pull-right" (click)="timKiem()">
+                    <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <p-table [value]="lichSuDongTienBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng bát họ đã đóng</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <ng-template pTemplate="body" let-lichSuDongTien>
+                <tr>
+                    <td>{{lichSuDongTien.id}}</td>
+                    <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
+                    <!-- <td>{{lichSuDongTien.nhanVienId}}</td> -->
+                    <!-- <td>{{hopDong.nhanVienId}}</td>
+                    <td>{{hopDong.khachHangTen}}</td> -->
+                    <td>{{lichSuDongTien.nhanVienTen}}</td>
+                    <td>{{lichSuDongTien.khachHangTen}}</td>
+                    <td>{{lichSuDongTien.sotien}}</td>
+                    <td>{{lichSuDongTien.trangthai}}</td>
+                    <!-- <td>{{hopDong.trangthai}}</td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng</strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienBH}}</span>
+                    </td>
+
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="table-responsive" style="padding-top: 50px">
+        <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi đã đóng</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+                   
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <ng-template pTemplate="body" let-lichSuDongTien>
+                <tr>
+                    <td>{{lichSuDongTien.id}}</td>
+                    <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
+                    <td>{{lichSuDongTien.nhanVienTen}}</td>
+                    <td>{{lichSuDongTien.khachHangTen}}</td>
+                    <td>{{lichSuDongTien.sotien}}</td>
+                    <td>{{lichSuDongTien.trangthai}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng tiền </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienVL}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Ghi nợ bát họ-->
+    <div class="table-responsive" style="padding-top: 50px">
+        <p-table [value]="ghiNoBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo ghi nợ bát họ</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+                   
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <ng-template pTemplate="body" let-ghiNo>
+                <tr>
+                    <td>{{ghiNo.id}}</td>
+                    <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
+                    <td>{{ghiNo.nhanVienTen}}</td>
+                    <td>{{ghiNo.khachHangTen}}</td>
+                    <td>{{ghiNo.sotien}}</td>
+                    <td>{{ghiNo.trangthai}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng tiền </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienTraVl-tongTienNoBh}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Ghi nợ vay lãi-->
+    <div class="table-responsive" style="padding-top: 50px">
+        <p-table [value]="ghiNoVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo ghi nợ vay lãi</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+                   
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <ng-template pTemplate="body" let-ghiNo>
+                <tr>
+                    <td>{{ghiNo.id}}</td>
+                    <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
+                    <td>{{ghiNo.nhanVienTen}}</td>
+                    <td>{{ghiNo.khachHangTen}}</td>
+                    <td>{{ghiNo.sotien}}</td>
+                    <td>{{ghiNo.trangthai}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng tiền </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienTraVl-tongTienNoVl}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- báo cáo bát họ thêm mới -->
+    <div class="table-responsive" style="padding-top: 50px">
+        <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng bát họ thêm mới</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+                   
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <ng-template pTemplate="body" let-batHo>
+                <tr>
+                    <td>{{batHo.id}}</td>
+                    <td>{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
+                    <td>{{batHo.nhanVienTen}}</td>
+                    <td>{{batHo.khachHangTen}}</td>
+                    <td>{{batHo.tienduakhach}}</td>
+                    <td>{{batHo.hopdong.trangthaihopdong}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng tiền </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienBHs}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- báo cáo vay lãi thêm mới -->
+    <div class="table-responsive" style="padding-top: 50px">
+        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi thêm mới</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+                   
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <ng-template pTemplate="body" let-vayLai>
+                <tr>
+                    <td>{{vayLai.id}}</td>
+                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
+                    <td>{{vayLai.nhanVienTen}}</td>
+                    <td>{{vayLai.khachHangTen}}</td>
+                    <td>{{vayLai.tienvay}}</td>
+                    <td>{{vayLai.hopdongvl.trangthaihopdong}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng tiền </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienVLs}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+</div>

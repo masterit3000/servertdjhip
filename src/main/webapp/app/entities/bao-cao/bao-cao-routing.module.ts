@@ -12,6 +12,9 @@ import { BaoCaoHopDongDaXoaComponent } from './bao-cao-hop-dong-da-xoa/bao-cao-h
 import { BaoCaoTinNhanComponent } from './bao-cao-tin-nhan/bao-cao-tin-nhan.component';
 import { BanGiaoCaComponent } from './ban-giao-ca/ban-giao-ca.component';
 import { DongTienTheoNgayComponent } from './dong-tien-theo-ngay/dong-tien-theo-ngay.component';
+import { BaoCaoBatHoComponent } from './bao-cao-bat-ho/bao-cao-bat-ho.component';
+import { BaoCaoVayLaiComponent } from './bao-cao-vay-lai/bao-cao-vay-lai.component';
+
 
 const routes: Routes = [
   {
@@ -98,6 +101,21 @@ const routes: Routes = [
       pageTitle: 'global.menu.dongTienTheoNgay'
     },
   },
+  {
+    path: 'baoCaoBatHo', component: BaoCaoBatHoComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoBatHo'
+    },
+  },
+  {
+    path: 'baoCaoVayLai', component: BaoCaoVayLaiComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'global.menu.baoCaoBatHo'
+    },
+  },
+
 ];
 
 @NgModule({

@@ -29,6 +29,28 @@ public class LichSuThaoTacHopDong implements Serializable {
     private ZonedDateTime thoigian;
 
     @NotNull
+    @Column(name = "sotienghino", nullable = false)
+    private Double soTienGhiNo;
+    @NotNull
+    @Column(name = "sotienghico", nullable = false)
+    private Double soTienGhiCo;
+
+    public Double getSoTienGhiNo() {
+        return soTienGhiNo;
+    }
+
+    public void setSoTienGhiNo(Double soTienGhiNo) {
+        this.soTienGhiNo = soTienGhiNo;
+    }
+
+    public Double getSoTienGhiCo() {
+        return soTienGhiCo;
+    }
+
+    public void setSoTienGhiCo(Double soTienGhiCo) {
+        this.soTienGhiCo = soTienGhiCo;
+    }
+    @NotNull
     @Size(max = 3000)
     @Column(name = "noidung", length = 3000, nullable = false)
     private String noidung;
@@ -99,8 +121,8 @@ public class LichSuThaoTacHopDong implements Serializable {
     public void setHopDong(HopDong hopDong) {
         this.hopDong = hopDong;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -123,10 +145,10 @@ public class LichSuThaoTacHopDong implements Serializable {
 
     @Override
     public String toString() {
-        return "LichSuThaoTacHopDong{" +
-            "id=" + getId() +
-            ", thoigian='" + getThoigian() + "'" +
-            ", noidung='" + getNoidung() + "'" +
-            "}";
+        return "LichSuThaoTacHopDong{"
+                + "id=" + getId()
+                + ", thoigian='" + getThoigian() + "'"
+                + ", noidung='" + getNoidung() + "'"
+                + "}";
     }
 }

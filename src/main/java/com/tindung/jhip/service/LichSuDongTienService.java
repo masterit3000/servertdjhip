@@ -1,7 +1,10 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -42,6 +45,8 @@ public interface LichSuDongTienService {
     LichSuDongTienDTO setDongTien(Long id);
 
     List<LichSuDongTienDTO> findByHopDong(Long id);
-    
+
     void dongHopDong(Long id);
+
+    List<LichSuDongTienDTO> baoCao(LOAIHOPDONG loaihopdong,ZonedDateTime start, ZonedDateTime end);
 }

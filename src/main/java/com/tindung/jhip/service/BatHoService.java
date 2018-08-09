@@ -3,6 +3,7 @@ package com.tindung.jhip.service;
 import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -48,4 +49,5 @@ public interface BatHoService {
     List<BatHoDTO> findByNameOrCMND(String key);
     List<BatHoDTO> findByHopDong(Long id);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
+    List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end);
 }

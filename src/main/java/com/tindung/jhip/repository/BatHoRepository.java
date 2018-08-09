@@ -1,6 +1,7 @@
  package com.tindung.jhip.repository;
 
 import com.tindung.jhip.domain.BatHo;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
@@ -28,4 +29,7 @@ public interface BatHoRepository extends JpaRepository<BatHo, Long> {
     
     @Query(value = "select b from BatHo b inner join b.hopdongbh h  where h.id =:idhopdong")
     public List<BatHo> findByHopDong(@Param(value = "idhopdong") Long hopdongId);
+    
+    @Query(value = "select b from BatHo b  inner join b.hopdongbh h where h.ngaytao between  ?1 and ?2 ")
+    List<BatHo> baocao(ZonedDateTime start, ZonedDateTime end);
 }

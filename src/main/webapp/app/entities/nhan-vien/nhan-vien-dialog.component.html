@@ -76,7 +76,7 @@
                             <span jhiTranslate="servertdjhipApp.nhanVien.tinh">Tinh</span>
                         </label>
                         <p-autoComplete [(ngModel)]="tinh" name="basic" [suggestions]="filteredTinhs" (completeMethod)="filterTinhs($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"  ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"></p-autoComplete>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="form-control-label" for="field_huyen">
@@ -84,7 +84,7 @@
                             <span jhiTranslate="servertdjhipApp.nhanVien.huyen">Huyen</span>
                         </label>
                         <p-autoComplete [(ngModel)]="huyen" name="basic" [suggestions]="filteredHuyens" (completeMethod)="filterHuyens($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Huyện" [minLength]="1" [dropdown]="true" ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Huyện" [minLength]="1" [dropdown]="true"></p-autoComplete>
                     </div>
                 </div>
                 <div class="row">
@@ -114,16 +114,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-6">
-                <label class="form-control-label" for="field_ngayTao">
-                    <span class="fa fa-calendar"></span>
-                    <span jhiTranslate="servertdjhipApp.nhanVien.ngayTao">
-                        Ngay Tao</span>
-                </label>
-                <div class="d-flex">
-                    <p-calendar id="field_ngayTao" [(ngModel)]="nhanVien.ngayTao" dateFormat="dd.mm.yy" name="ngayTao" ng-readonly="true"></p-calendar>
-                    <!-- <input id="field_ngayTao" type="datetime-local" class="form-control" name="ngayTao" [(ngModel)]="nhanVien.ngayTao" /> -->
-                </div>
+            <div class="form-group col-md-12">
+                <label class="form-control-label">
+                    <span class="fa fa-image"></span>
+                    Chứng từ</label>
+                <!-- <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload> -->
+                <p-fileUpload multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
             </div>
         </div>
     </div>

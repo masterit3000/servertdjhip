@@ -13,6 +13,8 @@ public interface LichSuDongTienMapper extends EntityMapper<LichSuDongTienDTO, Li
 
     @Mapping(source = "nhanVien.id", target = "nhanVienId")
     @Mapping(source = "hopDong.id", target = "hopDongId")
+    @Mapping(source = "hopDong.khachHang.ten", target = "khachHangTen")
+    @Mapping(source = "nhanVien.ten", target = "nhanVienTen")
     LichSuDongTienDTO toDto(LichSuDongTien lichSuDongTien);
 
     @Mapping(source = "nhanVienId", target = "nhanVien")

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 
 /**
  * A DTO for the HopDong entity.
@@ -24,6 +25,15 @@ public class HopDongDTO implements Serializable {
 
 //    @NotNull
     private LOAIHOPDONG loaihopdong;
+    private TRANGTHAIHOPDONG trangthaihopdong;
+
+    public TRANGTHAIHOPDONG getTrangthaihopdong() {
+        return trangthaihopdong;
+    }
+
+    public void setTrangthaihopdong(TRANGTHAIHOPDONG trangthaihopdong) {
+        this.trangthaihopdong = trangthaihopdong;
+    }
 
 //    @NotNull
     private ZonedDateTime ngaytao;

@@ -3,6 +3,7 @@ package com.tindung.jhip.service;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.dto.VayLaiDTO;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public interface VayLaiService {
      * @return the list of entities
      */
     List<VayLaiDTO> findAll();
+
     /**
      * Get the "id" vayLai.
      *
@@ -38,6 +40,10 @@ public interface VayLaiService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
     List<VayLaiDTO> findByNameOrCMND(String key);
-    VayLaiDTO vay(VayLaiDTO vayLaiDTO,Long id,Double tienvay);
+
+    VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id);
+
+    List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end);
 }
