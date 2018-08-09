@@ -10,10 +10,10 @@
     <!--
         Added the entity NhatKy.
     -->
-    <changeSet id="20180802201540-1" author="jhipster">
+    <changeSet id="20180802201560-1" author="jhipster">
         <modifyDataType 
             columnName="trangthai"
-            newDataType="ENUM('CHUADONG','DADONG')"
+            newDataType="ENUM('CHUADONG','DADONG','TRAGOC')"
           
             tableName="lich_su_dong_tien"/>
         
