@@ -11,6 +11,222 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="hopdong-menu">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-bitcoin" aria-hidden="true"></i>
+                        <span>
+                            Hợp đồng
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="bat-ho" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>
+                            <span>Bát họ</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="vay-lai" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-money" aria-hidden="true"></i>
+                            <span>Vay lãi</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="khach-hang" routerLinkActive="active" (click)="collapseNavbar()">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-vcard-o" aria-hidden="true"></i>
+                        <span>
+                            Khách hàng
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="nhan-vien" routerLinkActive="active" (click)="collapseNavbar()">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>
+                            Nhân viên
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="cua-hang" routerLinkActive="active" (click)="collapseNavbar()">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-bank" aria-hidden="true"></i>
+                        <span>
+                            Cửa hàng
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="thuchi-menu">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                        <span>
+                            Thu chi
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="thuHoatDong" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Thu hoạt động</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="chiHoatDong" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Chi hoạt động</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="nguonvon-menu">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        <span>
+                            Nguồn vốn
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="gopVon" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-sign-in" aria-hidden="true"></i>
+                            <span>Góp vốn</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="rutVon" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+                            <span>Rút vốn</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="thongke-menu">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-line-chart" aria-hidden="true"></i>
+                        <span>
+                            Thống kê
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="thuTienVayLai" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Thu tiền vay lãi</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="thuTienHo" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Thu tiền họ</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="baocao-menu">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <span>
+                            Báo cáo
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="soQuyTienMat" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Số quỹ tiền mặt</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="chiTietTienLai" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Chi tiết tiền lãi</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="tongKetLoiNhuan" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Tổng kết lợi nhuận</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="baoCaoHopDongDaXoa" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Báo cáo hợp đồng đã xóa</span>
+                        </a>
+                    </li>
+                    <!-- <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="baoCaoHopDongDaXoa" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Báo cáo bát họ theo ngày</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="baoCaoHopDongDaXoa" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-reorder" aria-hidden="true"></i>
+                            <span>Báo cáo vay lãi theo ngày</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
+                    <span *ngIf="!getImageUrl()">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        <span>
+                            Quản trị hệ thống
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="/bat-ho-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>
+                            <span>Bát họ</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="/vay-lai-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-money" aria-hidden="true"></i>
+                            <span>Vay lãi</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="/khach-hang-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-address-card-o" aria-hidden="true"></i>
+                            <span>Khách hàng</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="/nhan-vien-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                            <span>Nhân viên</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="/cua-hang-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-bank" aria-hidden="true"></i>
+                            <span>Cửa hàng</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-user" aria-hidden="true"></i>
