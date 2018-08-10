@@ -17,8 +17,9 @@
                     <div class="col-md-8 form-group">
                         <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
                         <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
+                            <option [ngValue]=1>Tất cả nhân viên</option>
                             <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
-                            <option>Tất cả nhân viên</option>
+
                         </select>
                     </div>
                 </div>
@@ -129,7 +130,9 @@
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
                     <td>{{lichSuDongTien.sotien}}</td>
-                    <td><span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span></td>
+                    <td>
+                        <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">

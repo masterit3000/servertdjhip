@@ -52,4 +52,5 @@ public interface BatHoService {
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
     List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long idNhanVien);
     List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end,TRANGTHAIHOPDONG trangthai);
+    List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end);
 }

@@ -182,5 +182,36 @@ public class LichSuDongTienResource {
         }
         return lichSuDongTienService.baoCao(loaidongtien,loai, timeStart, timeEnd);
     }
+    @GetMapping("/bao-cao-lich-su-dong-tiens-nhanvien/{dongtien}/{loaihopdong}/{start}/{end}/{id}")
+    @Timed
+    public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien,@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable(name = "id")Long id) {
+        log.debug("REST request to get baoCao LichSuDongTien: {}");
+        LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        DONGTIEN loaidongtien = DONGTIEN.DADONG;
+        switch (dongtien) {
+            case "0":
+                loaidongtien = DONGTIEN.CHUADONG;
+                break;
+            case "1":
+                loaidongtien = DONGTIEN.DADONG;
+                break;
+            case "2":
+                loaidongtien = DONGTIEN.TRAGOC;
+                break;
+                
+        }
+        return lichSuDongTienService.baoCao(loaidongtien,loai, timeStart, timeEnd,id);
+    }
 
 }

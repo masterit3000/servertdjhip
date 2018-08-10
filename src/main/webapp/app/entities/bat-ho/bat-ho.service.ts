@@ -20,6 +20,7 @@ export class BatHoService {
     private resourceUrlTimBatHo = SERVER_API_URL + 'api/tim-bat-hos-by-ten-cmnd';
     private resourceUrlBatHoByHopDong = SERVER_API_URL + 'api/tim-bat-hos';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-bat-hos';
+    private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-bat-hos-nhanvien';
     private findbytrangthaiUrl = SERVER_API_URL + 'api/find-by-trangthai-bat-hos';
     constructor(private http: HttpClient) { }
 
@@ -106,10 +107,16 @@ export class BatHoService {
         return this.http.get<BatHo[]>(`${this.resourceUrlBatHoByHopDong}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
-    baoCao(start: Date, end: Date, id:number): Observable<HttpResponse<BatHo[]>> {
+    baoCaoNV(start: Date, end: Date, id:number): Observable<HttpResponse<BatHo[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}/${id}`, {observe: 'response' })
+        return this.http.get<BatHo[]>(`${this.baocaoNVUrl}/${startd}/${endd}/${id}`, {observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+    baoCao(start: Date, end: Date): Observable<HttpResponse<BatHo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
     findByTrangThai(start: Date, end: Date, trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {

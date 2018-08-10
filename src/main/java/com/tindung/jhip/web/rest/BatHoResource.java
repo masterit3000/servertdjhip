@@ -203,13 +203,21 @@ public class BatHoResource {
         return batHoService.findByHopDong(id);
     }
 
-    @GetMapping("/bao-cao-bat-hos/{start}/{end}/{id}")
+    @GetMapping("/bao-cao-bat-hos-nhanvien/{start}/{end}/{id}")
     @Timed
     public List<BatHoDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end")String end,@PathVariable(name = "id")Long id) {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return batHoService.baoCao(timeStart,timeEnd,id);
+    }
+    @GetMapping("/bao-cao-bat-hos/{start}/{end}")
+    @Timed
+    public List<BatHoDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end")String end) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return batHoService.baoCao(timeStart,timeEnd);
     }
     @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}")
     @Timed

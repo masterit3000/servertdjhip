@@ -17,6 +17,7 @@ export class GhiNoService {
     private resourceUrl =  SERVER_API_URL + 'api/ghi-nos';
     private ghinoUrl = SERVER_API_URL + 'api/ghi-nos-by-hopdong';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-ghi-nos';
+    private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-ghi-nos-nhanvien';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(ghiNo: GhiNo): Observable<EntityResponseType> {
@@ -49,6 +50,12 @@ export class GhiNoService {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
         return this.http.get<GhiNo[]>(`${this.baocaoUrl}/${loaihopdong}/${startd}/${endd}`, {observe: 'response' })
+            .map((res: HttpResponse<GhiNo[]>) => this.convertArrayResponse(res));
+    }
+    baoCaoNV(loaihopdong: LOAIHOPDONG, start: Date, end: Date,id: number): Observable<HttpResponse<GhiNo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<GhiNo[]>(`${this.baocaoNVUrl}/${loaihopdong}/${startd}/${endd}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<GhiNo[]>) => this.convertArrayResponse(res));
     }
 

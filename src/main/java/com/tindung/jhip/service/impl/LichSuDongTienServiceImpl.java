@@ -223,6 +223,21 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+    @Override
+    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien,LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end,Long nhanVienid) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long cuaHangid= cuaHangService.findIDByUserLogin();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocaoNV(dongtien, loaihopdong, start, end,cuaHangid,nhanVienid);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
     
 //    public void kiemTra(id){
 //        if(lichSuDongTienRepository.kiemtra(id)){
