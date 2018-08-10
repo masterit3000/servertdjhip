@@ -43,4 +43,6 @@ export class JhiMainComponent implements OnInit {
         return this.principal.isAuthenticated();
         
     }
+    
 }
+
