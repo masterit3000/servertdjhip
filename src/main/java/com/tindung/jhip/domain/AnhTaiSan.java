@@ -31,6 +31,19 @@ public class AnhTaiSan implements Serializable {
     @ManyToOne
     private TaiSan taiSan;
 
+    @Lob
+    @Column(name = "file")
+    private byte[] file;
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -89,9 +102,9 @@ public class AnhTaiSan implements Serializable {
 
     @Override
     public String toString() {
-        return "AnhTaiSan{" +
-            "id=" + getId() +
-            ", url='" + getUrl() + "'" +
-            "}";
+        return "AnhTaiSan{"
+                + "id=" + getId()
+                + ", url='" + getUrl() + "'"
+                + "}";
     }
 }

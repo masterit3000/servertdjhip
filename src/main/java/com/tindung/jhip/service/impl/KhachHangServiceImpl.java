@@ -46,6 +46,24 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHangDTO save(KhachHangDTO khachHangDTO) {
         log.debug("Request to save KhachHang : {}", khachHangDTO);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            khachHangDTO.setCuaHangId(idCuaHang);
+
+            KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
+            khachHang = khachHangRepository.saveAndFlush(khachHang);
+
+            return khachHangMapper.toDto(khachHang);
+        }
+
+        throw new InternalError("Khong co quyen them khach hang");
+    }
+
+    @Override
+    public KhachHangDTO saveforAdmin(KhachHangDTO khachHangDTO) {
+        log.debug("Request to save KhachHang : {}", khachHangDTO);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -56,7 +74,7 @@ public class KhachHangServiceImpl implements KhachHangService {
 
             KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
             khachHang = khachHangRepository.saveAndFlush(khachHang);
-            
+
             return khachHangMapper.toDto(khachHang);
         }
 
