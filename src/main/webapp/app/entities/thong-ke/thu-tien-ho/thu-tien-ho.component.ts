@@ -51,16 +51,7 @@ export class ThuTienHoComponent implements OnInit {
   timKiem(){
     this.tongTienBH = 0;
     console.log(this.denngay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTienBHs = res.body;
-        this.lichSuDongTienBHs.forEach(element => {
-          this.tongTienBH = this.tongTienBH + element.sotien;
-          console.log(element.sotien);
-        });
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+    
   }
   registerChangeInHopDongs() {
     this.eventSubscriber = this.eventManager.subscribe(
@@ -79,19 +70,7 @@ export class ThuTienHoComponent implements OnInit {
     );
   }
   loadLichSuDongTienBH() {
-    this.tungay = new Date();
-    this.denngay = new Date();
-    console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTienBHs = res.body;
-        this.lichSuDongTienBHs.forEach(element => {
-          this.tongTienBH += element.sotien;
-        });
-
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+  
   }
   private onError(error) {
     this.jhiAlertService.error(error.message, null, null);
