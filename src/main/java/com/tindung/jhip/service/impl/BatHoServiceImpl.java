@@ -448,5 +448,19 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+    @Override
+    public List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end,TRANGTHAIHOPDONG trangthai) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<BatHo> baoCao = batHoRepository.findByTrangThai(start, end,trangthai);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
 
 }

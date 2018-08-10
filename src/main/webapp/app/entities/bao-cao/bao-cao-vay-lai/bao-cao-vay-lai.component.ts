@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NhanVienService, NhanVien } from '../../nhan-vien';
 import { HopDong, HopDongService, LOAIHOPDONG } from '../../hop-dong';
 import { BatHo } from '../../bat-ho';
-import { LichSuDongTien, LichSuDongTienService } from '../../lich-su-dong-tien';
+import { LichSuDongTien, LichSuDongTienService, DONGTIEN } from '../../lich-su-dong-tien';
 import { VayLai } from '../../vay-lai';
 import { Subscription } from '../../../../../../../node_modules/rxjs';
 import { GhiNo, GhiNoService } from '../../ghi-no';
@@ -52,7 +52,7 @@ export class BaoCaoVayLaiComponent implements OnInit {
   }
   timKiem() {
     console.log(this.denngay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTiens = res.body;
       },
@@ -77,7 +77,7 @@ export class BaoCaoVayLaiComponent implements OnInit {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTiens = res.body;
         this.lichSuDongTiens.forEach(element => {

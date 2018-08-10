@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
-import { LichSuDongTien } from './lich-su-dong-tien.model';
+import { LichSuDongTien, DONGTIEN } from './lich-su-dong-tien.model';
 import { createRequestOption } from '../../shared';
 import { LOAIHOPDONG } from '../hop-dong';
 
@@ -50,10 +50,10 @@ export class LichSuDongTienService {
         return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
-    baoCao(loaihopdong: LOAIHOPDONG, start: Date, end: Date): Observable<HttpResponse<LichSuDongTien[]>> {
+    baoCao(loaidongtien: DONGTIEN,loaihopdong: LOAIHOPDONG, start: Date, end: Date): Observable<HttpResponse<LichSuDongTien[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<LichSuDongTien[]>(`${this.baocaoUrl}/${loaihopdong}/${startd}/${endd}`, { observe: 'response' })
+        return this.http.get<LichSuDongTien[]>(`${this.baocaoUrl}/${loaidongtien}/${loaihopdong}/${startd}/${endd}`, { observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
 
