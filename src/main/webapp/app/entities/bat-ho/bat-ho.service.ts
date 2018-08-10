@@ -106,10 +106,10 @@ export class BatHoService {
         return this.http.get<BatHo[]>(`${this.resourceUrlBatHoByHopDong}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
-    baoCao(start: Date, end: Date): Observable<HttpResponse<BatHo[]>> {
+    baoCao(start: Date, end: Date, id:number): Observable<HttpResponse<BatHo[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}`, {observe: 'response' })
+        return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}/${id}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
     findByTrangThai(start: Date, end: Date, trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {

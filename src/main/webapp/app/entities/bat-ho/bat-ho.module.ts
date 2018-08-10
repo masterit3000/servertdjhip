@@ -4,6 +4,7 @@ import { ServertdjhipSharedModule } from '../../shared';
 import { TableModule } from 'primeng/table';
 import {GrowlModule} from 'primeng/growl';
 import {DialogModule} from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
 import {
     BatHoService,
     BatHoPopupService,
@@ -62,6 +63,7 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         GrowlModule,
         SpinnerModule,
         ConfirmDialogModule,
+        DropdownModule,
         DialogModule
     ],   
     declarations: [

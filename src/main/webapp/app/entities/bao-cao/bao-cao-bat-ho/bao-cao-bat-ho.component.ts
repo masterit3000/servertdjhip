@@ -43,6 +43,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   tongTienTraVl: number;
   vayLai: VayLai;
   vayLais: VayLai[];
+  selectedNhanVien: NhanVien;
 
 
 
@@ -67,7 +68,8 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
-    this.nhanVien = new NhanVien;
+    this.selectedNhanVien = new NhanVien;
+
   }
 
   ngOnInit() {
@@ -143,7 +145,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    this.batHoService.baoCao(this.tungay, this.denngay).subscribe(
+    this.batHoService.baoCao(this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
@@ -264,7 +266,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   loadBatHo() {
     this.tungay = new Date();
     this.denngay = new Date();
-    this.batHoService.baoCao(this.tungay, this.denngay).subscribe(
+    this.batHoService.baoCao(this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {

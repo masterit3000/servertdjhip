@@ -74,7 +74,8 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{vayLai.hopdongvl.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra|currency : 'VND' : true : '1.0-0'}}
+        Số tiền còn phải đóng: {{tienchuadong |currency : 'VND' : true : '1.0-0'}}
+        <br/> Số tiền còn nợ: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button type="button" (click)="dongHopDong()" class="btn btn-danger">
@@ -196,7 +197,7 @@
                                 class="form-control" #vaythem name="vaythemtien" id="field_vaythemtien" required></p-spinner>
                         </div>
                         <div class="col-md-3">
-                            <button (click)="vayThem(vaythem.value)"  class="btn btn-success">
+                            <button (click)="vayThem(vaythem.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>

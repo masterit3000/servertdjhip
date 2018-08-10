@@ -370,10 +370,14 @@ public class BatHoServiceImpl implements BatHoService {
     @Override
     public LichSuDongTienDTO setDongTien(Long id
     ) {
-        LichSuDongTien lichSuDongTien = null;
-        lichSuDongTien = lichSuDongTienRepository.findOne(id);
-        lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
-        return lichSuDongTienMapper.toDto(lichSuDongTien);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            LichSuDongTien lichSuDongTien = null;
+            lichSuDongTien = lichSuDongTienRepository.findOne(id);
+            lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+            return lichSuDongTienMapper.toDto(lichSuDongTien);
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
     @Override
@@ -435,11 +439,12 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end) {
+    public List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long idNhanVien) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<BatHo> baoCao = batHoRepository.baocao(start, end);
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<BatHo> baoCao = batHoRepository.baocao(start, end, idCuaHang, idNhanVien);
             List<BatHoDTO> collect = baoCao.stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -448,12 +453,14 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
-    public List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end,TRANGTHAIHOPDONG trangthai) {
+    public List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<BatHo> baoCao = batHoRepository.findByTrangThai(start, end,trangthai);
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<BatHo> baoCao = batHoRepository.findByTrangThai(start, end, trangthai, idCuaHang);
             List<BatHoDTO> collect = baoCao.stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

@@ -213,7 +213,8 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(dongtien, loaihopdong, start, end);
+            Long cuaHangid= cuaHangService.findIDByUserLogin();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(dongtien, loaihopdong, start, end,cuaHangid);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -222,5 +223,11 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+    
+//    public void kiemTra(id){
+//        if(lichSuDongTienRepository.kiemtra(id)){
+//            
+//        }
+//    }
 
 }

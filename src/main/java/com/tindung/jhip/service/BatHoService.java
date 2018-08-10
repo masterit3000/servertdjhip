@@ -50,6 +50,6 @@ public interface BatHoService {
     List<BatHoDTO> findByNameOrCMND(String key);
     List<BatHoDTO> findByHopDong(Long id);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
-    List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end);
+    List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long idNhanVien);
     List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end,TRANGTHAIHOPDONG trangthai);
 }
