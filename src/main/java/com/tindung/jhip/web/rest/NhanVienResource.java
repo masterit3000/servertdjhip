@@ -161,4 +161,11 @@ public class NhanVienResource {
         nhanVienService.save(findOne);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/tim-nhan-viens-by-ten-cmnd/{key}")
+    @Timed
+    public List<NhanVienDTO> timVayLaisByTenCMND(@PathVariable(name = "key") String key) {
+        log.debug("REST request to get all KhachHangs");
+        return nhanVienService.findByNameOrCMND(key);
+    }
 }

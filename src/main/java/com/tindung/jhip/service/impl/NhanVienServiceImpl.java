@@ -5,6 +5,7 @@ import com.tindung.jhip.domain.NhanVien;
 import com.tindung.jhip.domain.User;
 import com.tindung.jhip.repository.NhanVienRepository;
 import com.tindung.jhip.repository.UserRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.NhanVienMapper;
@@ -98,6 +99,28 @@ public class NhanVienServiceImpl implements NhanVienService {
 //        User get = userRepository.findOneByLogin(user).get();
         log.debug("Request tim  NhanVien theo ussername : {}", user);
         return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(user).orElseThrow(() -> new InternalServerErrorException("Current user login not found")));
+    }
+
+    @Override
+    public List<NhanVienDTO> findByNameOrCMND(String key) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+            return nhanVienRepository.findByNameOrCMND(key).stream()
+                    .map(nhanVienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            NhanVien nv = nhanVienRepository.findOneByUser(login).get();
+            Long cuaHangid = nv.getCuaHang().getId();
+            return nhanVienRepository.findByNameOrCMND(key, cuaHangid).stream()
+                    .map(nhanVienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
 }

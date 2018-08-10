@@ -41,4 +41,6 @@ public interface NhanVienService {
 
     NhanVienDTO findByUserLogin();
 
+    List<NhanVienDTO> findByNameOrCMND(String key);
+
 }
