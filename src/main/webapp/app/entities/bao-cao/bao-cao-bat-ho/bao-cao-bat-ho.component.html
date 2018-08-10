@@ -8,20 +8,20 @@
     </h2>
     <div class="widget-header">
         <div class="row">
-            <!-- <div class="col-md-3">
+            <div class="col-md-3">
                 <div class="row">
                     <label class="col-md-4 control-label">
                         Nhân Viên
 
                     </label>
                     <div class="col-md-8 form-group">
-                        <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/>
-                        <select class="form-control" id="field_nhanVien" name="nhanVien" required>
-                            <option *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
+                        <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
+                        <select class="form-control" name="nhanVien" [(ngModel)]="nhanVien.id">
+                            <option *ngFor="let nhanVien of nhanViens">{{nhanVien.ten}}</option>
                         </select>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="col-md-4">
                 <label>Từ Ngày</label>
                 <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
@@ -39,7 +39,7 @@
         <p-table [value]="lichSuDongTienBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng bát họ đã đóng</th>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền bát họ</th>
                 </tr>
                 <tr>
                     <th>
@@ -68,14 +68,13 @@
                 <tr>
                     <td>{{lichSuDongTien.id}}</td>
                     <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
-                    <!-- <td>{{lichSuDongTien.nhanVienId}}</td> -->
-                    <!-- <td>{{hopDong.nhanVienId}}</td>
-                    <td>{{hopDong.khachHangTen}}</td> -->
+
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
                     <td>{{lichSuDongTien.sotien}}</td>
-                    <td>{{lichSuDongTien.trangthai}}</td>
-                    <!-- <td>{{hopDong.trangthai}}</td> -->
+                    <td>
+                        <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
@@ -97,7 +96,7 @@
         <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi đã đóng</th>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử đóng lãi vay lãi</th>
                 </tr>
                 <tr>
                     <th>
@@ -115,7 +114,7 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-                   
+
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -129,7 +128,7 @@
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
                     <td>{{lichSuDongTien.sotien}}</td>
-                    <td>{{lichSuDongTien.trangthai}}</td>
+                    <td><span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span></td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
@@ -169,7 +168,7 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-                   
+
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -189,10 +188,28 @@
             <ng-template pTemplate="footer">
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng nợ </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienNoBh}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng trả </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienTraBh}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraVl-tongTienNoBh}}</span>
+                        <span style="color:red">{{tongTienTraBh-tongTienNoBh}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -223,7 +240,7 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-                   
+
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -241,6 +258,24 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng nợ </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienNoVl}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng trả </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienTraVl}}</span>
+                    </td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
@@ -277,7 +312,7 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-                   
+
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -291,10 +326,13 @@
                     <td>{{batHo.nhanVienTen}}</td>
                     <td>{{batHo.khachHangTen}}</td>
                     <td>{{batHo.tienduakhach}}</td>
-                    <td>{{batHo.hopdong.trangthaihopdong}}</td>
+                    <td>
+                        <span>{{batHo.hopdong.trangthaihopdong}}</span>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
+
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
@@ -331,7 +369,7 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-                   
+
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -355,6 +393,60 @@
                     </td>
                     <td align="right" style="background-color:#ECECEC">
                         <span style="color:red">{{tongTienVLs}}</span>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Báo cáo trả gốc -->
+    <div class="table-responsive" style="padding-top: 50px">
+        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo trả gốc vay lãi</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">#</span>
+                    </th>
+                    <th>
+                        <span>Ngày</span>
+                    </th>
+                    <th>
+                        <span>Nhân viên</span>
+                    </th>
+                    <th>
+                        <span>Khách hàng</span>
+                    </th>
+                    <th>
+                        <span>Số tiền</span>
+                    </th>
+
+                    <th>
+                        <span>Trạng thái</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <!-- Code backend lấy dữ liệu body -->
+            <!-- <ng-template pTemplate="body" let-vayLai>
+                <tr>
+                    <td>{{vayLai.id}}</td>
+                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
+                    <td>{{vayLai.nhanVienTen}}</td>
+                    <td>{{vayLai.khachHangTen}}</td>
+                    <td>{{vayLai.tienvay}}</td>
+                    <td>{{vayLai.hopdongvl.trangthaihopdong}}</td>
+                </tr>
+            </ng-template> -->
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng tiền </strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <!-- <span style="color:red">{{tongTienVLs}}</span> -->
                     </td>
                     <td></td>
                 </tr>

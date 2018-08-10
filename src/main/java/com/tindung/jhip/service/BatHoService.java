@@ -1,5 +1,6 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.dto.BatHoDTO;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
@@ -50,4 +51,5 @@ public interface BatHoService {
     List<BatHoDTO> findByHopDong(Long id);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
     List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end);
+    List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end,TRANGTHAIHOPDONG trangthai);
 }

@@ -11,6 +11,7 @@ import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.HopDongRepository;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
 import com.tindung.jhip.repository.LichSuThaoTacHopDongRepository;
+import com.tindung.jhip.repository.VayLaiRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
@@ -49,12 +50,14 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final HopDongRepository hopDongRepository;
     private final NhanVienService nhanVienService;
     private final HopDongService hopDongService;
+
 //    @Autowired
     private final CuaHangService cuaHangService;
     private final LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
+    private final VayLaiRepository vayLaiRepository;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.ghiNoService = ghiNoService;
@@ -64,6 +67,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         this.cuaHangService = cuaHangService;
         this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
+        this.vayLaiRepository = vayLaiRepository;
     }
 
     /**
@@ -187,16 +191,29 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
                 lichSuDongTienRepository.save(lichSuDongTien);
             }
+            if (hopDongRepository.findOne(id).getLoaihopdong().equals(LOAIHOPDONG.VAYLAI)) {
+                double tienvay = vayLaiRepository.findByHopDong(id).getTienvay();
+                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                lichSuDongTienDTO.setHopDongId(id);
+                lichSuDongTienDTO.setNgaybatdau(ZonedDateTime.now());
+                lichSuDongTienDTO.setNgayketthuc(ZonedDateTime.now());
+                lichSuDongTienDTO.setSotien(tienvay);
+                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setTrangthai(DONGTIEN.TRAGOC);
+                lichSuDongTienDTO.setNgaygiaodich(ZonedDateTime.now());
+                LichSuDongTien lichSuDongTien = lichSuDongTienMapper.toEntity(lichSuDongTienDTO);
+                lichSuDongTienRepository.save(lichSuDongTien);
+            }
         }
 
     }
 
     @Override
-    public List<LichSuDongTienDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
+    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien,LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(DONGTIEN.DADONG, loaihopdong, start, end);
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(dongtien, loaihopdong, start, end);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
