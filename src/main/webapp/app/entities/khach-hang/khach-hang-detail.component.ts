@@ -14,6 +14,7 @@ import { KhachHangService } from './khach-hang.service';
 export class KhachHangDetailComponent implements OnInit, OnDestroy {
 
     khachHang: KhachHang;
+    images: any[];
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -28,6 +29,7 @@ export class KhachHangDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
+        this.images = [];
         this.registerChangeInKhachHangs();
     }
 

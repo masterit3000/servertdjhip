@@ -14,6 +14,7 @@ import { NhanVienService } from './nhan-vien.service';
 export class NhanVienDetailComponent implements OnInit, OnDestroy {
 
     nhanVien: NhanVien;
+    images: any[];
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -25,6 +26,7 @@ export class NhanVienDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.images = [];
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
