@@ -1,4 +1,5 @@
 import { BaseEntity } from './../../shared';
+import { AnhKhachHang } from '../anh-khach-hang';
 
 export const enum TrangThaiKhachHang {
     'HOATDONG',
@@ -24,7 +25,7 @@ export class KhachHang implements BaseEntity {
         public tenHuyen?: string,
         public tenTinh?: string,
         public xaId?: number,
-        public anhs?: BaseEntity[],
+        public anhs?: AnhKhachHang[],
         public hopdongs?: BaseEntity[],
         public cuaHangId?: number,
     ) {

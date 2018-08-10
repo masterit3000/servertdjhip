@@ -14,8 +14,20 @@ import com.tindung.jhip.domain.enumeration.TrangThaiKhachHang;
 public class KhachHangDTO implements Serializable {
 
     private String tenTinh;
+
     private String tenHuyen;
+
     private String tenXa;
+
+    private Set<AnhKhachHangDTO> anhs;
+
+    public Set<AnhKhachHangDTO> getAnhs() {
+        return anhs;
+    }
+
+    public void setAnhs(Set<AnhKhachHangDTO> anhs) {
+        this.anhs = anhs;
+    }
 
     public String getTenTinh() {
         return tenTinh;

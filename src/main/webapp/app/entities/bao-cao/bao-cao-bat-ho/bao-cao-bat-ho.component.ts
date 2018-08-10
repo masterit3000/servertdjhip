@@ -7,7 +7,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { VayLaiService, VayLai } from '../../vay-lai';
-import { LichSuDongTien } from '../../lich-su-dong-tien/lich-su-dong-tien.model';
+import { LichSuDongTien, DONGTIEN } from '../../lich-su-dong-tien/lich-su-dong-tien.model';
 import { LichSuDongTienService } from '../../lich-su-dong-tien/lich-su-dong-tien.service';
 import { Principal } from '../../../shared';
 import { GhiNo, GhiNoService } from '../../ghi-no';
@@ -93,7 +93,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     console.log(this.denngay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienBHs = res.body;
         this.lichSuDongTienBHs.forEach(element => {
@@ -103,7 +103,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienVLs = res.body;
         this.lichSuDongTienVLs.forEach(element => {
@@ -185,7 +185,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienBHs = res.body;
         this.lichSuDongTienBHs.forEach(element => {
@@ -200,7 +200,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienVLs = res.body;
         this.lichSuDongTienVLs.forEach(element => {

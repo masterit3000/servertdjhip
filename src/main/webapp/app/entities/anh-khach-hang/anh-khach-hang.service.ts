@@ -11,7 +11,7 @@ export type EntityResponseType = HttpResponse<AnhKhachHang>;
 @Injectable()
 export class AnhKhachHangService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/anh-khach-hangs';
+    private resourceUrl = SERVER_API_URL + 'api/anh-khach-hangs';
 
     constructor(private http: HttpClient) { }
 
@@ -28,7 +28,7 @@ export class AnhKhachHangService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<AnhKhachHang>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<AnhKhachHang>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -39,12 +39,12 @@ export class AnhKhachHangService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: AnhKhachHang = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<AnhKhachHang[]>): HttpResponse<AnhKhachHang[]> {
@@ -53,7 +53,7 @@ export class AnhKhachHangService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -71,4 +71,8 @@ export class AnhKhachHangService {
         const copy: AnhKhachHang = Object.assign({}, anhKhachHang);
         return copy;
     }
+    private getImage(id: string): Observable<Blob> {
+        return this.http.get(SERVER_API_URL + 'api/download/anh-khach-hang/' + id, { responseType: 'blob' });
+    }
+
 }

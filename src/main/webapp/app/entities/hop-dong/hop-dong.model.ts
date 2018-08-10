@@ -5,6 +5,11 @@ export const enum LOAIHOPDONG {
     'BATHO',
     'CAMDO'
 }
+export const enum TRANGTHAIHOPDONG{
+    'QUAHAN',
+    'DANGVAY',
+    'DADONG',
+}
 
 export class HopDong implements BaseEntity {
     // public id?: number;

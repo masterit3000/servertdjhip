@@ -46,4 +46,7 @@ public interface VayLaiService {
     VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id);
 
     List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end);
+    
+//    List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id);
+    
 }

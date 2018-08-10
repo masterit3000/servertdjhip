@@ -3,9 +3,9 @@
     <router-outlet name="navbar"></router-outlet>
 </div>
 <div class="container-fluid">
-    <div id="layout-sidebar" style="background-color: #f2f4f7" [ngClass]="{'active': menuActive}">
-        <div class="layout-menu" >
-            <a *jhiHasAnyAuthority="'ROLE_ADMIN'"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="bat-ho" (click)="activeMenuId = null">
+    <!-- <div id="layout-sidebar" style="background-color: #f2f4f7" [ngClass]="{'active': menuActive}">
+        <div class="layout-menu">
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="bat-ho" (click)="activeMenuId = null">
                 <i class="fa fa-credit-card" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.batHo">Bát họ</span>
             </a>
@@ -43,7 +43,7 @@
                 <!-- <a routerLink="tongQuatChuoiCuaHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.tongQuatChuoiCuaHang">Tổng quát chuỗi cửa hàng</span>
-                </a> -->
+                </a>
                 <a routerLink="thongTinChiTietCuaHang" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.thongTinChiTietCuaHang">Thông tin chi tiết cửa hàng</span>
@@ -59,7 +59,7 @@
                 <a routerLink="nhapTienQuyDauNgay" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.nhapTienQuyDauNgay">Nhập tiền quỹ đầu ngày</span>
-                </a> -->
+                </a>
             </div>
             <a id="thu-chi-menu" #menuthuchi [class.active-menuitem]="menuthuchi.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuthuchi.id ? null : menuthuchi.id)">
                 <i class="fa fa-balance-scale" width="20%" aria-hidden="true"></i>
@@ -76,7 +76,7 @@
                     <span jhiTranslate="global.menu.chiHoatDong">Chi hoạt động</span>
                 </a>
             </div>
-            <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/" (click)="activeMenuId = null"> -->
+            <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/" (click)="activeMenuId = null"> ->
             <a id="nguon-von-menu" #menunguonvon [class.active-menuitem]="menunguonvon.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menunguonvon.id ? null : menunguonvon.id)">
                 <i class="fa fa-pie-chart" width="20%" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.quanLyNguonVon">Quản lý nguồn vốn</span>
@@ -107,7 +107,7 @@
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.phanQuyenNhanVien">Phân quyền nhân viên</span>
                 </a>
-            </div> -->
+            </div> --
             <a id="thong-ke-menu" #menuthongke [class.active-menuitem]="menuthongke.id == activeMenuId" (click)="activeMenuId = (activeMenuId === menuthongke.id ? null : menuthongke.id)">
                 <i class="fa fa-line-chart" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.thongKe">Thống kê</span>
@@ -140,7 +140,7 @@
                 <!-- <a routerLink="baoCaoVayLai" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span >Báo cáo vay lãi</span>
-                </a> -->
+                </a> --
                 <a routerLink="tongKetGiaoDich" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuActive = false">
                     <i class="fa fa-reorder" width="20%" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.tongKetGiaoDich">Tổng kết giao dịch</span>
@@ -214,7 +214,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- </p-sidebar> -->
     <div id="layout-content">
         <!-- <button pButton type="button" (click)="visibleSidebar1 = true" label="Save" class="ui-button-success">aaa</button> -->

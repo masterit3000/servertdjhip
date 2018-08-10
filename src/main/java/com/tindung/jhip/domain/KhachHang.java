@@ -66,7 +66,7 @@ public class KhachHang implements Serializable {
 
     @OneToMany(mappedBy = "khachHang")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONE)
     private Set<AnhKhachHang> anhs = new HashSet<>();
 
     @OneToMany(mappedBy = "khachHang")

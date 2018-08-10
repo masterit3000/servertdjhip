@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -17,6 +16,16 @@ public class AnhKhachHangDTO implements Serializable {
     @NotNull
     @Size(max = 1000)
     private String url;
+    private byte[] file;
+    
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
 
     private Long khachHangId;
 
@@ -54,7 +63,7 @@ public class AnhKhachHangDTO implements Serializable {
         }
 
         AnhKhachHangDTO anhKhachHangDTO = (AnhKhachHangDTO) o;
-        if(anhKhachHangDTO.getId() == null || getId() == null) {
+        if (anhKhachHangDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), anhKhachHangDTO.getId());
@@ -67,9 +76,9 @@ public class AnhKhachHangDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AnhKhachHangDTO{" +
-            "id=" + getId() +
-            ", url='" + getUrl() + "'" +
-            "}";
+        return "AnhKhachHangDTO{"
+                + "id=" + getId()
+                + ", url='" + getUrl() + "'"
+                + "}";
     }
 }

@@ -14,7 +14,8 @@ import { CuaHang, CuaHangService } from '../cua-hang';
 import { Tinh, TinhService } from '../tinh';
 import { HuyenService, Huyen } from '../huyen';
 // import { PlatformLocation } from '@angular/common';
-
+import { SERVER_API_URL } from '../../app.constants';
+import { SessionStorageService, LocalStorageService } from '../../../../../../node_modules/ngx-webstorage';
 @Component({
     selector: 'jhi-khach-hang-dialog',
     templateUrl: './khach-hang-dialog.component.html'
@@ -24,8 +25,8 @@ export class KhachHangDialogComponent implements OnInit {
     khachHang: KhachHang;
     isSaving: boolean;
 
-
-
+    urlupload: string;
+    images: any[];
     cuahangs: CuaHang[];
     filteredXas: Xa[];
     filteredTinhs: Tinh[];
@@ -48,7 +49,9 @@ export class KhachHangDialogComponent implements OnInit {
         private cuaHangService: CuaHangService,
         private eventManager: JhiEventManager,
         // location: PlatformLocation,
-        public router: Router
+        public router: Router,
+        private localStorage: LocalStorageService,
+        private sessionStorage: SessionStorageService
     ) {
         // router.events.filter(e => e instanceof NavigationStart).subscribe(e => {
         //     console.log(e);
@@ -60,11 +63,32 @@ export class KhachHangDialogComponent implements OnInit {
     }
 
     ngOnInit() {
+        // this.imageToShow = [];
+
+        // this.images.push({ source: 'uploads/khachhang/20/file.png', alt: 'Description for Image 1', title: 'Title 1' });
+        this.urlupload = SERVER_API_URL + "/api/upload/khachhang/"
         this.isSaving = false;
+        if (this.khachHang) {
+
+            this.urlupload = this.urlupload + this.khachHang.id;
+            console.log(this.khachHang);
+            this.images = [];
+            // this.getImageFromService();
+            this.showimgs();
+
+        }
         this.xaService.query()
             .subscribe((res: HttpResponse<Xa[]>) => { this.xas = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.cuaHangService.query()
             .subscribe((res: HttpResponse<CuaHang[]>) => { this.cuahangs = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+    }
+    showimgs() {
+        this.images = [];
+        if (this.khachHang.anhs && this.khachHang.anhs.length > 0) {
+            this.khachHang.anhs.forEach(anh => {
+                this.images.push({ source: 'http://localhost:8080/download/anh-khach-hang/' + anh.id, alt: 'Description for Image 1', title: 'Title 1' });
+            });
+        }
     }
 
     clear() {
@@ -73,15 +97,22 @@ export class KhachHangDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.khachHang.xaId = this.xa.id;
-        console.log(this.khachHang);
-        if (this.khachHang.id !== undefined) {
-            this.subscribeToSaveResponse(
-                this.khachHangService.update(this.khachHang));
+        if (this.xa) {
+
+            this.khachHang.xaId = this.xa.id;
+            console.log(this.khachHang);
+            if (this.khachHang.id !== undefined) {
+                this.subscribeToSaveResponse(
+                    this.khachHangService.update(this.khachHang));
+            } else {
+                this.subscribeToSaveResponse(
+                    this.khachHangService.create(this.khachHang));
+            }
         } else {
-            this.subscribeToSaveResponse(
-                this.khachHangService.create(this.khachHang));
+            this.jhiAlertService.error('Chưa chọn tỉnh, huyện, xã', null, null);
+
         }
+
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<KhachHang>>) {
@@ -95,7 +126,11 @@ export class KhachHangDialogComponent implements OnInit {
         // cho xảy ra sự kiện khachHangListModification,
         // và truyền vào content 'ok111'' tương ứng, chỗ này truyền j vào cũng đc, cả 1 obj cũng đc
         this.isSaving = false;
-        this.activeModal.dismiss(result);
+        this.khachHang = result;
+        console.log(this.khachHang);
+        this.urlupload = this.urlupload + this.khachHang.id;
+        this.jhiAlertService.success('Lưu khách hàng thành công', null, null);
+        // this.activeModal.dismiss(result);
     }
 
     private onSaveError() {
@@ -134,10 +169,10 @@ export class KhachHangDialogComponent implements OnInit {
         const query = event.query;
         console.log(query);
         this.tinhService.getTinh(query).subscribe((tinhs: any) => {
-            
+
             console.log(tinhs);
             // this.filteredTinhs = this.filterTinh(query, tinhs);
-            this.filteredTinhs =  tinhs;
+            this.filteredTinhs = tinhs;
 
         });
     }
@@ -153,7 +188,7 @@ export class KhachHangDialogComponent implements OnInit {
     filterHuyens(event: any) {
         const query = event.query;
         console.log(query);
-        this.filteredHuyens =this.filterHuyen(query, this.tinh.huyens);
+        this.filteredHuyens = this.filterHuyen(query, this.tinh.huyens);
         // this.huyenService.getHuyenByTinh(query, this.tinh.id).subscribe((huyens: any) => {
         //     this.filteredHuyens = this.filterHuyen(query, huyens);
         // });
@@ -167,6 +202,53 @@ export class KhachHangDialogComponent implements OnInit {
         }
         return filtered;
     }
+    onUpload(event): void {
+        console.log("upload:" + event.xhr.response);
+        this.khachHangService.find(this.khachHang.id)
+            .subscribe((khachHangResponse: HttpResponse<KhachHang>) => {
+                this.khachHang = khachHangResponse.body;
+                this.showimgs();
+            });
+        for (let file of event.files) {
+            // this.uploadedFiles.push(file);
+            console.log("upload:" + file);
+        }
+    };
+
+    onBeforeSend(event) {
+        const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
+        event.xhr.setRequestHeader("Authorization", `Bearer ` + token);
+
+
+    }
+
+    // imageToShow: any[];
+
+    // createImageFromBlob(image: Blob) {
+
+    //     let reader = new FileReader();
+    //     reader.addEventListener("load", () => {
+    //         this.imageToShow.push(reader.result);
+    //     }, false);
+    //     if (image) {
+    //         reader.readAsDataURL(image);
+    //     }
+    // }
+    // getImageFromService() {
+    //     if (this.khachHang.anhs && this.khachHang.anhs.length > 0) {
+    //         this.khachHang.anhs.forEach(anh => {
+    //             this.khachHangService.getImage(anh.id).subscribe(data => {
+    //                 this.createImageFromBlob(data);
+    //                 console.log("data");
+    //                 console.log(data);
+
+    //             }, error => {
+    //                 console.log(error);
+    //             });
+    //         });
+    //     }
+
+    // }
 }
 
 @Component({
@@ -197,4 +279,6 @@ export class KhachHangPopupComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.routeSub.unsubscribe();
     }
+
+
 }
