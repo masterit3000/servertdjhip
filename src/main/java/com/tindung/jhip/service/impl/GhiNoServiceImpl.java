@@ -79,7 +79,7 @@ public class GhiNoServiceImpl implements GhiNoService {
     @Transactional(readOnly = true)
     public List<GhiNoDTO> findByHopDong(Long id) {
         log.debug("Request to get all GhiNos by hopdong");
-        
+
         return ghiNoRepository.findByHopDong(id).stream()
                 .map(ghiNoMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
@@ -111,12 +111,28 @@ public class GhiNoServiceImpl implements GhiNoService {
         log.debug("Request to delete GhiNo : {}", id);
         ghiNoRepository.delete(id);
     }
-        @Override
+
+    @Override
     public List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             List<GhiNo> ghiNos = ghiNoRepository.baocao(loaihopdong, start, end);
+            List<GhiNoDTO> collect = ghiNos.stream()
+                    .map(ghiNoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+
+    @Override
+    public List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<GhiNo> ghiNos = ghiNoRepository.baocaoNV(loaihopdong, start, end,nhanVienid);
             List<GhiNoDTO> collect = ghiNos.stream()
                     .map(ghiNoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

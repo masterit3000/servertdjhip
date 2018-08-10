@@ -39,7 +39,10 @@ public interface GhiNoService {
      * @param id the id of the entity
      */
     void delete(Long id);
-    
+
     List<GhiNoDTO> findByHopDong(Long id);
+
     List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
+
+    List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
 }

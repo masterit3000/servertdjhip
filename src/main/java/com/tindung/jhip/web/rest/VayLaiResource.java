@@ -167,6 +167,14 @@ public class VayLaiResource {
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return vayLaiService.baoCao(timeStart, timeEnd);
     }
+    @GetMapping("/bao-cao-vay-lais-nhanvien/{start}/{end}/{id}")
+    @Timed
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable(name = "id") Long id) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return vayLaiService.baoCao(timeStart, timeEnd,id);
+    }
 
 
 }

@@ -59,6 +59,7 @@ export class ChiTietTienLaiComponent implements OnInit {
   ngOnInit() {
     this.loadNhanVien();
     this.loadBatHo();
+    this.loadLichSuDongTienVL();
   }
   timKiem() {
     this.tongTienBHs = 0;

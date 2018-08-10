@@ -22,4 +22,7 @@ public interface GhiNoRepository extends JpaRepository<GhiNo, Long> {
 
     @Query(value = "select l from GhiNo l inner join l.hopDong h where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 ")
     List<GhiNo> baocao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
+
+    @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.nhanVien n where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 and n.id = ?4 ")
+    List<GhiNo> baocaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
 }
