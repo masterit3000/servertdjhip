@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '../../../../../../../node_modules/@angular/common/http';
+import { LichSuDongTien, LichSuDongTienService } from '../../lich-su-dong-tien';
+import { LOAIHOPDONG, HopDongService, HopDong } from '../../hop-dong';
+import { NhanVien, NhanVienService } from '../../nhan-vien';
+import { Principal } from '../../../shared';
+import { BatHoService, BatHo } from '../../bat-ho';
+import { JhiAlertService, JhiEventManager } from '../../../../../../../node_modules/ng-jhipster';
+import { Subscription } from '../../../../../../../node_modules/rxjs';
 
 @Component({
   selector: 'jhi-thu-tien-ho',
@@ -6,10 +14,66 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ThuTienHoComponent implements OnInit {
-
-  constructor() { }
+  batHos: BatHo[];
+  selected: BatHo;
+  tungay: Date;
+  denngay: Date;
+  hopDong: HopDong;
+  lichSuDongTienBHs: LichSuDongTien[];
+  lichSuDongTien: LichSuDongTien;
+  currentAccount: any;
+  eventSubscriber: Subscription;
+  hopDongs: HopDong[];
+  nhanViens: NhanVien[];
+  nhanVien: NhanVien;
+  tongTienBH: number;
+  constructor(
+    private nhanVienService: NhanVienService,
+    private batHoService: BatHoService,
+    private hopDongService: HopDongService,
+    private lichSuDongTienService: LichSuDongTienService,
+    private jhiAlertService: JhiAlertService,
+    private eventManager: JhiEventManager,
+    private principal: Principal
+  ) { 
+    this.lichSuDongTienBHs = new Array<LichSuDongTien>();
+    this.tongTienBH = 0;
+    this.nhanVien = new NhanVien;
+  }
 
   ngOnInit() {
+    this.loadLichSuDongTienBH();
+    this.principal.identity().then(account => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInHopDongs();
+  }
+  timKiem(){
+    this.tongTienBH = 0;
+    console.log(this.denngay);
+    
+  }
+  registerChangeInHopDongs() {
+    this.eventSubscriber = this.eventManager.subscribe(
+      'hopDongListModification',
+      response => {
+        this.loadLichSuDongTienBH();
+      }
+    );
+  }
+  loadNhanVien() {
+    this.nhanVienService.query().subscribe(
+      (res: HttpResponse<NhanVien[]>) => {
+        this.nhanViens = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+  loadLichSuDongTienBH() {
+  
+  }
+  private onError(error) {
+    this.jhiAlertService.error(error.message, null, null);
   }
 
 }

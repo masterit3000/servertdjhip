@@ -15,7 +15,9 @@ public interface KhachHangService {
      * @return the persisted entity
      */
     KhachHangDTO save(KhachHangDTO khachHangDTO);
+    KhachHangDTO saveforAdmin(KhachHangDTO khachHangDTO);
 
+    
     /**
      * Get all the khachHangs.
      *

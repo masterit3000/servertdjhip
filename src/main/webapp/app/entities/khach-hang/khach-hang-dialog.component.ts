@@ -127,7 +127,7 @@ export class KhachHangDialogComponent implements OnInit {
         // và truyền vào content 'ok111'' tương ứng, chỗ này truyền j vào cũng đc, cả 1 obj cũng đc
         this.isSaving = false;
         this.khachHang = result;
-        console.log(this.khachHang);
+        console.log("kh tra ve: "+this.khachHang);
         this.urlupload = this.urlupload + this.khachHang.id;
         this.jhiAlertService.success('Lưu khách hàng thành công', null, null);
         // this.activeModal.dismiss(result);

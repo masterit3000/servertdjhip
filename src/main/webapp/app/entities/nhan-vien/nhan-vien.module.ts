@@ -21,6 +21,7 @@ import { PhanQuyenNhanVienComponent } from './phan-quyen-nhan-vien/phan-quyen-nh
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
+import {GalleriaModule} from 'primeng/galleria';
 
 const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
 
@@ -34,6 +35,7 @@ const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
         TableModule,
         TooltipModule,
         FileUploadModule,
+        GalleriaModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

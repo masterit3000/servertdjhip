@@ -3,72 +3,95 @@
         <span jhiTranslate="servertdjhipApp.nhanVien.detail.title">Nhan Vien</span> {{nhanVien.ten}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
+
     <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr>
-                        <th>Họ tên</th>
-                        <td>{{nhanVien.ten}}</td>
-                    </tr>
-                    <tr>
-                        <th>Địa chỉ</th>
-                        <td>{{nhanVien.diachi}}</td>
-                    </tr>
-                    <tr>
-                        <th>Tỉnh</th>
-                        <td>{{nhanVien.tenTinh}}</td>
-                    </tr>
-                    <tr>
-                        <th>Huyện</th>
-                        <td>{{nhanVien.tenHuyen}}</td>
-                    </tr>
-                    <tr>
-                        <th>Xã</th>
-                        <td>{{nhanVien.tenXa}}</td>
-                    </tr>
-                    <tr>
-                        <th>Ngày tạo</th>
-                        <td>{{nhanVien.ngayTao | date:"dd/MM/yyyy"}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-md-4">
+            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
         </div>
-        <div class="col-md-6">
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr>
-                        <th>Điện thoại</th>
-                        <td>{{nhanVien.dienthoai}}</td>
-                    </tr>
-                    <tr>
-                        <th>Số chứng minh thư</th>
-                        <td>{{nhanVien.cmnd}}</td>
-                    </tr>
-                    <tr>
-                        <th>Trạng thái</th>
-                        <td>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="fa fa-address-card-o fa-5x text-primary"></span>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Họ và tên</b>: {{nhanVien.ten}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Số chứng minh thư</b>: {{nhanVien.cmnd}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-phone text-primary"></span>: {{nhanVien.dienthoai}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:100px">
+                <div class="col-md-2">
+                    <span class="fa fa-cogs fa-5x text-primary"></span>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-folder-open-o text-primary"></span>
+                            <b>Trạng thái</b>:
                             <span jhiTranslate="{{'servertdjhipApp.TrangThaiNhanVien.' + nhanVien.trangthai}}">{{nhanVien.trangthai}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Thuộc cửa hàng</th>
-                        <td>
-                            <div *ngIf="nhanVien.cuaHangId">
-                                <a [routerLink]="['/cua-hang', nhanVien.cuaHangId]">{{nhanVien.cuaHangId}}</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>User</th>
-                        <td>{{nhanVien.userId}}</td>
-                    </tr>
-                    <tr>
-                        <th>Ghi chú</th>
-                        <td>{{nhanVien.ghiChu}}</td>
-                    </tr>
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-user text-primary"></span>
+                            <b>User</b>: {{nhanVien.userId}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Thuộc cửa hàng</b>: {{nhanVien.cuaHangId}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-1">
+                    <span class="fa fa-map-marker fa-3x text-primary"></span>
+                </div>
+                <div class="col-md-11" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{nhanVien.diachi}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{nhanVien.tenTinh}} - {{nhanVien.tenHuyen}} - {{nhanVien.tenXa}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:125px">
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:18px">
+                            <b>Ghi chú</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <span>{{nhanVien.ghiChu}}</span>
+                </div>
+            </div>
         </div>
     </div>
     <button type="submit" (click)="previousState()" class="btn btn-info">

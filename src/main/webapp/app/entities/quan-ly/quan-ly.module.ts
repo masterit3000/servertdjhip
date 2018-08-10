@@ -28,6 +28,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {GrowlModule} from 'primeng/growl';
 import {DialogModule} from 'primeng/dialog';
+import {GalleriaModule} from 'primeng/galleria';
 
 @NgModule({
     imports: [
@@ -43,6 +44,7 @@ import {DialogModule} from 'primeng/dialog';
         KeyFilterModule,
         CalendarModule,
         FormsModule,
+        GalleriaModule,
         TooltipModule,
         TableModule,
         CheckboxModule,
