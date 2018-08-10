@@ -9,9 +9,11 @@
     </div>
     <div class="modal-body">
         <!-- <jhi-alert-error></jhi-alert-error> -->
-        <div class="form-group" [hidden]="!khachHang.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="khachHang.id" readonly />
+        <div class="row">
+            <div class="form-group col-md-4" [hidden]="!khachHang.id">
+                <label for="id" jhiTranslate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" [(ngModel)]="khachHang.id" readonly />
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
@@ -67,7 +69,7 @@
                             <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
                         </label>
                         <select class="form-control" name="trangthai" [(ngModel)]="khachHang.trangthai" id="field_trangthai">
-                            <option value="HOATDONG" selected>{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
+                            <option value="HOATDONG" selected='selected'>{{'servertdjhipApp.TrangThaiKhachHang.HOATDONG' | translate}}</option>
                             <option value="DUNGHOATDONG">{{'servertdjhipApp.TrangThaiKhachHang.DUNGHOATDONG' | translate}}</option>
                             <option value="CAPDO1">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO1' | translate}}</option>
                             <option value="CAPDO2">{{'servertdjhipApp.TrangThaiKhachHang.CAPDO2' | translate}}</option>
@@ -109,7 +111,7 @@
                             <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="xa" name="basic" [suggestions]="filteredXas" (completeMethod)="filterXas($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dataKey]="id" [dropdown]="true"></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dropdown]="true"></p-autoComplete>
                     </div>
                 </div>
             </div>
@@ -122,6 +124,7 @@
                     tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-6">
                 <label class="form-control-label" for="field_facebook">
@@ -140,7 +143,20 @@
                 <!-- <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload> -->
                 <p-fileUpload multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
             </div>
+            <div class="form-group col-md-12 center">
+                <p-galleria [images]="images" panelWidth="600" panelHeight="400" [showCaption]="false"></p-galleria>
+
+            </div>
+            <div class="form-group col-md-12">
+                <label class="form-control-label">
+                    <span class="fa fa-image"></span>
+                    Ảnh </label>
+                <p-fileUpload (onBeforeSend)="onBeforeSend($event)" multiple="multiple" (onUpload)="onUpload($event)" class="col-md-6" name="myfile"
+                    url="{{urlupload}}" accept="image/*" maxFileSize="10000000">
+                </p-fileUpload>
+            </div>
         </div>
+
         <!-- <div class="form-group" *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <label class="form-control-label" jhiTranslate="servertdjhipApp.khachHang.cuaHang" for="field_cuaHang">Cua Hang</label>
             <select class="form-control" id="field_cuaHang" name="cuaHang" [(ngModel)]="khachHang.cuaHangId">

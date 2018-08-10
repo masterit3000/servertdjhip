@@ -23,6 +23,8 @@ import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import javax.annotation.PostConstruct;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @Import(SecurityProblemSupport.class)
@@ -113,5 +115,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);
     }
+    
+    
+//    @Bean
+//    public MultipartResolver multipartResolver() {
+//        return new CommonsMultipartResolver();
+//    }
 
 }

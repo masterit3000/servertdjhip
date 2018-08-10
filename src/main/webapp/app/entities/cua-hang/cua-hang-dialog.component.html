@@ -88,7 +88,7 @@
                             <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
                         </select> -->
                         <p-autoComplete [(ngModel)]="xa" name="basic" [suggestions]="filteredXas" (completeMethod)="filterXas($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dataKey]="id" [dropdown]="true" ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1"  [dropdown]="true" ></p-autoComplete>
                     </div>
                 </div>
             </div>

@@ -31,7 +31,19 @@ public class AnhKhachHang implements Serializable {
     @ManyToOne
     private KhachHang khachHang;
 
+    @Lob
+    @Column(name = "file")
+    private byte[] file;
+
+    public byte[] getFile() {
+        return file;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
     public Long getId() {
         return id;
     }
@@ -89,9 +101,9 @@ public class AnhKhachHang implements Serializable {
 
     @Override
     public String toString() {
-        return "AnhKhachHang{" +
-            "id=" + getId() +
-            ", url='" + getUrl() + "'" +
-            "}";
+        return "AnhKhachHang{"
+                + "id=" + getId()
+                + ", url='" + getUrl() + "'"
+                + "}";
     }
 }

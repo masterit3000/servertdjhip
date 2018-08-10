@@ -42,6 +42,7 @@ public class AnhKhachHangServiceImpl implements AnhKhachHangService {
     public AnhKhachHangDTO save(AnhKhachHangDTO anhKhachHangDTO) {
         log.debug("Request to save AnhKhachHang : {}", anhKhachHangDTO);
         AnhKhachHang anhKhachHang = anhKhachHangMapper.toEntity(anhKhachHangDTO);
+        anhKhachHang.setFile(anhKhachHangDTO.getFile());
         anhKhachHang = anhKhachHangRepository.save(anhKhachHang);
         return anhKhachHangMapper.toDto(anhKhachHang);
     }
@@ -56,8 +57,8 @@ public class AnhKhachHangServiceImpl implements AnhKhachHangService {
     public List<AnhKhachHangDTO> findAll() {
         log.debug("Request to get all AnhKhachHangs");
         return anhKhachHangRepository.findAll().stream()
-            .map(anhKhachHangMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .map(anhKhachHangMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -71,7 +72,9 @@ public class AnhKhachHangServiceImpl implements AnhKhachHangService {
     public AnhKhachHangDTO findOne(Long id) {
         log.debug("Request to get AnhKhachHang : {}", id);
         AnhKhachHang anhKhachHang = anhKhachHangRepository.findOne(id);
-        return anhKhachHangMapper.toDto(anhKhachHang);
+        AnhKhachHangDTO toDto = anhKhachHangMapper.toDto(anhKhachHang);
+        toDto.setFile(anhKhachHang.getFile());
+        return toDto;
     }
 
     /**
