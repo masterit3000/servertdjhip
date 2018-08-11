@@ -22,6 +22,7 @@ export class BatHoService {
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-bat-hos';
     private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-bat-hos-nhanvien';
     private findbytrangthaiUrl = SERVER_API_URL + 'api/find-by-trangthai-bat-hos';
+    private findbytrangthaihopdongUrl = SERVER_API_URL + 'api/find-by-trangthai-hopdong-bat-hos';
     constructor(private http: HttpClient) { }
 
     create(batHo: BatHo): Observable<EntityResponseType> {
@@ -123,6 +124,11 @@ export class BatHoService {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
         return this.http.get<BatHo[]>(`${this.findbytrangthaiUrl}/${startd}/${endd}/${trangthai}`, {observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+    findByTrangThaiHopDong( trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {
+
+        return this.http.get<BatHo[]>(`${this.findbytrangthaihopdongUrl}${trangthai}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
     findByTrangThaiNV(start: Date, end: Date, trangthai: TRANGTHAIHOPDONG, id:number): Observable<HttpResponse<BatHo[]>> {

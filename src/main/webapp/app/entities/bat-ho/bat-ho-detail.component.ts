@@ -290,7 +290,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.lichSuThaoTacHopDong.soTienGhiNo = soTienGhiNo;
         this.lichSuThaoTacHopDong.soTienGhiCo = soTienGhiCo;
         this.lichSuThaoTacHopDong.noidung = noidung;
-        this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
         this.subscribeToSaveResponseLS(
             this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong));
     }

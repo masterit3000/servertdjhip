@@ -236,6 +236,22 @@ public class BatHoResource {
         }
         return batHoService.findByTrangThai(timeStart,timeEnd,trangthaihopdong);
     }
+    @GetMapping("/find-by-trangthai-hopdong-bat-hos/{trangthai}")
+    @Timed
+    public List<BatHoDTO> findByTrangThai(@PathVariable(name = "trangthai")String trangthai) {
+        log.debug("REST request to get all BatHos");
+        
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        switch(trangthai){
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        }
+        return batHoService.findByTrangThaiHopDong(trangthaihopdong);
+    }
     @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}/{id}")
     @Timed
     public List<BatHoDTO> findByTrangThai(@PathVariable(name = "start") String start, @PathVariable(name = "end")String end,@PathVariable(name = "trangthai")String trangthai,@PathVariable(name = "id") Long id) {
