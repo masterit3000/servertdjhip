@@ -40,6 +40,8 @@ export class ChiTietTienLaiComponent implements OnInit {
   tongTienTraBh: number;
   tongTienNoVl: number;
   tongTienTraVl: number;
+  tongTienTienBatHo: number;
+  tongTienLaiBatHo: number;
   vayLai: VayLai;
   vayLais: VayLai[];
   selectedNhanVien: NhanVien;
@@ -55,6 +57,10 @@ export class ChiTietTienLaiComponent implements OnInit {
     private principal: Principal
   ) {
     this.selectedNhanVien = new NhanVien;
+    this.tongTienBHs = 0;
+    this.tongTienVL = 0;
+    this.tongTienTienBatHo = 0;
+    this.tongTienLaiBatHo = 0;
   }
 
   ngOnInit() {
@@ -65,12 +71,16 @@ export class ChiTietTienLaiComponent implements OnInit {
   timKiem() {
     this.tongTienBHs = 0;
     this.tongTienVL = 0;
+    this.tongTienTienBatHo = 0;
+    this.tongTienLaiBatHo = 0;
     if (this.selectedNhanVien == 1) {
       this.batHoService.findByTrangThai(this.tungay, this.denngay, TRANGTHAIHOPDONG.DADONG).subscribe(
         (res: HttpResponse<BatHo[]>) => {
           this.batHos = res.body;
           this.batHos.forEach(element => {
             this.tongTienBHs += element.tienduakhach;
+            this.tongTienTienBatHo += element.tongtien;
+            this.tongTienLaiBatHo = (this.tongTienTienBatHo-this.tongTienBHs);
           });
 
         },
@@ -92,6 +102,8 @@ export class ChiTietTienLaiComponent implements OnInit {
           this.batHos = res.body;
           this.batHos.forEach(element => {
             this.tongTienBHs += element.tienduakhach;
+            this.tongTienTienBatHo += element.tongtien;
+            this.tongTienLaiBatHo = (this.tongTienTienBatHo-this.tongTienBHs);
           });
 
         },
@@ -125,6 +137,8 @@ export class ChiTietTienLaiComponent implements OnInit {
         this.batHos = res.body;
         this.batHos.forEach(element => {
           this.tongTienBHs += element.tienduakhach;
+          this.tongTienTienBatHo += element.tongtien;
+          this.tongTienLaiBatHo = (this.tongTienTienBatHo-this.tongTienBHs);
         });
 
       },
