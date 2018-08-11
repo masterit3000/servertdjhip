@@ -11,7 +11,7 @@ export const ghiNoRoute: Routes = [
         path: 'ghi-no',
         component: GhiNoComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.ghiNo.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const ghiNoRoute: Routes = [
         path: 'ghi-no/:id',
         component: GhiNoDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.ghiNo.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const ghiNoPopupRoute: Routes = [
         path: 'ghi-no-new',
         component: GhiNoPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.ghiNo.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const ghiNoPopupRoute: Routes = [
         path: 'ghi-no/:id/edit',
         component: GhiNoPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.ghiNo.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const ghiNoPopupRoute: Routes = [
         path: 'ghi-no/:id/delete',
         component: GhiNoDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.ghiNo.home.title'
         },
         canActivate: [UserRouteAccessService],

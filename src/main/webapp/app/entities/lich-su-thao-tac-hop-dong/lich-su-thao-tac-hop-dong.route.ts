@@ -11,7 +11,7 @@ export const lichSuThaoTacHopDongRoute: Routes = [
         path: 'lich-su-thao-tac-hop-dong',
         component: LichSuThaoTacHopDongComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.lichSuThaoTacHopDong.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const lichSuThaoTacHopDongRoute: Routes = [
         path: 'lich-su-thao-tac-hop-dong/:id',
         component: LichSuThaoTacHopDongDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.lichSuThaoTacHopDong.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const lichSuThaoTacHopDongPopupRoute: Routes = [
         path: 'lich-su-thao-tac-hop-dong-new',
         component: LichSuThaoTacHopDongPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.lichSuThaoTacHopDong.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const lichSuThaoTacHopDongPopupRoute: Routes = [
         path: 'lich-su-thao-tac-hop-dong/:id/edit',
         component: LichSuThaoTacHopDongPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.lichSuThaoTacHopDong.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const lichSuThaoTacHopDongPopupRoute: Routes = [
         path: 'lich-su-thao-tac-hop-dong/:id/delete',
         component: LichSuThaoTacHopDongDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.lichSuThaoTacHopDong.home.title'
         },
         canActivate: [UserRouteAccessService],

@@ -13,8 +13,10 @@ export type EntityResponseType = HttpResponse<NhanVien>;
 @Injectable()
 export class NhanVienService {
     private resourceUrl = SERVER_API_URL + 'api/nhan-viens';
+    private findNhanVienUrl = SERVER_API_URL + 'api/tim-nhan-viens-by-ten-cmnd';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
+
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(nhanVien: NhanVien): Observable<EntityResponseType> {
         const copy = this.convert(nhanVien);
@@ -48,6 +50,15 @@ export class NhanVienService {
             );
     }
 
+    findNhanVien(req?: any): Observable<HttpResponse<NhanVien[]>> {
+        return this.http
+            .get<NhanVien[]>(`${this.findNhanVienUrl}/${req}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<NhanVien[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
             observe: 'response'

@@ -20,98 +20,98 @@ const routes: Routes = [
   {
     path: 'soQuyTienMat', component: SoQuyTienMatComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.soQuyTienMat'
     },
   },
   {
     path: 'tongKetGiaoDich', component: TongKetGiaoDichComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.tongKetGiaoDich'
     },
   },
   {
     path: 'tongKetLoiNhuan', component: TongKetLoiNhuanComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.tongKetLoiNhuan'
     },
   },
   {
     path: 'chiTietTienLai', component: ChiTietTienLaiComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.chiTietTienLai'
     },
   },
   {
     path: 'baoCaoDangChoVay', component: BaoCaoDangChoVayComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoDangChoVay'
     },
   },
   {
     path: 'baoCaoHangChoThanhLy', component: BaoCaoHangChoThanhLyComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoHangChoThanhLy'
     },
   },
   {
     path: 'baoCaoChuocDoDongHD', component: BaoCaoChuocDoDongHopDongComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoChuocDoDongHD'
     },
   },
   {
     path: 'baoCaoThanhLyDo', component: BaoCaoThanhLyDoComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoThanhLyDo'
     },
   },
   {
     path: 'baoCaoHopDongDaXoa', component: BaoCaoHopDongDaXoaComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoHopDongDaXoa'
     },
   },
   {
     path: 'baoCaoTinNhan', component: BaoCaoTinNhanComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoTinNhan'
     },
   },
   {
     path: 'banGiaoCa', component: BanGiaoCaComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.banGiaoCa'
     },
   },
   {
     path: 'dongTienTheoNgay', component: DongTienTheoNgayComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.dongTienTheoNgay'
     },
   },
   {
     path: 'baoCaoBatHo', component: BaoCaoBatHoComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoBatHo'
     },
   },
   {
     path: 'baoCaoVayLai', component: BaoCaoVayLaiComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'global.menu.baoCaoBatHo'
     },
   },

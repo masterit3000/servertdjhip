@@ -13,7 +13,7 @@ export const khachHangRoute: Routes = [
         path: 'khach-hang',
         component: KhachHangComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.khachHang.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -22,7 +22,7 @@ export const khachHangRoute: Routes = [
         path: 'khach-hang/:id',
         component: KhachHangDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.khachHang.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const khachHangRoute: Routes = [
         path: 'checkThongTinKhachHang',
         component: CheckThongTinKhachHangComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.khachHang.checkThongTinKhachHang'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const khachHangRoute: Routes = [
         path: 'khachCanVay',
         component: KhachCanVayComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.khachHang.khachCanVay'
         },
         canActivate: [UserRouteAccessService]
@@ -53,7 +53,7 @@ export const khachHangPopupRoute: Routes = [
         path: 'khach-hang-new',
         component: KhachHangPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.khachHang.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const khachHangPopupRoute: Routes = [
         path: 'khach-hang/:id/edit',
         component: KhachHangPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.khachHang.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -73,7 +73,7 @@ export const khachHangPopupRoute: Routes = [
         path: 'khach-hang/:id/delete',
         component: KhachHangDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.khachHang.home.title'
         },
         canActivate: [UserRouteAccessService],
