@@ -2,63 +2,120 @@
     <h2>
         <span>Vay lãi</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
+
     <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered table-hover text-left">
-                <tr>
-                    <th>Tên khách hàng</th>
-                    <td>
-                        <a>{{vayLai.hopdongvl.khachHangTen}}</a>
-                    </td>
-                    <td>
-                        ID:
-                        <a>{{vayLai.hopdongvl.khachHangId}}</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Tiền vay</th>
-                    <td colspan="2">{{vayLai.tienvay}}</td>
-                </tr>
-                <tr>
-                    <th>Ngày vay</th>
-                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
-                    <td>(ngModel = Ngày tạo + Số ngày)</td>
-                </tr>
-                <tr>
-                    <th>Số ngày vay</th>
-                    <td colspan="2">{{vayLai.thoigianvay}}</td>
-                </tr>
-            </table>
+        <div class="col-md-4">
+            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
         </div>
-        <div class="col-md-6">
-            <table class="table table-hover table-bordered">
-                <tr>
-                    <th>Lãi</th>
-                    <td>{{vayLai.lai}}</td>
-                </tr>
-                <tr>
-                    <th>Hình thức lãi</th>
-                    <td>
-                        <span>{{vayLai.hinhthuclai}}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Cách tính lãi</th>
-                    <td>
-                        <span>{{vayLai.cachtinhlai}}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Đã đóng</th>
-                    <td>(Dữ liệu demo)</td>
-                </tr>
-                <tr>
-                    <th>Còn lại</th>
-                    <td>(Dữ liệu demo)</td>
-                </tr>
-            </table>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="fa fa-address-card-o fa-4x text-primary"></span>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Khách hàng</b>:
+                            <a [routerLink]="['../../khach-hang-admin', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangTen}}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>ID</b>:
+                            <a [routerLink]="['../../khach-hang-admin', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
+                            </td>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:100px">
+                <div class="col-md-2">
+                    <span class="fa fa-paypal fa-5x text-primary"></span>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-money text-primary"></span>
+                            <b>Tiền vay</b>: {{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-calendar text-primary"></span>
+                            <b>Ngày vay</b>: {{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-calendar text-primary"></span>
+                            <b>Số ngày vay</b>: {{vayLai.thoigianvay}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-danger">
+                            <span class="fa fa-thumbs-o-down text-danger"></span>
+                            <b>Số nợ còn lại</b>: (DEMO)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="fa fa-credit-card text-primary fa-5x"></span>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="fa fa-sign-out text-primary"></span>
+                            <b>Tổng lãi</b>: {{tonglai |currency : 'VND' : true : '1.0-0'}}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="fa fa-money text-primary"></span>
+                                <b>Lãi</b>: {{vayLai.lai |currency : 'VND' : true : '1.0-0'}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-success">
+                                <span class="fa fa-check-square-o text-success"></span>
+                                <b>Cách tính lãi</b>:
+                                <span>{{vayLai.cachtinhlai}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-warning">
+                                <span class="fa fa-minus-square-o text-warning"></span>
+                                <b>Hình thức lãi</b>:
+                                <span>{{vayLai.hinhthuclai}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:100px">
+                <div class="col-md-2">
+                    <span class="fa fa-refresh text-primary fa-5x"></span>
+                </div>
+                <div class="col-md-10" style="font-size:18px">
+                    <div class="row">
+                        <div class="col-md-12 text-success">
+                            <span class="fa fa-check-square-o text-success"></span>
+                            <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-warning">
+                            <span class="fa fa-minus-square-o text-warning"></span>
+                            <b>Còn lại</b>: {{tonglai - tiendadong |currency : 'VND' : true : '1.0-0'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span>Quay lại</span>

@@ -4,6 +4,7 @@ import {TableModule} from 'primeng/table';
 import { ServertdjhipSharedModule } from '../../shared';
 import {DialogModule} from 'primeng/dialog';
 import {GrowlModule} from 'primeng/growl';
+import {GalleriaModule} from 'primeng/galleria';
 import {
     VayLaiService,
     VayLaiPopupService,
@@ -59,6 +60,7 @@ const ENTITY_STATES = [...vayLaiRoute, ...vayLaiPopupRoute];
         TableModule,
         GrowlModule,
         SpinnerModule,
+        GalleriaModule,
         DialogModule
     ],
     declarations: [
