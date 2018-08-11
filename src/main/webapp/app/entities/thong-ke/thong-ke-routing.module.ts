@@ -7,14 +7,14 @@ const routes: Routes = [
   {
     path: 'thuTienVayLai', component: ThuTienVayLaiComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'servertdjhipApp.thuChi.thuTienVayLai'
     },
   },
   {
     path: 'thuTienHo', component: ThuTienHoComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
       pageTitle: 'servertdjhipApp.thuChi.thuTienHo'
     },
   },

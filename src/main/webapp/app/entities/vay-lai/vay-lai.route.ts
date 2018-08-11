@@ -12,7 +12,7 @@ export const vayLaiRoute: Routes = [
         path: 'vay-lai',
         component: VayLaiComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -20,7 +20,7 @@ export const vayLaiRoute: Routes = [
         path: 'vay-lai/:id',
         component: VayLaiDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -29,7 +29,7 @@ export const vayLaiRoute: Routes = [
         path: 'vayLaiMoi',
         component: VayLaiMoiComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const vayLaiPopupRoute: Routes = [
         path: 'vay-lai-new',
         component: VayLaiPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const vayLaiPopupRoute: Routes = [
         path: 'vay-lai/:id/edit',
         component: VayLaiPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -61,7 +61,7 @@ export const vayLaiPopupRoute: Routes = [
         path: 'vay-lai/:id/delete',
         component: VayLaiDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.vayLai.home.title'
         },
         canActivate: [UserRouteAccessService],

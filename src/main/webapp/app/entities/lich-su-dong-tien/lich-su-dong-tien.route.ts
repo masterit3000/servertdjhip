@@ -11,7 +11,7 @@ export const lichSuDongTienRoute: Routes = [
         path: 'lich-su-dong-tien',
         component: LichSuDongTienComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.lichSuDongTien.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const lichSuDongTienRoute: Routes = [
         path: 'lich-su-dong-tien/:id',
         component: LichSuDongTienDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.lichSuDongTien.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const lichSuDongTienPopupRoute: Routes = [
         path: 'lich-su-dong-tien-new',
         component: LichSuDongTienPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.lichSuDongTien.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const lichSuDongTienPopupRoute: Routes = [
         path: 'lich-su-dong-tien/:id/edit',
         component: LichSuDongTienPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.lichSuDongTien.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const lichSuDongTienPopupRoute: Routes = [
         path: 'lich-su-dong-tien/:id/delete',
         component: LichSuDongTienDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.lichSuDongTien.home.title'
         },
         canActivate: [UserRouteAccessService],

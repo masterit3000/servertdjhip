@@ -11,7 +11,7 @@ export const hopDongRoute: Routes = [
         path: 'hop-dong',
         component: HopDongComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.hopDong.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const hopDongRoute: Routes = [
         path: 'hop-dong/:id',
         component: HopDongDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.hopDong.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const hopDongPopupRoute: Routes = [
         path: 'hop-dong-new',
         component: HopDongPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.hopDong.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const hopDongPopupRoute: Routes = [
         path: 'hop-dong/:id/edit',
         component: HopDongPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.hopDong.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const hopDongPopupRoute: Routes = [
         path: 'hop-dong/:id/delete',
         component: HopDongDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.hopDong.home.title'
         },
         canActivate: [UserRouteAccessService],
