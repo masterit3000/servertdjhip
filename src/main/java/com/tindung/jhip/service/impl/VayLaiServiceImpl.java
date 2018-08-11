@@ -312,7 +312,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienDTO.setNgayketthuc(batdau);
                     lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                     day += kyLai;
-                    lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                    lichSuDongTienDTO.setTrangthai(DONGTIEN.TRAGOC);
                     lichSuDongTienService.save(lichSuDongTienDTO);
                 }
                 //phat cuoi

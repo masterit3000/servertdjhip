@@ -61,7 +61,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-nhanVien>
                 <tr [pSelectableRow]="nhanVien" [routerLink]="['../nhan-vien', nhanVien.id ]">
-                    <td>{{nhanVien.id}}</td>
+                    <td>{{nhanVien.cuaHangId}}</td>
                     <td>{{nhanVien.ten}}</td>
                     <td>{{nhanVien.diachi}}</td>
                     <td>{{nhanVien.dienthoai}}</td>
