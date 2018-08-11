@@ -125,6 +125,12 @@ export class BatHoService {
         return this.http.get<BatHo[]>(`${this.findbytrangthaiUrl}/${startd}/${endd}/${trangthai}`, {observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
+    findByTrangThaiNV(start: Date, end: Date, trangthai: TRANGTHAIHOPDONG, id:number): Observable<HttpResponse<BatHo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<BatHo[]>(`${this.findbytrangthaiUrl}/${startd}/${endd}/${trangthai}/${id}`, {observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
     private convertDateToString(d: Date): String {
 
         let m = d.getMonth() + 1;

@@ -40,6 +40,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SpinnerModule } from 'primeng/spinner';
 import { CheckboxModule } from 'primeng/checkbox';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {GalleriaModule} from 'primeng/galleria';
 
 const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
 
@@ -64,6 +65,7 @@ const ENTITY_STATES = [...batHoRoute, ...batHoPopupRoute];
         SpinnerModule,
         ConfirmDialogModule,
         DropdownModule,
+        GalleriaModule,
         DialogModule
     ],   
     declarations: [

@@ -236,4 +236,21 @@ public class BatHoResource {
         }
         return batHoService.findByTrangThai(timeStart,timeEnd,trangthaihopdong);
     }
+    @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}/{id}")
+    @Timed
+    public List<BatHoDTO> findByTrangThai(@PathVariable(name = "start") String start, @PathVariable(name = "end")String end,@PathVariable(name = "trangthai")String trangthai,@PathVariable(name = "id") Long id) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        switch(trangthai){
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        }
+        return batHoService.findByTrangThaiNV(timeStart,timeEnd,trangthaihopdong,id);
+    }
 }

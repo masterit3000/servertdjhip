@@ -44,6 +44,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     lichSuThaoTacHopDong: LichSuThaoTacHopDong;
     soTienGhiNo: number;
     soTienGhiCo: number;
+    images: any[];
 
 
     constructor(
@@ -78,6 +79,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
         });
         this.registerChangeInBatHos();
+        this.images= [];
     }
 
     hienDongHD() {
