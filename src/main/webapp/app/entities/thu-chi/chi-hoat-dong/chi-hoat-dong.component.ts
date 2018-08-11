@@ -74,6 +74,7 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.loadAll();
     }
 
     private onSaveError() {

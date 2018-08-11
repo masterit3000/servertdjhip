@@ -180,8 +180,8 @@
                 </p-footer>
             </p-dialog>
         </p-tabPanel>
-        <p-tabPanel header="Ghi nợ">
-            <div class="row justify-content-center">
+        <p-tabPanel header="Nợ">
+            <div class="row ">
                 <div class="col-md-4">
                     <table class="table table-bordered">
                         <thead>
@@ -204,10 +204,56 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-bordered">
+                            <thead>
+                                <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Số tiền trả: </td>
+                                    <td>
+                                        <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                            [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
+                                            required></p-spinner>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="bolder-table-last">
+                                        <button (click)="saveTraNo()" class="btn btn-success float-right">
+                                            <span class="fa fa-balance-scale"></span>
+                                            Trả nợ</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+                <div class="col-md-8">
+                    <h3>Lịch sử nợ</h3>
+                    <hr/>
+                    <br />
+                    <p-table [value]="ghiNos" [paginator]="true" [rows]="10" dataKey="id">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Nhân viên</th>
+                                <th>Trạng thái</th>
+
+                                <th>Số tiền</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-ghiNo>
+                            <tr>
+                            <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
+                            <td>{{ghiNo.nhanVienTen}}</td>
+                            <td>{{ghiNo.sotien}}</td>
+                            <td>{{ghiNo.trangthai}}</td>
+                        </tr>
+                        </ng-template>
+                    </p-table>
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Trả nợ">
+        <!-- <p-tabPanel header="Trả nợ">
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <table class="table table-bordered">
@@ -234,7 +280,7 @@
                     </table>
                 </div>
             </div>
-        </p-tabPanel>
+        </p-tabPanel> -->
         <p-tabPanel header="Lịch sử">
             <div class="row">
                 <div class="col-md-5 table-bordered">
