@@ -12,7 +12,7 @@ export const nhanVienRoute: Routes = [
         path: 'nhan-vien',
         component: NhanVienComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -20,7 +20,7 @@ export const nhanVienRoute: Routes = [
         path: 'nhan-vien/:id',
         component: NhanVienDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -29,7 +29,7 @@ export const nhanVienRoute: Routes = [
         path: 'phanQuyenNhanVien',
         component: PhanQuyenNhanVienComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.phanQuyenNhanVien'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const nhanVienPopupRoute: Routes = [
         path: 'nhan-vien-new',
         component: NhanVienPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const nhanVienPopupRoute: Routes = [
         path: 'nhan-vien/:id/edit',
         component: NhanVienPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -61,7 +61,7 @@ export const nhanVienPopupRoute: Routes = [
         path: 'nhan-vien/:id/delete',
         component: NhanVienDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService],

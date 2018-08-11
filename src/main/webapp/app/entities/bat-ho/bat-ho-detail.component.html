@@ -69,7 +69,8 @@
         <p-header>
             Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
         </p-header>
-        Số tiền còn phải đóng: {{tienchuadong + tienNo-tienTra|currency : 'VND' : true : '1.0-0'}}
+        Số tiền còn phải đóng: {{tienchuadong |currency : 'VND' : true : '1.0-0'}}
+        <br/> Số tiền còn nợ: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}} 
         <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button (click)="dongHopDong()" type="button" class="btn btn-danger">

@@ -43,6 +43,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   tongTienTraVl: number;
   vayLai: VayLai;
   vayLais: VayLai[];
+  selectedNhanVien: NhanVien;
 
 
 
@@ -67,7 +68,8 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
-    this.nhanVien = new NhanVien;
+    this.selectedNhanVien = new NhanVien;
+
   }
 
   ngOnInit() {
@@ -92,77 +94,151 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
-    console.log(this.denngay);
-    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTienBHs = res.body;
-        this.lichSuDongTienBHs.forEach(element => {
-          this.tongTienBH = this.tongTienBH + element.sotien;
-          console.log(element.sotien);
-        });
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTienVLs = res.body;
-        this.lichSuDongTienVLs.forEach(element => {
-          this.tongTienVL = this.tongTienVL + element.sotien;
-          console.log(element.sotien);
-        });
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.ghiNoService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<GhiNo[]>) => {
-        this.ghiNoBHs = res.body;
-        this.ghiNoBHs.forEach(element => {
-          if (element.trangthai.toString() == 'NO') {
-            this.tongTienNoBh += element.sotien;
-          } else {
-            this.tongTienTraBh += element.sotien;
+    if (this.selectedNhanVien == 1) {
+      console.log(this.denngay);
+      this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienBHs = res.body;
+          this.lichSuDongTienBHs.forEach(element => {
+            this.tongTienBH = this.tongTienBH + element.sotien;
+            console.log(element.sotien);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienVLs = res.body;
+          this.lichSuDongTienVLs.forEach(element => {
+            this.tongTienVL = this.tongTienVL + element.sotien;
+            console.log(element.sotien);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.ghiNoService.baoCao(LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<GhiNo[]>) => {
+          this.ghiNoBHs = res.body;
+          this.ghiNoBHs.forEach(element => {
+            if (element.trangthai.toString() == 'NO') {
+              this.tongTienNoBh += element.sotien;
+            } else {
+              this.tongTienTraBh += element.sotien;
 
-          }
-        });
+            }
+          });
 
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.ghiNoService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<GhiNo[]>) => {
-        this.ghiNoVLs = res.body;
-        this.ghiNoVLs.forEach(element => {
-          if (element.trangthai.toString() == 'NO') {
-            this.tongTienNoVl += element.sotien;
-          } else {
-            this.tongTienTraVl += element.sotien;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.ghiNoService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<GhiNo[]>) => {
+          this.ghiNoVLs = res.body;
+          this.ghiNoVLs.forEach(element => {
+            if (element.trangthai.toString() == 'NO') {
+              this.tongTienNoVl += element.sotien;
+            } else {
+              this.tongTienTraVl += element.sotien;
 
-          }
-        });
+            }
+          });
 
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.batHoService.baoCao(this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<BatHo[]>) => {
-        this.batHos = res.body;
-        this.batHos.forEach(element => {
-          this.tongTienBHs += element.tienduakhach;
-        });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.batHoService.baoCao(this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<BatHo[]>) => {
+          this.batHos = res.body;
+          this.batHos.forEach(element => {
+            this.tongTienBHs += element.tienduakhach;
+          });
 
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.vayLaiService.baoCao(this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<VayLai[]>) => {
-        this.vayLais = res.body;
-        this.vayLais.forEach(element => {
-          this.tongTienVLs += element.tienvay;
-        });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.vayLaiService.baoCao(this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<VayLai[]>) => {
+          this.vayLais = res.body;
+          this.vayLais.forEach(element => {
+            this.tongTienVLs += element.tienvay;
+          });
 
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    } else {
+      this.lichSuDongTienService.baoCaoNV(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienBHs = res.body;
+          this.lichSuDongTienBHs.forEach(element => {
+            this.tongTienBH = this.tongTienBH + element.sotien;
+            console.log(element.sotien);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.lichSuDongTienService.baoCaoNV(DONGTIEN.DADONG, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienVLs = res.body;
+          this.lichSuDongTienVLs.forEach(element => {
+            this.tongTienVL = this.tongTienVL + element.sotien;
+            console.log(element.sotien);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.batHoService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<BatHo[]>) => {
+          this.batHos = res.body;
+          this.batHos.forEach(element => {
+            this.tongTienBHs += element.tienduakhach;
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.vayLaiService.baoCaoNV(this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<VayLai[]>) => {
+          this.vayLais = res.body;
+          this.vayLais.forEach(element => {
+            this.tongTienVLs += element.tienvay;
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.ghiNoService.baoCaoNV(LOAIHOPDONG.BATHO, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<GhiNo[]>) => {
+          this.ghiNoBHs = res.body;
+          this.ghiNoBHs.forEach(element => {
+            if (element.trangthai.toString() == 'NO') {
+              this.tongTienNoBh += element.sotien;
+            } else {
+              this.tongTienTraBh += element.sotien;
+
+            }
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.ghiNoService.baoCaoNV(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<GhiNo[]>) => {
+          this.ghiNoVLs = res.body;
+          this.ghiNoVLs.forEach(element => {
+            if (element.trangthai.toString() == 'NO') {
+              this.tongTienNoVl += element.sotien;
+            } else {
+              this.tongTienTraVl += element.sotien;
+
+            }
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+
+    }
   }
   registerChangeInHopDongs() {
     this.eventSubscriber = this.eventManager.subscribe(
@@ -185,7 +261,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienBHs = res.body;
         this.lichSuDongTienBHs.forEach(element => {
@@ -200,7 +276,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienVLs = res.body;
         this.lichSuDongTienVLs.forEach(element => {
@@ -230,16 +306,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
-    // this.ghiNoService.baoCao(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
-    //   (res: HttpResponse<GhiNo[]>) => {
-    //     this.ghiNoVLs = res.body;
-    //     this.ghiNoVLs.forEach(element => {
-    //       // this.tongTienVL+=element.sotien;
-    //     });
 
-    //   },
-    //   (res: HttpErrorResponse) => this.onError(res.message)
-    // );
   }
   loadLichGhiNoTienVL() {
     this.tungay = new Date();

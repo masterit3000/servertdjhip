@@ -15,6 +15,7 @@ export class LichSuDongTienService {
 
     private resourceUrl = SERVER_API_URL + 'api/lich-su-dong-tiens';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens';
+    private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens-nhanvien';
     private dongtien = 'dongtien';
     private lichSuDongTien = 'lichsudongtien';
     private donghopdong = SERVER_API_URL + 'api/dong-hop-dong';
@@ -54,6 +55,12 @@ export class LichSuDongTienService {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
         return this.http.get<LichSuDongTien[]>(`${this.baocaoUrl}/${loaidongtien}/${loaihopdong}/${startd}/${endd}`, { observe: 'response' })
+            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
+    }
+    baoCaoNV(loaidongtien: DONGTIEN,loaihopdong: LOAIHOPDONG, start: Date, end: Date,id:number ): Observable<HttpResponse<LichSuDongTien[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<LichSuDongTien[]>(`${this.baocaoNVUrl}/${loaidongtien}/${loaihopdong}/${startd}/${endd}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
 

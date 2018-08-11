@@ -48,5 +48,7 @@ public interface LichSuDongTienService {
 
     void dongHopDong(Long id);
 
-    List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien,LOAIHOPDONG loaihopdong,ZonedDateTime start, ZonedDateTime end);
+    List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
+
+    List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
 }

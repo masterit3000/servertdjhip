@@ -15,7 +15,7 @@ export const thuChiRoute: Routes = [
         path: 'thu-chi',
         component: ThuChiComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -23,7 +23,7 @@ export const thuChiRoute: Routes = [
         path: 'thu-chi/:id',
         component: ThuChiDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -32,7 +32,7 @@ export const thuChiRoute: Routes = [
         path: 'thuHoatDong',
         component: ThuHoatDongComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const thuChiRoute: Routes = [
         path: 'chiHoatDong',
         component: ChiHoatDongComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -50,7 +50,7 @@ export const thuChiRoute: Routes = [
         path: 'gopVon',
         component: GopVonComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -58,7 +58,7 @@ export const thuChiRoute: Routes = [
         path: 'rutVon',
         component: RutVonComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -71,7 +71,7 @@ export const thuChiPopupRoute: Routes = [
         path: 'thu-chi-new',
         component: ThuChiPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -81,7 +81,7 @@ export const thuChiPopupRoute: Routes = [
         path: 'thu-chi/:id/edit',
         component: ThuChiPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -91,7 +91,7 @@ export const thuChiPopupRoute: Routes = [
         path: 'thu-chi/:id/delete',
         component: ThuChiDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.thuChi.home.title'
         },
         canActivate: [UserRouteAccessService],

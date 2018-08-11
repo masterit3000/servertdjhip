@@ -1,78 +1,81 @@
-<div class="main-content">
-
-  <!--=== Page Header ===-->
-  <div class="container-fluid">
-    <div class="row" style="padding:19px 0px;">
-      <h3>Lịch sử thu tiền theo ngày</h3>
-    </div>
-  </div>
-  <!-- /Page Header -->
-
-  <div style="border-top:1px solid #cecece;height:5px;"></div>
-
-  <form class="form-vertical" method="post">
-    <div class="form-group">
-      <div class="row">
+<div>
+  <h2>
+    <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
+    <span>Lịch sử thu tiền họ theo ngày</span>
 
 
-        <div class="col-md-2">
-          <label class="control-label">
-            Từ ngày</label>
-          <input type="date" class="form-control ">
-        </div>
-        <div class="col-md-2">
-          <label class="control-label">
-            Đến ngày
-          </label>
-          <input type="date" class="form-control ">
-        </div>
+  </h2>
+  <div class="widget-header">
+    <div class="row">
 
-        <div class="col-md-2" style="padding-top: 2.7%">
-          <button class="btn btn-info btnSearch">
-            Tìm kiếm
-          </button>
-        </div>
+      <div class="col-md-4">
+        <label>Từ Ngày</label>
+        <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
       </div>
-
-    </div>
-  </form>
-  <div class="form-group">
-    <div class="widget-content">
-      <table class="table table-striped table-hover table-bordered table-calendar">
-        <thead>
-          <tr>
-            <th width="50px" style="text-align:center">#</th>
-
-            <th>Người thu tiền</th>
-            <th style="text-align:center">Từ ngày</th>
-            <th style="text-align:center">Đến ngày</th>
-
-
-            <th style="text-align:right">Tổng tiền thu</th>
-            <th style="text-align:center">&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!--FOOTER-->
-          <tr class="tr_footer">
-            <td align="center">&nbsp;</td>
-
-            <td></td>
-            <td align="right">
-              <a style="color:brown">&nbsp;</a>
-            </td>
-
-            <td align="right" style="color:red;">
-              <strong>Tổng </strong>
-            </td>
-
-            <td align="right" style="color:red">0</td>
-            <td>&nbsp;</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col-md-5">
+        <label>Đến Ngày</label>
+        <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+        <button class="btn btn-info pull-right" (click)="timKiem()">
+          <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
+      </div>
     </div>
   </div>
 
+  <div class="table-responsive">
+    <p-table [value]="lichSuDongTienBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="5" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền bát họ</th>
+        </tr>
+        <tr>
+          <!-- <th>
+            <span jhiTranslate="global.field.id">#</span>
+          </th> -->
+          <th>
+            <span>Người thu tiền</span>
+          </th>
+          <th>
+            <span>Từ ngày</span>
+          </th>
+          <th>
+            <span>Đến ngày</span>
+          </th>
+          <th>
+            <span>Tổng tiền thu</span>
+          </th>
 
+          <th>
+            <span>Chi tiết</span>
+          </th>
+        </tr>
+      </ng-template>
+      <!-- Code backend lấy dữ liệu body -->
+      <ng-template pTemplate="body" let-lichSuDongTien>
+        <tr>
+          <!-- <td>{{lichSuDongTien.id}}</td> -->
+          <td>{{lichSuDongTien.nhanVienTen}}</td>
+          <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+          <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+
+          <td>{{lichSuDongTien.sotien}}</td>
+          <td>
+            
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td align="right" style="color:red;background-color:#ECECEC" colspan="3">
+            <strong>Tổng</strong>
+          </td>
+          <td align="right" style="background-color:#ECECEC">
+            <span style="color:red">{{tongTienBH}}</span>
+          </td>
+
+          <td></td>
+        </tr>
+
+      </ng-template>
+    </p-table>
+  </div>
 </div>

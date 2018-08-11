@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 
-import { JhiLanguageHelper } from '../../shared';
+import { JhiLanguageHelper, Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-main',
@@ -17,8 +17,11 @@ export class JhiMainComponent implements OnInit {
     visibleSidebar1;
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
-        private router: Router
-    ) {}
+        private router: Router,
+        private principal: Principal,
+    ) {
+        
+    }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'servertdjhipApp';
@@ -35,4 +38,11 @@ export class JhiMainComponent implements OnInit {
             }
         });
     }
+    
+    isAuthenticated() {
+        return this.principal.isAuthenticated();
+        
+    }
+    
 }
+

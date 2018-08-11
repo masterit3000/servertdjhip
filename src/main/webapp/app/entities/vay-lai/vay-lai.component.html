@@ -55,7 +55,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-vayLai>
                 <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai', vayLai.id ]">
-                    <td>{{vayLai.id}}</td>
+                    <td>{{vayLai.hopdongvl.mahopdong}}</td>
                     <td>{{vayLai.hopdongvl.khachHangTen}}</td>
                     <td>{{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>{{vayLai.thoigianvay}}</td>

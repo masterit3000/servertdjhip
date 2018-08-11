@@ -89,6 +89,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                 NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
 
                 hopdong.setNhanVienId(nhanVien.getId());
+                hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
                 if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
                     Long idCuaHang = cuaHangService.findIDByUserLogin();
                     hopdong.setCuaHangId(idCuaHang);
@@ -168,6 +169,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     Long idCuaHang = cuaHangService.findIDByUserLogin();
                     hopdong.setCuaHangId(idCuaHang);
                 }
+                hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
                 hopdong.setNgaytao(ZonedDateTime.now());
                 hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                 hopdong = hopDongService.save(hopdong);
@@ -255,6 +257,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                 hopdong.setHopdonggocId(id);
                 hopdong.setKhachHangId(hopDongService.findOne(id).getKhachHangId());
                 hopdong.setNhanVienId(nhanVien.getId());
+                hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
                 if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
                     Long idCuaHang = cuaHangService.findIDByUserLogin();
                     hopdong.setCuaHangId(idCuaHang);
@@ -388,12 +391,18 @@ public class VayLaiServiceImpl implements VayLaiService {
     @Override
     public List<VayLaiDTO> findByNameOrCMND(String key
     ) {
-        log.debug("Request to get all KhachHangs");
-        key = new StringBuffer("%").append(key).append("%").toString();
-
-        return vayLaiRepository.findByNameOrCMND(key).stream()
-                .map(vayLaiMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
+            
+            return vayLaiRepository.findByNameOrCMND(key,cuaHangid).stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
     /**
@@ -425,7 +434,23 @@ public class VayLaiServiceImpl implements VayLaiService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<VayLai> baoCao = vayLaiRepository.baocao(start, end);
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<VayLai> baoCao = vayLaiRepository.baocao(start, end, idCuaHang);
+            List<VayLaiDTO> collect = baoCao.stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
+    @Override
+    public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<VayLai> baoCao = vayLaiRepository.baocaoNV(start, end, idCuaHang,id);
             List<VayLaiDTO> collect = baoCao.stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -436,8 +461,10 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
 //    public List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id) {
-//        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-//                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+//    if (SecurityUtils.isCurrentUserInRole (AuthoritiesConstants.ADMIN) 
+//    
+//
+//|| SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
 //                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
 //            List<VayLai> listVayLai = vayLaiRepository.findAllByKhachHang(id);
 //            list = listVayLai.stream()
@@ -448,5 +475,4 @@ public class VayLaiServiceImpl implements VayLaiService {
 //        }
 //        throw new InternalServerErrorException("Khong co quyen");
 //    }
-
 }

@@ -6,8 +6,11 @@ import com.tindung.jhip.repository.KhachHangRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
+import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.KhachHangDTO;
+import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.KhachHangMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,11 +33,13 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     private final KhachHangMapper khachHangMapper;
     private final CuaHangService cuaHangService;
+    private final NhanVienService nhanVienService;
 
-    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService) {
+    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService, NhanVienService nhanVienService) {
         this.khachHangRepository = khachHangRepository;
         this.khachHangMapper = khachHangMapper;
         this.cuaHangService = cuaHangService;
+        this.nhanVienService = nhanVienService;
     }
 
     /**
@@ -46,6 +51,24 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHangDTO save(KhachHangDTO khachHangDTO) {
         log.debug("Request to save KhachHang : {}", khachHangDTO);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            khachHangDTO.setCuaHangId(idCuaHang);
+
+            KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
+            khachHang = khachHangRepository.saveAndFlush(khachHang);
+
+            return khachHangMapper.toDto(khachHang);
+        }
+
+        throw new InternalError("Khong co quyen them khach hang");
+    }
+
+    @Override
+    public KhachHangDTO saveforAdmin(KhachHangDTO khachHangDTO) {
+        log.debug("Request to save KhachHang : {}", khachHangDTO);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -56,7 +79,7 @@ public class KhachHangServiceImpl implements KhachHangService {
 
             KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
             khachHang = khachHangRepository.saveAndFlush(khachHang);
-            
+
             return khachHangMapper.toDto(khachHang);
         }
 
@@ -71,10 +94,17 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     @Transactional(readOnly = true)
     public List<KhachHangDTO> findAll() {
-        log.debug("Request to get all KhachHangs");
-        return khachHangRepository.findAll().stream()
-                .map(khachHangMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            return khachHangRepository.findAll().stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else {
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
+            return khachHangRepository.findAllByCuaHAng(cuaHangid).stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
     }
 
     /**
@@ -85,10 +115,21 @@ public class KhachHangServiceImpl implements KhachHangService {
      */
     @Override
     @Transactional(readOnly = true)
-    public KhachHangDTO findOne(Long id) {
+    public KhachHangDTO findOne(Long id
+    ) {
         log.debug("Request to get KhachHang : {}", id);
         KhachHang khachHang = khachHangRepository.findOne(id);
-        return khachHangMapper.toDto(khachHang);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+
+            return khachHangMapper.toDto(khachHang);
+        } else {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            if (khachHang.getCuaHang().getId() == idCuaHang) {
+                return khachHangMapper.toDto(khachHang);
+            } else {
+                return null;
+            }
+        }
     }
 
     /**
@@ -97,13 +138,23 @@ public class KhachHangServiceImpl implements KhachHangService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
-        log.debug("Request to delete KhachHang : {}", id);
-        khachHangRepository.delete(id);
+    public void delete(Long id
+    ) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to delete KhachHang : {}", id);
+            NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
+            Long cuaHangId = nhanVien.getCuaHangId();
+            if (findOne(id).getCuaHangId() == cuaHangId) {
+                khachHangRepository.delete(id);
+            }
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
     @Override
-    public List<KhachHangDTO> findByNameOrCMND(String key) {
+    public List<KhachHangDTO> findByNameOrCMND(String key
+    ) {
         log.debug("Request to get all KhachHangs");
         key = new StringBuffer("%").append(key).append("%").toString();
 

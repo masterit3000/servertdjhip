@@ -11,7 +11,7 @@ export const anhTaiSanRoute: Routes = [
         path: 'anh-tai-san',
         component: AnhTaiSanComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.anhTaiSan.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const anhTaiSanRoute: Routes = [
         path: 'anh-tai-san/:id',
         component: AnhTaiSanDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.anhTaiSan.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const anhTaiSanPopupRoute: Routes = [
         path: 'anh-tai-san-new',
         component: AnhTaiSanPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.anhTaiSan.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const anhTaiSanPopupRoute: Routes = [
         path: 'anh-tai-san/:id/edit',
         component: AnhTaiSanPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.anhTaiSan.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const anhTaiSanPopupRoute: Routes = [
         path: 'anh-tai-san/:id/delete',
         component: AnhTaiSanDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.anhTaiSan.home.title'
         },
         canActivate: [UserRouteAccessService],

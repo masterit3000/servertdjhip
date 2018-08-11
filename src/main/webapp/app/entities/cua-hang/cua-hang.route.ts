@@ -14,7 +14,7 @@ export const cuaHangRoute: Routes = [
         path: 'cua-hang',
         component: CuaHangComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.cuaHang.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -23,7 +23,7 @@ export const cuaHangRoute: Routes = [
         path: 'cua-hang/:id',
         component: CuaHangDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.cuaHang.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -33,7 +33,7 @@ export const cuaHangRoute: Routes = [
         path: 'tongQuatChuoiCuaHang',
         component: TongQuatChuoiCuaHangComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.cuaHang.tongQuatChuoiCuaHang'
         },
         canActivate: [UserRouteAccessService]
@@ -42,7 +42,7 @@ export const cuaHangRoute: Routes = [
         path: 'thongTinChiTietCuaHang',
         component: ThongTinChiTietCuaHangComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.cuaHang.thongTinChiTietCuaHang'
         },
         canActivate: [UserRouteAccessService]
@@ -51,7 +51,7 @@ export const cuaHangRoute: Routes = [
         path: 'cauHinhHangHoa',
         component: CauHinhHangHoaComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.cuaHang.cauHinhHangHoa'
         },
         canActivate: [UserRouteAccessService]
@@ -60,7 +60,7 @@ export const cuaHangRoute: Routes = [
         path: 'nhapTienQuyDauNgay',
         component: NhapTienQuyDauNgayComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.cuaHang.nhapTienQuyDauNgay'
         },
         canActivate: [UserRouteAccessService]
@@ -72,7 +72,7 @@ export const cuaHangPopupRoute: Routes = [
         path: 'cua-hang-new',
         component: CuaHangPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.cuaHang.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -82,7 +82,7 @@ export const cuaHangPopupRoute: Routes = [
         path: 'cua-hang/:id/edit',
         component: CuaHangPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_STORE','ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.cuaHang.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -92,7 +92,7 @@ export const cuaHangPopupRoute: Routes = [
         path: 'cua-hang/:id/delete',
         component: CuaHangDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.cuaHang.home.title'
         },
         canActivate: [UserRouteAccessService],

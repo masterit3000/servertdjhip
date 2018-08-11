@@ -11,7 +11,7 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="hopdong-menu">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="hopdong-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-bitcoin" aria-hidden="true"></i>
                         <span>
@@ -35,7 +35,7 @@
                 </ul>
             </li>
             <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="khach-hang" routerLinkActive="active" (click)="collapseNavbar()">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link" routerLink="khach-hang" routerLinkActive="active" (click)="collapseNavbar()">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-vcard-o" aria-hidden="true"></i>
                         <span>
@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="nhan-vien" routerLinkActive="active" (click)="collapseNavbar()">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link" routerLink="nhan-vien" routerLinkActive="active" (click)="collapseNavbar()">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         <span>
@@ -55,7 +55,7 @@
                 </a>
             </li>
             <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="cua-hang" routerLinkActive="active" (click)="collapseNavbar()">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link" routerLink="cua-hang" routerLinkActive="active" (click)="collapseNavbar()">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-bank" aria-hidden="true"></i>
                         <span>
@@ -65,7 +65,7 @@
                 </a>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="thuchi-menu">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="thuchi-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-balance-scale" aria-hidden="true"></i>
                         <span>
@@ -89,7 +89,7 @@
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="nguonvon-menu">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="nguonvon-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-pie-chart" aria-hidden="true"></i>
                         <span>
@@ -113,7 +113,7 @@
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="thongke-menu">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="thongke-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-line-chart" aria-hidden="true"></i>
                         <span>
@@ -137,7 +137,7 @@
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="baocao-menu">
+                <a *jhiHasAnyAuthority="'ROLE_STORE','ROLE_STAFF'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="baocao-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         <span>
@@ -185,7 +185,7 @@
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
+                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span *ngIf="!getImageUrl()">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                         <span>

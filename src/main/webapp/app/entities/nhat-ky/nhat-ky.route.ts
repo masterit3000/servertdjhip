@@ -11,7 +11,7 @@ export const nhatKyRoute: Routes = [
         path: 'nhat-ky',
         component: NhatKyComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const nhatKyRoute: Routes = [
         path: 'nhat-ky/:id',
         component: NhatKyDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const nhatKyPopupRoute: Routes = [
         path: 'nhat-ky-new',
         component: NhatKyPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const nhatKyPopupRoute: Routes = [
         path: 'nhat-ky/:id/edit',
         component: NhatKyPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const nhatKyPopupRoute: Routes = [
         path: 'nhat-ky/:id/delete',
         component: NhatKyDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService],
