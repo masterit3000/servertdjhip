@@ -4,83 +4,65 @@
     <hr>
 
     <div class="row">
-        <div class="offset-md-2 col-md-4">
-            <div class="row">
-                <div class="col-md-2">
-                    <span class="fa fa-bank fa-5x text-primary"></span>
-                </div>
-                <div class="col-md-10" style="font-size:18px">
-                    <div class="row">
-                        <div class="col-md-12">
+        <div class="col-md-6 offset-md-4">
+            <table class="table table-responsive">
+                <tbody>
+                    <tr>
+                        <td rowspan="3">
+                            <span class="fa fa-bank fa-5x text-primary"></span>
+                        </td>
+                        <td>
                             <b>Tên cửa hàng</b>: {{cuaHang.ten}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        </td>
+                        <td rowspan="3">&nbsp;</td>
+                        <td rowspan="3">
+                            <span class="fa fa-cogs fa-5x text-primary"></span>
+                        </td>
+                        <td>
+                            <b>Trạng thái</b>:
+                            <span>{{cuaHang.trangthai}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <span class="fa fa-user text-primary"></span>
                             <b>Quản lý hiện tại</b>: cuaHang.quanLy
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="fa fa-phone text-primary"></span>: {{cuaHang.dienthoai}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top:100px">
-                <div class="col-md-2">
-                    <span class="fa fa-cogs text-primary fa-5x"></span>
-                </div>
-                <div class="col-md-10" style="font-size:18px">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <b>Trạng thái</b>: {{cuaHang.trangthai}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        </td>
+                        <td rowspan="2">
+                            <span class="fa fa-user text-primary"></span>
                             <b>Ngày tạo</b>: {{cuaHang.ngayTao | date:'dd/MM/yyyy'}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="row">
-                <div class="col-md-1">
-                    <span class="fa fa-map-marker fa-3x text-primary"></span>
-                </div>
-                <div class="col-md-11" style="font-size:18px">
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{cuaHang.diachi}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{cuaHang.tenTinh}} - {{cuaHang.tenHuyen}} - {{cuaHang.tenXa}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top:125px">
-                <div class="col-md-2">
-                    <div class="row">
-                        <div class="col-md-12">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="fa fa-phone text-primary"></span>: {{cuaHang.dienthoai}}
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            <span class="fa fa-map-marker fa-5x text-primary"></span>
+                        </td>
+                        <td>
+                            <b>Địa chỉ</b>: {{cuaHang.diachi}}
+                        </td>
+                        <td rowspan="3">&nbsp;</td>
+                        <td rowspan="2">
                             <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12" style="font-size:18px">
-                            <b>Ghi chú</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10" style="font-size:18px">
-                    <span>{{cuaHang.ghiChu}}</span>
-                </div>
-            </div>
+                            <br/>Ghi chú
+                        </td>
+                        <td rowspan="2">
+                            <span>{{cuaHang.ghiChu}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{cuaHang.tenTinh}} - {{cuaHang.tenHuyen}} - {{cuaHang.tenXa}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
