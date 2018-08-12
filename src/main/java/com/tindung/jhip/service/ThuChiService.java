@@ -45,4 +45,6 @@ public interface ThuChiService {
     public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end);
 
     public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi);
+
+    List<ThuChiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi, Long id);
 }

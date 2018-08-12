@@ -3,6 +3,7 @@
     <h2>
         <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
         <span>Báo cáo tiền mặt</span>
+        <p>Nguồn Vốn :{{this.nguonVon}}</p>
 
 
     </h2>
@@ -462,4 +463,62 @@
             </ng-template>
         </p-table>
     </div>
+        <!-- Thu chi -->
+        <div class="table-responsive">
+            <p-table [value]="thuChis" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th colspan="6" class="bg-primary text-white text-center">Thu Chi</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span jhiTranslate="global.field.id">#</span>
+                        </th>
+                        <th>
+                            <span>Ngày</span>
+                        </th>
+                        <th>
+                            <span>Nhân viên</span>
+                        </th>
+                        <th>
+                            <span>Số tiền</span>
+                        </th>
+                        <th>
+                            <span>Nội dung</span>
+                        </th>
+    
+                        <th>
+                            <span>Loại giao dịch</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <!-- Code backend lấy dữ liệu body -->
+                <ng-template pTemplate="body" let-thuChi>
+                    <tr>
+                        <td>{{thuChi.id}}</td>
+                        <td>{{thuChi.thoigian | date:"dd/MM/yyyy"}}</td>
+    
+                        <td>{{thuChi.tenNhanVien}}</td>
+                        <td>{{thuChi.sotien}}</td>
+                        <td>{{thuChi.noidung}}</td>
+                        <td>
+                            <span>{{thuChi.thuchi}}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                            <strong>Tổng</strong>
+                        </td>
+                        <td align="right" style="background-color:#ECECEC">
+                            <span style="color:red">{{tongTienTraGoc}}</span>
+                        </td>
+    
+                        <td></td>
+                    </tr>
+    
+                </ng-template>
+            </p-table>
+        </div>
 </div>

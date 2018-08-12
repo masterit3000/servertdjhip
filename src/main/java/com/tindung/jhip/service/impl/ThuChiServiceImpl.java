@@ -147,5 +147,22 @@ public class ThuChiServiceImpl implements ThuChiService {
         }
         throw new InternalError("Khong cos quyen");
     }
+    @Override
+    public List<ThuChiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi,Long id) {
+
+        log.debug("Request to find ThuChi : {}", start, end);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
+            //kiem tra quyền
+            Long cuahangID = cuaHangService.findIDByUserLogin();//lây  về cửa hang của user hiên tại
+            List<ThuChi> findbyTime = thuChiRepository.baoCao(start, end, thuchi, cuahangID,id);//goi hàm để lây vê thu chi của cửa hang fhienej tauij
+            return findbyTime.stream()
+                    .map(thuChiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));//convert sang DTO và trả vè
+        }
+        throw new InternalError("Khong cos quyen");
+    }
 
 }
