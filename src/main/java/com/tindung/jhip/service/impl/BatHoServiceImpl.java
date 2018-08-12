@@ -484,5 +484,35 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+    @Override
+    public List<BatHoDTO> findByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<BatHo> baoCao = batHoRepository.findByTrangThaiHopDong(trangthai, idCuaHang);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
+    @Override
+    public List<BatHoDTO> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai,Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<BatHo> baoCao = batHoRepository.findByTrangThaiNV(start, end, trangthai, idCuaHang,id);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
 
 }

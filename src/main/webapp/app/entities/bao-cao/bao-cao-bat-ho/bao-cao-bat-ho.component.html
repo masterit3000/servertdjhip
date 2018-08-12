@@ -405,11 +405,11 @@
         </p-table>
     </div>
     <!-- Báo cáo trả gốc -->
-    <div class="table-responsive" style="padding-top: 50px">
-        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+    <div class="table-responsive">
+        <p-table [value]="lichSuDongTienTraGoc" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
-                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo trả gốc vay lãi</th>
+                    <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử trả gốc</th>
                 </tr>
                 <tr>
                     <th>
@@ -434,24 +434,28 @@
                 </tr>
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
-            <!-- <ng-template pTemplate="body" let-vayLai>
+            <ng-template pTemplate="body" let-lichSuDongTien>
                 <tr>
-                    <td>{{vayLai.id}}</td>
-                    <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
-                    <td>{{vayLai.nhanVienTen}}</td>
-                    <td>{{vayLai.khachHangTen}}</td>
-                    <td>{{vayLai.tienvay}}</td>
-                    <td>{{vayLai.hopdongvl.trangthaihopdong}}</td>
+                    <td>{{lichSuDongTien.id}}</td>
+                    <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
+
+                    <td>{{lichSuDongTien.nhanVienTen}}</td>
+                    <td>{{lichSuDongTien.khachHangTen}}</td>
+                    <td>{{lichSuDongTien.sotien}}</td>
+                    <td>
+                        <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                    </td>
                 </tr>
-            </ng-template> -->
+            </ng-template>
             <ng-template pTemplate="footer">
                 <tr>
                     <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
-                        <strong>Tổng tiền </strong>
+                        <strong>Tổng</strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <!-- <span style="color:red">{{tongTienVLs}}</span> -->
+                        <span style="color:red">{{tongTienTraGoc}}</span>
                     </td>
+
                     <td></td>
                 </tr>
 

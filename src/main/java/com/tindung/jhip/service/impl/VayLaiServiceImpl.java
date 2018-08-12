@@ -263,7 +263,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     hopdong.setCuaHangId(idCuaHang);
                 }
                 hopdong.setNgaytao(ZonedDateTime.now());
-                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
+                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
                 hopdong.setMahopdong("them-bot-vl");
                 hopdong = hopDongService.save(hopdong);
                 vayLaiDTO.setHopdongvl(hopdong);
@@ -325,6 +325,15 @@ public class VayLaiServiceImpl implements VayLaiService {
                 lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
+
+                LichSuDongTienDTO lichSuDongTienTraGoc = new LichSuDongTienDTO();
+                lichSuDongTienTraGoc.setHopDongId(vayLai.getHopdongvl().getHopdonggoc().getId());
+                lichSuDongTienTraGoc.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienTraGoc.setNgaybatdau(ZonedDateTime.now());
+                lichSuDongTienTraGoc.setNgayketthuc(ZonedDateTime.now());
+                lichSuDongTienTraGoc.setSotien(tongTienVay);
+                lichSuDongTienTraGoc.setTrangthai(DONGTIEN.TRAGOC);
+                lichSuDongTienService.save(lichSuDongTienTraGoc);
 
                 return vayLaiMapper.toDto(vayLai);
             }
@@ -397,8 +406,8 @@ public class VayLaiServiceImpl implements VayLaiService {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
             Long cuaHangid = cuaHangService.findIDByUserLogin();
-            
-            return vayLaiRepository.findByNameOrCMND(key,cuaHangid).stream()
+
+            return vayLaiRepository.findByNameOrCMND(key, cuaHangid).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
@@ -444,13 +453,14 @@ public class VayLaiServiceImpl implements VayLaiService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
-    public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,Long id) {
+    public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            List<VayLai> baoCao = vayLaiRepository.baocaoNV(start, end, idCuaHang,id);
+            List<VayLai> baoCao = vayLaiRepository.baocaoNV(start, end, idCuaHang, id);
             List<VayLaiDTO> collect = baoCao.stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

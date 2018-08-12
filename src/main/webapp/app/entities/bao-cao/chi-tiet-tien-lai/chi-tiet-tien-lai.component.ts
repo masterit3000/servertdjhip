@@ -40,8 +40,11 @@ export class ChiTietTienLaiComponent implements OnInit {
   tongTienTraBh: number;
   tongTienNoVl: number;
   tongTienTraVl: number;
+  tongTienTienBatHo: number;
+  tongTienLaiBatHo: number;
   vayLai: VayLai;
   vayLais: VayLai[];
+  selectedNhanVien: NhanVien;
   constructor(
     private nhanVienService: NhanVienService,
     private batHoService: BatHoService,
@@ -53,7 +56,11 @@ export class ChiTietTienLaiComponent implements OnInit {
     private eventManager: JhiEventManager,
     private principal: Principal
   ) {
-
+    this.selectedNhanVien = new NhanVien;
+    this.tongTienBHs = 0;
+    this.tongTienVL = 0;
+    this.tongTienTienBatHo = 0;
+    this.tongTienLaiBatHo = 0;
   }
 
   ngOnInit() {
@@ -64,26 +71,55 @@ export class ChiTietTienLaiComponent implements OnInit {
   timKiem() {
     this.tongTienBHs = 0;
     this.tongTienVL = 0;
-    this.batHoService.findByTrangThai(this.tungay, this.denngay,TRANGTHAIHOPDONG.DADONG).subscribe(
-      (res: HttpResponse<BatHo[]>) => {
-        this.batHos = res.body;
-        this.batHos.forEach(element => {
-          this.tongTienBHs += element.tienduakhach;
-        });
+    this.tongTienTienBatHo = 0;
+    this.tongTienLaiBatHo = 0;
+    if (this.selectedNhanVien == 1) {
+      this.batHoService.findByTrangThai(this.tungay, this.denngay, TRANGTHAIHOPDONG.DADONG).subscribe(
+        (res: HttpResponse<BatHo[]>) => {
+          this.batHos = res.body;
+          this.batHos.forEach(element => {
+            this.tongTienBHs += element.tienduakhach;
+            this.tongTienTienBatHo += element.tongtien;
+            this.tongTienLaiBatHo = (this.tongTienTienBatHo-this.tongTienBHs);
+          });
 
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
-      (res: HttpResponse<LichSuDongTien[]>) => {
-        this.lichSuDongTienVLs = res.body;
-        this.lichSuDongTienVLs.forEach(element => {
-          this.tongTienVL = this.tongTienVL + element.sotien;
-          console.log(element.sotien);
-        });
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienVLs = res.body;
+          this.lichSuDongTienVLs.forEach(element => {
+            this.tongTienVL = this.tongTienVL + element.sotien;
+            console.log(element.sotien);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    } else {
+      this.batHoService.findByTrangThaiNV(this.tungay, this.denngay, TRANGTHAIHOPDONG.DADONG, this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<BatHo[]>) => {
+          this.batHos = res.body;
+          this.batHos.forEach(element => {
+            this.tongTienBHs += element.tienduakhach;
+            this.tongTienTienBatHo += element.tongtien;
+            this.tongTienLaiBatHo = (this.tongTienTienBatHo-this.tongTienBHs);
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.lichSuDongTienService.baoCaoNV(DONGTIEN.DADONG, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienVLs = res.body;
+          this.lichSuDongTienVLs.forEach(element => {
+            this.tongTienVL = this.tongTienVL + element.sotien;
+            console.log(element.sotien);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
   }
   loadNhanVien() {
     this.nhanVienService.query().subscribe(
@@ -96,11 +132,13 @@ export class ChiTietTienLaiComponent implements OnInit {
   loadBatHo() {
     this.tungay = new Date();
     this.denngay = new Date();
-    this.batHoService.findByTrangThai(this.tungay, this.denngay,TRANGTHAIHOPDONG.DADONG).subscribe(
+    this.batHoService.findByTrangThai(this.tungay, this.denngay, TRANGTHAIHOPDONG.DADONG).subscribe(
       (res: HttpResponse<BatHo[]>) => {
         this.batHos = res.body;
         this.batHos.forEach(element => {
           this.tongTienBHs += element.tienduakhach;
+          this.tongTienTienBatHo += element.tongtien;
+          this.tongTienLaiBatHo = (this.tongTienTienBatHo-this.tongTienBHs);
         });
 
       },
@@ -114,7 +152,7 @@ export class ChiTietTienLaiComponent implements OnInit {
     this.tungay = new Date();
     this.denngay = new Date();
     console.log(this.tungay);
-    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG,LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+    this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
       (res: HttpResponse<LichSuDongTien[]>) => {
         this.lichSuDongTienVLs = res.body;
         this.lichSuDongTienVLs.forEach(element => {

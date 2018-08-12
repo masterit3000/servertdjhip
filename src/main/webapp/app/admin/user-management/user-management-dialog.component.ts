@@ -17,6 +17,7 @@ export class UserMgmtDialogComponent implements OnInit {
     languages: any[];
     authorities: any[];
     isSaving: Boolean;
+    quyen: any;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -41,6 +42,10 @@ export class UserMgmtDialogComponent implements OnInit {
     }
 
     save() {
+        this.user.authorities = [];
+        this.user.authorities.push(this.quyen);
+        console.log(this.user.authorities);
+        
         this.isSaving = true;
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());

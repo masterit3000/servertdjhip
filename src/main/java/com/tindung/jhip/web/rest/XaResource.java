@@ -25,8 +25,8 @@ import org.springframework.security.access.annotation.Secured;
  */
 @RestController
 @RequestMapping("/api")
-@Secured(AuthoritiesConstants.ADMIN)
-public class XaResource {
+@Secured(AuthoritiesConstants.ADMIN)public class XaResource {
+
 
     private final Logger log = LoggerFactory.getLogger(XaResource.class);
 

@@ -78,14 +78,14 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.dongLai = false;
     }
     dongHopDong() {
-        this.ghiNo.trangthai = NOTRA.TRA;
-        this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
-        this.ghiNo.sotien = this.tienNo - this.tienTra;
-        if (this.ghiNo.sotien > 0) {
-            this.setSoTienLichSuThaoTac('trả nợ', this.ghiNo.sotien, 0)
-            this.subscribeToSaveResponse(
-                this.ghiNoService.create(this.ghiNo));
-        }
+        // this.ghiNo.trangthai = NOTRA.TRA;
+        // this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
+        // this.ghiNo.sotien = this.tienNo - this.tienTra;
+        // if (this.ghiNo.sotien > 0) {
+        //     this.setSoTienLichSuThaoTac('trả nợ', this.ghiNo.sotien, 0)
+        //     this.subscribeToSaveResponse(
+        //         this.ghiNoService.create(this.ghiNo));
+        // }
         this.lichSuDongTienService.dongHopDong(this.vayLai.hopdongvl.id)
             .subscribe((response) => {
                 this.eventManager.broadcast({

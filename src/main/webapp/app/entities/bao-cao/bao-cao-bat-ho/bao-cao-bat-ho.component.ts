@@ -24,6 +24,8 @@ export class BaoCaoBatHoComponent implements OnInit {
   hopDong: HopDong;
   lichSuDongTienVLs: LichSuDongTien[];
   lichSuDongTienBHs: LichSuDongTien[];
+  lichSuDongTienTraGoc: LichSuDongTien[];
+
   lichSuDongTien: LichSuDongTien;
   currentAccount: any;
   eventSubscriber: Subscription;
@@ -44,6 +46,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   vayLai: VayLai;
   vayLais: VayLai[];
   selectedNhanVien: NhanVien;
+  tongTienTraGoc: number;
 
 
 
@@ -68,6 +71,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
+    this.tongTienTraGoc = 0;
     this.selectedNhanVien = new NhanVien;
 
   }
@@ -80,6 +84,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.loadLichGhiNoTienVL();
     this.loadBatHo();
     this.loadVayLai();
+    this.loadLichSuDongTienTraGoc();
     this.principal.identity().then(account => {
       this.currentAccount = account;
     });
@@ -94,6 +99,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
+    this.tongTienTraGoc = 0;
     if (this.selectedNhanVien == 1) {
       console.log(this.denngay);
       this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
@@ -166,6 +172,17 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+        this.lichSuDongTienService.baoCao(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+          (res: HttpResponse<LichSuDongTien[]>) => {
+            this.lichSuDongTienTraGoc = res.body;
+            this.lichSuDongTienTraGoc.forEach(element => {
+              this.tongTienTraGoc += element.sotien;
+            });
+    
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      
     } else {
       this.lichSuDongTienService.baoCaoNV(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<LichSuDongTien[]>) => {
@@ -207,6 +224,17 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+      this.lichSuDongTienService.baoCaoNV(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienTraGoc = res.body;
+          this.lichSuDongTienTraGoc.forEach(element => {
+            this.tongTienTraGoc += element.sotien;
+          });
+  
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    
       this.ghiNoService.baoCaoNV(LOAIHOPDONG.BATHO, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<GhiNo[]>) => {
           this.ghiNoBHs = res.body;
@@ -359,6 +387,21 @@ export class BaoCaoBatHoComponent implements OnInit {
   }
   private onError(error) {
     this.jhiAlertService.error(error.message, null, null);
+  }
+  loadLichSuDongTienTraGoc() {
+    this.tungay = new Date();
+    this.denngay = new Date();
+    console.log(this.tungay);
+    this.lichSuDongTienService.baoCao(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+      (res: HttpResponse<LichSuDongTien[]>) => {
+        this.lichSuDongTienTraGoc = res.body;
+        this.lichSuDongTienTraGoc.forEach(element => {
+          this.tongTienTraGoc += element.sotien;
+        });
+
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
 }

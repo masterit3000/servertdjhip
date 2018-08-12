@@ -73,9 +73,8 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final UserService userService;
-    
-//    private final NhanVienService nhanVienService;
 
+//    private final NhanVienService nhanVienService;
     private final MailService mailService;
 
     public UserResource(UserRepository userRepository, UserService userService, MailService mailService) {
@@ -122,17 +121,15 @@ public class UserResource {
             authoritys.add(new Authority(AuthoritiesConstants.STOREADMIN));
 //            authoritys.add(new Authority(AuthoritiesConstants.STAFFADMIN));
 
-            if (user.getAuthorities().containsAll(authoritys)) {
-                
-                
-                User newUser = userService.createUser(userDTO);
+//            if (user.getAuthorities().containsAll(authoritys)) {
+            User newUser = userService.createUser(userDTO);
 //            mailService.sendCreationEmail(newUser);
-                return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-                        .headers(HeaderUtil.createAlert("userManagement.created", newUser.getLogin()))
-                        .body(newUser);
-            } else {
-                throw new BadRequestAlertException("Khong co quyen", "userManagement", "idexists");
-            }
+            return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
+                    .headers(HeaderUtil.createAlert("userManagement.created", newUser.getLogin()))
+                    .body(newUser);
+//            } else {
+//                throw new BadRequestAlertException("Khong co quyen", "userManagement", "idexists");
+//            }
         }
     }
 
@@ -178,6 +175,20 @@ public class UserResource {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET /users : get all users.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and with body all users
+     */
+    @GetMapping("/users/new")
+    @Timed
+    public ResponseEntity<List<UserDTO>> getAllUsersNew() {
+        final List<UserDTO> list = userService.getAllNewUsers();
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     /**

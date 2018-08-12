@@ -6,6 +6,7 @@
                 <span>Nhân viên</span>
             </h2>
         </div>
+        <!-- cua-hang-admin(popup:user-management-new) -->
         <div class="col-md-2">
             <button class="btn btn-primary" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
                 <span class="fa fa-plus"></span>
@@ -15,11 +16,11 @@
             </button>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary pull-right" routerLink="../register" routerLinkActive="active">
+            <button class="btn btn-primary pull-right" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo user mới
-                </span>
+                </span> 
             </button>
         </div>
     </div>
