@@ -163,7 +163,7 @@ public class ThuChiResource {
         return thuChiService.findByTime(timeStart, timeEnd, loai);//goi service chạy
     }
 
-    @GetMapping("/thu-chis/{start}/{end}/{id}")
+    @GetMapping("/thu-chis-bao-cao-nhanvien/{start}/{end}/{id}")
     @Timed
     public List<ThuChiDTO> baoCaoNV(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get all ThuChis");//ghi log thôi
@@ -191,7 +191,7 @@ public class ThuChiResource {
         return thuChiService.baoCao(timeStart, timeEnd, id);//goi service chạy
     }
 
-    @GetMapping("/thu-chis/{start}/{end}")
+    @GetMapping("/thu-chis-bao-cao/{start}/{end}")
     @Timed
     public List<ThuChiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
         log.debug("REST request to get all ThuChis");//ghi log thôi
