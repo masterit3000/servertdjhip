@@ -5,104 +5,85 @@
     <jhi-alert-error></jhi-alert-error>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 offset-md-1">
             <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
         </div>
-        <div class="col-md-4">
-            <div class="row">
-                <div class="col-md-2">
-                    <span class="fa fa-address-card-o fa-5x text-primary"></span>
-                </div>
-                <div class="col-md-10" style="font-size:18px">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <b>Tên khách hàng</b>: {{khachHang.ten}} -
-                            <b>ID</b>: {{khachHang.id}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <b>Số chứng minh thư</b>: {{khachHang.cmnd}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="fa fa-phone text-primary"></span>: {{khachHang.dienthoai}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top:100px">
-                <div class="col-md-2">
-                    <span class="fa fa-share-alt fa-5x text-primary"></span>
-                </div>
-                <div class="col-md-10" style="font-style:18px">
-                    <div class="row">
-                        <div class="col-md-12">
+        <div class="col-md-6 offset-md-1">
+            <table class="table table-responsive">
+                <tbody>
+                    <tr>
+                        <td rowspan="4">
+                            <span class="fa fa-address-card-o fa-5x text-primary"></span>
+                        </td>
+                        <td>
+                            <b>Tên khách hàng</b>: {{khachHang.ten}}
+                        </td>
+                        <td rowspan="4"></td>
+                        <td rowspan="3">
+                            <span class="fa fa-share-alt fa-5x text-primary"></span>
+                        </td>
+                        <td>
                             <span class="fa fa-envelope-o text-primary"></span>: {{khachHang.email}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>ID</b>: {{khachHang.id}}
+                        </td>
+                        <td>
                             <span class="fa fa-facebook-square text-primary"></span>: {{khachHang.facebook}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="fa fa-folder-o text-primary"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Số chứng minh thư</b>: {{khachHang.cmnd}}
+                        </td>
+                        <td>
                             <b>Trạng thái</b>:
                             <span jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="row">
-                <div class="col-md-1">
-                    <span class="fa fa-map-marker fa-3x text-primary"></span>
-                </div>
-                <div class="col-md-11" style="font-size:18px">
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{khachHang.diachi}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{khachHang.tenTinh}} - {{khachHang.tenHuyen}} - {{khachHang.tenXa}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top:125px">
-                <div class="col-md-2">
-                    <div class="row">
-                        <div class="col-md-12">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="fa fa-phone text-primary"></span>: {{khachHang.dienthoai}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            <span class="fa fa-map-marker fa-5x text-primary"></span>
+                        </td>
+                        <td>
+                            <b>Địa chỉ</b>: {{khachHang.diachi}}
+                        </td>
+                        <td rowspan="3">&nbsp;</td>
+                        <td rowspan="2">
                             <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12" style="font-size:18px">
-                            <b>Ghi chú</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10" style="font-size:18px">
-                    <span>{{khachHang.ghiChu}}</span>
-                </div>
-            </div>
+                            <br/>Ghi chú
+                        </td>
+                        <td rowspan="2">
+                            <span>{{khachHang.ghiChu}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{khachHang.tenTinh}} - {{khachHang.tenHuyen}} - {{khachHang.tenXa}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
 
-<button type="submit" (click)="previousState()" class="btn btn-info">
-    <span class="fa fa-arrow-left"></span>&nbsp;
-    <span jhiTranslate="entity.action.back"> Back</span>
-</button>
-<button type="button" [routerLink]="['/', { outlets: { popup: 'khach-hang/'+ khachHang.id + '/edit'} }]" replaceUrl="true"
-    queryParamsHandling="merge" class="btn btn-primary">
-    <span class="fa fa-pencil"></span>&nbsp;
-    <span jhiTranslate="entity.action.edit"> Edit</span>
-</button>
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;
+        <span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'khach-hang/'+ khachHang.id + '/edit'} }]" replaceUrl="true"
+        queryParamsHandling="merge" class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;
+        <span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
 </div>
