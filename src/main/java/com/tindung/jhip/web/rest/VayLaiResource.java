@@ -123,6 +123,13 @@ public class VayLaiResource {
         return vayLaiService.findAll();
     }
 
+    @GetMapping("/vay-lais-by-cuaHang/{id}")
+    @Timed
+    public List<VayLaiDTO> getAllVayLaiByCuaHang(@PathVariable(name = "id")Long id) {
+        log.debug("REST request to get all VayLais");
+        return vayLaiService.findAllByCuaHang(id);
+    }
+
     @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}")
     @Timed
     public List<VayLaiDTO> timVayLaisByTenCMND(@PathVariable(name = "key") String key) {
@@ -167,14 +174,14 @@ public class VayLaiResource {
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return vayLaiService.baoCao(timeStart, timeEnd);
     }
+
     @GetMapping("/bao-cao-vay-lais-nhanvien/{start}/{end}/{id}")
     @Timed
-    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable(name = "id") Long id) {
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-        return vayLaiService.baoCao(timeStart, timeEnd,id);
+        return vayLaiService.baoCao(timeStart, timeEnd, id);
     }
-
 
 }

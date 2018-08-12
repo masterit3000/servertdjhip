@@ -19,6 +19,7 @@ export class CuaHangAdminComponent implements OnInit, OnDestroy {
     none: any;
     cuaHang: CuaHang;
     cuahangs: CuaHang[];
+    keyTimCuaHang:any;
 
     constructor(
         private cuaHangService: CuaHangService,
@@ -75,5 +76,15 @@ export class CuaHangAdminComponent implements OnInit, OnDestroy {
             }
         }
         return filtered;
+    }
+    timCuaHang() {
+        this.cuaHangService
+            .findCuaHang(this.keyTimCuaHang)
+            .subscribe(
+                (res: HttpResponse<CuaHang[]>) => {
+                    this.cuaHangs = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

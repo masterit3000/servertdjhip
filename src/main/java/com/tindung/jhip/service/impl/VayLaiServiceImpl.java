@@ -381,6 +381,24 @@ public class VayLaiServiceImpl implements VayLaiService {
 //                .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<VayLaiDTO> findAllByCuaHang(Long id) {
+        log.debug("Request to get all VayLais");
+//        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByCuaHang(id).stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        } else {
+            throw new InternalServerErrorException("Khong co quyen");
+        }
+//        return vayLaiRepository.findAll().stream()
+//                .map(vayLaiMapper::toDto)
+//                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
     /**
      * Get one vayLai by id.
      *
@@ -411,8 +429,15 @@ public class VayLaiServiceImpl implements VayLaiService {
     @Override
     public List<VayLaiDTO> findByNameOrCMND(String key
     ) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
+
+            return vayLaiRepository.findByNameOrCMNDAdmin(key).stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();

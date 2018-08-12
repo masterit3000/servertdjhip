@@ -190,7 +190,7 @@ public class BatHoResource {
     //Tùng viết
     @GetMapping("/bat-hos-by-cua-hang/{id}")
     @Timed
-    public List<BatHoDTO> getBatHoByCuaHangId(@PathVariable Long cuaHangId) {
+    public List<BatHoDTO> getBatHoByCuaHangId(@PathVariable(name = "id") Long cuaHangId) {
         log.debug("REST request to get BatHo by CuaHangId: {}", cuaHangId);
         return batHoService.findByCuaHangId(cuaHangId);
     }

@@ -24,15 +24,15 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CuaHangServiceImpl implements CuaHangService {
-
+    
     private final Logger log = LoggerFactory.getLogger(CuaHangServiceImpl.class);
-
+    
     private final CuaHangRepository cuaHangRepository;
-
+    
     private final CuaHangMapper cuaHangMapper;
-
+    
     private final NhanVienService nhanVienService;
-
+    
     public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService) {
         this.cuaHangRepository = cuaHangRepository;
         this.cuaHangMapper = cuaHangMapper;
@@ -67,6 +67,15 @@ public class CuaHangServiceImpl implements CuaHangService {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<CuaHangDTO> findByName(String key) {
+        log.debug("Request to get all CuaHangs");
+        return cuaHangRepository.findByName(key).stream()
+                .map(cuaHangMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
     /**
      * Get one cuaHang by id.
      *
@@ -91,13 +100,13 @@ public class CuaHangServiceImpl implements CuaHangService {
         log.debug("Request to delete CuaHang : {}", id);
         cuaHangRepository.delete(id);
     }
-
+    
     @Override
     public CuaHangDTO findByUserLogin() {
-
+        
         return findOne(findIDByUserLogin());
     }
-
+    
     @Override
     public Long findIDByUserLogin() {
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));

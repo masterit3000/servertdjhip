@@ -13,12 +13,13 @@ export class VayLaiService {
 
     private resourceUrl = SERVER_API_URL + 'api/vay-lais';
     private lichSuDongTien = 'lichsudongtien';
-    private resourceUrlTimVayLai = SERVER_API_URL +'api/tim-vay-lais-by-ten-cmnd';
+    private resourceUrlTimVayLai = SERVER_API_URL + 'api/tim-vay-lais-by-ten-cmnd';
     private lichSuThaoTacHopDong = 'lichsuthaotac';
-    private thembotvaylai =SERVER_API_URL + 'api/them-bot-vay-lais';
+    private thembotvaylai = SERVER_API_URL + 'api/them-bot-vay-lais';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-vay-lais';
     private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-vay-lais-nhanvien';
- 
+    private findByCuaHangUrl = SERVER_API_URL + 'api/vay-lais-by-cuaHang';
+
     constructor(private http: HttpClient) { }
 
     create(vayLai: VayLai): Observable<EntityResponseType> {
@@ -26,8 +27,8 @@ export class VayLaiService {
         return this.http.post<VayLai>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
-    
-    themBotVayLai(vayLai: VayLai,id:number): Observable<EntityResponseType> {
+
+    themBotVayLai(vayLai: VayLai, id: number): Observable<EntityResponseType> {
         const copy = this.convert(vayLai);
         return this.http.post<VayLai>(`${this.thembotvaylai}/${id}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
@@ -47,6 +48,10 @@ export class VayLaiService {
     query(req?: any): Observable<HttpResponse<VayLai[]>> {
         const options = createRequestOption(req);
         return this.http.get<VayLai[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
+    }
+    getAllByCuaHang(id?: number): Observable<HttpResponse<VayLai[]>> {
+        return this.http.get<VayLai[]>(`${this.findByCuaHangUrl}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
     delete(id: number): Observable<HttpResponse<any>> {
@@ -95,13 +100,13 @@ export class VayLaiService {
     baoCao(start: Date, end: Date): Observable<HttpResponse<VayLai[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<VayLai[]>(`${this.baocaoUrl}/${startd}/${endd}`, {observe: 'response' })
+        return this.http.get<VayLai[]>(`${this.baocaoUrl}/${startd}/${endd}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
-    baoCaoNV(start: Date, end: Date,id: number): Observable<HttpResponse<VayLai[]>> {
+    baoCaoNV(start: Date, end: Date, id: number): Observable<HttpResponse<VayLai[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<VayLai[]>(`${this.baocaoNVUrl}/${startd}/${endd}/${id}`, {observe: 'response' })
+        return this.http.get<VayLai[]>(`${this.baocaoNVUrl}/${startd}/${endd}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
     private convertDateToString(d: Date): String {

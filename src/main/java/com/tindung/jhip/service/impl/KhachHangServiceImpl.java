@@ -107,6 +107,18 @@ public class KhachHangServiceImpl implements KhachHangService {
         }
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<KhachHangDTO> findAllByCuaHang(Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            return khachHangRepository.findAllByCuaHAng(id).stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
+
     /**
      * Get one khachHang by id.
      *
@@ -155,11 +167,23 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public List<KhachHangDTO> findByNameOrCMND(String key
     ) {
-        log.debug("Request to get all KhachHangs");
-        key = new StringBuffer("%").append(key).append("%").toString();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
 
-        return khachHangRepository.findByNameOrCMND(key).stream()
-                .map(khachHangMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+            return khachHangRepository.findByNameOrCMND(key).stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+            NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
+            Long cuaHangId = nhanVien.getCuaHangId();
+            return khachHangRepository.findByNameOrCMNDAdmin(key, cuaHangId).stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 }
