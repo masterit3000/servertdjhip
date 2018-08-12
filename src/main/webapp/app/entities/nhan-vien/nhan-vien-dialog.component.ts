@@ -23,6 +23,7 @@ export class NhanVienDialogComponent implements OnInit {
 
     nhanVien: NhanVien;
     isSaving: boolean;
+    cuahang: CuaHang;
     cuahangs: CuaHang[];
     users: User[];
     filteredXas: Xa[];

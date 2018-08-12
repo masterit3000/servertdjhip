@@ -56,7 +56,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         NhanVien nhanVien = nhanVienMapper.toEntity(nhanVienDTO);
         nhanVien = nhanVienRepository.save(nhanVien);
         User user = nhanVien.getUser();
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + user.getId());
+//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + user.getId());
         if (user != null) {
 //            System.out.println(findOne);
             User findOne = userRepository.findOne(user.getId());

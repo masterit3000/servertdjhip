@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -32,24 +33,24 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserService {
-    
+
     private final Logger log = LoggerFactory.getLogger(UserService.class);
-    
+
     private final UserRepository userRepository;
-    
+
     private final PasswordEncoder passwordEncoder;
-    
+
     private final AuthorityRepository authorityRepository;
-    
+
     private final CacheManager cacheManager;
-    
+
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
     }
-    
+
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return userRepository.findOneByActivationKey(key)
@@ -63,10 +64,10 @@ public class UserService {
                     return user;
                 });
     }
-    
+
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
-        
+
         return userRepository.findOneByResetKey(key)
                 .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400)))
                 .map(user -> {
@@ -78,7 +79,7 @@ public class UserService {
                     return user;
                 });
     }
-    
+
     public Optional<User> requestPasswordReset(String mail) {
         return userRepository.findOneByEmailIgnoreCase(mail)
                 .filter(User::getActivated)
@@ -90,9 +91,9 @@ public class UserService {
                     return user;
                 });
     }
-    
+
     public User registerUser(UserDTO userDTO, String password) {
-        
+
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();
@@ -117,7 +118,7 @@ public class UserService {
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
-    
+
     public User createUser(UserDTO userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin());
@@ -125,7 +126,7 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
-        
+
         if (userDTO.getLangKey() == null) {
             user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
         } else {
@@ -203,7 +204,7 @@ public class UserService {
                 })
                 .map(UserDTO::new);
     }
-    
+
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
@@ -212,7 +213,7 @@ public class UserService {
             log.debug("Deleted User: {}", user);
         });
     }
-    
+
     public void changePassword(String password) {
         SecurityUtils.getCurrentUserLogin()
                 .flatMap(userRepository::findOneByLogin)
@@ -224,22 +225,22 @@ public class UserService {
                     log.debug("Changed password for User: {}", user);
                 });
     }
-    
+
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
-    
+
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }
-    
+
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities(Long id) {
         return userRepository.findOneWithAuthoritiesById(id);
     }
-    
+
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
@@ -265,11 +266,14 @@ public class UserService {
      * @return a list of all the authorities
      */
     public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+        }
+        return authorityRepository.findAll().stream().filter((Authority t) -> !t.getName().equals(AuthoritiesConstants.ADMIN)).map(Authority::getName).collect(Collectors.toList());
     }
-    
+
     public List<UserDTO> getAllNewUsers() {
-        return userRepository.findAllByNewsUser().stream().map(UserDTO::new).collect(Collectors.toCollection(LinkedList::new));        
+        return userRepository.findAllByNewsUser().stream().map(UserDTO::new).collect(Collectors.toCollection(LinkedList::new));
     }
-    
+
 }
