@@ -66,7 +66,7 @@ public class CuaHangServiceImpl implements CuaHangService {
                 .map(cuaHangMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
-
+    
     @Override
     @Transactional(readOnly = true)
     public List<CuaHangDTO> findByName(String key) {
