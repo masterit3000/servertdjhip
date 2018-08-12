@@ -25,7 +25,11 @@ import com.tindung.jhip.service.mapper.BatHoMapper;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.THUCHI;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
+import com.tindung.jhip.repository.GhiNoRepository;
+import com.tindung.jhip.repository.ThuChiRepository;
+import com.tindung.jhip.repository.VayLaiRepository;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
@@ -49,26 +53,29 @@ public class BatHoServiceImpl implements BatHoService {
     private final BatHoMapper batHoMapper;
     private final BatHoRepository batHoRepository;
     private final HopDongService hopDongService;
-
+    private final VayLaiRepository vayLaiRepository;
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
     private final LichSuDongTienService lichSuDongTienService;
     private final LichSuDongTienRepository lichSuDongTienRepository;
     private final LichSuDongTienMapper lichSuDongTienMapper;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
-    private final GhiNoService ghiNoService;
+    private final GhiNoRepository ghiNoRepository;
+    private final ThuChiRepository thuChiRepository;
 
-    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoService ghiNoService) {
+    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, VayLaiRepository vayLaiRepository, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
         this.batHoMapper = batHoMapper;
         this.batHoRepository = batHoRepository;
         this.hopDongService = hopDongService;
+        this.vayLaiRepository = vayLaiRepository;
         this.nhanVienService = nhanVienService;
         this.cuaHangService = cuaHangService;
         this.lichSuDongTienService = lichSuDongTienService;
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
-        this.ghiNoService = ghiNoService;
+        this.ghiNoRepository = ghiNoRepository;
+        this.thuChiRepository = thuChiRepository;
     }
 
     /**
@@ -389,7 +396,7 @@ public class BatHoServiceImpl implements BatHoService {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
             Long idcuaHang = cuaHangService.findIDByUserLogin();
-            return batHoRepository.findByNameOrCMND(key,idcuaHang).stream()
+            return batHoRepository.findByNameOrCMND(key, idcuaHang).stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
@@ -453,6 +460,7 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
     public List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
@@ -484,6 +492,7 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
     public List<BatHoDTO> findByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
@@ -499,13 +508,14 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
-    public List<BatHoDTO> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai,Long id) {
+    public List<BatHoDTO> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai, Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            List<BatHo> baoCao = batHoRepository.findByTrangThaiNV(start, end, trangthai, idCuaHang,id);
+            List<BatHo> baoCao = batHoRepository.findByTrangThaiNV(start, end, trangthai, idCuaHang, id);
             List<BatHoDTO> collect = baoCao.stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -515,4 +525,30 @@ public class BatHoServiceImpl implements BatHoService {
         throw new InternalServerErrorException("Khong co quyen");
     }
 
+    @Override
+    public Double quanLyVon() {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            
+            Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
+            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;
+            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);;
+            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);;
+            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang).orElse(0d);;
+            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);;
+            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);;
+            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);;
+            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);;
+            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);;
+
+            Double nguonvon  = 0d; 
+            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
+            return nguonvon;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
+    
+
+    
 }

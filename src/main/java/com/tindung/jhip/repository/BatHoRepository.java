@@ -47,4 +47,6 @@ public interface BatHoRepository extends JpaRepository<BatHo, Long> {
     @Query(value = "select b from BatHo b  inner join b.hopdongbh h inner join h.cuaHang c inner join h.nhanVien n  where h.ngaytao between  ?1 and ?2 and h.trangthaihopdong = ?3 and c.id=?4 and n.id = ?5")
     public List<BatHo> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai, Long cuaHangid, Long nhanVienId);
 
+    @Query(value = "select sum(b.tienduakhach) from BatHo b inner join b.hopdongbh h inner join h.cuaHang c where c.id =:idcuahang")
+    Optional<Double> tienDuaKhach(@Param(value = "idcuahang") Long cuaHangId);
 }

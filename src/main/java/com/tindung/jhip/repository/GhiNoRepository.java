@@ -5,6 +5,7 @@ import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.NOTRA;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -25,4 +26,7 @@ public interface GhiNoRepository extends JpaRepository<GhiNo, Long> {
 
     @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.nhanVien n where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 and n.id = ?4 ")
     List<GhiNo> baocaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
+
+    @Query(value = "select sum(l.sotien) from GhiNo l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai =?1")
+    Optional<Double> tienNo(NOTRA trangthai, Long idcuaHang);
 }

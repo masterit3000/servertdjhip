@@ -5,6 +5,7 @@ import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -28,5 +29,8 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
 
     @Query(value = "select case when count(l) >0 then true else false end from LichSuDongTien l inner join l.hopDong h where h.id =:idhopdong and l.ngayketthuc < now() ")
     boolean kiemtra(@Param(value = "idhopdong") long idhopdong);
+
+    @Query(value = "select sum(l.sotien) from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai= ?1")
+    Optional<Double> lichSuDongTien(DONGTIEN trangthai, Long idcuahang);
 
 }
