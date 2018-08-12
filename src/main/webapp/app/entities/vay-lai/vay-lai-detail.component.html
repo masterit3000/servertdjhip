@@ -3,7 +3,6 @@
         <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-
     <div class="row">
         <div class="col-md-4">
             <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
@@ -210,22 +209,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <h3>Danh sách tiền gốc</h3>
-                    <hr/>
-                    <br />
-                    <p-table [value]="danhSachTienGocs" [paginator]="true" [rows]="5" dataKey="id">
-                        <ng-template pTemplate="header">
-                            <th>Ngày</th>
-                            <th>Nhân viên</th>
-                            <th>Nội dung</th>
-                            <th>Số tiền</th>
-                        </ng-template>
-                        <ng-template pTemplate="body">
-
-                        </ng-template>
-                    </p-table>
-                </div>
             </div>
         </p-tabPanel>
         <p-tabPanel header="Vay thêm">
@@ -264,22 +247,6 @@
                             </span>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <h3>Danh sách tiền gốc</h3>
-                    <hr/>
-                    <br />
-                    <p-table [value]="danhSachTienGocs" [paginator]="true" [rows]="5" dataKey="id">
-                        <ng-template pTemplate="header">
-                            <th>Ngày</th>
-                            <th>Nhân viên</th>
-                            <th>Nội dung</th>
-                            <th>Số tiền</th>
-                        </ng-template>
-                        <ng-template pTemplate="body">
-
-                        </ng-template>
-                    </p-table>
                 </div>
             </div>
         </p-tabPanel>
@@ -321,20 +288,6 @@
                                 Đồng ý</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-7">
-                    <p-table [value]="lichSuGiaHans" [paginator]="true" [rows]="8" dataKey="id">
-                        <ng-template pTemplate="header">
-                            <th>STT</th>
-                            <th>Gia hạn từ ngày</th>
-                            <th>Đến ngày</th>
-                            <th>Số ngày</th>
-                            <th>Nội dung</th>
-                        </ng-template>
-                        <ng-template pTemplate="body">
-
-                        </ng-template>
-                    </p-table>
                 </div>
             </div>
         </p-tabPanel>
