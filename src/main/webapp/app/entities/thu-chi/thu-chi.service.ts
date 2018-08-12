@@ -14,6 +14,8 @@ export type EntityResponseType = HttpResponse<ThuChi>;
 export class ThuChiService {
 
     private resourceUrl = SERVER_API_URL + 'api/thu-chis';
+    private baoCaoUrl = SERVER_API_URL + 'api/thu-chis-bao-cao';
+    private baoCaoNVUrl = SERVER_API_URL + 'api/thu-chis-bao-cao-nhanvien';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
     private thuchi='loai';
     create(thuChi: ThuChi): Observable<EntityResponseType> {
@@ -40,6 +42,24 @@ export class ThuChiService {
         let startd = this.convertDateToString(start);
 
         return this.http.get<ThuChi[]>(`${this.resourceUrl}/${startd}/${endd}/${loaithuchi}`, { observe: 'response' })
+            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+    }
+    baoCaoNV(start: Date, end: Date, id:number): Observable<HttpResponse<ThuChi[]>> {
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, "dd.MM.yyy");
+        // let endd = this.dateUtils.convertLocalDateToServer(end, "dd.MM.yyy");
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+
+        return this.http.get<ThuChi[]>(`${this.baoCaoNVUrl}/${startd}/${endd}/${id}`, { observe: 'response' })
+            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+    }
+    baoCao(start: Date, end: Date): Observable<HttpResponse<ThuChi[]>> {
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, "dd.MM.yyy");
+        // let endd = this.dateUtils.convertLocalDateToServer(end, "dd.MM.yyy");
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+
+        return this.http.get<ThuChi[]>(`${this.baoCaoUrl}/${startd}/${endd}`, { observe: 'response' })
             .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
     }
 

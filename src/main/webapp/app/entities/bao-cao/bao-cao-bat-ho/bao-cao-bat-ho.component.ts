@@ -11,6 +11,8 @@ import { LichSuDongTien, DONGTIEN } from '../../lich-su-dong-tien/lich-su-dong-t
 import { LichSuDongTienService } from '../../lich-su-dong-tien/lich-su-dong-tien.service';
 import { Principal } from '../../../shared';
 import { GhiNo, GhiNoService } from '../../ghi-no';
+import { ThuChiService, ThuChi, THUCHI } from '../../thu-chi';
+
 @Component({
   selector: 'jhi-bao-cao-bat-ho',
   templateUrl: './bao-cao-bat-ho.component.html',
@@ -35,6 +37,9 @@ export class BaoCaoBatHoComponent implements OnInit {
   ghiNoVLs: GhiNo[];
   ghiNoBHs: GhiNo[];
   ghiNo: GhiNo;
+  thuChi: ThuChi;
+  thuChis: ThuChi[];
+
   tongTienBH: number;
   tongTienVL: number;
   tongTienBHs: number;
@@ -43,11 +48,15 @@ export class BaoCaoBatHoComponent implements OnInit {
   tongTienTraBh: number;
   tongTienNoVl: number;
   tongTienTraVl: number;
+  tienThu: number;
+  tienChi: number;
+  tienGopVon: number;
+  tienRutVon: number;
   vayLai: VayLai;
   vayLais: VayLai[];
   selectedNhanVien: NhanVien;
   tongTienTraGoc: number;
-
+  nguonVon: string;
 
 
   constructor(
@@ -57,6 +66,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     private hopDongService: HopDongService,
     private lichSuDongTienService: LichSuDongTienService,
     private ghiNoService: GhiNoService,
+    private thuChiService: ThuChiService,
     private jhiAlertService: JhiAlertService,
     private eventManager: JhiEventManager,
     private principal: Principal
@@ -72,11 +82,18 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     this.tongTienTraGoc = 0;
+    this.tienChi = 0;
+    this.tienThu = 0;
+    this.tienGopVon = 0;
+    this.tienRutVon = 0;
+
+
     this.selectedNhanVien = new NhanVien;
 
   }
 
   ngOnInit() {
+    this.loadTienVon();
     this.loadNhanVien();
     this.loadLichSuDongTienBH();
     this.loadLichSuDongTienVL();
@@ -84,6 +101,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.loadLichGhiNoTienVL();
     this.loadBatHo();
     this.loadVayLai();
+    this.loadThuChi();
     this.loadLichSuDongTienTraGoc();
     this.principal.identity().then(account => {
       this.currentAccount = account;
@@ -100,6 +118,10 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     this.tongTienTraGoc = 0;
+    this.tienChi = 0;
+    this.tienThu = 0;
+    this.tienGopVon = 0;
+    this.tienRutVon = 0;
     if (this.selectedNhanVien == 1) {
       console.log(this.denngay);
       this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
@@ -172,17 +194,36 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-        this.lichSuDongTienService.baoCao(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
-          (res: HttpResponse<LichSuDongTien[]>) => {
-            this.lichSuDongTienTraGoc = res.body;
-            this.lichSuDongTienTraGoc.forEach(element => {
-              this.tongTienTraGoc += element.sotien;
-            });
-    
-          },
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-      
+      this.lichSuDongTienService.baoCao(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.lichSuDongTienTraGoc = res.body;
+          this.lichSuDongTienTraGoc.forEach(element => {
+            this.tongTienTraGoc += element.sotien;
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.thuChiService.baoCao(this.tungay, this.denngay).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.thuChis = res.body;
+          this.thuChis.forEach(element => {
+            if (element.thuchi.toString() == 'THU') {
+              this.tienThu += element.sotien;
+            } else if (element.thuchi.toString() == 'CHI') {
+              this.tienChi += element.sotien;
+            } else if (element.thuchi.toString() == 'GOPVON') {
+              this.tienGopVon += element.sotien;
+            } else if (element.thuchi.toString() == 'RUTVON') {
+              this.tienRutVon += element.sotien;
+            }
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+
+
     } else {
       this.lichSuDongTienService.baoCaoNV(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<LichSuDongTien[]>) => {
@@ -214,7 +255,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.vayLaiService.baoCaoNV(this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+      this.vayLaiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<VayLai[]>) => {
           this.vayLais = res.body;
           this.vayLais.forEach(element => {
@@ -224,18 +265,18 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.lichSuDongTienService.baoCaoNV(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+      this.lichSuDongTienService.baoCaoNV(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<LichSuDongTien[]>) => {
           this.lichSuDongTienTraGoc = res.body;
           this.lichSuDongTienTraGoc.forEach(element => {
             this.tongTienTraGoc += element.sotien;
           });
-  
+
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    
-      this.ghiNoService.baoCaoNV(LOAIHOPDONG.BATHO, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+
+      this.ghiNoService.baoCaoNV(LOAIHOPDONG.BATHO, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<GhiNo[]>) => {
           this.ghiNoBHs = res.body;
           this.ghiNoBHs.forEach(element => {
@@ -250,7 +291,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.ghiNoService.baoCaoNV(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay,this.selectedNhanVien.id).subscribe(
+      this.ghiNoService.baoCaoNV(LOAIHOPDONG.VAYLAI, this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
         (res: HttpResponse<GhiNo[]>) => {
           this.ghiNoVLs = res.body;
           this.ghiNoVLs.forEach(element => {
@@ -265,8 +306,28 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+      this.thuChiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
+        (res: HttpResponse<LichSuDongTien[]>) => {
+          this.thuChis = res.body;
+          this.thuChis.forEach(element => {
+            if (element.thuchi.toString() == 'THU') {
+              this.tienThu += element.sotien;
+            } else if (element.thuchi.toString() == 'CHI') {
+              this.tienChi += element.sotien;
+            } else if (element.thuchi.toString() == 'GOPVON') {
+              this.tienGopVon += element.sotien;
+            } else if (element.thuchi.toString() == 'RUTVON') {
+              this.tienRutVon += element.sotien;
+            }
+          });
+
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
 
     }
+
+
   }
   registerChangeInHopDongs() {
     this.eventSubscriber = this.eventManager.subscribe(
@@ -397,6 +458,38 @@ export class BaoCaoBatHoComponent implements OnInit {
         this.lichSuDongTienTraGoc = res.body;
         this.lichSuDongTienTraGoc.forEach(element => {
           this.tongTienTraGoc += element.sotien;
+        });
+
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+  loadTienVon() {
+    this.batHoService.quanLyVon().subscribe(
+      (res: HttpResponse<string>) => {
+        this.nguonVon = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  loadThuChi() {
+    this.tungay = new Date();
+    this.denngay = new Date();
+    console.log(this.tungay);
+    this.thuChiService.baoCao(this.tungay, this.denngay).subscribe(
+      (res: HttpResponse<LichSuDongTien[]>) => {
+        this.thuChis = res.body;
+        this.thuChis.forEach(element => {
+          if (element.thuchi.toString() == 'THU') {
+            this.tienThu += element.sotien;
+          } else if (element.thuchi.toString() == 'CHI') {
+            this.tienChi += element.sotien;
+          } else if (element.thuchi.toString() == 'GOPVON') {
+            this.tienGopVon += element.sotien;
+          } else if (element.thuchi.toString() == 'RUTVON') {
+            this.tienRutVon += element.sotien;
+          }
         });
 
       },
