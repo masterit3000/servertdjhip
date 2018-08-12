@@ -125,12 +125,7 @@ public class UserResource {
 
 //            if (user.getAuthorities().containsAll(authoritys)) {
             if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
-                userDTO.getAuthorities().stream().filter(new Predicate<String>() {
-                    @Override
-                    public boolean test(String t) {
-                        return t.equals(AuthoritiesConstants.ADMIN);
-                    }
-                }).forEach(new Consumer<String>() {
+                userDTO.getAuthorities().stream().filter((String t) -> t.equals(AuthoritiesConstants.ADMIN)).forEach(new Consumer<String>() {
                     @Override
                     public void accept(String t) {
                         userDTO.getAuthorities().remove(t);
