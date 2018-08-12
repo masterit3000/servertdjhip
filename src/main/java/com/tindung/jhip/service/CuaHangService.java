@@ -51,4 +51,6 @@ public interface CuaHangService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    List<CuaHangDTO> findByName(String key);
 }

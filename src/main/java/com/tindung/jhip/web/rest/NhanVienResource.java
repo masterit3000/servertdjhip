@@ -129,6 +129,12 @@ public class NhanVienResource {
         log.debug("REST request to get all NhanViens");
         return nhanVienService.findAll();
     }
+    @GetMapping("/nhan-viens-by-cuahang/{id}")
+    @Timed
+    public List<NhanVienDTO> getAllNhanViensByCuaHang(@PathVariable Long id) {
+        log.debug("REST request to get all NhanViens");
+        return nhanVienService.findAllByCuaHang(id);
+    }
 
     /**
      * GET /nhan-viens/:id : get the "id" nhanVien.

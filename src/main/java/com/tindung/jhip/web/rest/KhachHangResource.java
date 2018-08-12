@@ -94,6 +94,12 @@ public class KhachHangResource {
         log.debug("REST request to get all KhachHangs");
         return khachHangService.findAll();
     }
+    @GetMapping("/khach-hangs-by-cuahang/{id}")
+    @Timed
+    public List<KhachHangDTO> getAllKhachHangsByCuaHang(@PathVariable(name = "id") Long id) {
+        log.debug("REST request to get all KhachHangs");
+        return khachHangService.findAllByCuaHang(id);
+    }
 
     /**
      *

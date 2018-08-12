@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<KhachHang>;
 export class KhachHangService {
     private resourceUrl = SERVER_API_URL + 'api/khach-hangs';
     private resourceUrlTimKhachHang = SERVER_API_URL + 'api/tim-khach-hang-by-ten-cmnd';
+    private findUrl = SERVER_API_URL + 'api/khach-hangs-by-cuahang';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -44,6 +45,16 @@ export class KhachHangService {
         return this.http
             .get<KhachHang[]>(this.resourceUrl, {
                 params: options,
+                observe: 'response'
+            })
+            .map((res: HttpResponse<KhachHang[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+
+    findByCuaHang(id:number): Observable<HttpResponse<KhachHang[]>> {
+        return this.http
+            .get<KhachHang[]>(`${this.findUrl}/${id}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<KhachHang[]>) =>

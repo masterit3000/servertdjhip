@@ -41,4 +41,5 @@ public interface KhachHangService {
     void delete(Long id);
 
     List<KhachHangDTO> findByNameOrCMND(String key);
+    List<KhachHangDTO> findAllByCuaHang(Long id);
 }

@@ -11,7 +11,7 @@
             <span class="ui-float-label">
                 <input id="float-input" name="keyTimBatHo" [(ngModel)]="keyTimBatHo" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND"
                     tooltipPosition="top" tooltipEvent="focus">
-                <label for="float-input">Tên khách hàng</label>
+                <label for="float-input">Tên hợp đồng </label>
             </span>
         </label>
     </div>
@@ -44,7 +44,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-batHo>
                 <tr [pSelectableRow]="batHo" [routerLink]="['../bat-ho-admin', batHo.id ]">
-                    <td>{{batHo.id}}</td>
+                    <td>{{batHo.hopdong.mahopdong}}</td>
                     <td>{{batHo.hopdong.khachHangTen}}</td>
                     <td>{{batHo.tienduakhach}}</td>
                     <td>{{batHo.tongtien}}</td>
