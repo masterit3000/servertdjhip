@@ -30,21 +30,31 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label class="form-control-label" for="field_dienthoai">
                     <span class="fa fa-phone"></span>
                     <span jhiTranslate="servertdjhipApp.nhanVien.dienthoai">Dienthoai</span>
                 </label>
                 <input type="text" class="form-control" name="dienthoai" id="field_dienthoai" [(ngModel)]="nhanVien.dienthoai" />
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label class="form-control-label" for="field_cmnd">
                     <span class="fa fa-address-card-o"></span>
                     <span jhiTranslate="servertdjhipApp.nhanVien.cmnd">CMND</span>
                 </label>
                 <input type="text" class="form-control" name="cmnd" id="field_cmnd" [(ngModel)]="nhanVien.cmnd" maxlength="11" />
             </div>
-            <div class="form-group col-md-4">
+            <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group col-md-3">
+                <label class="form-control-label" for="field_cuahang">
+                    <span class="fa fa-fw fa-bank"></span>
+                    <span >Cửa hàng</span>
+                </label>
+                <select class="form-control" id="field_cuahang" name="cuahang" [(ngModel)]="nhanVien.cuaHangId">
+                         
+                    <option [ngValue]="cuaHangOption.id" *ngFor="let cuaHangOption of cuahangs; trackBy: trackCuaHangById">{{cuaHangOption.ten}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
                 <label class="form-control-label" for="field_trangthai">
                     <span class="fa fa-folder-open-o"></span>
                     <span jhiTranslate="servertdjhipApp.nhanVien.trangthai">Trangthai</span>

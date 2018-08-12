@@ -43,7 +43,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-vayLai>
-                <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai', vayLai.id ]">
+                <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai-admin', vayLai.id ]">
                     <td>{{vayLai.id}}</td>
                     <td>{{vayLai.hopdongvl.khachHangTen}}</td>
                     <td>{{vayLai.tienvay}}</td>

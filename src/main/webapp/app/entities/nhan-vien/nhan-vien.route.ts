@@ -51,7 +51,7 @@ export const nhanVienPopupRoute: Routes = [
         path: 'nhan-vien/:id/edit',
         component: NhanVienPopupComponent,
         data: {
-            authorities: ['ROLE_STORE'],
+            authorities: ['ROLE_STORE','ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService],
