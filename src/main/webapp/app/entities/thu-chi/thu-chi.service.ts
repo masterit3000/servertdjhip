@@ -59,7 +59,7 @@ export class ThuChiService {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
 
-        return this.http.get<ThuChi[]>(`${this.baoCao}/${startd}/${endd}`, { observe: 'response' })
+        return this.http.get<ThuChi[]>(`${this.baoCaoUrl}/${startd}/${endd}`, { observe: 'response' })
             .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
     }
 
