@@ -93,70 +93,73 @@ public class BatHoServiceImpl implements BatHoService {
 
             validate(batHoDTO);
             if (batHoDTO.getId() == null) { //add new bat ho
+                if (batHoDTO.getTienduakhach() <= quanLyVon()) {
+                    HopDongDTO hopdong = batHoDTO.getHopdong();
+                    hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
+                    hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    NhanVienDTO findByUserLogin = nhanVienService.findByUserLogin();
+                    hopdong.setNhanVienId(findByUserLogin.getId());
+                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                        Long idCuaHang = cuaHangService.findIDByUserLogin();
+                        hopdong.setCuaHangId(idCuaHang);
+                    }
 
-                HopDongDTO hopdong = batHoDTO.getHopdong();
-                hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
-                hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
-                NhanVienDTO findByUserLogin = nhanVienService.findByUserLogin();
-                hopdong.setNhanVienId(findByUserLogin.getId());
-                if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-                    Long idCuaHang = cuaHangService.findIDByUserLogin();
-                    hopdong.setCuaHangId(idCuaHang);
-                }
+                    hopdong.setNgaytao(ZonedDateTime.now());
+                    hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
+                    hopdong = hopDongService.save(hopdong);
+                    batHoDTO.setHopdong(hopdong);
+                    BatHo batHo = batHoMapper.toEntity(batHoDTO);
+                    batHo = batHoRepository.save(batHo);
+                    Integer chuky = batHo.getChuky();
+                    Double tienduakhach = batHo.getTienduakhach();
+                    Integer tongsongay = batHo.getTongsongay();
+                    Double tongtien = batHo.getTongtien();
+                    ZonedDateTime ngaytao = hopdong.getNgaytao();
 
-                hopdong.setNgaytao(ZonedDateTime.now());
-                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
-                hopdong = hopDongService.save(hopdong);
-                batHoDTO.setHopdong(hopdong);
-                BatHo batHo = batHoMapper.toEntity(batHoDTO);
-                batHo = batHoRepository.save(batHo);
-                Integer chuky = batHo.getChuky();
-                Double tienduakhach = batHo.getTienduakhach();
-                Integer tongsongay = batHo.getTongsongay();
-                Double tongtien = batHo.getTongtien();
-                ZonedDateTime ngaytao = hopdong.getNgaytao();
-
-                ZonedDateTime batdau = ngaytao;
+                    ZonedDateTime batdau = ngaytao;
 //            Date date = new Date(batdau.)
 //batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
-                int soChuKy = tongsongay / chuky;
-                if (tongsongay % chuky != 0) {
-                    soChuKy++;
-                }
+                    int soChuKy = tongsongay / chuky;
+                    if (tongsongay % chuky != 0) {
+                        soChuKy++;
+                    }
 
-                long soTienTrongChuKy = Math.round((tongtien / soChuKy) * 1000) / 1000;//lam tron den 1000d
-                for (int i = 0; i < soChuKy - 1; i++) {
+                    long soTienTrongChuKy = Math.round((tongtien / soChuKy) * 1000) / 1000;//lam tron den 1000d
+                    for (int i = 0; i < soChuKy - 1; i++) {
+                        LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                        lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                        lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                        lichSuDongTienDTO.setNgaybatdau(batdau);
+                        batdau = batdau.plusDays(chuky);
+                        lichSuDongTienDTO.setNgayketthuc(batdau);
+                        lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                        lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                        lichSuDongTienService.save(lichSuDongTienDTO);
+                    }
+                    //phat cuoi
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
                     lichSuDongTienDTO.setNgaybatdau(batdau);
-                    batdau = batdau.plusDays(chuky);
+                    batdau = ngaytao.plusDays(tongsongay);
                     lichSuDongTienDTO.setNgayketthuc(batdau);
                     lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                     lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                     lichSuDongTienService.save(lichSuDongTienDTO);
+
+                    LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
+                    lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
+                    lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                    lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
+                    lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
+                    lichSuThaoTacHopDongDTO.setSoTienGhiCo(0d);
+                    lichSuThaoTacHopDongDTO.setSoTienGhiNo(batHo.getTienduakhach());
+                    lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+
+                    return batHoMapper.toDto(batHo);
+                } else {
+                    throw new InternalServerErrorException("Không đủ tiền");
                 }
-                //phat cuoi
-                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-                lichSuDongTienDTO.setHopDongId(hopdong.getId());
-                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-                lichSuDongTienDTO.setNgaybatdau(batdau);
-                batdau = ngaytao.plusDays(tongsongay);
-                lichSuDongTienDTO.setNgayketthuc(batdau);
-                lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
-                lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
-                lichSuDongTienService.save(lichSuDongTienDTO);
-
-                LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO = new LichSuThaoTacHopDongDTO();
-                lichSuThaoTacHopDongDTO.setHopDongId(hopdong.getId());
-                lichSuThaoTacHopDongDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-                lichSuThaoTacHopDongDTO.setNoidung("Tạo mới bát họ");
-                lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
-                lichSuThaoTacHopDongDTO.setSoTienGhiCo(0d);
-                lichSuThaoTacHopDongDTO.setSoTienGhiNo(batHo.getTienduakhach());
-                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
-
-                return batHoMapper.toDto(batHo);
             } else {
                 throw new InternalServerErrorException("Không được sửa bat họ");
 //                Long idCuaHang = cuaHangService.findIDByUserLogin();
@@ -241,62 +244,73 @@ public class BatHoServiceImpl implements BatHoService {
     @Override
     public BatHoDTO daoHo(BatHoDTO batHoDTO, Long id
     ) {
-        HopDongDTO hopdong = new HopDongDTO();
-        hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
-        hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
-        NhanVienDTO findByUserLogin = nhanVienService.findByUserLogin();
-        hopdong.setNhanVienId(findByUserLogin.getId());
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            Long idCuaHang = cuaHangService.findIDByUserLogin();
-            hopdong.setCuaHangId(idCuaHang);
-        }
-        hopdong.setMahopdong("DH");
-        hopdong.setHopdonggocId(id);
-        hopdong.setNgaytao(ZonedDateTime.now());
-        hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
-        hopdong.setKhachHangId(hopDongService.findOne(id).getKhachHangId());
-        hopdong = hopDongService.save(hopdong);
-        batHoDTO.setHopdong(hopdong);
-        BatHo batHo = batHoMapper.toEntity(batHoDTO);
-        batHo = batHoRepository.save(batHo);
-        Integer chuky = batHo.getChuky();
-        Double tienduakhach = batHo.getTienduakhach();
-        Integer tongsongay = batHo.getTongsongay();
-        Double tongtien = batHo.getTongtien();
-        ZonedDateTime ngaytao = hopdong.getNgaytao();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            if (batHoDTO.getTienduakhach() < quanLyVon()) {
+                HopDongDTO hopdong = new HopDongDTO();
+                hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
+                hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
+                NhanVienDTO findByUserLogin = nhanVienService.findByUserLogin();
+                hopdong.setNhanVienId(findByUserLogin.getId());
+                if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                    Long idCuaHang = cuaHangService.findIDByUserLogin();
+                    hopdong.setCuaHangId(idCuaHang);
+                }
+                hopdong.setMahopdong("DH");
+                hopdong.setHopdonggocId(id);
+                hopdong.setNgaytao(ZonedDateTime.now());
+                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
+                hopdong.setKhachHangId(hopDongService.findOne(id).getKhachHangId());
+                hopdong = hopDongService.save(hopdong);
+                batHoDTO.setHopdong(hopdong);
+                BatHo batHo = batHoMapper.toEntity(batHoDTO);
+                batHo = batHoRepository.save(batHo);
+                Integer chuky = batHo.getChuky();
+                Double tienduakhach = batHo.getTienduakhach();
+                Integer tongsongay = batHo.getTongsongay();
+                Double tongtien = batHo.getTongtien();
+                ZonedDateTime ngaytao = hopdong.getNgaytao();
 
-        ZonedDateTime batdau = ngaytao;
+                ZonedDateTime batdau = ngaytao;
 //            Date date = new Date(batdau.)
 //batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
-        int soChuKy = tongsongay / chuky;
-        if (tongsongay % chuky != 0) {
-            soChuKy++;
-        }
+                int soChuKy = tongsongay / chuky;
+                if (tongsongay % chuky != 0) {
+                    soChuKy++;
+                }
 
-        long soTienTrongChuKy = Math.round((tongtien / soChuKy) * 1000) / 1000;//lam tron den 1000d
-        for (int i = 0; i < soChuKy - 1; i++) {
-            LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-            lichSuDongTienDTO.setHopDongId(hopdong.getId());
-            lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-            lichSuDongTienDTO.setNgaybatdau(batdau);
-            batdau = batdau.plusDays(chuky);
-            lichSuDongTienDTO.setNgayketthuc(batdau);
-            lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
-            lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
-            lichSuDongTienService.save(lichSuDongTienDTO);
-        }
-        //phat cuoi
-        LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-        lichSuDongTienDTO.setHopDongId(hopdong.getId());
-        lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-        lichSuDongTienDTO.setNgaybatdau(batdau);
-        batdau = ngaytao.plusDays(tongsongay);
-        lichSuDongTienDTO.setNgayketthuc(batdau);
-        lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
-        lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
-        lichSuDongTienService.save(lichSuDongTienDTO);
+                long soTienTrongChuKy = Math.round((tongtien / soChuKy) * 1000) / 1000;//lam tron den 1000d
+                for (int i = 0; i < soChuKy - 1; i++) {
+                    LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                    lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                    lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                    lichSuDongTienDTO.setNgaybatdau(batdau);
+                    batdau = batdau.plusDays(chuky);
+                    lichSuDongTienDTO.setNgayketthuc(batdau);
+                    lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                    lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                    lichSuDongTienService.save(lichSuDongTienDTO);
+                }
+                //phat cuoi
+                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                lichSuDongTienDTO.setNgaybatdau(batdau);
+                batdau = ngaytao.plusDays(tongsongay);
+                lichSuDongTienDTO.setNgayketthuc(batdau);
+                lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                lichSuDongTienService.save(lichSuDongTienDTO);
 
-        return batHoMapper.toDto(batHo);
+                return batHoMapper.toDto(batHo);
+            } else {
+                throw new InternalServerErrorException("Không đủ tiền");
+            }
+
+        } else {
+            throw new InternalServerErrorException("không có quyền");
+        }
     }
 
     /**
@@ -530,7 +544,7 @@ public class BatHoServiceImpl implements BatHoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            
+
             Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
             Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;
             Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);;
@@ -542,13 +556,11 @@ public class BatHoServiceImpl implements BatHoService {
             Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);;
             Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);;
 
-            Double nguonvon  = 0d; 
+            Double nguonvon = 0d;
             nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
             return nguonvon;
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
-    
 
-    
 }
