@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.time.Instant;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * Spring Data JPA repository for the User entity.
@@ -44,4 +45,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByEmail(String email);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
+
+    
+    @Query("select u from User u where u.activated = false")
+    List<User>  findAllByNewsUser();
 }

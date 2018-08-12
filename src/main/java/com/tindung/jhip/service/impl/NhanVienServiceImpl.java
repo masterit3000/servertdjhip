@@ -7,8 +7,10 @@ import com.tindung.jhip.repository.NhanVienRepository;
 import com.tindung.jhip.repository.UserRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.UserService;
 import com.tindung.jhip.service.dto.NhanVienDTO;
 import com.tindung.jhip.service.mapper.NhanVienMapper;
+import com.tindung.jhip.service.mapper.UserMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +33,15 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     private final NhanVienRepository nhanVienRepository;
     private final UserRepository userRepository;
+    private final UserService service;
 
     private final NhanVienMapper nhanVienMapper;
 
-    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, NhanVienMapper nhanVienMapper, UserRepository userRepository) {
+    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, UserRepository userRepository, UserService service, NhanVienMapper nhanVienMapper) {
         this.nhanVienRepository = nhanVienRepository;
-        this.nhanVienMapper = nhanVienMapper;
         this.userRepository = userRepository;
+        this.service = service;
+        this.nhanVienMapper = nhanVienMapper;
     }
 
     /**
@@ -51,6 +55,15 @@ public class NhanVienServiceImpl implements NhanVienService {
         log.debug("Request to save NhanVien : {}", nhanVienDTO);
         NhanVien nhanVien = nhanVienMapper.toEntity(nhanVienDTO);
         nhanVien = nhanVienRepository.save(nhanVien);
+        User user = nhanVien.getUser();
+        if (user != null) {
+            user.setActivated(true);
+//            service.updateUser(new UserMapper().userToUserDTO(user));
+            User findOne = userRepository.findOne(nhanVienDTO.getId());
+            findOne.setActivated(true);
+
+            userRepository.save(user);
+        }
         return nhanVienMapper.toDto(nhanVien);
     }
 

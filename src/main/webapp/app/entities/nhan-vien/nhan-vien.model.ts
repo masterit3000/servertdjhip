@@ -2,9 +2,7 @@ import { BaseEntity } from './../../shared';
 
 export const enum TrangThaiNhanVien {
     'DUNGHOATDONG',
-    'NHANVIEN',
-    'QUANLYCUAHANG',
-    'QUANTRI'
+    'NHANVIEN'
 }
 
 export class NhanVien implements BaseEntity {

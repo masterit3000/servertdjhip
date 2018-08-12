@@ -13,6 +13,8 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     create(user: User): Observable<HttpResponse<User>> {
+        console.log('user: '+user);
+        
         return this.http.post<User>(this.resourceUrl, user, { observe: 'response' });
     }
 
@@ -28,7 +30,10 @@ export class UserService {
         const options = createRequestOption(req);
         return this.http.get<User[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
-
+    queryUserNew(req?: any): Observable<HttpResponse<User[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(this.resourceUrl+'/new', { params: options, observe: 'response' });
+    }
     delete(login: string): Observable<HttpResponse<any>> {
         return this.http.delete(`${this.resourceUrl}/${login}`, { observe: 'response' });
     }

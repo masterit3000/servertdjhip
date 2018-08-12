@@ -106,22 +106,22 @@
                             <span jhiTranslate="servertdjhipApp.nhanVien.user">User</span>
                         </label>
                         <select class="form-control" id="field_user" name="user" [(ngModel)]="nhanVien.userId">
-                            <option [ngValue]="null"></option>
-                            <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                         
+                            <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}-{{userOption.login}}</option>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="form-group col-md-12">
                 <label class="form-control-label">
                     <span class="fa fa-image"></span>
                     Chứng từ</label>
-                <!-- <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload> -->
+                 <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload> 
                 <p-fileUpload multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
