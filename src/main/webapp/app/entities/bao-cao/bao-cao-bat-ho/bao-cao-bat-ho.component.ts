@@ -82,6 +82,11 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     this.tongTienTraGoc = 0;
+    this.tienChi = 0;
+    this.tienThu = 0;
+    this.tienGopVon = 0;
+    this.tienRutVon = 0;
+
 
     this.selectedNhanVien = new NhanVien;
 
@@ -113,6 +118,10 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     this.tongTienTraGoc = 0;
+    this.tienChi = 0;
+    this.tienThu = 0;
+    this.tienGopVon = 0;
+    this.tienRutVon = 0;
     if (this.selectedNhanVien == 1) {
       console.log(this.denngay);
       this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
