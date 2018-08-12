@@ -33,6 +33,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * REST controller for managing users.
@@ -115,13 +117,27 @@ public class UserResource {
         } else {
             String currentUser = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             Optional<User> userWithAuthoritiesByLogin = userService.getUserWithAuthoritiesByLogin(currentUser);
-            User user = userWithAuthoritiesByLogin.get();
-            ArrayList<Authority> authoritys = new ArrayList<>();
-            authoritys.add(new Authority(AuthoritiesConstants.ADMIN));
-            authoritys.add(new Authority(AuthoritiesConstants.STOREADMIN));
-//            authoritys.add(new Authority(AuthoritiesConstants.STAFFADMIN));
+//            User user = userWithAuthoritiesByLogin.get();
+//            ArrayList<Authority> authoritys = new ArrayList<>();
+//            authoritys.add(new Authority(AuthoritiesConstants.ADMIN));
+//            authoritys.add(new Authority(AuthoritiesConstants.STOREADMIN));
+////            authoritys.add(new Authority(AuthoritiesConstants.STAFFADMIN));
 
 //            if (user.getAuthorities().containsAll(authoritys)) {
+            if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+                userDTO.getAuthorities().stream().filter(new Predicate<String>() {
+                    @Override
+                    public boolean test(String t) {
+                        return t.equals(AuthoritiesConstants.ADMIN);
+                    }
+                }).forEach(new Consumer<String>() {
+                    @Override
+                    public void accept(String t) {
+                        userDTO.getAuthorities().remove(t);
+                    }
+                });
+
+            }
             User newUser = userService.createUser(userDTO);
 //            mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
