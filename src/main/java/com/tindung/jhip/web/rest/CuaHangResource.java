@@ -88,6 +88,12 @@ public class CuaHangResource {
         log.debug("REST request to get all CuaHangs");
         return cuaHangService.findAll();
         }
+    @GetMapping("/tim-cua-hangs-by-name/{key}")
+    @Timed
+    public List<CuaHangDTO> findCuaHang(@PathVariable(name = "key") String key) {
+        log.debug("REST request to get all CuaHangs");
+        return cuaHangService.findByName(key);
+        }
 
     /**
      * GET  /cua-hangs/:id : get the "id" cuaHang.

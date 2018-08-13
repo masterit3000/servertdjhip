@@ -1,13 +1,13 @@
 <div>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <h2>
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Nhân viên</span>
             </h2>
         </div>
         <!-- cua-hang-admin(popup:user-management-new) -->
-        <div class="col-md-2">
+        <div class="col-md-1">
             <button class="btn btn-primary" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
                 <span class="fa fa-plus"></span>
                 <span>
@@ -19,7 +19,7 @@
             <button class="btn btn-primary pull-right" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
                 <span class="fa fa-plus"></span>
                 <span>
-                    Tạo user mới
+                    Tạo tài khoản mới
                 </span> 
             </button>
         </div>
@@ -28,18 +28,20 @@
     <div>
         <div>
             <h3>
-                <i class="pi pi-search" aria-hidden="true"></i>Tìm nhân viên</h3>
-            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
-                field="ten" [size]="30" placeholder="Tên nhân viên " [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
-                field="cmnd" [size]="10" placeholder="CMND" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
-                field="trangthai" [size]="20" placeholder="Trạng thái" [minLength]="1"></p-autoComplete>
-            <p-autoComplete [(ngModel)]="nhanVien" name="basic" [suggestions]="filteredNhanViens" (completeMethod)="filterNhanViens($event)"
-                field="userId" [size]="20" placeholder="User" [minLength]="1"></p-autoComplete>
-            {{nhanVien? nhanVien.ten || nhanVien: 'none'}}
-            <!-- <button type="submit" [routerLink]="['../nhan-vien-admin', nhanVien? nhanVien.id || nhanVien: 'none' ]" class="btn btn-primary float-right">Tìm kiếm</button> -->
+                <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhân viên</h3>
+            <div class="ui-g-2">
+                    <span class="ui-float-label">
+                        <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Nhập tên nhân viên /CMND/ Số điện thoại"
+                            tooltipPosition="top" tooltipEvent="focus">
+                        <label for="float-input"></label>
+                    </span>
+            </div>
         </div>
+        <div class="ui-g-2">
+                <button class="btn btn-primary float-left" (click)="timNhanVien()">
+                    <span class="pi pi-search"></span>
+                    Tìm kiếm</button>
+            </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">

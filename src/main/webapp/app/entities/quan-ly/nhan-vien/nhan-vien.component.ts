@@ -18,12 +18,13 @@ export class NhanVienAdminComponent implements OnInit, OnDestroy {
     filteredNhanViens: NhanVien[];
     nhanVien: any;
     none: any;
+    keyTimNhanVien: any;
     constructor(
         private nhanVienService: NhanVienService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {}
+    ) { }
 
     loadAll() {
         this.nhanVienService.query().subscribe(
@@ -64,5 +65,15 @@ export class NhanVienAdminComponent implements OnInit, OnDestroy {
         this.nhanVienService.getNhanVien(query).subscribe((nhanViens: any) => {
             this.filteredNhanViens = nhanViens;
         });
+    }
+    timNhanVien() {
+        this.nhanVienService
+            .findNhanVien(this.keyTimNhanVien)
+            .subscribe(
+                (res: HttpResponse<NhanVien[]>) => {
+                    this.nhanViens = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

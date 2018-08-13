@@ -20,6 +20,7 @@ export class KhachHangAdminComponent implements OnInit, OnDestroy {
     text: any;
     khachHang: any;
     none: any;
+    keyTimKhachHang:any;
     constructor(
         private khachHangService: KhachHangService,
         private jhiAlertService: JhiAlertService,
@@ -73,5 +74,17 @@ export class KhachHangAdminComponent implements OnInit, OnDestroy {
             .subscribe((khachHangs: any) => {
                 this.filteredKhachHangs = khachHangs;
             });
+    }
+    timKhachHang() {
+        // const query = event.query;
+        // console.log(query);
+        this.khachHangService
+            .findKhachHangByTenOrCMND(this.keyTimKhachHang)
+            .subscribe(
+                (res: HttpResponse<KhachHang[]>) => {
+                    this.khachHangs = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 }

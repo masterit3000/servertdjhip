@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<NhanVien>;
 export class NhanVienService {
     private resourceUrl = SERVER_API_URL + 'api/nhan-viens';
     private findNhanVienUrl = SERVER_API_URL + 'api/tim-nhan-viens-by-ten-cmnd';
+    private findNhanVienCHUrl = SERVER_API_URL + 'api/nhan-viens-by-cuahang';
 
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
@@ -53,6 +54,16 @@ export class NhanVienService {
     findNhanVien(req?: any): Observable<HttpResponse<NhanVien[]>> {
         return this.http
             .get<NhanVien[]>(`${this.findNhanVienUrl}/${req}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<NhanVien[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+
+    findNhanVienByCuaHang(id: number): Observable<HttpResponse<NhanVien[]>> {
+        return this.http
+            .get<NhanVien[]>(`${this.findNhanVienCHUrl}/${id}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<NhanVien[]>) =>

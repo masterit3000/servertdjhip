@@ -1,14 +1,30 @@
 <div>
-    <h2>
-        <i class="fa fa-user" aria-hidden="true"></i>
-        <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
-        <button class="btn btn-primary float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
-            <span class="fa fa-plus"></span>
-            <span jhiTranslate="servertdjhipApp.nhanVien.home.createLabel">
-                Create new Nhan Vien
-            </span>
-        </button>
-    </h2>
+    <div class="row">
+        <div class="col-md-8">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
+                <span class="fa fa-plus"></span>
+                <span jhiTranslate="servertdjhipApp.nhanVien.home.createLabel">
+                    Create new Nhan Vien
+                </span>
+            </button>
+        </div>
+
+        <div class="col-md-1">
+            <button class="btn btn-primary pull-right" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
+                <span class="fa fa-plus"></span>
+                <span>
+                    Tạo tài khoản mới
+                </span>
+            </button>
+        </div>
+    </div>
+
+
+
     <jhi-alert></jhi-alert>
     <hr/>
     <div>
@@ -26,10 +42,10 @@
             </div>
         </div>
         <div class="ui-g-2">
-                <button class="btn btn-primary float-left" (click)="timNhanVien()">
-                    <span class="pi pi-search"></span>
-                    Tìm kiếm</button>
-            </div>
+            <button class="btn btn-primary float-left" (click)="timNhanVien()">
+                <span class="pi pi-search"></span>
+                Tìm kiếm</button>
+        </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">

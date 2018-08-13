@@ -16,6 +16,7 @@ export class UserMgmtDialogComponent implements OnInit {
     user: User;
     languages: any[];
     authorities: any[];
+    confirmPassword: any;
     isSaving: Boolean;
     quyen: any;
 
@@ -24,7 +25,7 @@ export class UserMgmtDialogComponent implements OnInit {
         private languageHelper: JhiLanguageHelper,
         private userService: UserService,
         private eventManager: JhiEventManager
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -45,7 +46,7 @@ export class UserMgmtDialogComponent implements OnInit {
         this.user.authorities = [];
         this.user.authorities.push(this.quyen);
         console.log(this.user.authorities);
-        
+
         this.isSaving = true;
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
@@ -76,11 +77,11 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private userModalService: UserModalService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['login'] ) {
+            if (params['login']) {
                 this.userModalService.open(UserMgmtDialogComponent as Component, params['login']);
             } else {
                 this.userModalService.open(UserMgmtDialogComponent as Component);

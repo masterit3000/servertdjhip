@@ -43,4 +43,6 @@ public interface NhanVienService {
 
     List<NhanVienDTO> findByNameOrCMND(String key);
 
+    List<NhanVienDTO> findAllByCuaHang(Long id);
+
 }

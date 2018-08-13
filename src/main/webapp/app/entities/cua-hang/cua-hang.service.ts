@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<CuaHang>;
 @Injectable()
 export class CuaHangService {
     private resourceUrl = SERVER_API_URL + 'api/cua-hangs';
+    private findCuaHangUrl = SERVER_API_URL + 'api/tim-cua-hangs-by-name';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
 
@@ -41,6 +42,15 @@ export class CuaHangService {
         return this.http
             .get<CuaHang[]>(this.resourceUrl, {
                 params: options,
+                observe: 'response'
+            })
+            .map((res: HttpResponse<CuaHang[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+    findCuaHang(key: any): Observable<HttpResponse<CuaHang[]>> {
+        return this.http
+            .get<CuaHang[]>(`${this.findCuaHangUrl}/${key}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<CuaHang[]>) =>
