@@ -204,7 +204,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
                 });
             });
-        this.setSoTienLichSuThaoTac('đóng tiền', 0, event.data.sotien);
+        this.setSoTienLichSuThaoTac('Đóng tiền', 0, event.data.sotien);
 
     }
 
@@ -221,7 +221,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-        this.setSoTienLichSuThaoTac('ghi nợ', this.ghiNo.sotien, 0);
+        this.setSoTienLichSuThaoTac('Ghi nợ', this.ghiNo.sotien, 0);
     }
     saveTraNo() {
         this.isSaving = true;
@@ -236,7 +236,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(
                 this.ghiNoService.create(this.ghiNo));
         }
-        this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
+        this.setSoTienLichSuThaoTac('Trả nợ', 0, this.ghiNo.sotien);
     }
 
 
@@ -277,7 +277,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.router.navigate(['/bat-ho', result.id]);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.jhiAlertService.success('Thêm mới thành công', null, null);
 
     }
     daoHo() {

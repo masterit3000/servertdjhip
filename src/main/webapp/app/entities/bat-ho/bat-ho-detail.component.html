@@ -262,29 +262,11 @@
         </p-tabPanel> -->
         <p-tabPanel header="Lịch sử">
             <div class="row">
-                <div class="col-md-5 table-bordered">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="ui-float-label" style="marin-top:10px">
-                                <textarea id="float-input" [rows]="5" [cols]="87" pInputTextarea></textarea>
-                                <label for="float-input">Ghi chú</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-success float-right">
-                                <span class="fa fa-save"></span>
-                                Lưu</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-7">
+                <div class="col-md-12">
                     <h3>Lịch sử thao tác</h3>
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
-
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Số tiền ghi nợ</th>
