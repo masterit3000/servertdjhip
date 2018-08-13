@@ -118,7 +118,7 @@
                     <tr>
 
                         <td class="align-center">
-                            <span style="color:red">{{tongTienVL +tongTienTraGoc + tongTienTraVl - tongTienNoVl - tongTienVLs}}</span>
+                            <span style="color:red">{{tongTienVL + tongTienTraGoc + tongTienTraVl - tongTienNoVl - tongTienVLs}}</span>
                         </td>
                         <td class="align-center">
                             <span style="color:red">{{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs}}</span>
@@ -141,7 +141,7 @@
                 <tfoot>
                     <tr>
                         <td class="text-center" colspan="6">
-                            <span style="color: red">Tổng tiền = {{tongTienVL + tongTienTraVl - tongTienNoVl - tongTienVLs + tienThu-tienChi + tienGopVon - tienRutVon}}</span>
+                            <span style="color: red">Tổng tiền = {{tongTienVL + tongTienTraVl + tongTienTraGoc - tongTienNoVl - tongTienVLs + tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs + tienThu - tienChi + tienGopVon - tienRutVon}}</span>
                         </td>
                     </tr>
                 </tfoot>
