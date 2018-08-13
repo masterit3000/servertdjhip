@@ -46,7 +46,6 @@ export class UserMgmtDialogComponent implements OnInit {
         this.user.authorities = [];
         this.user.authorities.push(this.quyen);
         console.log(this.user.authorities);
-
         this.isSaving = true;
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
