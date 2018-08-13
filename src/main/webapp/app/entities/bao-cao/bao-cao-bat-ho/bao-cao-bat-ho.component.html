@@ -3,7 +3,7 @@
     <h2>
         <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
         <span>Báo cáo tiền mặt</span>
-        <p>Nguồn Vốn :{{this.nguonVon}}</p>
+        <p>Nguồn Vốn Hiện Tại :{{this.nguonVon|currency : 'VND' : true : '1.0-0'}}</p>
 
 
     </h2>
@@ -37,7 +37,116 @@
             </div>
         </div>
     </div>
+    <!-- <div class="table-responsive">
+        <p-table  [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th colspan="6" class="bg-primary text-white text-center">Bảng tổng kết</th>
+                </tr>
+                <tr>
+                  
+                    <th>
+                        <span>Vay lãi</span>
+                    </th>
+                    <th>
+                        <span>Bát họ</span>
+                    </th>
+                    <th>
+                        <span>Thu</span>
+                    </th>
+                    <th>
+                        <span>Chi</span>
+                    </th>
+                    <th>
+                        <span>Góp vốn</span>
+                    </th>
+                    <th>
+                        <span>Rút vốn</span>
+                    </th>
 
+                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" >
+                <tr>
+                    <td>{{tongTienVL + tongTienTraVl - tongTienNoVl - tongTienVLs}}</td>
+                    <td>{{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs}}</td>
+
+                    <td>{{tienThu}}</td>
+                    <td>{{tienChi}}</td>
+                    <td>{{tienGopVon}}</td>
+                    <td>
+                        <span>{{tienRutVon}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                        <strong>Tổng</strong>
+                    </td>
+                    <td align="right" style="background-color:#ECECEC">
+                        <span style="color:red">{{tongTienTraGoc}}</span>
+                    </td>
+
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+    </div> -->
+    <div>
+
+        <div>
+            <table class="table table-striped table-hover table-bordered table-calendar" style="margin-top:30px;">
+                <thead>
+                    <tr style="background:#3f86c3;">
+                        <th colspan="6" style="text-align:left; padding-left:10px;font-size:16px;color:#FFF;text-align:center">Bảng Tổng Kết</th>
+                    </tr>
+                    <tr>
+                        <th class="align-center">Vay lãi</th>
+                        <th class="align-center">Bát Họ</th>
+                        <th class="align-center">Thu</th>
+                        <th class="align-center">Chi</th>
+                        <th class="align-center">Góp vốn</th>
+                        <th class="align-center">Rút vốn</th>
+                        
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td class="align-center">
+                            <span style="color:red">{{tongTienVL + tongTienTraGoc + tongTienTraVl - tongTienNoVl - tongTienVLs}}</span>
+                        </td>
+                        <td class="align-center">
+                            <span style="color:red">{{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs}}</span>
+                        </td>
+                        <td class="align-center">
+                            <span style="color:red">{{tienThu}}</span>
+                        </td>
+                        <td class="align-center">
+                            <span style="color:red">{{tienChi}}</span>
+                        </td>
+                        <td class="align-center">
+                            <span style="color:red">{{tienGopVon}}</span>
+                        </td>
+                        <td class="align-center">
+                            <span style="color:red">{{tienRutVon}}</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-center" colspan="6">
+                            <span style="color: red">Tổng tiền = {{tongTienVL + tongTienTraVl + tongTienTraGoc - tongTienNoVl - tongTienVLs + tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs + tienThu - tienChi + tienGopVon - tienRutVon}}</span>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     <div class="table-responsive">
         <p-table [value]="lichSuDongTienBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
@@ -512,7 +621,7 @@
                             <strong>Tổng</strong>
                         </td>
                         <td align="right" style="background-color:#ECECEC">
-                            <span style="color:red">{{tongTienTraGoc}}</span>
+                            <span style="color:red">{{tienThu-tienChi+tienGopVon-tienRutVon}}</span>
                         </td>
     
                         <td></td>
@@ -521,4 +630,5 @@
                 </ng-template>
             </p-table>
         </div>
+   
 </div>
