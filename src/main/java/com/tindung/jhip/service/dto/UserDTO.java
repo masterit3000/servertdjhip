@@ -48,6 +48,9 @@ public class UserDTO {
     private Instant createdDate;
 
     private String lastModifiedBy;
+    private String password;
+    
+    
 
     private Instant lastModifiedDate;
 
@@ -57,6 +60,17 @@ public class UserDTO {
         // Empty constructor needed for Jackson.
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
+
+    
     public UserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
