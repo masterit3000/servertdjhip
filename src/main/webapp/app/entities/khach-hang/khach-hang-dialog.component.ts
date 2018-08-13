@@ -86,7 +86,8 @@ export class KhachHangDialogComponent implements OnInit {
         this.images = [];
         if (this.khachHang.anhs && this.khachHang.anhs.length > 0) {
             this.khachHang.anhs.forEach(anh => {
-                this.images.push({ source: 'http://localhost:8080/download/anh-khach-hang/' + anh.id, alt: 'Description for Image 1', title: 'Title 1' });
+                // this.images.push({ source: 'http://localhost:8080/download/anh-khach-hang/' + anh.id, alt: 'Description for Image 1', title: 'Title 1' });
+                this.images.push({ source: SERVER_API_URL + '/download/anh-khach-hang/' + anh.id, alt: 'Description for Image 1', title: 'Title 1' });
             });
         }
     }
@@ -121,16 +122,14 @@ export class KhachHangDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: KhachHang) {
-
         this.eventManager.broadcast({ name: 'khachHangListModification', content: result });
         // cho xảy ra sự kiện khachHangListModification,
         // và truyền vào content 'ok111'' tương ứng, chỗ này truyền j vào cũng đc, cả 1 obj cũng đc
         this.isSaving = false;
-        this.khachHang = result;
-        console.log("kh tra ve: "+this.khachHang);
-        this.urlupload = this.urlupload + this.khachHang.id;
+        console.log("kh tra ve: " + this.khachHang);
+        this.urlupload = this.urlupload + result.id;
         this.jhiAlertService.success('Lưu khách hàng thành công', null, null);
-        // this.activeModal.dismiss(result);
+        this.activeModal.dismiss(result);
     }
 
     private onSaveError() {
@@ -169,11 +168,9 @@ export class KhachHangDialogComponent implements OnInit {
         const query = event.query;
         console.log(query);
         this.tinhService.getTinh(query).subscribe((tinhs: any) => {
-
             console.log(tinhs);
             // this.filteredTinhs = this.filterTinh(query, tinhs);
             this.filteredTinhs = tinhs;
-
         });
     }
     filterTinh(query: any, tinhs: Tinh[]): Tinh[] {
