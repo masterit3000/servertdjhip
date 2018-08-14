@@ -153,7 +153,7 @@ public class LichSuDongTienResource {
 
     @GetMapping("/bao-cao-lich-su-dong-tiens/{dongtien}/{loaihopdong}/{start}/{end}")
     @Timed
-    public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien,@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
+    public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
         log.debug("REST request to get baoCao LichSuDongTien: {}");
         LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
@@ -178,13 +178,14 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-                
+
         }
-        return lichSuDongTienService.baoCao(loaidongtien,loai, timeStart, timeEnd);
+        return lichSuDongTienService.baoCao(loaidongtien, loai, timeStart, timeEnd);
     }
+
     @GetMapping("/bao-cao-lich-su-dong-tiens-nhanvien/{dongtien}/{loaihopdong}/{start}/{end}/{id}")
     @Timed
-    public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien,@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable(name = "id")Long id) {
+    public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get baoCao LichSuDongTien: {}");
         LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
@@ -209,9 +210,69 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-                
+
         }
-        return lichSuDongTienService.baoCao(loaidongtien,loai, timeStart, timeEnd,id);
+        return lichSuDongTienService.baoCao(loaidongtien, loai, timeStart, timeEnd, id);
+    }
+
+    @GetMapping("/lich-su-dong-tiens-tracham/{dongtien}/{loaihopdong}")
+    @Timed
+    public List<LichSuDongTienDTO> lichSuTraCham(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong) {
+        log.debug("REST request to get baoCao LichSuDongTien: {}");
+        LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        DONGTIEN loaidongtien = DONGTIEN.DADONG;
+        switch (dongtien) {
+            case "0":
+                loaidongtien = DONGTIEN.CHUADONG;
+                break;
+            case "1":
+                loaidongtien = DONGTIEN.DADONG;
+                break;
+            case "2":
+                loaidongtien = DONGTIEN.TRAGOC;
+                break;
+
+        }
+        return lichSuDongTienService.lichSuTraCham(loaidongtien, loai);
+    }
+
+    @GetMapping("/lich-su-dong-tiens-homnay/{dongtien}/{loaihopdong}")
+    @Timed
+    public List<LichSuDongTienDTO> lichSuTraHomNay(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong) {
+        log.debug("REST request to get baoCao LichSuDongTien: {}");
+        LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        DONGTIEN loaidongtien = DONGTIEN.DADONG;
+        switch (dongtien) {
+            case "0":
+                loaidongtien = DONGTIEN.CHUADONG;
+                break;
+            case "1":
+                loaidongtien = DONGTIEN.DADONG;
+                break;
+            case "2":
+                loaidongtien = DONGTIEN.TRAGOC;
+                break;
+
+        }
+        return lichSuDongTienService.lichSuTraHomNay(loaidongtien, loai);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.domain.GhiNo;
+import com.tindung.jhip.domain.HopDong;
 import com.tindung.jhip.service.LichSuDongTienService;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
@@ -28,6 +29,7 @@ import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
+import com.tindung.jhip.service.dto.HopDongDTO;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -230,6 +232,44 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid= cuaHangService.findIDByUserLogin();
             List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocaoNV(dongtien, loaihopdong, start, end,cuaHangid,nhanVienid);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+    @Override
+    public List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien,LOAIHOPDONG loaihopdong) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long cuaHangid= cuaHangService.findIDByUserLogin();
+            ZonedDateTime ngayhientai = ZonedDateTime.now();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong,ngayhientai,cuaHangid);
+            for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
+                HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
+                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);
+                hopDongRepository.save(hopdong);
+                
+            }
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+    @Override
+    public List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien,LOAIHOPDONG loaihopdong) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long cuaHangid= cuaHangService.findIDByUserLogin();
+            ZonedDateTime ngayhientai = ZonedDateTime.now();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraHomNay(dongtien, loaihopdong,ngayhientai,cuaHangid);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
