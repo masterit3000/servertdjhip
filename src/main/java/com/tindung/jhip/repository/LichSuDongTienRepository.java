@@ -33,4 +33,10 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     @Query(value = "select sum(l.sotien) from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai= ?1")
     Optional<Double> lichSuDongTien(DONGTIEN trangthai, Long idcuahang);
 
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) and c.id =?4 order by l.ngaygiaodich ")
+    List<LichSuDongTien> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
+
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (?3 between l.ngaybatdau and l.ngayketthuc ) and c.id =?4 order by l.ngaygiaodich ")
+    List<LichSuDongTien> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
+
 }
