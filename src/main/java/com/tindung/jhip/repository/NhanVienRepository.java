@@ -19,7 +19,7 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, Long> {
     @Query("select n from NhanVien n inner join n.cuaHang c where c.id =:id")
     List<NhanVien> findAllByCuaHang(@Param("id") long cuaHangid);
 
-    @Query("select k from NhanVien k inner join k.cuaHang c  where c.id =:id and  k.ten like :key or k.cmnd like:key or k.dienthoai like :key ")
+    @Query("select k from NhanVien k inner join k.cuaHang c  where c.id =:id and  (k.ten like :key or k.cmnd like:key or k.dienthoai like :key) ")
     public List<NhanVien> findByNameOrCMND(@Param("key") String key, @Param("id") Long cuaHangid);
     @Query("select k from NhanVien k where  k.ten like :key or k.cmnd like :key or k.dienthoai like :key ")
     public List<NhanVien> findByNameOrCMND(@Param("key") String key);

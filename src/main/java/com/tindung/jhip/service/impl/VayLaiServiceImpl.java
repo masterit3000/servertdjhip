@@ -509,6 +509,7 @@ public class VayLaiServiceImpl implements VayLaiService {
         throw new InternalServerErrorException("Khong co quyen");
     }
 
+    @Override
     public List<VayLaiDTO> findByNhanVien(Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             List<VayLai> listVayLai = vayLaiRepository.findByNhanVien(id);

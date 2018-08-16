@@ -83,7 +83,7 @@
   </button>
   <p-tabView>
     <p-tabPanel header="Danh sách bát họ">
-      <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+      <p-table [value]="batHos" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
         <ng-template pTemplate="header">
           <tr>
             <th>
@@ -119,7 +119,7 @@
       </p-table>
     </p-tabPanel>
     <p-tabPanel header="Danh sách vay lãi">
-      <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+      <p-table [value]="vayLais" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
         <ng-template pTemplate="header">
           <tr>
             <th>

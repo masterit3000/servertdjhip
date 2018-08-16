@@ -27,7 +27,7 @@ public interface VayLaiRepository extends JpaRepository<VayLai, Long> {
 
 //    @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.khachHang c where c.id =:idkhachhang")
 //    public List<VayLai> findAllByKhachHang(@Param(value = "idkhachhang") Long khachHangId);
-    @Query("select k from VayLai k inner join k.hopdongvl h inner join h.khachHang j inner join h.cuaHang c where c.id =:id and h.mahopdong like :key or  j.ten like :key or j.cmnd like :key ")
+    @Query("select k from VayLai k inner join k.hopdongvl h inner join h.khachHang j inner join h.cuaHang c where c.id =:id and (h.mahopdong like :key or  j.ten like :key or j.cmnd like :key )")
     public List<VayLai> findByNameOrCMND(@Param("key") String key, @Param("id") Long cuaHangid);
 
     @Query("select k from VayLai k inner join k.hopdongvl h inner join h.khachHang j  where  h.mahopdong like :key or  j.ten like :key or j.cmnd like :key ")

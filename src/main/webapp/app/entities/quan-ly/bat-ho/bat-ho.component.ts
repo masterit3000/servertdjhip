@@ -58,8 +58,6 @@ export class BatHoAdminComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
     timBatHo() {
-        // const query = event.query;
-        // console.log(query);
         this.batHoService
             .findBatHoByTenOrCMND(this.keyTimBatHo)
             .subscribe(

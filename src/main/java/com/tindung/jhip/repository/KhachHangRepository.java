@@ -20,7 +20,7 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, Long> {
     @Query("select k from KhachHang k where k.ten like :key or k.cmnd like :key ")
     public List<KhachHang> findByNameOrCMND(@Param("key") String key);
 
-    @Query("select k from KhachHang k inner join k.cuaHang c where c.id =:id and k.ten like :key or k.cmnd like :key ")
+    @Query("select k from KhachHang k inner join k.cuaHang c where c.id =:id and (k.ten like :key or k.cmnd like :key) ")
     public List<KhachHang> findByNameOrCMNDAdmin(@Param("key") String key, @Param("id") Long id);
 
 }
