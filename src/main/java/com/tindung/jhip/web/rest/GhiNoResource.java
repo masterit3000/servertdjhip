@@ -155,7 +155,7 @@ public class GhiNoResource {
 
     @GetMapping("/bao-cao-ghi-nos-nhanvien/{loaihopdong}/{start}/{end}/{id}")
     @Timed
-    public List<GhiNoDTO> baoCao(@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
+    public List<GhiNoDTO> baoCaoNV(@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get all GhiNos");
         LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
@@ -169,7 +169,7 @@ public class GhiNoResource {
                 loai = LOAIHOPDONG.BATHO;
                 break;
         }
-        return ghiNoService.baoCao(loai, timeStart, timeEnd, id);
+        return ghiNoService.baoCaoNV(loai, timeStart, timeEnd, id);
     }
 
 }

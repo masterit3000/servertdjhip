@@ -132,7 +132,7 @@ public class GhiNoServiceImpl implements GhiNoService {
     }
 
     @Override
-    public List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
+    public List<GhiNoDTO> baoCaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangId = cuaHangService.findIDByUserLogin();

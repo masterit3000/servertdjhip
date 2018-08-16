@@ -226,7 +226,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     }
     @Override
-    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien,LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end,Long nhanVienid) {
+    public List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien,LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end,Long nhanVienid) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {

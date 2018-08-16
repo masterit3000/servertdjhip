@@ -257,6 +257,9 @@ public class VayLaiServiceImpl implements VayLaiService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay()) {
                 if (vayLaiDTO.getId() == null) {// add new vay lai
+                    HopDongDTO hopdongcu = hopDongService.findOne(id);
+                    hopdongcu.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
+                    hopDongService.save(hopdongcu);
                     HopDongDTO hopdong = new HopDongDTO();
                     vayLaiDTO.setHopdongvl(hopdong);
                     hopdong.setLoaihopdong(LOAIHOPDONG.VAYLAI);
@@ -270,7 +273,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                         hopdong.setCuaHangId(idCuaHang);
                     }
                     hopdong.setNgaytao(ZonedDateTime.now());
-                    hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
+                    hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                     hopdong.setMahopdong("them-bot-vl");
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
@@ -340,6 +343,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienTraGoc.setNgayketthuc(ZonedDateTime.now());
                     lichSuDongTienTraGoc.setSotien(tongTienVay);
                     lichSuDongTienTraGoc.setTrangthai(DONGTIEN.TRAGOC);
+                    lichSuDongTienTraGoc.setNgaygiaodich(ZonedDateTime.now());
                     lichSuDongTienService.save(lichSuDongTienTraGoc);
 
                     return vayLaiMapper.toDto(vayLai);

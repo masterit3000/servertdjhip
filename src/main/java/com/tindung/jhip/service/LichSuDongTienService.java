@@ -50,7 +50,7 @@ public interface LichSuDongTienService {
 
     List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
 
-    List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
+    List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
 
     List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong);
 
