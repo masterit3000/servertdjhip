@@ -74,8 +74,7 @@
   </button>
   <p-tabView>
     <p-tabPanel header="Lịch đóng tiền" disabled>
-      <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="5" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-        (onRowUnselect)="onRowUnselect($event)">
+      <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="10" [(selection)]="selected" dataKey="id">
         <ng-template pTemplate="header">
           <tr>
             <th>
@@ -96,9 +95,6 @@
             <th>
               <span>Tiền khách trả</span>
             </th>
-            <th>
-              <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
-            </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -111,9 +107,6 @@
             <td>{{lichSuDongTien.sotien}}</td>
             <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
             <td>{{lichSuDongTien.sotien}}</td>
-            <td>
-              <!-- <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox> -->
-            </td>
           </tr>
         </ng-template>
       </p-table>

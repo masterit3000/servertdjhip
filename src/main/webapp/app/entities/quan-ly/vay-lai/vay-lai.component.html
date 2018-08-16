@@ -19,7 +19,7 @@
         <button class="btn btn-primary float-right" (click)="timVayLai()">Tìm kiếm</button>
     </div>
     <div class="table-responsive" *ngIf="vayLais">
-        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="vayLais" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>

@@ -1,22 +1,22 @@
 <div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h2>
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Nhân viên</span>
             </h2>
         </div>
         <!-- cua-hang-admin(popup:user-management-new) -->
-        <div class="col-md-1">
-            <button class="btn btn-primary" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
+        <div class="col-md-3">
+            <button class="btn btn-success pull-right" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo nhân viên mới
                 </span>
             </button>
         </div>
-        <div class="col-md-1">
-            <button class="btn btn-primary pull-right" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
+        <div class="col-md-2 offset-md-1">
+            <button class="btn btn-success pull-left" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo tài khoản mới
@@ -45,7 +45,7 @@
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">
-        <p-table [value]="nhanViens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="nhanViens" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>
