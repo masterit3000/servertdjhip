@@ -9,14 +9,16 @@
     <div class="ui-g-2">
         <label class="float label">
             <span class="ui-float-label">
-                <input id="float-input" name="keyTimBatHo" [(ngModel)]="keyTimBatHo" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND"
+                <input id="float-input" name="keyTimBatHo" [(ngModel)]="keyTimBatHo" pInputText type="text" size="30" pTooltip="Tên hợp đồng / Tên khách hàng / CMND / SĐT"
                     tooltipPosition="top" tooltipEvent="focus">
-                <label for="float-input">Tên hợp đồng </label>
+                <label for="float-input">Thông tin tìm kiếm</label>
             </span>
         </label>
     </div>
     <div class="ui-g-2">
-        <button class="btn btn-primary float-right" (click)="timBatHo()">Tìm kiếm</button>
+        <button class="btn btn-primary float-right" (click)="timBatHo()">
+            <span class="fa fa-search"></span>
+            Tìm kiếm</button>
     </div>
     <div class="table-responsive" *ngIf="batHos">
         <p-table [value]="batHos" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
@@ -29,7 +31,7 @@
                         <span>Tên khách hàng</span>
                     </th>
                     <th>
-                        <span >Tiền đưa khách</span>
+                        <span>Tiền đưa khách</span>
                     </th>
                     <th>
                         <span>Tổng tiền</span>

@@ -20,7 +20,7 @@
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo tài khoản mới
-                </span> 
+                </span>
             </button>
         </div>
     </div>
@@ -30,18 +30,18 @@
             <h3>
                 <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhân viên</h3>
             <div class="ui-g-2">
-                    <span class="ui-float-label">
-                        <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Nhập tên nhân viên /CMND/ Số điện thoại"
-                            tooltipPosition="top" tooltipEvent="focus">
-                        <label for="float-input"></label>
-                    </span>
+                <span class="ui-float-label">
+                    <input id="float-input" name="keyTimVayLai" placeholder="Thông tin tìm kiếm" [(ngModel)]="keyTimNhanVien" pInputText type="text"
+                        size="30" pTooltip="Tên nhân viên / CMND / SĐT" tooltipPosition="top" tooltipEvent="focus">
+                    <label for="float-input"></label>
+                </span>
             </div>
         </div>
         <div class="ui-g-2">
-                <button class="btn btn-primary float-left" (click)="timNhanVien()">
-                    <span class="pi pi-search"></span>
-                    Tìm kiếm</button>
-            </div>
+            <button class="btn btn-primary float-left" (click)="timNhanVien()">
+                <span class="pi pi-search"></span>
+                Tìm kiếm</button>
+        </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">
