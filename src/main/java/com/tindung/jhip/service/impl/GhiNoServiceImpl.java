@@ -6,6 +6,7 @@ import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.repository.GhiNoRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import com.tindung.jhip.service.mapper.GhiNoMapper;
@@ -33,11 +34,13 @@ public class GhiNoServiceImpl implements GhiNoService {
 
     private final GhiNoMapper ghiNoMapper;
     private final NhanVienService nhanVienService;
+    private final CuaHangService cuaHangService;
 
-    public GhiNoServiceImpl(GhiNoRepository ghiNoRepository, GhiNoMapper ghiNoMapper, NhanVienService nhanVienService) {
+    public GhiNoServiceImpl(GhiNoRepository ghiNoRepository, GhiNoMapper ghiNoMapper, NhanVienService nhanVienService, CuaHangService cuaHangService) {
         this.ghiNoRepository = ghiNoRepository;
         this.ghiNoMapper = ghiNoMapper;
         this.nhanVienService = nhanVienService;
+        this.cuaHangService = cuaHangService;
     }
 
     /**
@@ -117,7 +120,8 @@ public class GhiNoServiceImpl implements GhiNoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<GhiNo> ghiNos = ghiNoRepository.baocao(loaihopdong, start, end);
+            Long cuaHangId = cuaHangService.findIDByUserLogin();
+            List< GhiNo> ghiNos = ghiNoRepository.baocao(loaihopdong, start, end, cuaHangId);
             List<GhiNoDTO> collect = ghiNos.stream()
                     .map(ghiNoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -129,10 +133,10 @@ public class GhiNoServiceImpl implements GhiNoService {
 
     @Override
     public List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<GhiNo> ghiNos = ghiNoRepository.baocaoNV(loaihopdong, start, end,nhanVienid);
+            Long cuaHangId = cuaHangService.findIDByUserLogin();
+            List<GhiNo> ghiNos = ghiNoRepository.baocaoNV(loaihopdong, start, end, nhanVienid, cuaHangId);
             List<GhiNoDTO> collect = ghiNos.stream()
                     .map(ghiNoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

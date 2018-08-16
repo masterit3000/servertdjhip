@@ -1,5 +1,6 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import java.util.List;
 
@@ -37,4 +38,6 @@ public interface HopDongService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    
+    List<HopDongDTO> thongKe(TRANGTHAIHOPDONG trangthai);
 }
