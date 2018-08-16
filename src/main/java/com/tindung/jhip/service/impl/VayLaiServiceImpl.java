@@ -337,11 +337,12 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienService.save(lichSuDongTienDTO);
 
                     LichSuDongTienDTO lichSuDongTienTraGoc = new LichSuDongTienDTO();
-                    lichSuDongTienTraGoc.setHopDongId(vayLai.getHopdongvl().getHopdonggoc().getId());
+
+                    lichSuDongTienTraGoc.setHopDongId(id);
                     lichSuDongTienTraGoc.setNhanVienId(nhanVienService.findByUserLogin().getId());
                     lichSuDongTienTraGoc.setNgaybatdau(ZonedDateTime.now());
                     lichSuDongTienTraGoc.setNgayketthuc(ZonedDateTime.now());
-                    lichSuDongTienTraGoc.setSotien(tongTienVay);
+                    lichSuDongTienTraGoc.setSotien(vayLaiRepository.findByHopDong(id).getTienvay());
                     lichSuDongTienTraGoc.setTrangthai(DONGTIEN.TRAGOC);
                     lichSuDongTienTraGoc.setNgaygiaodich(ZonedDateTime.now());
                     lichSuDongTienService.save(lichSuDongTienTraGoc);
