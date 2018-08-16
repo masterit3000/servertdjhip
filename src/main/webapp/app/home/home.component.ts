@@ -10,7 +10,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { LichSuDongTien, LichSuDongTienService, DONGTIEN } from '../../app/entities/lich-su-dong-tien';
 import { Principal } from '../shared';
-import { LOAIHOPDONG } from '../../app/entities/hop-dong';
+import { HopDong, HopDongService, LOAIHOPDONG, TRANGTHAIHOPDONG } from '../../app/entities/hop-dong';
+import { GhiNo, GhiNoService } from '../../app/entities/ghi-no';
 
 @Component({
     selector: 'jhi-home',
@@ -30,10 +31,17 @@ export class HomeComponent implements OnInit {
     lichSuDongTienHomNayBHs: LichSuDongTien[];
     lichSuDongTienVLs: LichSuDongTien[];
     lichSuDongTienHomNayVLs: LichSuDongTien[];
+    hopDongs: HopDong[];
+    ghiNos: GhiNo[];
+    tienNo: number;
+    tienTra: number;
+    selected:any;
     constructor(
         private principal: Principal,
         private loginModalService: LoginModalService,
         private lichSuDongTienService: LichSuDongTienService,
+        private hopDongService: HopDongService,
+        private ghiNoService: GhiNoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager
     ) {
@@ -47,6 +55,7 @@ export class HomeComponent implements OnInit {
         this.loadLichSuTraChamVayLai();
         this.loadLichSuTraBatHoHomNay();
         this.loadLichSuTraVayLaiHomNay();
+        this.loadHopDong();
 
         this.registerAuthenticationSuccess();
     }
@@ -96,6 +105,14 @@ export class HomeComponent implements OnInit {
         this.lichSuDongTienService.lichSuTraHomNay(DONGTIEN.CHUADONG, LOAIHOPDONG.VAYLAI).subscribe(
             (res: HttpResponse<LichSuDongTien[]>) => {
                 this.lichSuDongTienHomNayVLs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    loadHopDong() {
+        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DADONG).subscribe(
+            (res: HttpResponse<HopDong[]>) => {
+                this.hopDongs = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

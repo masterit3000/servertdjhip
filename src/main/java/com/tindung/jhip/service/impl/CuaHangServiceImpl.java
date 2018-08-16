@@ -71,6 +71,7 @@ public class CuaHangServiceImpl implements CuaHangService {
     @Transactional(readOnly = true)
     public List<CuaHangDTO> findByName(String key) {
         log.debug("Request to get all CuaHangs");
+        key = new StringBuffer("%").append(key).append("%").toString();
         return cuaHangRepository.findByName(key).stream()
                 .map(cuaHangMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));

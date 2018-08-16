@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -87,6 +88,21 @@ public class HopDongResource {
     public List<HopDongDTO> getAllHopDongs() {
         log.debug("REST request to get all HopDongs");
         return hopDongService.findAll();
+        }
+    @GetMapping("/thong-ke-hop-dongs/{trangthai}")
+    @Timed
+    public List<HopDongDTO> getAllThongKeHopDongs(@PathVariable String trangthai ) {
+        log.debug("REST request to thongke HopDongs");
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        switch (trangthai) {
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        }
+        return hopDongService.thongKe(trangthaihopdong);
         }
 
     /**

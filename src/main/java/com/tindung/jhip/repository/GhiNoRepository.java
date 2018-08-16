@@ -21,12 +21,15 @@ public interface GhiNoRepository extends JpaRepository<GhiNo, Long> {
     @Query(value = "select l from GhiNo l inner join l.hopDong h where h.id =:idhopdong")
     List<GhiNo> findByHopDong(@Param(value = "idhopdong") long idhopdong);
 
-    @Query(value = "select l from GhiNo l inner join l.hopDong h where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 ")
-    List<GhiNo> baocao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
+    @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.cuaHang c where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 and c.id= ?3 ")
+    List<GhiNo> baocao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long idCuaHang);
 
-    @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.nhanVien n where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 and n.id = ?4 ")
-    List<GhiNo> baocaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
+    @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.nhanVien n inner join h.cuaHang c where l.ngayghino between  ?2 and ?3 and  h.loaihopdong =?1 and n.id = ?4 and c.id=?5")
+    List<GhiNo> baocaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid, Long idCuaHang);
 
     @Query(value = "select sum(l.sotien) from GhiNo l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai =?1")
     Optional<Double> tienNo(NOTRA trangthai, Long idcuaHang);
+
+    @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai =?1")
+    Optional<Double> thongke(NOTRA trangthai, Long idcuaHang);
 }
