@@ -1,24 +1,22 @@
 <div>
-    <h2>
-        <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
-        <span>Thống kê vay lãi theo ngày</span>
-
-
-    </h2>
-    <div class="widget-header">
+    <div class="modal-header">
+        <h2>
+            <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
+            <span>Thống kê vay lãi theo ngày</span>
+        </h2>
+    </div>
+    <div class="widget-header" style="padding-top:15px">
         <div class="row">
             <div class="col-md-3">
                 <div class="row">
                     <label class="col-md-4 control-label">
                         Nhân Viên
-
                     </label>
                     <div class="col-md-8 form-group">
                         <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
                         <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
                             <option [ngValue]=1>Tất cả nhân viên</option>
                             <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
-
                         </select>
                     </div>
                 </div>
@@ -35,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive" style="padding-top: 50px">
+    <div class="table-responsive">
         <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>

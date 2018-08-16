@@ -35,7 +35,9 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     dongHD: boolean = false;
-    dongTien: boolean = false;
+    dongGhiNo: boolean = false;
+    dongTraNo: boolean = false;
+    showDaoHo: boolean = false;
     ghiNo: GhiNo;
     ghiNos: GhiNo[];
     tienNo: number;
@@ -90,14 +92,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     dongDongHD() {
         this.dongHD = false;
 
-    }
-
-    hienDongTien() {
-        this.dongTien = true;
-    }
-
-    dongDongTien() {
-        this.dongTien = false;
     }
 
     dongHopDong() {
@@ -222,6 +216,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.ghiNoService.create(this.ghiNo));
         }
         this.setSoTienLichSuThaoTac('Ghi nợ', this.ghiNo.sotien, 0);
+        this.dongGhiNo = true;
     }
     saveTraNo() {
         this.isSaving = true;
@@ -237,6 +232,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.ghiNoService.create(this.ghiNo));
         }
         this.setSoTienLichSuThaoTac('Trả nợ', 0, this.ghiNo.sotien);
+        this.dongTraNo = true;
     }
 
 
@@ -284,6 +280,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.dongHopDong();
         this.subscribeToSaveResponseBH(
             this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id));
+        this.showDaoHo = true;
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
         this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;

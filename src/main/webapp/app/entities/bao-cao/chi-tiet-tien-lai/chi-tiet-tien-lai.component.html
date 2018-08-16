@@ -98,41 +98,40 @@
 
 </div> -->
 <div>
-  <h2>
-    <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
-    <span>Báo cáo thu lãi</span>
+  <div class="modal-header">
+    <h2>
+      <i class="fa fa-calendar" width="20%" aria-hidden="true"></i>
+      <span>Báo cáo thu lãi</span>
+    </h2>
+  </div>
+  <div class="widget-header" style="padding-top:15px">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="row">
+          <label class="col-md-4 control-label">
+            Nhân Viên
+          </label>
+          <div class="col-md-8 form-group">
+            <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
+            <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
+              <option selected [ngValue]=1>Tất cả nhân viên</option>
+              <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
 
-
-  </h2>
-  <div class="widget-header">
-      <div class="row">
-          <div class="col-md-3">
-              <div class="row">
-                  <label class="col-md-4 control-label">
-                      Nhân Viên
-
-                  </label>
-                  <div class="col-md-8 form-group">
-                      <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
-                      <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien" >
-                          <option selected [ngValue]=1 >Tất cả nhân viên</option>
-                          <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
-
-                      </select>
-                  </div>
-              </div>
+            </select>
           </div>
-          <div class="col-md-4">
-              <label>Từ Ngày</label>
-              <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
-          </div>
-          <div class="col-md-5">
-              <label>Đến Ngày</label>
-              <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
-              <button class="btn btn-info pull-right" (click)="timKiem()">
-                  <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
-          </div>
+        </div>
       </div>
+      <div class="col-md-4">
+        <label>Từ Ngày</label>
+        <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+      </div>
+      <div class="col-md-5">
+        <label>Đến Ngày</label>
+        <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+        <button class="btn btn-info pull-right" (click)="timKiem()">
+          <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
+      </div>
+    </div>
   </div>
 </div>
 <div class="table-responsive" style="padding-top: 50px">
@@ -190,11 +189,13 @@
         <td align="right" style="color:red;background-color:#ECECEC" colspan="5">
           <strong>Tổng</strong>
         </td>
-        <td align="right" style="background-color:#ECECEC"><span style="color:red">{{tongTienTienBatHo}}</span></td>
+        <td align="right" style="background-color:#ECECEC">
+          <span style="color:red">{{tongTienTienBatHo}}</span>
+        </td>
         <td align="right" style="background-color:#ECECEC">
           <span style="color:red">{{tongTienBHs}}</span>
         </td>
-        
+
         <td align="right" style="background-color:#ECECEC">
           <span style="color:red">{{tongTienLaiBatHo}}</span>
         </td>
@@ -258,7 +259,7 @@
         </td>
 
         <td></td>
-        
+
       </tr>
 
     </ng-template>
