@@ -39,20 +39,6 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
     ) {
     }
 
-    loadAll() {
-        this.batHoService.query().subscribe(
-            (res: HttpResponse<BatHo[]>) => {
-                this.batHos = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.vayLaiService.query().subscribe(
-            (res: HttpResponse<VayLai[]>) => {
-                this.vayLais = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
 
     timBatHo() {
         // const query = event.query;
@@ -76,10 +62,8 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.loadAll();
         this.registerChangeInNhanViens();
-        this.registerChangeInBatHos();
-        this.registerChangeInVayLais();
+
     }
 
     load(id) {
@@ -87,6 +71,18 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
             .subscribe((nhanVienResponse: HttpResponse<NhanVien>) => {
                 this.nhanVien = nhanVienResponse.body;
             });
+            this.batHoService.findByNhanVien(id).subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.vayLaiService.getAllByNhanVien(id).subscribe(
+                (res: HttpResponse<VayLai[]>) => {
+                    this.vayLais = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
     previousState() {
         window.history.back();
@@ -107,12 +103,6 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
             'nhanVienListModification',
             (response) => this.load(this.nhanVien.id)
         );
-    }
-    registerChangeInBatHos() {
-        this.eventSubscriber = this.eventManager.subscribe('batHoListModification', (response) => this.loadAll());
-    }
-    registerChangeInVayLais() {
-        this.eventSubscriber = this.eventManager.subscribe('vayLaiListModification', (response) => this.loadAll());
     }
     timVayLai() {
         this.vayLaiService

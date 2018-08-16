@@ -125,9 +125,16 @@ public class VayLaiResource {
 
     @GetMapping("/vay-lais-by-cuaHang/{id}")
     @Timed
-    public List<VayLaiDTO> getAllVayLaiByCuaHang(@PathVariable(name = "id")Long id) {
+    public List<VayLaiDTO> getAllVayLaiByCuaHang(@PathVariable(name = "id") Long id) {
         log.debug("REST request to get all VayLais");
         return vayLaiService.findAllByCuaHang(id);
+    }
+
+    @GetMapping("/vay-lais-by-nhanvien/{id}")
+    @Timed
+    public List<VayLaiDTO> getAllVayLaiByNhanVien(@PathVariable Long id) {
+        log.debug("REST request to get all VayLais");
+        return vayLaiService.findByNhanVien(id);
     }
 
     @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}")

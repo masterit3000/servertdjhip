@@ -19,6 +19,9 @@ public interface VayLaiRepository extends JpaRepository<VayLai, Long> {
     @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =:idcuahang")
     public List<VayLai> findAllByCuaHang(@Param(value = "idcuahang") Long cuaHangId);
 
+    @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.nhanVien c where c.id =:idnhanvien")
+    public List<VayLai> findByNhanVien(@Param(value = "idnhanvien") Long id);
+
     @Query(value = "select b from VayLai b inner join b.hopdongvl h  where h.id =:idhopdong")
     public VayLai findByHopDong(@Param(value = "idhopdong") Long hopdongId);
 

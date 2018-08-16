@@ -509,19 +509,14 @@ public class VayLaiServiceImpl implements VayLaiService {
         throw new InternalServerErrorException("Khong co quyen");
     }
 
-//    public List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id) {
-//    if (SecurityUtils.isCurrentUserInRole (AuthoritiesConstants.ADMIN) 
-//    
-//
-//|| SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-//                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-//            List<VayLai> listVayLai = vayLaiRepository.findAllByKhachHang(id);
-//            list = listVayLai.stream()
-//                    .map(vayLaiMapper::toDto)
-//                    .collect(Collectors.toCollection(LinkedList::new));
-//            return list;
-//
-//        }
-//        throw new InternalServerErrorException("Khong co quyen");
-//    }
+    public List<VayLaiDTO> findByNhanVien(Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            List<VayLai> listVayLai = vayLaiRepository.findByNhanVien(id);
+            return listVayLai.stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
 }

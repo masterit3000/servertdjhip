@@ -255,6 +255,13 @@ public class BatHoResource {
         }
         return batHoService.findByTrangThaiHopDong(trangthaihopdong);
     }
+    @GetMapping("/find-by-nhanvien/{id}")
+    @Timed
+    public List<BatHoDTO> findByTrangThai(@PathVariable Long id) {
+        log.debug("REST request to get all BatHos");
+
+        return batHoService.findByNhanVien(id);
+    }
 
     @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}/{id}")
     @Timed
