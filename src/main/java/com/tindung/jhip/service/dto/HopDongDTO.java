@@ -41,6 +41,15 @@ public class HopDongDTO implements Serializable {
     private Long khachHangId;
 
     private String khachHangTen;
+    private String nhanVienTen;
+
+    public String getNhanVienTen() {
+        return nhanVienTen;
+    }
+
+    public void setNhanVienTen(String nhanVienTen) {
+        this.nhanVienTen = nhanVienTen;
+    }
 
     private Long cuaHangId;
 

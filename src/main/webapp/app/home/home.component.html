@@ -26,8 +26,8 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <p-table [value]="lichSuDongTiensBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+    <div class="table-responsive" [ngSwitch]="isAuthenticated()">
+        <p-table [value]="lichSuDongTiensBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th colspan="7" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền bát họ trả chậm</th>
@@ -74,7 +74,7 @@
             </ng-template>
             <ng-template pTemplate="footer">
                 <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="5">
                         <strong>Tổng</strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
@@ -87,8 +87,8 @@
             </ng-template>
         </p-table>
     </div>
-    <div class="table-responsive">
-        <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+    <div class="table-responsive" [ngSwitch]="isAuthenticated()">
+        <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th colspan="7" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền vay lãi trả chậm</th>
@@ -135,7 +135,7 @@
             </ng-template>
             <ng-template pTemplate="footer">
                 <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                    <td align="right" style="color:red;background-color:#ECECEC" colspan="5">
                         <strong>Tổng</strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
@@ -149,9 +149,9 @@
         </p-table>
     </div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive" [ngSwitch]="isAuthenticated()">
     <p-table [value]="lichSuDongTienHomNayBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected"
-        dataKey="id">
+        dataKey="id" *ngSwitchCase="true">
         <ng-template pTemplate="header">
             <tr>
                 <th colspan="7" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền bát họ phải đóng hôm
@@ -170,7 +170,7 @@
                 <th>
                     <span>Nhân viên</span>
                 </th>
-                <th colspan="2">
+                <th >
                     <span>Khách hàng</span>
                 </th>
                 <th>
@@ -199,7 +199,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
             <tr>
-                <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                <td align="right" style="color:red;background-color:#ECECEC" colspan="5">
                     <strong>Tổng</strong>
                 </td>
                 <td align="right" style="background-color:#ECECEC">
@@ -213,9 +213,9 @@
     </p-table>
 </div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive" [ngSwitch]="isAuthenticated()">
     <p-table [value]="lichSuDongTienHomNayVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected"
-        dataKey="id">
+        dataKey="id" *ngSwitchCase="true">
         <ng-template pTemplate="header">
             <tr>
                 <th colspan="7" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền vay lãi phải đóng hôm
@@ -263,7 +263,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
             <tr>
-                <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                <td align="right" style="color:red;background-color:#ECECEC" colspan="5">
                     <strong>Tổng</strong>
                 </td>
                 <td align="right" style="background-color:#ECECEC">
@@ -277,15 +277,15 @@
     </p-table>
 </div>
 </div>
-<div class="table-responsive">
-    <p-table [value]="hopDongs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+<div class="table-responsive" [ngSwitch]="isAuthenticated()">
+    <p-table [value]="hopDongs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
         <ng-template pTemplate="header">
             <tr>
-                <th colspan="7" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu</th>
+                <th colspan="4" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu</th>
             </tr>
             <tr>
                 <th>
-                    <span jhiTranslate="global.field.id">#</span>
+                   <span>Mã hợp đồng</span>
                 </th>
                 <th>
                     <span>Ngày tạo</span>
@@ -305,11 +305,10 @@
                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                 <td>{{hopDong.nhanVienTen}}</td>
                 <td>{{hopDong.khachHangTen}}</td>
-                <td>
-                </td>
+                
             </tr>
         </ng-template>
-        <ng-template pTemplate="footer">
+        <!-- <ng-template pTemplate="footer">
             <tr>
                 <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
                     <strong>Tổng</strong>
@@ -321,7 +320,7 @@
                 <td></td>
             </tr>
 
-        </ng-template>
+        </ng-template> -->
     </p-table>
 </div>
 
