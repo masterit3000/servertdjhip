@@ -1,16 +1,22 @@
 <div>
-    <h2>
-        <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
-        <span jhiTranslate="servertdjhipApp.cuaHang.home.title">Cua Hangs</span>
-        <button class="btn btn-success float-right jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
-            <span class="fa fa-plus"></span>
-            <span jhiTranslate="servertdjhipApp.cuaHang.home.createLabel">
-                Create new Cua Hang
-            </span>
-        </button>
-    </h2>
+    <div class="row border-bottom">
+        <div class="col-md-9">
+            <h2>
+                <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
+                <span jhiTranslate="servertdjhipApp.cuaHang.home.title">Cua Hangs</span>
+            </h2>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-success pull-left jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
+                <span class="fa fa-plus"></span>
+                <span jhiTranslate="servertdjhipApp.cuaHang.home.createLabel">
+                    Create new Cua Hang
+                </span>
+            </button>
+        </div>
+    </div>
     <jhi-alert></jhi-alert>
-    <hr/>
+    <br/>
     <div>
         <div>
             <h3>
@@ -29,7 +35,7 @@
     </div>
     <br/>
     <div class="table-responsive" *ngIf="cuaHangs">
-        <p-table [value]="cuaHangs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="cuaHangs" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>

@@ -1,49 +1,43 @@
 <div>
-    <div class="row">
-        <div class="col-md-7">
+    <div class="row border-bottom">
+        <div class="col-md-6">
             <h2>
-            <i class="fa fa-user" aria-hidden="true"></i>
-            
-            <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
-        </h2>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
+            </h2>
         </div>
         <div class="col-md-3">
-            <button class="btn btn-primary float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
+            <button class="btn btn-success float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
                 <span class="fa fa-plus"></span>
                 <span jhiTranslate="servertdjhipApp.nhanVien.home.createLabel">
                     Create new Nhan Vien
                 </span>
             </button>
         </div>
-
-        <div class="col-md-1">
-            <button class="btn btn-primary pull-right" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
+        <div class="col-md-2 offset-md-1">
+            <button class="btn btn-success pull-left" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo tài khoản mới
                 </span>
             </button>
         </div>
-        
     </div>
-
-
-
     <jhi-alert></jhi-alert>
-    <hr/>
-    <div>
-        <div>
-            <h3>
-                <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhân viên</h3>
-            <div class="ui-g-2">
-                <pe-step label="Float label">
-                    <span class="ui-float-label">
-                        <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Nhập tên nhân viên /CMND/ Số điện thoại"
-                            tooltipPosition="top" tooltipEvent="focus">
-                        <label for="float-input"></label>
-                    </span>
-                </pe-step>
-            </div>
+    <br/>
+    <h3>
+        <i class="pi pi-search" width="20%" aria-hidden="true"></i>
+        Tìm nhân viên
+    </h3>
+    <div class="row">
+        <div class="ui-g-2">
+            <pe-step label="Float label">
+                <span class="ui-float-label">
+                    <input id="float-input" name="keyTimNhanVien" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Tên nhân viên / CMND / SĐT"
+                        tooltipPosition="top" tooltipEvent="focus">
+                    <label for="float-input">Thông tin tìm kiếm</label>
+                </span>
+            </pe-step>
         </div>
         <div class="ui-g-2">
             <button class="btn btn-primary float-left" (click)="timNhanVien()">
@@ -53,7 +47,7 @@
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">
-        <p-table [value]="nhanViens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="nhanViens" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>

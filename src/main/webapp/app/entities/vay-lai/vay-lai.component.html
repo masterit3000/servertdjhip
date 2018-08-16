@@ -1,26 +1,32 @@
 <div>
-    <h2>
-        <i class="fa fa-money" width="20%" aria-hidden="true"></i>
-        <span jhiTranslate="servertdjhipApp.vayLai.home.title">Vay Lais</span>
-        <button class="btn btn-success float-right jh-create-entity create-vay-lai" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-            routerLink="/vayLaiMoi">
-            <!-- <button class="btn btn-primary float-right jh-create-entity create-vay-lai" [routerLink]="['/', { outlets: { popup: ['vay-lai-new'] } }]"> -->
-            <span class="fa fa-plus"></span>
-            <span jhiTranslate="servertdjhipApp.vayLai.home.createLabel">
-                Create new Vay Lai
-            </span>
-        </button>
-    </h2>
+    <div class="row border-bottom">
+        <div class="col-md-9">
+            <h2>
+                <i class="fa fa-money" width="20%" aria-hidden="true"></i>
+                <span jhiTranslate="servertdjhipApp.vayLai.home.title">Vay Lais</span>
+            </h2>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-success pull-left jh-create-entity create-vay-lai" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                routerLink="/vayLaiMoi">
+                <!-- <button class="btn btn-primary float-right jh-create-entity create-vay-lai" [routerLink]="['/', { outlets: { popup: ['vay-lai-new'] } }]"> -->
+                <span class="fa fa-plus"></span>
+                <span jhiTranslate="servertdjhipApp.vayLai.home.createLabel">
+                    Create new Vay Lai
+                </span>
+            </button>
+        </div>
+    </div>
     <jhi-alert></jhi-alert>
-    <hr/>
+    <br/>
     <h3>
         <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm hợp đồng</h3>
     <div class="ui-g-2">
         <pe-step label="Float label">
             <span class="ui-float-label">
-                <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimVayLai" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND"
+                <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimVayLai" pInputText type="text" size="30" pTooltip="Tên hợp đồng / Tên khách hàng / CMND / SĐT"
                     tooltipPosition="top" tooltipEvent="focus">
-                <label for="float-input">Tên khách hàng</label>
+                <label for="float-input">Thông tin tìm kiếm</label>
             </span>
         </pe-step>
     </div>
@@ -30,7 +36,7 @@
             Tìm kiếm</button>
     </div>
     <div class="table-responsive" *ngIf="vayLais">
-        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="vayLais" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>
