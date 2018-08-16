@@ -75,10 +75,11 @@ public class HopDongServiceImpl implements HopDongService {
         log.debug("Request to get all HopDongs");
         Long idCuaHang = cuaHangService.findIDByUserLogin();
         List<HopDong> hopDongs = hopDongRepository.thongke(trangthai, idCuaHang);
-        List<HopDong> listHopDong = new ArrayList<HopDong>();
-        double tienNo = 0;
-        double tienTra = 0;
+        List<HopDong> listHopDong = new ArrayList<>();
+
         for (HopDong hopDong : hopDongs) {
+            double tienNo = 0;
+            double tienTra = 0;
             List<GhiNo> list = ghiNoRepository.findByHopDong(hopDong.getId());
             for (GhiNo ghiNo : list) {
                 if (ghiNo.getTrangthai().equals(NOTRA.NO)) {
@@ -96,7 +97,6 @@ public class HopDongServiceImpl implements HopDongService {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    
     /**
      * Get one hopDong by id.
      *
