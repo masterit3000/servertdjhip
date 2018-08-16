@@ -42,7 +42,7 @@ public interface LichSuDongTienService {
      */
     void delete(Long id);
 
-    LichSuDongTienDTO setDongTien(Long id,DONGTIEN dongtien);
+    void setDongTien(Long id,DONGTIEN dongtien);
 
     List<LichSuDongTienDTO> findByHopDong(Long id);
 

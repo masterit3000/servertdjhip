@@ -88,7 +88,7 @@ public class LichSuDongTienResource {
 
     @GetMapping("/lich-su-dong-tiens/dongtien/{id}/{dongtien}")
     @Timed
-    public ResponseEntity<LichSuDongTienDTO> setDongTien(@PathVariable Long id, @PathVariable(name = "dongtien") String dongtien) throws URISyntaxException {
+    public ResponseEntity<Void> setDongTien(@PathVariable Long id, @PathVariable(name = "dongtien") String dongtien) throws URISyntaxException {
         log.debug("REST request to setDongtien LichSuDongTien : {}");
         DONGTIEN loaidongtien = DONGTIEN.TRAGOC;
         switch (dongtien) {
@@ -103,8 +103,8 @@ public class LichSuDongTienResource {
                 break;
 
         }
-        LichSuDongTienDTO result = lichSuDongTienService.setDongTien(id,loaidongtien);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+        lichSuDongTienService.setDongTien(id,loaidongtien);
+         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
     }
 
     /**

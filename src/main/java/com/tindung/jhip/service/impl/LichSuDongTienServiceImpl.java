@@ -126,16 +126,12 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public LichSuDongTienDTO setDongTien(Long id,DONGTIEN dongtien) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+    public void setDongTien(Long id,DONGTIEN dongtien) {
             LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
             lichSuDongTien.setTrangthai(dongtien);
             lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
-            return lichSuDongTienMapper.toDto(lichSuDongTien);
-        }
-        throw new InternalServerErrorException("Khong co quyen");
+            lichSuDongTienRepository.save(lichSuDongTien);
+        
     }
 
     @Override

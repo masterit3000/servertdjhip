@@ -159,15 +159,35 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     onRowSelect(event) {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
 
-        this.lichSuDongTienService.setDongTien(event.data.id)
-            .subscribe((vayLaiResponse: HttpResponse<LichSuDongTien>) => {
-                this.lichSuDongTien = vayLaiResponse.body;
+        this.lichSuDongTienService.setDongTien(event.data.id, DONGTIEN.DADONG)
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Đóng Hợp Đồng'
+                });
                 this.subscription = this.route.params.subscribe(params => {
                     this.load(params['id']);
 
                 });
             });
         this.setSoTienLichSuThaoTac('đóng tiền', 0, event.data.sotien);
+
+    }
+    onRowUnselect(event) {
+        this.msgs = [{ severity: 'info', summary: 'Hủy đóng', detail: 'id: ' + event.data.id }];
+
+        this.lichSuDongTienService.setDongTien(event.data.id, DONGTIEN.DADONG)
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Hủy đóng Hợp Đồng'
+                });
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+
+                });
+            });
+        this.setSoTienLichSuThaoTac('Hủy đóng tiền', 0, event.data.sotien);
 
     }
     saveNo() {
