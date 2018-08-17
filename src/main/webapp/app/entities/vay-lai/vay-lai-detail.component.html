@@ -135,7 +135,8 @@
                         <td>{{vayLai.chukylai }}</td>
                         <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>
-                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'" ></p-tableCheckbox>
+                            <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'" ></p-tableCheckbox>
                         </td>
                     </tr>
                 </ng-template>
