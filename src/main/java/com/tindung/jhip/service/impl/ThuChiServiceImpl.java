@@ -151,10 +151,8 @@ public class ThuChiServiceImpl implements ThuChiService {
     public List<ThuChiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,Long id) {
 
         log.debug("Request to find ThuChi : {}", start, end);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
             //kiem tra quyền
             Long cuahangID = cuaHangService.findIDByUserLogin();//lây  về cửa hang của user hiên tại
             List<ThuChi> findbyTime = thuChiRepository.baoCao(start, end, cuahangID,id);//goi hàm để lây vê thu chi của cửa hang fhienej tauij

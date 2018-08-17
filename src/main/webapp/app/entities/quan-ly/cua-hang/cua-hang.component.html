@@ -1,68 +1,74 @@
 <div>
-  <h2>
-    <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
-    <span>Cửa hàng</span>
-    <button class="btn btn-primary float-right jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
-      <span class="fa fa-plus"></span>
-      <span>
-        Tạo cửa hàng mới
-      </span>
-    </button>
-  </h2>
+  <div class="row">
+    <div class="col-md-9">
+      <h2>
+        <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
+        <span>Cửa hàng</span>
+      </h2>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-success pull-left jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
+        <span class="fa fa-plus"></span>
+        <span>
+          Tạo cửa hàng mới
+        </span>
+      </button>
+    </div>
+  </div>
   <hr/>
   <div>
     <div>
       <h3>
         <i class="pi pi-search" width="20%" aria-hidden="true"></i>
         Tìm cửa hàng
-    </h3>
-    <div class="row">
+      </h3>
+      <div class="row">
         <div class="ui-g-2">
                 <span class="ui-float-label">
                     <input id="float-input" name="keyTimKhachHang" [(ngModel)]="keyTimCuaHang" pInputText type="text" size="30" pTooltip="Nhập tên cửa hàng"
                         tooltipPosition="top" tooltipEvent="focus">
-                    <label for="float-input">Tên cửa hàng</label>
+                    <label for="float-input">Tên cửa hàng/SĐT cửa hàng</label>
                 </span>
         </div>
         <div class="ui-g-2">
-            <button class="btn btn-primary float-left" (click)="timCuaHang()">
-                <span class="pi pi-search"></span>
-                Tìm kiếm</button>
+          <button class="btn btn-primary float-left" (click)="timCuaHang()">
+            <span class="pi pi-search"></span>
+            Tìm kiếm</button>
         </div>
-    </div>
+      </div>
 
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="cuaHangs">
+      <p-table [value]="cuaHangs" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              <span>ID</span>
+            </th>
+            <th>
+              <span>Tên cửa hàng</span>
+            </th>
+            <th>
+              <span>Địa chỉ</span>
+            </th>
+            <th>
+              <span>Điện thoại</span>
+            </th>
+            <th>
+              <span>Trạng thái</span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cuaHang>
+          <tr [pSelectableRow]="cuaHang" [routerLink]="['../cua-hang-admin', cuaHang.id ]">
+            <td>{{cuaHang.id}}</td>
+            <td>{{cuaHang.ten}}</td>
+            <td>{{cuaHang.diachi}}</td>
+            <td>{{cuaHang.dienthoai}}</td>
+            <td>{{cuaHang.trangthai}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
-  <br/>
-  <div class="table-responsive" *ngIf="cuaHangs">
-    <p-table [value]="cuaHangs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
-            <span>ID</span>
-          </th>
-          <th>
-            <span>Tên cửa hàng</span>
-          </th>
-          <th>
-            <span>Địa chỉ</span>
-          </th>
-          <th>
-            <span>Điện thoại</span>
-          </th>
-          <th>
-            <span>Trạng thái</span>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-cuaHang>
-        <tr [pSelectableRow]="cuaHang" [routerLink]="['../cua-hang-admin', cuaHang.id ]">
-          <td>{{cuaHang.id}}</td>
-          <td>{{cuaHang.ten}}</td>
-          <td>{{cuaHang.diachi}}</td>
-          <td>{{cuaHang.dienthoai}}</td>
-          <td>{{cuaHang.trangthai}}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-</div>

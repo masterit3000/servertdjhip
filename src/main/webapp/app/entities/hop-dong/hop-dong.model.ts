@@ -35,6 +35,7 @@ export class HopDong implements BaseEntity {
         public khachHangTen?: string,
         public cuaHangId?: number,
         public nhanVienId?: number,
+        public nhanVienTen?: string,
         public hopdonggocId?: number,
         public taisans?: BaseEntity[],
         public ghinos?: BaseEntity[],

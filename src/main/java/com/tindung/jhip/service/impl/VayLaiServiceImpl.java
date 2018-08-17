@@ -257,6 +257,9 @@ public class VayLaiServiceImpl implements VayLaiService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay()) {
                 if (vayLaiDTO.getId() == null) {// add new vay lai
+                    HopDongDTO hopdongcu = hopDongService.findOne(id);
+                    hopdongcu.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
+                    hopDongService.save(hopdongcu);
                     HopDongDTO hopdong = new HopDongDTO();
                     vayLaiDTO.setHopdongvl(hopdong);
                     hopdong.setLoaihopdong(LOAIHOPDONG.VAYLAI);
@@ -270,7 +273,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                         hopdong.setCuaHangId(idCuaHang);
                     }
                     hopdong.setNgaytao(ZonedDateTime.now());
-                    hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
+                    hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                     hopdong.setMahopdong("them-bot-vl");
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
@@ -334,12 +337,14 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienService.save(lichSuDongTienDTO);
 
                     LichSuDongTienDTO lichSuDongTienTraGoc = new LichSuDongTienDTO();
-                    lichSuDongTienTraGoc.setHopDongId(vayLai.getHopdongvl().getHopdonggoc().getId());
+
+                    lichSuDongTienTraGoc.setHopDongId(id);
                     lichSuDongTienTraGoc.setNhanVienId(nhanVienService.findByUserLogin().getId());
                     lichSuDongTienTraGoc.setNgaybatdau(ZonedDateTime.now());
                     lichSuDongTienTraGoc.setNgayketthuc(ZonedDateTime.now());
-                    lichSuDongTienTraGoc.setSotien(tongTienVay);
+                    lichSuDongTienTraGoc.setSotien(vayLaiRepository.findByHopDong(id).getTienvay());
                     lichSuDongTienTraGoc.setTrangthai(DONGTIEN.TRAGOC);
+                    lichSuDongTienTraGoc.setNgaygiaodich(ZonedDateTime.now());
                     lichSuDongTienService.save(lichSuDongTienTraGoc);
 
                     return vayLaiMapper.toDto(vayLai);
@@ -413,6 +418,26 @@ public class VayLaiServiceImpl implements VayLaiService {
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         VayLai vayLai = null;
         vayLai = vayLaiRepository.findOne(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return vayLaiMapper.toDto(vayLai);
+
+        } else {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            if (vayLai.getHopdongvl().getCuaHang().getId() == idCuaHang) {
+                return vayLaiMapper.toDto(vayLai);
+            }
+            return null;
+
+        }
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public VayLaiDTO findByHopDong(Long id
+    ) {
+        log.debug("Request to get VayLai : {}", id);
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        VayLai vayLai = null;
+        vayLai = vayLaiRepository.findByHopDong(id);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             return vayLaiMapper.toDto(vayLai);
 
@@ -509,19 +534,15 @@ public class VayLaiServiceImpl implements VayLaiService {
         throw new InternalServerErrorException("Khong co quyen");
     }
 
-//    public List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id) {
-//    if (SecurityUtils.isCurrentUserInRole (AuthoritiesConstants.ADMIN) 
-//    
-//
-//|| SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-//                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-//            List<VayLai> listVayLai = vayLaiRepository.findAllByKhachHang(id);
-//            list = listVayLai.stream()
-//                    .map(vayLaiMapper::toDto)
-//                    .collect(Collectors.toCollection(LinkedList::new));
-//            return list;
-//
-//        }
-//        throw new InternalServerErrorException("Khong co quyen");
-//    }
+    @Override
+    public List<VayLaiDTO> findByNhanVien(Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            List<VayLai> listVayLai = vayLaiRepository.findByNhanVien(id);
+            return listVayLai.stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
 }

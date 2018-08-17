@@ -35,7 +35,9 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     dongHD: boolean = false;
-    dongTien: boolean = false;
+    dongGhiNo: boolean = false;
+    dongTraNo: boolean = false;
+    showDaoHo: boolean = false;
     ghiNo: GhiNo;
     ghiNos: GhiNo[];
     tienNo: number;
@@ -90,14 +92,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     dongDongHD() {
         this.dongHD = false;
 
-    }
-
-    hienDongTien() {
-        this.dongTien = true;
-    }
-
-    dongDongTien() {
-        this.dongTien = false;
     }
 
     dongHopDong() {
@@ -196,15 +190,36 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     }
     onRowSelect(event) {
         this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
-        this.lichSuDongTienService.setDongTien(event.data.id)
-            .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
-                this.lichSuDongTien = batHoResponse.body;
+
+        this.lichSuDongTienService.setDongTien(event.data.id, DONGTIEN.DADONG)
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Đóng Hợp Đồng'
+                });
                 this.subscription = this.route.params.subscribe(params => {
                     this.load(params['id']);
 
                 });
             });
-        this.setSoTienLichSuThaoTac('Đóng tiền', 0, event.data.sotien);
+        this.setSoTienLichSuThaoTac('đóng tiền', 0, event.data.sotien);
+
+    }
+    onRowUnselect(event) {
+        this.msgs = [{ severity: 'info', summary: 'Hủy đóng', detail: 'id: ' + event.data.id }];
+
+        this.lichSuDongTienService.setDongTien(event.data.id, DONGTIEN.CHUADONG)
+            .subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Hủy đóng Hợp Đồng'
+                });
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+
+                });
+            });
+        this.setSoTienLichSuThaoTac('Hủy đóng tiền', event.data.sotien, 0);
 
     }
 
@@ -222,6 +237,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.ghiNoService.create(this.ghiNo));
         }
         this.setSoTienLichSuThaoTac('Ghi nợ', this.ghiNo.sotien, 0);
+        this.dongGhiNo = true;
     }
     saveTraNo() {
         this.isSaving = true;
@@ -237,6 +253,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.ghiNoService.create(this.ghiNo));
         }
         this.setSoTienLichSuThaoTac('Trả nợ', 0, this.ghiNo.sotien);
+        this.dongTraNo = true;
     }
 
 
@@ -284,6 +301,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.dongHopDong();
         this.subscribeToSaveResponseBH(
             this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id));
+        this.showDaoHo = true;
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
         this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;
@@ -302,12 +320,12 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
         this.isSaving = false;
     }
-    findHopDong() {
-        this.batHoService.findByHopDong(this.batHo.hopdong.id)
-            .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
-                this.batHos = batHoResponse.body;
-            });
-    }
+    // findHopDong() {
+    //     this.batHoService.findByHopDong(this.batHo.hopdong.id)
+    //         .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
+    //             this.batHos = batHoResponse.body;
+    //         });
+    // }
 
 
 }

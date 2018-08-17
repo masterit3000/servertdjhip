@@ -125,9 +125,16 @@ public class VayLaiResource {
 
     @GetMapping("/vay-lais-by-cuaHang/{id}")
     @Timed
-    public List<VayLaiDTO> getAllVayLaiByCuaHang(@PathVariable(name = "id")Long id) {
+    public List<VayLaiDTO> getAllVayLaiByCuaHang(@PathVariable(name = "id") Long id) {
         log.debug("REST request to get all VayLais");
         return vayLaiService.findAllByCuaHang(id);
+    }
+
+    @GetMapping("/vay-lais-by-nhanvien/{id}")
+    @Timed
+    public List<VayLaiDTO> getAllVayLaiByNhanVien(@PathVariable Long id) {
+        log.debug("REST request to get all VayLais");
+        return vayLaiService.findByNhanVien(id);
     }
 
     @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}")
@@ -182,6 +189,14 @@ public class VayLaiResource {
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return vayLaiService.baoCao(timeStart, timeEnd, id);
+    }
+
+    @GetMapping("/vay-lais-by-hopdong/{id}")
+    @Timed
+    public ResponseEntity<VayLaiDTO> getVayLaiByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get VayLai : {}", id);
+        VayLaiDTO vayLaiDTO = vayLaiService.findByHopDong(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(vayLaiDTO));
     }
 
 }

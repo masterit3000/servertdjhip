@@ -1,6 +1,8 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -36,10 +38,12 @@ public class HopDongResource {
     }
 
     /**
-     * POST  /hop-dongs : Create a new hopDong.
+     * POST /hop-dongs : Create a new hopDong.
      *
      * @param hopDongDTO the hopDongDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new hopDongDTO, or with status 400 (Bad Request) if the hopDong has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new hopDongDTO, or with status 400 (Bad Request) if the hopDong has
+     * already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/hop-dongs")
@@ -51,17 +55,18 @@ public class HopDongResource {
         }
         HopDongDTO result = hopDongService.save(hopDongDTO);
         return ResponseEntity.created(new URI("/api/hop-dongs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /hop-dongs : Updates an existing hopDong.
+     * PUT /hop-dongs : Updates an existing hopDong.
      *
      * @param hopDongDTO the hopDongDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated hopDongDTO,
-     * or with status 400 (Bad Request) if the hopDongDTO is not valid,
-     * or with status 500 (Internal Server Error) if the hopDongDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * hopDongDTO, or with status 400 (Bad Request) if the hopDongDTO is not
+     * valid, or with status 500 (Internal Server Error) if the hopDongDTO
+     * couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/hop-dongs")
@@ -73,27 +78,55 @@ public class HopDongResource {
         }
         HopDongDTO result = hopDongService.save(hopDongDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, hopDongDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, hopDongDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /hop-dongs : get all the hopDongs.
+     * GET /hop-dongs : get all the hopDongs.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of hopDongs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of hopDongs
+     * in body
      */
     @GetMapping("/hop-dongs")
     @Timed
     public List<HopDongDTO> getAllHopDongs() {
         log.debug("REST request to get all HopDongs");
         return hopDongService.findAll();
+    }
+
+    @GetMapping("/thong-ke-hop-dongs/{trangthai}/{loaihopdong}")
+    @Timed
+    public List<HopDongDTO> getAllThongKeHopDongs(@PathVariable(name = "trangthai") String trangthai, @PathVariable(name = "loaihopdong") String loaihopdong) {
+        log.debug("REST request to thongke HopDongs");
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        LOAIHOPDONG loai = LOAIHOPDONG.BATHO;
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
         }
 
+        switch (trangthai) {
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        }
+        return hopDongService.thongKe(trangthaihopdong, loai);
+    }
+
     /**
-     * GET  /hop-dongs/:id : get the "id" hopDong.
+     * GET /hop-dongs/:id : get the "id" hopDong.
      *
      * @param id the id of the hopDongDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the hopDongDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * hopDongDTO, or with status 404 (Not Found)
      */
     @GetMapping("/hop-dongs/{id}")
     @Timed
@@ -104,7 +137,7 @@ public class HopDongResource {
     }
 
     /**
-     * DELETE  /hop-dongs/:id : delete the "id" hopDong.
+     * DELETE /hop-dongs/:id : delete the "id" hopDong.
      *
      * @param id the id of the hopDongDTO to delete
      * @return the ResponseEntity with status 200 (OK)

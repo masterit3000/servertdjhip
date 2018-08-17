@@ -94,7 +94,7 @@
         <p-tabPanel header="Đóng lãi" disabled>
             <div class="row">
                 <div class="col-md-12">
-                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="10" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">Ngày</th>
@@ -103,9 +103,6 @@
                                 <th>Tiền khác</th>
                                 <th>Tổng lãi</th>
                                 <th>Tiền khách trả</th>
-                                <th>
-                                    <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
-                                </th>
                             </tr>
                         </ng-template>>
                         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -117,9 +114,6 @@
                                 <td>0</td>
                                 <td>{{vayLai.lai}}</td>
                                 <td>{{vayLai.lai}}</td>
-                                <td>
-                                    <!-- <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox> -->
-                                </td>
                             </tr>
                         </ng-template>
                     </p-table>

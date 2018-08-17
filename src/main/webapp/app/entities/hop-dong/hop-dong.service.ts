@@ -5,7 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { HopDong } from './hop-dong.model';
+import { HopDong, TRANGTHAIHOPDONG, LOAIHOPDONG } from './hop-dong.model';
 import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<HopDong>;
@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<HopDong>;
 @Injectable()
 export class HopDongService {
     private resourceUrl = SERVER_API_URL + 'api/hop-dongs';
+    private thongkeUrl = SERVER_API_URL + 'api/thong-ke-hop-dongs';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
 
@@ -47,7 +48,15 @@ export class HopDongService {
                 this.convertArrayResponse(res)
             );
     }
-
+    thongkehopdong(trangthai: TRANGTHAIHOPDONG,loai: LOAIHOPDONG): Observable<HttpResponse<HopDong[]>> {
+        return this.http
+            .get<HopDong[]>(`${this.thongkeUrl}/${trangthai}/${loai}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<HopDong[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
             observe: 'response'

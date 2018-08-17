@@ -9,17 +9,19 @@
     <div class="ui-g-2">
         <label class="float label">
             <span class="ui-float-label">
-                <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimVayLai" pInputText type="text" size="30" pTooltip="Nhập tên khách hàng/CMND"
+                <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimVayLai" pInputText type="text" size="30" pTooltip="Tên hợp đồng / Tên khách hàng / CMND / SĐT"
                     tooltipPosition="top" tooltipEvent="focus">
-                <label for="float-input">Tên hợp đồng </label>
+                <label for="float-input">Thông tin tìm kiếm</label>
             </span>
         </label>
     </div>
     <div class="ui-g-2">
-        <button class="btn btn-primary float-right" (click)="timVayLai()">Tìm kiếm</button>
+        <button class="btn btn-primary float-right" (click)="timVayLai()">
+            <span class="fa fa-search"></span>
+            Tìm kiếm</button>
     </div>
     <div class="table-responsive" *ngIf="vayLais">
-        <p-table [value]="vayLais" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="vayLais" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>

@@ -49,7 +49,7 @@ public interface BatHoService {
     BatHoDTO daoHo(BatHoDTO batHoDTO, Long id);
     List<BatHoDTO> findByNameOrCMND(String key);
     List<BatHoDTO> findByNameOrCMNDAdmin(String key,Long id) ;
-    List<BatHoDTO> findByHopDong(Long id);
+    BatHoDTO findByHopDong(Long id);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
     List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long idNhanVien);
     List<BatHoDTO> findByTrangThai(ZonedDateTime start, ZonedDateTime end,TRANGTHAIHOPDONG trangthai);
@@ -57,4 +57,5 @@ public interface BatHoService {
     List<BatHoDTO> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai,Long id);
     List<BatHoDTO> findByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai) ;
     Double quanLyVon();
+    List<BatHoDTO> findByNhanVien(Long idNhanVien);
 }

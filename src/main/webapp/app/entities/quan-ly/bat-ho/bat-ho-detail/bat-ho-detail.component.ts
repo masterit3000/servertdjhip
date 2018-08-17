@@ -91,16 +91,6 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
             response => this.load(this.batHo.id)
         );
     }
-    onRowSelect(event) {
-        this.msgs = [{ severity: 'info', summary: 'Da dong', detail: 'id: ' + event.data.id }];
-        this.lichSuDongTienService.setDongTien(event.data.id)
-            .subscribe((batHoResponse: HttpResponse<LichSuDongTien>) => {
-                this.batHo = batHoResponse.body;
-            });
-    }
 
-    onRowUnselect(event) {
-        this.msgs = [{ severity: 'info', summary: 'Car Selected', detail: 'Vin: ' + event.id }];
-    }
 
 }

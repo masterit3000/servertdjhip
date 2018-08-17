@@ -1,26 +1,26 @@
 <div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h2>
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Nhân viên</span>
             </h2>
         </div>
         <!-- cua-hang-admin(popup:user-management-new) -->
-        <div class="col-md-1">
-            <button class="btn btn-primary" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
+        <div class="col-md-3">
+            <button class="btn btn-success pull-right" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo nhân viên mới
                 </span>
             </button>
         </div>
-        <div class="col-md-1">
-            <button class="btn btn-primary pull-right" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
+        <div class="col-md-2 offset-md-1">
+            <button class="btn btn-success pull-left" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
                 <span class="fa fa-plus"></span>
                 <span>
                     Tạo tài khoản mới
-                </span> 
+                </span>
             </button>
         </div>
     </div>
@@ -30,22 +30,22 @@
             <h3>
                 <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhân viên</h3>
             <div class="ui-g-2">
-                    <span class="ui-float-label">
-                        <input id="float-input" name="keyTimVayLai" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Nhập tên nhân viên /CMND/ Số điện thoại"
-                            tooltipPosition="top" tooltipEvent="focus">
-                        <label for="float-input"></label>
-                    </span>
+                <span class="ui-float-label">
+                    <input id="float-input" name="keyTimVayLai" placeholder="Thông tin tìm kiếm" [(ngModel)]="keyTimNhanVien" pInputText type="text"
+                        size="30" pTooltip="Tên nhân viên / CMND / SĐT" tooltipPosition="top" tooltipEvent="focus">
+                    <label for="float-input"></label>
+                </span>
             </div>
         </div>
         <div class="ui-g-2">
-                <button class="btn btn-primary float-left" (click)="timNhanVien()">
-                    <span class="pi pi-search"></span>
-                    Tìm kiếm</button>
-            </div>
+            <button class="btn btn-primary float-left" (click)="timNhanVien()">
+                <span class="pi pi-search"></span>
+                Tìm kiếm</button>
+        </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">
-        <p-table [value]="nhanViens" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+        <p-table [value]="nhanViens" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>

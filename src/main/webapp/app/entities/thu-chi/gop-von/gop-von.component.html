@@ -26,8 +26,7 @@
                                     </label>
                                     <div class="col-md-8 form-group">
                                         <!-- <input [(ngModel)]="thuchi.nhanVienId" type="text" class="form-control" name="nguoinoptien" id="field_nguoinoptien" required/> -->
-                                        <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" required >
-                                           
+                                        <select class="form-control" id="field_nhanVien" name="nhanVien" [(ngModel)]="thuchi.nhanVienId" required>
                                             <option [ngValue]="nhanVienOption.id" *ngFor="let nhanVienOption of nhanviens;">{{nhanVienOption.ten}}</option>
                                         </select>
                                     </div>
@@ -121,11 +120,11 @@
                                             </tr>
                                         </tbody>
                                         <tfoot>
-                                                 <th>Tổng tiền</th>
-                                                 <th></th>
-                                                 <th></th>
-                                                 <th style="color: red">{{tongTien | currency:"VND":true:'2.0-0'}}</th>
-                                                 <th></th>
+                                            <th>Tổng tiền</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th style="color: red">{{tongTien | currency:"VND":true:'2.0-0'}}</th>
+                                            <th></th>
 
                                         </tfoot>
                                     </table>

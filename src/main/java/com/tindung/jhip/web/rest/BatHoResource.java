@@ -155,6 +155,15 @@ public class BatHoResource {
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(batHoDTO));
     }
+    @GetMapping("/tim-bat-hos/{id}")
+    @Timed
+    public ResponseEntity<BatHoDTO> getBatHoByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get BatHo : {}", id);
+
+        BatHoDTO batHoDTO = batHoService.findByHopDong(id);
+
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(batHoDTO));
+    }
 
     @GetMapping("/bat-hos/dongtien/{id}")
     @Timed
@@ -196,12 +205,7 @@ public class BatHoResource {
     }
     //Tùng end
 
-    @GetMapping("/tim-bat-hos/{id}")
-    @Timed
-    public List<BatHoDTO> findBatHoByHopDong(@PathVariable Long id) {
-        log.debug("REST request to get all BatHos");
-        return batHoService.findByHopDong(id);
-    }
+
 
     @GetMapping("/bao-cao-bat-hos-nhanvien/{start}/{end}/{id}")
     @Timed
@@ -254,6 +258,13 @@ public class BatHoResource {
                 trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
         }
         return batHoService.findByTrangThaiHopDong(trangthaihopdong);
+    }
+    @GetMapping("/find-by-nhanvien/{id}")
+    @Timed
+    public List<BatHoDTO> findByTrangThai(@PathVariable Long id) {
+        log.debug("REST request to get all BatHos");
+
+        return batHoService.findByNhanVien(id);
     }
 
     @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}/{id}")
