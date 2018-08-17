@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     lichSuDongTienHomNayBHs: LichSuDongTien[];
     lichSuDongTienVLs: LichSuDongTien[];
     lichSuDongTienHomNayVLs: LichSuDongTien[];
+    selected: any;
     constructor(
         private principal: Principal,
         private loginModalService: LoginModalService,
