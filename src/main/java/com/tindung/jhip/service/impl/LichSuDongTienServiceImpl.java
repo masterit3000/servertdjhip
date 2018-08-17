@@ -127,16 +127,24 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     @Override
     public void setDongTien(Long id, DONGTIEN dongtien) {
-        LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
-        lichSuDongTien.setTrangthai(dongtien);
-        lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
-        lichSuDongTienRepository.save(lichSuDongTien);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+            LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
+            lichSuDongTien.setTrangthai(dongtien);
+            lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
+            lichSuDongTienRepository.save(lichSuDongTien);
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
+            lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+            lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
+            lichSuDongTienRepository.save(lichSuDongTien);
+        }
 
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<LichSuDongTienDTO> findByHopDong(Long id) {
+    public List<LichSuDongTienDTO> findByHopDong(Long id
+    ) {
 
         List<LichSuDongTien> findByHopDong = lichSuDongTienRepository.findByHopDong(id);
         List<LichSuDongTienDTO> collect = findByHopDong.stream()
@@ -147,7 +155,8 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public void dongHopDong(Long id) {
+    public void dongHopDong(Long id
+    ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -207,7 +216,9 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
+    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong,
+            ZonedDateTime start, ZonedDateTime end
+    ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -223,7 +234,10 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
+    public List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong,
+            ZonedDateTime start, ZonedDateTime end,
+            Long nhanVienid
+    ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -239,7 +253,8 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong) {
+    public List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong
+    ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -262,7 +277,8 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong) {
+    public List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong
+    ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {

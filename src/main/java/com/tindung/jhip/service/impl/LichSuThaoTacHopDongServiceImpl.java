@@ -58,7 +58,7 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
     @Override
     public LichSuThaoTacHopDongDTO save(LichSuThaoTacHopDongDTO lichSuThaoTacHopDongDTO) {
         log.debug("Request to save LichSuThaoTacHopDong : {}", lichSuThaoTacHopDongDTO);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
 
             lichSuThaoTacHopDongDTO.setNhanVienId(cuaHangService.findIDByUserLogin());
             lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
