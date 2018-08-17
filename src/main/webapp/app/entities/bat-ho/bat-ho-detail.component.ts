@@ -219,7 +219,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
                 });
             });
-        this.setSoTienLichSuThaoTac('Hủy đóng tiền', 0, event.data.sotien);
+        this.setSoTienLichSuThaoTac('Hủy đóng tiền', event.data.sotien, 0);
 
     }
 
