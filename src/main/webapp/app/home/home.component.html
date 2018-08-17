@@ -59,7 +59,7 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-lichSuDongTien>
-                <tr>
+                <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
                     <td>{{lichSuDongTien.id}}</td>
                     <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                     <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -120,7 +120,7 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-lichSuDongTien>
-                <tr>
+                <tr  (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                     <td>{{lichSuDongTien.id}}</td>
                     <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                     <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -184,7 +184,7 @@
         </ng-template>
         <!-- Code backend lấy dữ liệu body -->
         <ng-template pTemplate="body" let-lichSuDongTien>
-            <tr>
+            <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
                 <td>{{lichSuDongTien.id}}</td>
                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -248,7 +248,7 @@
         </ng-template>
         <!-- Code backend lấy dữ liệu body -->
         <ng-template pTemplate="body" let-lichSuDongTien>
-            <tr>
+            <tr  (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                 <td>{{lichSuDongTien.id}}</td>
                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -278,10 +278,10 @@
 </div>
 </div>
 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-    <p-table [value]="hopDongs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
+    <p-table [value]="hopDongBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
         <ng-template pTemplate="header">
-            <tr>
-                <th colspan="4" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu</th>
+            <tr >
+                <th colspan="4" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu bát họ</th>
             </tr>
             <tr>
                 <th>
@@ -300,7 +300,7 @@
         </ng-template>
         <!-- Code backend lấy dữ liệu body -->
         <ng-template pTemplate="body" let-hopDong>
-            <tr  [routerLink]="['../hop-dong', hopDong.id ]">
+            <tr (click)="findBatHoByHopDong(hopDong.id)">
                 <td>{{hopDong.mahopdong}}</td>
                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                 <td>{{hopDong.nhanVienTen}}</td>
@@ -308,19 +308,39 @@
                 
             </tr>
         </ng-template>
-        <!-- <ng-template pTemplate="footer">
-            <tr>
-                <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
-                    <strong>Tổng</strong>
-                </td>
-                <td align="right" style="background-color:#ECECEC">
-                    <span style="color:red">{{tongTienBH}}</span>
-                </td>
-
-                <td></td>
+    </p-table>
+</div>
+<div class="table-responsive" [ngSwitch]="isAuthenticated()">
+    <p-table [value]="hopDongVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
+        <ng-template pTemplate="header">
+            <tr >
+                <th colspan="4" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu bát họ</th>
             </tr>
-
-        </ng-template> -->
+            <tr>
+                <th>
+                   <span>Mã hợp đồng</span>
+                </th>
+                <th>
+                    <span>Ngày tạo</span>
+                </th>
+                <th>
+                    <span>Nhân viên</span>
+                </th>
+                <th>
+                    <span>Khách hàng</span>
+                </th>
+            </tr>
+        </ng-template>
+        <!-- Code backend lấy dữ liệu body -->
+        <ng-template pTemplate="body" let-hopDong>
+            <tr (click)="findVayLaiByHopDong(hopDong.id)">
+                <td>{{hopDong.mahopdong}}</td>
+                <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
+                <td>{{hopDong.nhanVienTen}}</td>
+                <td>{{hopDong.khachHangTen}}</td>
+                
+            </tr>
+        </ng-template>
     </p-table>
 </div>
 

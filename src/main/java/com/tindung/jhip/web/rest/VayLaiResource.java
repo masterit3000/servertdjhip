@@ -191,4 +191,12 @@ public class VayLaiResource {
         return vayLaiService.baoCao(timeStart, timeEnd, id);
     }
 
+    @GetMapping("/vay-lais-by-hopdong/{id}")
+    @Timed
+    public ResponseEntity<VayLaiDTO> getVayLaiByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get VayLai : {}", id);
+        VayLaiDTO vayLaiDTO = vayLaiService.findByHopDong(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(vayLaiDTO));
+    }
+
 }

@@ -126,12 +126,12 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public void setDongTien(Long id,DONGTIEN dongtien) {
-            LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
-            lichSuDongTien.setTrangthai(dongtien);
-            lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
-            lichSuDongTienRepository.save(lichSuDongTien);
-        
+    public void setDongTien(Long id, DONGTIEN dongtien) {
+        LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
+        lichSuDongTien.setTrangthai(dongtien);
+        lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
+        lichSuDongTienRepository.save(lichSuDongTien);
+
     }
 
     @Override
@@ -207,12 +207,12 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien,LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
+    public List<LichSuDongTienDTO> baoCao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            Long cuaHangid= cuaHangService.findIDByUserLogin();
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(dongtien, loaihopdong, start, end,cuaHangid);
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(dongtien, loaihopdong, start, end, cuaHangid);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -221,13 +221,14 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+
     @Override
-    public List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien,LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end,Long nhanVienid) {
+    public List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            Long cuaHangid= cuaHangService.findIDByUserLogin();
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocaoNV(dongtien, loaihopdong, start, end,cuaHangid,nhanVienid);
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocaoNV(dongtien, loaihopdong, start, end, cuaHangid, nhanVienid);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -236,19 +237,20 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+
     @Override
-    public List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien,LOAIHOPDONG loaihopdong) {
+    public List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            Long cuaHangid= cuaHangService.findIDByUserLogin();
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong,ngayhientai,cuaHangid);
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong, ngayhientai, cuaHangid);
             for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
                 HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
                 hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);
                 hopDongRepository.save(hopdong);
-                
+
             }
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
@@ -258,14 +260,15 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+
     @Override
-    public List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien,LOAIHOPDONG loaihopdong) {
+    public List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            Long cuaHangid= cuaHangService.findIDByUserLogin();
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraHomNay(dongtien, loaihopdong,ngayhientai,cuaHangid);
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraHomNay(dongtien, loaihopdong, ngayhientai, cuaHangid);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -274,11 +277,10 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
-    
+
 //    public void kiemTra(id){
 //        if(lichSuDongTienRepository.kiemtra(id)){
 //            
 //        }
 //    }
-
 }

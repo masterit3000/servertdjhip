@@ -320,12 +320,12 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.eventManager.broadcast({ name: 'lichSuThaoTacHopDongListModification', content: 'OK' });
         this.isSaving = false;
     }
-    findHopDong() {
-        this.batHoService.findByHopDong(this.batHo.hopdong.id)
-            .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
-                this.batHos = batHoResponse.body;
-            });
-    }
+    // findHopDong() {
+    //     this.batHoService.findByHopDong(this.batHo.hopdong.id)
+    //         .subscribe((batHoResponse: HttpResponse<BatHo[]>) => {
+    //             this.batHos = batHoResponse.body;
+    //         });
+    // }
 
 
 }

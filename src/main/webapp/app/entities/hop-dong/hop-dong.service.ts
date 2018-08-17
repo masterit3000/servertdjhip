@@ -5,7 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { HopDong, TRANGTHAIHOPDONG } from './hop-dong.model';
+import { HopDong, TRANGTHAIHOPDONG, LOAIHOPDONG } from './hop-dong.model';
 import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<HopDong>;
@@ -48,9 +48,9 @@ export class HopDongService {
                 this.convertArrayResponse(res)
             );
     }
-    thongkehopdong(trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<HopDong[]>> {
+    thongkehopdong(trangthai: TRANGTHAIHOPDONG,loai: LOAIHOPDONG): Observable<HttpResponse<HopDong[]>> {
         return this.http
-            .get<HopDong[]>(`${this.thongkeUrl}/${trangthai}`, {
+            .get<HopDong[]>(`${this.thongkeUrl}/${trangthai}/${loai}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<HopDong[]>) =>

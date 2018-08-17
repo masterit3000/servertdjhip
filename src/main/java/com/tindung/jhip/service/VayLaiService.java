@@ -53,5 +53,7 @@ public interface VayLaiService {
 
     List<VayLaiDTO> findByNhanVien(Long id);
 
+    VayLaiDTO findByHopDong(Long id);
+
 //    List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id);
 }

@@ -3,6 +3,7 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.domain.GhiNo;
 import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.domain.HopDong;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.NOTRA;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.GhiNoRepository;
@@ -71,10 +72,10 @@ public class HopDongServiceImpl implements HopDongService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<HopDongDTO> thongKe(TRANGTHAIHOPDONG trangthai) {
+    public List<HopDongDTO> thongKe(TRANGTHAIHOPDONG trangthai,LOAIHOPDONG loai) {
         log.debug("Request to get all HopDongs");
         Long idCuaHang = cuaHangService.findIDByUserLogin();
-        List<HopDong> hopDongs = hopDongRepository.thongke(trangthai, idCuaHang);
+        List<HopDong> hopDongs = hopDongRepository.thongke(trangthai, idCuaHang,loai);
         List<HopDong> listHopDong = new ArrayList<>();
 
         for (HopDong hopDong : hopDongs) {

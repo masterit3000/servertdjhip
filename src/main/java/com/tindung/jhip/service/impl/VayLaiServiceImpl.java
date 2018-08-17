@@ -430,6 +430,26 @@ public class VayLaiServiceImpl implements VayLaiService {
 
         }
     }
+    @Override
+    @Transactional(readOnly = true)
+    public VayLaiDTO findByHopDong(Long id
+    ) {
+        log.debug("Request to get VayLai : {}", id);
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        VayLai vayLai = null;
+        vayLai = vayLaiRepository.findByHopDong(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return vayLaiMapper.toDto(vayLai);
+
+        } else {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            if (vayLai.getHopdongvl().getCuaHang().getId() == idCuaHang) {
+                return vayLaiMapper.toDto(vayLai);
+            }
+            return null;
+
+        }
+    }
 
     @Override
     public List<VayLaiDTO> findByNameOrCMND(String key

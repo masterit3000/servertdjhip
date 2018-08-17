@@ -423,7 +423,7 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public List<BatHoDTO> findByNameOrCMNDAdmin(String key,Long id) {
+    public List<BatHoDTO> findByNameOrCMNDAdmin(String key, Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -469,12 +469,19 @@ public class BatHoServiceImpl implements BatHoService {
 
     //Tùng end
     @Override
-    public List<BatHoDTO> findByHopDong(Long id) {
-        List<BatHo> findByCuaHangId = batHoRepository.findByHopDong(id);
-        List<BatHoDTO> collect = findByCuaHangId.stream()
-                .map(batHoMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
-        return collect;
+    public BatHoDTO findByHopDong(Long id) {
+        BatHo batHo = batHoRepository.findByHopDong(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return batHoMapper.toDto(batHo);
+
+        } else {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            if (batHo.getHopdongbh().getCuaHang().getId() == idCuaHang) {
+                return batHoMapper.toDto(batHo);
+            }
+            return null;
+
+        }
 
     }
 
@@ -493,6 +500,7 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
     public List<BatHoDTO> findByNhanVien(Long idNhanVien) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {

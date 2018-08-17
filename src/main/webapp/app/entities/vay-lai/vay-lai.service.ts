@@ -20,6 +20,7 @@ export class VayLaiService {
     private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-vay-lais-nhanvien';
     private findByCuaHangUrl = SERVER_API_URL + 'api/vay-lais-by-cuaHang';
     private findByNhanVienUrl = SERVER_API_URL + 'api/vay-lais-by-nhanvien';
+    private findByHopDongUrl = SERVER_API_URL + 'api/vay-lais-by-hopdong';
 
     constructor(private http: HttpClient) { }
 
@@ -113,6 +114,11 @@ export class VayLaiService {
         let startd = this.convertDateToString(start);
         return this.http.get<VayLai[]>(`${this.baocaoNVUrl}/${startd}/${endd}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
+    }
+    
+    findByHopDong(id: number): Observable<EntityResponseType> {
+        return this.http.get<VayLai>(`${this.findByHopDongUrl}/${id}`, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
     private convertDateToString(d: Date): String {
 
