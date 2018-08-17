@@ -208,7 +208,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     onRowUnselect(event) {
         this.msgs = [{ severity: 'info', summary: 'Hủy đóng', detail: 'id: ' + event.data.id }];
 
-        this.lichSuDongTienService.setDongTien(event.data.id, DONGTIEN.DADONG)
+        this.lichSuDongTienService.setDongTien(event.data.id, DONGTIEN.CHUADONG)
             .subscribe((response) => {
                 this.eventManager.broadcast({
                     name: 'lichSuDongTienListModification',
