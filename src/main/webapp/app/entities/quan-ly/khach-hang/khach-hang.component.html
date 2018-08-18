@@ -1,29 +1,30 @@
 <div>
-    <h2>
-        <i class="fa fa-vcard-o" width="20%" aria-hidden="true"></i>
-        <span>Khách hàng</span>
-    </h2>
-    <hr/>
+    <div class="row modal-header">
+        <div class="col-md-12">
+            <h2>
+                <i class="fa fa-vcard-o" width="20%" aria-hidden="true"></i>
+                <span>Khách hàng</span>
+            </h2>
+        </div>
+    </div>
+    <br/>
     <div>
         <div>
             <h3>
                 <i class="pi pi-search" width="20%" aria-hidden="true"></i>
                 Tìm khách hàng
             </h3>
-            <div class="row">
-                <div class="ui-g-2">
-                    <span class="ui-float-label">
-                        <input id="float-input" name="keyTimKhachHang" [(ngModel)]="keyTimKhachHang" pInputText type="text" size="30" pTooltip="Tên khách hàng / CMND / SĐT"
-                            tooltipPosition="top" tooltipEvent="focus">
-                        <label for="float-input">Thông tin tìm kiếm</label>
-                    </span>
-
-                </div>
-                <div class="ui-g-2">
-                    <button class="btn btn-primary float-left" (click)="timKhachHang()">
-                        <span class="pi pi-search"></span>
-                        Tìm kiếm</button>
-                </div>
+            <div class="ui-g-2">
+                <span class="ui-float-label">
+                    <input id="float-input" name="keyTimKhachHang" [(ngModel)]="keyTimKhachHang" pInputText type="text" size="30" pTooltip="Tên khách hàng / CMND / SĐT"
+                        tooltipPosition="top" tooltipEvent="focus">
+                    <label for="float-input">Thông tin tìm kiếm</label>
+                </span>
+            </div>
+            <div class="ui-g-2">
+                <button class="btn btn-primary float-left" (click)="timKhachHang()">
+                    <span class="pi pi-search"></span>
+                    Tìm kiếm</button>
             </div>
             <br/>
             <div class="table-responsive" *ngIf="khachHangs">

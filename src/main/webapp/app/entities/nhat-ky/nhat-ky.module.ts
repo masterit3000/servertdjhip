@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import {TableModule} from 'primeng/table';
 import { ServertdjhipSharedModule } from '../../shared';
 import {
     NhatKyService,
@@ -23,6 +23,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
+        TableModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

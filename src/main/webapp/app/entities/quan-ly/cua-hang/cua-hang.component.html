@@ -1,5 +1,5 @@
 <div>
-  <div class="row">
+  <div class="row modal-header">
     <div class="col-md-9">
       <h2>
         <i class="fa fa-bank" width="20%" aria-hidden="true"></i>
@@ -15,28 +15,25 @@
       </button>
     </div>
   </div>
-  <hr/>
+  <br/>
   <div>
     <div>
       <h3>
         <i class="pi pi-search" width="20%" aria-hidden="true"></i>
         Tìm cửa hàng
       </h3>
-      <div class="row">
-        <div class="ui-g-2">
-                <span class="ui-float-label">
-                    <input id="float-input" name="keyTimKhachHang" [(ngModel)]="keyTimCuaHang" pInputText type="text" size="30" pTooltip="Nhập tên cửa hàng"
-                        tooltipPosition="top" tooltipEvent="focus">
-                    <label for="float-input">Tên cửa hàng/SĐT cửa hàng</label>
-                </span>
-        </div>
-        <div class="ui-g-2">
-          <button class="btn btn-primary float-left" (click)="timCuaHang()">
-            <span class="pi pi-search"></span>
-            Tìm kiếm</button>
-        </div>
+      <div class="ui-g-2">
+        <span class="ui-float-label">
+          <input id="float-input" name="keyTimKhachHang" [(ngModel)]="keyTimCuaHang" pInputText type="text" size="30" pTooltip="Nhập tên cửa hàng"
+            tooltipPosition="top" tooltipEvent="focus">
+          <label for="float-input">Tên cửa hàng/SĐT cửa hàng</label>
+        </span>
       </div>
-
+      <div class="ui-g-2">
+        <button class="btn btn-primary float-left" (click)="timCuaHang()">
+          <span class="pi pi-search"></span>
+          Tìm kiếm</button>
+      </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="cuaHangs">

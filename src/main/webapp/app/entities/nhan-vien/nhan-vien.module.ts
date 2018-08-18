@@ -22,6 +22,7 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
 import {GalleriaModule} from 'primeng/galleria';
+import { InputTextModule } from 'primeng/inputtext';
 
 const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
 
@@ -34,6 +35,7 @@ const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
         CalendarModule,
         TableModule,
         TooltipModule,
+        InputTextModule,
         FileUploadModule,
         GalleriaModule,
         RouterModule.forChild(ENTITY_STATES)

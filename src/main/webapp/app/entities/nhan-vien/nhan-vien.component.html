@@ -29,21 +29,19 @@
         <i class="pi pi-search" width="20%" aria-hidden="true"></i>
         Tìm nhân viên
     </h3>
-    <div class="row">
-        <div class="ui-g-2">
-            <pe-step label="Float label">
-                <span class="ui-float-label">
-                    <input id="float-input" name="keyTimNhanVien" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Tên nhân viên / CMND / SĐT"
-                        tooltipPosition="top" tooltipEvent="focus">
-                    <label for="float-input">Thông tin tìm kiếm</label>
-                </span>
-            </pe-step>
-        </div>
-        <div class="ui-g-2">
-            <button class="btn btn-primary float-left" (click)="timNhanVien()">
-                <span class="pi pi-search"></span>
-                Tìm kiếm</button>
-        </div>
+    <div class="ui-g-2">
+        <pe-step label="Float label">
+            <span class="ui-float-label">
+                <input id="float-input" name="keyTimNhanVien" [(ngModel)]="keyTimNhanVien" pInputText type="text" size="30" pTooltip="Tên nhân viên / CMND / SĐT"
+                    tooltipPosition="top" tooltipEvent="focus">
+                <label for="float-input">Thông tin tìm kiếm</label>
+            </span>
+        </pe-step>
+    </div>
+    <div class="ui-g-2">
+        <button class="btn btn-primary float-left" (click)="timNhanVien()">
+            <span class="pi pi-search"></span>
+            Tìm kiếm</button>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="nhanViens">
