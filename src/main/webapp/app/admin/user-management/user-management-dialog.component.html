@@ -64,12 +64,6 @@
                 </small>
             </div>
         </div>
-        <div class="form-check">
-            <label class="form-check-label" for="activated">
-                <input class="form-check-input" [disabled]="user.id === null" type="checkbox" id="activated" name="activated" [(ngModel)]="user.activated">
-                <span jhiTranslate="userManagement.activated">Activated</span>
-            </label>
-        </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="userManagement.firstName">First Name</label>
             <input type="text" class="form-control" name="firstName" #firstNameInput="ngModel" [(ngModel)]="user.firstName" maxlength="50">
