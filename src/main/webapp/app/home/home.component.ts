@@ -57,16 +57,16 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.principal.identity().then((account) => {
-            this.account = account;
-        });
+
         this.loadLichSuTraChamBatHo();
         this.loadLichSuTraChamVayLai();
         this.loadLichSuTraBatHoHomNay();
         this.loadLichSuTraVayLaiHomNay();
         this.loadHopDongBH();
         this.loadHopDongVL();
-
+        this.principal.identity().then((account) => {
+            this.account = account;
+        });
         this.registerAuthenticationSuccess();
     }
 
