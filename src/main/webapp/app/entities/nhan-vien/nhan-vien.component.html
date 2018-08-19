@@ -6,7 +6,7 @@
                 <span jhiTranslate="servertdjhipApp.nhanVien.home.title">Nhan Viens</span>
             </h2>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_ADMIN']">
             <button class="btn btn-success float-right jh-create-entity create-nhan-vien" [routerLink]="['/', { outlets: { popup: ['nhan-vien-new'] } }]">
                 <span class="fa fa-plus"></span>
                 <span jhiTranslate="servertdjhipApp.nhanVien.home.createLabel">
@@ -14,7 +14,7 @@
                 </span>
             </button>
         </div>
-        <div class="col-md-2 offset-md-1">
+        <div class="col-md-2 offset-md-1" *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_ADMIN']">
             <button class="btn btn-success pull-left" [routerLink]="['/', { outlets: { popup: ['user-management-new'] } }]" routerLinkActive="active">
                 <span class="fa fa-plus"></span>
                 <span>
