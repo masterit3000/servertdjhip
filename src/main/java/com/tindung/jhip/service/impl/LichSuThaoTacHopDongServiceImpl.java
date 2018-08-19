@@ -7,6 +7,7 @@ import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.HopDongService;
+import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.mapper.LichSuThaoTacHopDongMapper;
@@ -40,13 +41,13 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
 
     private final LichSuThaoTacHopDongMapper lichSuThaoTacHopDongMapper;
     private final HopDongService hopDongService;
-    private final CuaHangService cuaHangService;
+    private final NhanVienService nhanvienService;
 
-    public LichSuThaoTacHopDongServiceImpl(LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongMapper lichSuThaoTacHopDongMapper, HopDongService hopDongService, CuaHangService cuaHangService) {
+    public LichSuThaoTacHopDongServiceImpl(LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongMapper lichSuThaoTacHopDongMapper, HopDongService hopDongService, NhanVienService cuaHangService) {
         this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
         this.lichSuThaoTacHopDongMapper = lichSuThaoTacHopDongMapper;
         this.hopDongService = hopDongService;
-        this.cuaHangService = cuaHangService;
+        this.nhanvienService = cuaHangService;
     }
 
     /**
@@ -60,7 +61,7 @@ public class LichSuThaoTacHopDongServiceImpl implements LichSuThaoTacHopDongServ
         log.debug("Request to save LichSuThaoTacHopDong : {}", lichSuThaoTacHopDongDTO);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
 
-            lichSuThaoTacHopDongDTO.setNhanVienId(cuaHangService.findIDByUserLogin());
+            lichSuThaoTacHopDongDTO.setNhanVienId(nhanvienService.findByUserLogin().getId());
             lichSuThaoTacHopDongDTO.setThoigian(ZonedDateTime.now());
             LichSuThaoTacHopDong lichSuThaoTacHopDong = lichSuThaoTacHopDongMapper.toEntity(lichSuThaoTacHopDongDTO);
             lichSuThaoTacHopDong = lichSuThaoTacHopDongRepository.save(lichSuThaoTacHopDong);
