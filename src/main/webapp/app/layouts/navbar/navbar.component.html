@@ -10,13 +10,6 @@
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_STAFF', 'ROLE_ADMIN']" class="nav-link" routerLink="nhat-ky" routerLinkActive="active"
-                    (click)="collapseNavbar()">
-                    <i class="fa fa-fw fa-book" aria-hidden="true"></i>
-                    <span>Nhật ký</span>
-                </a>
-            </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_STAFF']" class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
                     id="hopdong-menu">
@@ -196,6 +189,13 @@
                         </a>
                     </li> -->
                 </ul>
+            </li>
+            <li class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_STAFF', 'ROLE_ADMIN']" class="nav-link" routerLink="nhat-ky" routerLinkActive="active"
+                    (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-book" aria-hidden="true"></i>
+                    <span>Nhật ký</span>
+                </a>
             </li>
             <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/bat-ho-admin" routerLinkActive="active" (click)="collapseNavbar()">
