@@ -40,7 +40,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>
-                        <span jhiTranslate="global.field.id">ID</span>
+                        <span>Mã hợp đồng</span>
                     </th>
                     <th>
                         <span>Tên khách hàng</span>
@@ -64,7 +64,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-vayLai>
                 <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai', vayLai.id ]">
-                    <td>{{vayLai.hopdongvl.id}}</td>
+                    <td>{{vayLai.hopdongvl.mahopdong}}</td>
                     <td>{{vayLai.hopdongvl.khachHangTen}}</td>
                     <td>{{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>{{vayLai.thoigianvay}}</td>

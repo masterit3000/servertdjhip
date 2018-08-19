@@ -209,6 +209,14 @@
                             <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                 class="form-control" name="trabotgoc" #trabotgoc id="field_trabotgoc" required></p-spinner>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Mã hợp đồng:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input pInputText type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
+                        </div>
                         <div class="col-md-3">
                             <button (click)="traGoc(trabotgoc.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
@@ -236,6 +244,14 @@
                         <div class="col-md-5 form-group">
                             <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                 class="form-control" #vaythem name="vaythemtien" id="field_vaythemtien" required></p-spinner>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Mã hợp đồng:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input pInputText type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
                         </div>
                         <div class="col-md-3">
                             <button (click)="vayThem(vaythem.value)" class="btn btn-success">
@@ -267,14 +283,19 @@
                         <div class="col-md-1">
                             <span>(Ngày)</span>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="float-right font-size-3">Mã hợp đồng:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input pInputText type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
+                        </div>
                         <div class="col-md-4">
                             <button (click)="giaHan(giahan.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-
                     </div>
                 </div>
             </div>
@@ -311,9 +332,9 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
-                                        required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}"
+                                        pKeyFilter="pnum" [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra"
+                                        [disabled]="tienNo-tienTra == 0" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
@@ -358,7 +379,6 @@
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
-
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Số tiên ghi nợ</th>
