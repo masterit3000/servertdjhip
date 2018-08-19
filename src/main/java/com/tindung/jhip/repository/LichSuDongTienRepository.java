@@ -27,6 +27,9 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c inner join h.nhanVien n where l.ngaygiaodich between  ?3 and ?4 and l.trangthai=?1 and  h.loaihopdong =?2 and c.id =?5 and n.id =?6 order by l.ngaygiaodich ")
     List<LichSuDongTien> baocaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long cuaHangid, Long nhanVienid);
 
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai= ?1 and h.id =?3")
+    List<LichSuDongTien> findByTrangThai(DONGTIEN trangthai, Long idcuahang,Long idhopdong);
+
     @Query(value = "select case when count(l) >0 then true else false end from LichSuDongTien l inner join l.hopDong h where h.id =:idhopdong and l.ngayketthuc < now() ")
     boolean kiemtra(@Param(value = "idhopdong") long idhopdong);
 

@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<LichSuDongTien>;
 export class LichSuDongTienService {
 
     private resourceUrl = SERVER_API_URL + 'api/lich-su-dong-tiens';
+    private trangthaiUrl = SERVER_API_URL + 'api/lich-su-dong-tiens-trangthai';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens';
     private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens-nhanvien';
     private lichSuTraChamUrl = SERVER_API_URL + 'api/lich-su-dong-tiens-tracham';
@@ -50,6 +51,10 @@ export class LichSuDongTienService {
     }
     findByHopDong(id: number): Observable<HttpResponse<LichSuDongTien[]>> {
         return this.http.get<LichSuDongTien[]>(`${this.resourceUrl}/${this.lichSuDongTien}/${id}`, { observe: 'response' })
+            .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
+    }
+    findByHopDongVaTrangThai(dongtien:DONGTIEN,id: number): Observable<HttpResponse<LichSuDongTien[]>> {
+        return this.http.get<LichSuDongTien[]>(`${this.trangthaiUrl}/${dongtien}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<LichSuDongTien[]>) => this.convertArrayResponse(res));
     }
     baoCao(loaidongtien: DONGTIEN, loaihopdong: LOAIHOPDONG, start: Date, end: Date): Observable<HttpResponse<LichSuDongTien[]>> {

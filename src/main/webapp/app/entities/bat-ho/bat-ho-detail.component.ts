@@ -81,7 +81,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
         });
         this.registerChangeInBatHos();
-        this.images= [];
+        this.images = [];
     }
 
     hienDongHD() {
@@ -128,29 +128,30 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             .subscribe((batHoResponse: HttpResponse<BatHo>) => {
                 this.batHo = batHoResponse.body;
                 this.lichSuDongTienService
-                    .findByHopDong(this.batHo.hopdong.id)
+                    .findByHopDongVaTrangThai(DONGTIEN.DADONG, this.batHo.hopdong.id)
                     .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
                         this.lichSuDongTiens = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
                         this.tienchuadong = 0;
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
-                            if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
-                                this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
-                                // this.selected[j++] = this.lichSuDongTiens[i];
-
-                            } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
-                                this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
-                            }
-
+                            // if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
+                            this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
                         }
-                        let j = 0;
-                        for (let i = 0; i < this.lichSuDongTiens.length; i++) {
-                            if (this.lichSuDongTiens[i].trangthai.toString() == 'DADONG') {
-                                this.selected[j++] = this.lichSuDongTiens[i];
-                                console.log(this.lichSuDongTiens[i]);
+                        // this.selected[j++] = this.lichSuDongTiens[i];
 
-                            }
-                        }
+                        //     } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
+                        //         this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
+                        //     }
+
+                        // }
+                        // // let j = 0;
+                        // for (let i = 0; i < this.lichSuDongTiens.length; i++) {
+                        //     if (this.lichSuDongTiens[i].trangthai.toString() == 'DADONG') {
+                        //         this.selected[j++] = this.lichSuDongTiens[i];
+                        //         console.log(this.lichSuDongTiens[i]);
+
+                        //     }
+                        // }
                     });
                 this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.batHo.hopdong.id)
                     .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {

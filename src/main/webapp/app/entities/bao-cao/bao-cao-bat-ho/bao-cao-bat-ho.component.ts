@@ -184,7 +184,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.vayLaiService.baoCao(this.tungay, this.denngay).subscribe(
+      this.vayLaiService.baoCao(this.tungay, this.denngay,0).subscribe(
         (res: HttpResponse<VayLai[]>) => {
           this.vayLais = res.body;
           this.vayLais.forEach(element => {
@@ -255,7 +255,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.vayLaiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id).subscribe(
+      this.vayLaiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id,0).subscribe(
         (res: HttpResponse<VayLai[]>) => {
           this.vayLais = res.body;
           this.vayLais.forEach(element => {
@@ -435,7 +435,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   loadVayLai() {
     this.tungay = new Date();
     this.denngay = new Date();
-    this.vayLaiService.baoCao(this.tungay, this.denngay).subscribe(
+    this.vayLaiService.baoCao(this.tungay, this.denngay,0).subscribe(
       (res: HttpResponse<VayLai[]>) => {
         this.vayLais = res.body;
         this.vayLais.forEach(element => {

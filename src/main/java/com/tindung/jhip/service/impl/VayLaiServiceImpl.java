@@ -430,6 +430,7 @@ public class VayLaiServiceImpl implements VayLaiService {
 
         }
     }
+
     @Override
     @Transactional(readOnly = true)
     public VayLaiDTO findByHopDong(Long id
@@ -500,13 +501,19 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end
+    public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc
     ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            List<VayLai> baoCao = vayLaiRepository.baocao(start, end, idCuaHang);
+            List<VayLai> baoCao = null;
+            if (vayThemTraGoc == 0) {
+                baoCao = vayLaiRepository.baocao(start, end, idCuaHang);
+            } else {
+                baoCao = vayLaiRepository.vayThemTraGoc(start, end, idCuaHang);
+            }
+
             List<VayLaiDTO> collect = baoCao.stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -518,13 +525,18 @@ public class VayLaiServiceImpl implements VayLaiService {
 
     @Override
     public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,
-            Long id
+            Long id, Integer vayThemTraGoc
     ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            List<VayLai> baoCao = vayLaiRepository.baocaoNV(start, end, idCuaHang, id);
+            List<VayLai> baoCao = null;
+            if (vayThemTraGoc == 0) {
+                baoCao = vayLaiRepository.baocaoNV(start, end, idCuaHang, id);
+            } else {
+                baoCao = vayLaiRepository.vayThemTraGocNV(start, end, idCuaHang, id);
+            }
             List<VayLaiDTO> collect = baoCao.stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -535,7 +547,8 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    public List<VayLaiDTO> findByNhanVien(Long id) {
+    public List<VayLaiDTO> findByNhanVien(Long id
+    ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             List<VayLai> listVayLai = vayLaiRepository.findByNhanVien(id);
             return listVayLai.stream()

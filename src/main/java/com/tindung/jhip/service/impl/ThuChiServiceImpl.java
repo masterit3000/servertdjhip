@@ -6,6 +6,7 @@ import com.tindung.jhip.domain.enumeration.THUCHI;
 import com.tindung.jhip.repository.ThuChiRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.dto.ThuChiDTO;
 import com.tindung.jhip.service.mapper.ThuChiMapper;
@@ -32,11 +33,13 @@ public class ThuChiServiceImpl implements ThuChiService {
 
     private final ThuChiMapper thuChiMapper;
     private final CuaHangService cuaHangService;
+    private final BatHoService batHoService;
 
-    public ThuChiServiceImpl(ThuChiRepository thuChiRepository, ThuChiMapper thuChiMapper, CuaHangService cuaHangService) {
+    public ThuChiServiceImpl(ThuChiRepository thuChiRepository, ThuChiMapper thuChiMapper, CuaHangService cuaHangService, BatHoService batHoService) {
         this.thuChiRepository = thuChiRepository;
         this.thuChiMapper = thuChiMapper;
         this.cuaHangService = cuaHangService;
+        this.batHoService = batHoService;
     }
 
     /**
@@ -48,18 +51,24 @@ public class ThuChiServiceImpl implements ThuChiService {
     @Override
     public ThuChiDTO save(ThuChiDTO thuChiDTO) {
         log.debug("Request to save ThuChi : {}", thuChiDTO);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
-            if (thuChiDTO.getId() == null) {//them moi
-                thuChiDTO.setThoigian(ZonedDateTime.now());
-                
-                thuChiDTO.setCuaHangId(cuaHangService.findIDByUserLogin());
-                ThuChi thuChi = thuChiMapper.toEntity(thuChiDTO);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            if (((thuChiDTO.getThuchi().equals(THUCHI.CHI) || thuChiDTO.getThuchi().equals(THUCHI.RUTVON))
+                    && thuChiDTO.getSotien() <= batHoService.quanLyVon())
+                    || (thuChiDTO.getThuchi().equals(THUCHI.THU) || thuChiDTO.getThuchi().equals(THUCHI.GOPVON))) {
+                if (thuChiDTO.getId() == null) {//them mo
+                    thuChiDTO.setThoigian(ZonedDateTime.now());
+                    thuChiDTO.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    ThuChi thuChi = thuChiMapper.toEntity(thuChiDTO);
 //            thuChi.setThoigian(ZonedDateTime.now());
-                thuChi = thuChiRepository.save(thuChi);
-                return thuChiMapper.toDto(thuChi);
+                    thuChi = thuChiRepository.save(thuChi);
+                    return thuChiMapper.toDto(thuChi);
 
+                }
+                throw new InternalError("Khong sua duoc thu chi");
+
+            } else {
+                throw new InternalError("Khong du tien");
             }
-            throw new InternalError("Khong sua duoc thu chi");
         }
         throw new InternalError("Khong cos quyen");
 
@@ -87,7 +96,8 @@ public class ThuChiServiceImpl implements ThuChiService {
      */
     @Override
     @Transactional(readOnly = true)
-    public ThuChiDTO findOne(Long id) {
+    public ThuChiDTO findOne(Long id
+    ) {
         log.debug("Request to get ThuChi : {}", id);
         ThuChi thuChi = thuChiRepository.findOne(id);
         return thuChiMapper.toDto(thuChi);
@@ -95,7 +105,8 @@ public class ThuChiServiceImpl implements ThuChiService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ThuChiDTO> findAllThuTheoLoai(THUCHI thuchi) {
+    public List<ThuChiDTO> findAllThuTheoLoai(THUCHI thuchi
+    ) {
         log.debug("Request to get all ThuChi");
         return thuChiRepository.findAllThuChiTheoLoai(thuchi).stream()
                 .map(thuChiMapper::toDto)
@@ -108,18 +119,20 @@ public class ThuChiServiceImpl implements ThuChiService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id
+    ) {
         log.debug("Request to delete ThuChi : {}", id);
         thuChiRepository.delete(id);
     }
 
     @Override
-    public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end) {
+    public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end
+    ) {
 
         log.debug("Request to find ThuChi : {}", start, end);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
             Long cuahangID = cuaHangService.findIDByUserLogin();
             List<ThuChi> findbyTime = thuChiRepository.findbyTime(start, end, cuahangID);
@@ -131,12 +144,14 @@ public class ThuChiServiceImpl implements ThuChiService {
     }
 
     @Override
-    public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi) {
+    public List<ThuChiDTO> findByTime(ZonedDateTime start, ZonedDateTime end,
+            THUCHI thuchi
+    ) {
 
         log.debug("Request to find ThuChi : {}", start, end);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)) {
             //kiem tra quyền
             Long cuahangID = cuaHangService.findIDByUserLogin();//lây  về cửa hang của user hiên tại
@@ -147,15 +162,18 @@ public class ThuChiServiceImpl implements ThuChiService {
         }
         throw new InternalError("Khong cos quyen");
     }
+
     @Override
-    public List<ThuChiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,Long id) {
+    public List<ThuChiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,
+            Long id
+    ) {
 
         log.debug("Request to find ThuChi : {}", start, end);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             //kiem tra quyền
             Long cuahangID = cuaHangService.findIDByUserLogin();//lây  về cửa hang của user hiên tại
-            List<ThuChi> findbyTime = thuChiRepository.baoCao(start, end, cuahangID,id);//goi hàm để lây vê thu chi của cửa hang fhienej tauij
+            List<ThuChi> findbyTime = thuChiRepository.baoCao(start, end, cuahangID, id);//goi hàm để lây vê thu chi của cửa hang fhienej tauij
             return findbyTime.stream()
                     .map(thuChiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));//convert sang DTO và trả vè

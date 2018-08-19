@@ -48,7 +48,6 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final LichSuDongTienRepository lichSuDongTienRepository;
 
     private final LichSuDongTienMapper lichSuDongTienMapper;
-    private final GhiNoService ghiNoService;
     private final HopDongRepository hopDongRepository;
     private final NhanVienService nhanVienService;
     private final HopDongService hopDongService;
@@ -59,10 +58,9 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     private final VayLaiRepository vayLaiRepository;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, GhiNoService ghiNoService, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
-        this.ghiNoService = ghiNoService;
         this.hopDongRepository = hopDongRepository;
         this.nhanVienService = nhanVienService;
         this.hopDongService = hopDongService;
@@ -285,6 +283,23 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
             List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraHomNay(dongtien, loaihopdong, ngayhientai, cuaHangid);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+
+    @Override
+    public List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien,Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long cuaHangid = cuaHangService.findIDByUserLogin();
+            ZonedDateTime ngayhientai = ZonedDateTime.now();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.findByTrangThai(dongtien, cuaHangid,id);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

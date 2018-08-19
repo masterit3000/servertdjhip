@@ -33,12 +33,23 @@ public interface VayLaiRepository extends JpaRepository<VayLai, Long> {
     @Query("select k from VayLai k inner join k.hopdongvl h inner join h.khachHang j  where  h.mahopdong like :key or  j.ten like :key or j.cmnd like :key ")
     public List<VayLai> findByNameOrCMNDAdmin(@Param("key") String key);
 
-    @Query(value = "select b from VayLai b  inner join b.hopdongvl h inner join h.cuaHang c  where h.ngaytao between  ?1 and ?2 and c.id =?3 ")
+    @Query(value = "select b from VayLai b  inner join b.hopdongvl h inner join h.cuaHang c  where h.ngaytao between  ?1 and ?2 and c.id =?3 and b.hopdongvl.hopdonggoc is null")
     List<VayLai> baocao(ZonedDateTime start, ZonedDateTime end, Long cuahangid);
 
-    @Query(value = "select b from VayLai b  inner join b.hopdongvl h inner join h.cuaHang c inner join h.nhanVien n where h.ngaytao between  ?1 and ?2 and c.id =?3 and n.id=?4")
+    @Query(value = "select b from VayLai b  inner join b.hopdongvl h inner join h.cuaHang c  where h.ngaytao between  ?1 and ?2 and c.id =?3 and b.hopdongvl.hopdonggoc is not null")
+    List<VayLai> vayThemTraGoc(ZonedDateTime start, ZonedDateTime end, Long cuahangid);
+
+    @Query(value = "select b from VayLai b  inner join b.hopdongvl h inner join h.cuaHang c inner join h.nhanVien n where h.ngaytao between  ?1 and ?2 and c.id =?3 and n.id=?4 and b.hopdongvl.hopdonggoc is null")
     List<VayLai> baocaoNV(ZonedDateTime start, ZonedDateTime end, Long cuahangid, Long nhanVienid);
+
+    @Query(value = "select b from VayLai b  inner join b.hopdongvl h inner join h.cuaHang c inner join h.nhanVien n where h.ngaytao between  ?1 and ?2 and c.id =?3 and n.id=?4 and b.hopdongvl.hopdonggoc is not null")
+    List<VayLai> vayThemTraGocNV(ZonedDateTime start, ZonedDateTime end, Long cuahangid, Long nhanVienid);
 
     @Query(value = "select sum(b.tienvay) from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =:idcuahang")
     Optional<Double> tienVayDuaKhach(@Param(value = "idcuahang") Long cuaHangId);
+
+    @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =?1 and h.hopdonggoc.id =?2")
+    public VayLai findHopDongGoc(Long cuahangid,Long id); 
+    //    @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =:idcuahang")
+    //    public List<VayLai> findTaoMoiByCuaHang(@Param(value = "idcuahang") Long cuaHangId);
 }
