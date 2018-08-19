@@ -12,7 +12,7 @@ import { LichSuDongTienService } from '../../lich-su-dong-tien/lich-su-dong-tien
 import { Principal } from '../../../shared';
 import { GhiNo, GhiNoService } from '../../ghi-no';
 import { ThuChiService, ThuChi, THUCHI } from '../../thu-chi';
-
+import { Router } from "@angular/router";
 @Component({
   selector: 'jhi-bao-cao-bat-ho',
   templateUrl: './bao-cao-bat-ho.component.html',
@@ -39,7 +39,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   ghiNo: GhiNo;
   thuChi: ThuChi;
   thuChis: ThuChi[];
-
+  batHo: BatHo;
   tongTienBH: number;
   tongTienVL: number;
   tongTienBHs: number;
@@ -54,9 +54,11 @@ export class BaoCaoBatHoComponent implements OnInit {
   tienRutVon: number;
   vayLai: VayLai;
   vayLais: VayLai[];
+  vayLaiThemBot: VayLai[];
   selectedNhanVien: NhanVien;
   tongTienTraGoc: number;
   nguonVon: string;
+  sotienVayThemTraBot: string[];
 
 
   constructor(
@@ -68,6 +70,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     private ghiNoService: GhiNoService,
     private thuChiService: ThuChiService,
     private jhiAlertService: JhiAlertService,
+    private router: Router,
     private eventManager: JhiEventManager,
     private principal: Principal
   ) {
@@ -103,6 +106,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.loadVayLai();
     this.loadThuChi();
     this.loadLichSuDongTienTraGoc();
+    this.loadVayThemTraBot()
     this.principal.identity().then(account => {
       this.currentAccount = account;
     });
@@ -184,7 +188,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.vayLaiService.baoCao(this.tungay, this.denngay,0).subscribe(
+      this.vayLaiService.baoCao(this.tungay, this.denngay, 0).subscribe(
         (res: HttpResponse<VayLai[]>) => {
           this.vayLais = res.body;
           this.vayLais.forEach(element => {
@@ -194,6 +198,17 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+      this.vayLaiService.baoCao(this.tungay, this.denngay, 1).subscribe(
+        (res: HttpResponse<VayLai[]>) => {
+          this.vayLaiThemBot = res.body;
+          this.vayLaiThemBot.forEach(element => {
+            this.tongTienVLs += element.tienvay;
+          });
+  
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    
       this.lichSuDongTienService.baoCao(DONGTIEN.TRAGOC, LOAIHOPDONG.VAYLAI, this.tungay, this.denngay).subscribe(
         (res: HttpResponse<LichSuDongTien[]>) => {
           this.lichSuDongTienTraGoc = res.body;
@@ -255,13 +270,23 @@ export class BaoCaoBatHoComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-      this.vayLaiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id,0).subscribe(
+      this.vayLaiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id, 0).subscribe(
         (res: HttpResponse<VayLai[]>) => {
           this.vayLais = res.body;
           this.vayLais.forEach(element => {
             this.tongTienVLs += element.tienvay;
           });
 
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+      this.vayLaiService.baoCaoNV(this.tungay, this.denngay, this.selectedNhanVien.id,1).subscribe(
+        (res: HttpResponse<VayLai[]>) => {
+          this.vayLaiThemBot = res.body;
+          this.vayLaiThemBot.forEach(element => {
+            this.tongTienVLs += element.tienvay;
+          });
+  
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -435,7 +460,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   loadVayLai() {
     this.tungay = new Date();
     this.denngay = new Date();
-    this.vayLaiService.baoCao(this.tungay, this.denngay,0).subscribe(
+    this.vayLaiService.baoCao(this.tungay, this.denngay, 0).subscribe(
       (res: HttpResponse<VayLai[]>) => {
         this.vayLais = res.body;
         this.vayLais.forEach(element => {
@@ -496,5 +521,40 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpErrorResponse) => this.onError(res.message)
     );
   }
+  loadVayThemTraBot() {
+    this.tungay = new Date();
+    this.denngay = new Date();
+    this.vayLaiService.baoCao(this.tungay, this.denngay, 1).subscribe(
+      (res: HttpResponse<VayLai[]>) => {
+        this.vayLaiThemBot = res.body;
+        this.vayLaiThemBot.forEach(element => {
+          this.tongTienVLs += element.tienvay;
+        });
+
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+  findBatHoByHopDong(id:number) {
+    this.batHoService.findByHopDong(id).subscribe(
+        (res: HttpResponse<BatHo>) => {
+            this.batHo = res.body;
+            this.router.navigate(['/bat-ho', this.batHo.id]);
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+    );
+
+}
+findVayLaiByHopDong(id:number) {
+    this.vayLaiService.findByHopDong(id).subscribe(
+        (res: HttpResponse<VayLai>) => {
+            this.vayLai = res.body;
+            this.router.navigate(['/vay-lai', this.vayLai.id]);
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+    );
+
+}
+
 
 }

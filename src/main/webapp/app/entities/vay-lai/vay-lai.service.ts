@@ -12,6 +12,7 @@ export type EntityResponseType = HttpResponse<VayLai>;
 export class VayLaiService {
 
     private resourceUrl = SERVER_API_URL + 'api/vay-lais';
+    private tienVayThemTraBotUrl = SERVER_API_URL + 'api/vay-them-tra-bot';
     private lichSuDongTien = 'lichsudongtien';
     private resourceUrlTimVayLai = SERVER_API_URL + 'api/tim-vay-lais-by-ten-cmnd';
     private lichSuThaoTacHopDong = 'lichsuthaotac';
@@ -129,6 +130,10 @@ export class VayLaiService {
 
         return d.getFullYear() + ' ' + mm + ' ' + sday;
 
+    }
+
+    tienVayThemTraBot(id:number): Observable<HttpResponse<string>> {
+        return this.http.get<string>(`${this.tienVayThemTraBotUrl}/${id}`, { observe: 'response' });
     }
 
 }

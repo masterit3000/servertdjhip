@@ -179,16 +179,16 @@ public class VayLaiResource {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-        return vayLaiService.baoCao(timeStart, timeEnd,vayThemTraGoc);
+        return vayLaiService.baoCao(timeStart, timeEnd, vayThemTraGoc);
     }
 
     @GetMapping("/bao-cao-vay-lais-nhanvien/{start}/{end}/{id}/{chon}")
     @Timed
-    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id,@PathVariable(name = "chon") Integer vayThemTraGoc) {
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id, @PathVariable(name = "chon") Integer vayThemTraGoc) {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-        return vayLaiService.baoCao(timeStart, timeEnd, id,vayThemTraGoc);
+        return vayLaiService.baoCao(timeStart, timeEnd, id, vayThemTraGoc);
     }
 
     @GetMapping("/vay-lais-by-hopdong/{id}")
@@ -199,4 +199,13 @@ public class VayLaiResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(vayLaiDTO));
     }
 
+    @GetMapping("/vay-them-tra-bot/{id}")
+    @Timed
+    public ResponseEntity<String> quanLyVon(@PathVariable Long id) {
+        log.debug("REST request to get all BatHos");
+        String result = vayLaiService.tienVayThemTraBot(id).toString();
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+    }
 }
+
+

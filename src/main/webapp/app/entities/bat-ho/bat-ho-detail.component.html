@@ -234,7 +234,7 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                         [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
                                         required></p-spinner>
                                 </td>

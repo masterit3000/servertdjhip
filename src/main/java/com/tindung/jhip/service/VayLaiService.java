@@ -45,15 +45,17 @@ public interface VayLaiService {
 
     VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id);
 
-    List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,Integer vayThemTraGoc);
+    List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc);
 
-    List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long id,Integer vayThemTraGoc);
+    List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long id, Integer vayThemTraGoc);
 
     List<VayLaiDTO> findAllByCuaHang(Long id);
 
     List<VayLaiDTO> findByNhanVien(Long id);
 
     VayLaiDTO findByHopDong(Long id);
+
+    Double tienVayThemTraBot(Long id);
 
 //    List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id);
 }

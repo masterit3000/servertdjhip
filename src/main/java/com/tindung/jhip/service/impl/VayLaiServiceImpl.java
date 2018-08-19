@@ -558,4 +558,18 @@ public class VayLaiServiceImpl implements VayLaiService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
+    public Double tienVayThemTraBot(Long id) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long cuaHangId = cuaHangService.findIDByUserLogin();
+            VayLai vayLai = vayLaiRepository.findHopDongGoc(cuaHangId, id);
+            Double sotien =0d;
+            sotien = vayLaiRepository.findOne(id).getTienvay()-vayLai.getTienvay();
+            return sotien;
+        }
+
+        throw new InternalServerErrorException("Khong co quyen");
+    }
 }
