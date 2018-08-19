@@ -112,35 +112,68 @@
     <p-tabView>
         <p-growl [(value)]="msgs"></p-growl>
         <p-tabPanel header="Đóng lãi">
-            <p-table [value]="lichSuDongTiens" [paginator]="true" [rows]="8" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                (onRowUnselect)="onRowUnselect($event)">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th colspan="2">Ngày</th>
-                        <th>Trạng thái</th>
-                        <th>Chu kỳ lãi</th>
-                        <th>Tiền khách trả</th>
-                        <th>
-                            Đóng tiền
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-lichSuDongTien>
-                    <tr [pSelectableRow]="lichSuDongTien">
-                        <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                        <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                        <td>
-                            <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
-                        </td>
-                        <td>{{vayLai.chukylai }}</td>
-                        <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                        <td>
-                            <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'" ></p-tableCheckbox>
-                            <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'" ></p-tableCheckbox>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+            <div class="row">
+                <div class="col-md-6">
+                    <p-table [value]="lichSuDongTiens" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                        (onRowUnselect)="onRowUnselect($event)">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="2">Ngày</th>
+                                <th>Trạng thái</th>
+                                <th>Chu kỳ lãi</th>
+                                <th>Tiền khách trả</th>
+                                <th>
+                                    Đóng tiền
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-lichSuDongTien>
+                            <tr [pSelectableRow]="lichSuDongTien">
+                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                                <td>
+                                    <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                                </td>
+                                <td>{{vayLai.chukylai }}</td>
+                                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                                <td>
+                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'"></p-tableCheckbox>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <div class="col-md-6">
+                    <p-table [value]="lichSuDongTiens" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                        (onRowUnselect)="onRowUnselect($event)">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="2">Ngày</th>
+                                <th>Trạng thái</th>
+                                <th>Tiền khách trả</th>
+                                <th>
+                                    Đóng tiền
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-lichSuDongTien>
+                            <tr [pSelectableRow]="lichSuDongTien">
+                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                                <td>
+                                    <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                                </td>
+                                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                                <td>
+                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'"></p-tableCheckbox>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
             <p-dialog modal="true" [(visible)]="dongLai">
                 <p-header>
                     Đóng lãi cho hợp đồng {{vayLai.hopdongvl.mahopdong}}
@@ -158,8 +191,8 @@
             </p-dialog>
         </p-tabPanel>
         <p-tabPanel header="Trả bớt gốc">
-            <div class="row">
-                <div class="col-md-4 table-bordered">
+            <div class="row justify-content-center" style="background-color:#e3e3e3">
+                <div class="col-md-4 table-bordered" style="background-color:white">
                     <div class="row">
                         <div class="col-md-12">
                             <h4 style="margin-top:10px">
@@ -186,8 +219,8 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="Vay thêm">
-            <div class="row">
-                <div class="col-md-4 table-bordered">
+            <div class="row justify-content-center" style="background-color:#e3e3e3">
+                <div class="col-md-4 table-bordered" style="background-color:white">
                     <div class="row">
                         <div class="col-md-12">
                             <h4 style="margin-top:10px">
@@ -210,23 +243,12 @@
                                 Đồng ý</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span class="float-right font-size-3">Ghi chú:</span>
-                        </div>
-                        <div class="col-md-8">
-                            <span class="ui-float-label">
-                                <textarea id="float-input" [rows]="2" [cols]="24" pInputTextarea></textarea>
-                                <label for="float-input">Thông tin bổ sung</label>
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </p-tabPanel>
         <p-tabPanel header="Gia hạn">
-            <div class="row">
-                <div class="col-md-5 table-bordered">
+            <div class="row justify-content-center" style="background-color:#e3e3e3">
+                <div class="col-md-4 table-bordered" style="background-color:white">
                     <div class="row">
                         <div class="col-md-12">
                             <h4 style="margin-top:10px">
@@ -236,7 +258,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <span class="float-right font-size-3">Thời gian vay:</span>
                         </div>
                         <div class="col-md-4 form-group">
@@ -245,22 +267,14 @@
                         <div class="col-md-1">
                             <span>(Ngày)</span>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <span class="float-right font-size-3">Ghi chú:</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span class="ui-float-label">
-                                <textarea id="float-input" [rows]="2" [cols]="24" pInputTextarea></textarea>
-                                <label for="float-input">Thông tin bổ sung</label>
-                            </span>
-                        </div>
                         <div class="col-md-4">
                             <button (click)="giaHan(giahan.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
+                    </div>
+                    <div class="row justify-content-center">
+
                     </div>
                 </div>
             </div>
@@ -297,14 +311,14 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                         [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
                                         required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" class="btn btn-success float-right">
+                                    <button [disabled]="tienNo-tienTra == 0" (click)="saveTraNo()" class="btn btn-success float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Trả nợ</button>
                                 </td>
@@ -337,53 +351,9 @@
                 </div>
             </div>
         </p-tabPanel>
-        <!-- <p-tabPanel header="Trả nợ">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Số tiền trả: </td>
-                                <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" required></p-spinner>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" class="btn btn-success float-right">
-                                        <span class="fa fa-balance-scale"></span>
-                                        Trả nợ</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </p-tabPanel> -->
         <p-tabPanel header="Lịch sử">
-            <div class="row">
-                <div class="col-md-5 table-bordered">
-                    <div class="row" style="marin-top:10px">
-                        <div class="col-md-12">
-                            <span class="ui-float-label" style="marin-top:10px">
-                                <textarea id="float-input" [rows]="5" [cols]="87" pInputTextarea></textarea>
-                                <label for="float-input">Ghi chú</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-success float-right">
-                                <span class="fa fa-save"></span>
-                                Lưu</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-7">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
                     <h3>Lịch sử thao tác</h3>
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">

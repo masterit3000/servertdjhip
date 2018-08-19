@@ -21,6 +21,7 @@ import { CalendarModule } from '../../../../../../node_modules/primeng/primeng';
 import { LichSuDongTienService } from '../lich-su-dong-tien';
 import { FormsModule } from '@angular/forms';
 import { ServertdjhipSharedModule } from '../../shared';
+import {FieldsetModule} from 'primeng/fieldset';
 @NgModule({
     imports: [CommonModule,
         BaoCaoRoutingModule,
@@ -28,6 +29,7 @@ import { ServertdjhipSharedModule } from '../../shared';
         CalendarModule,
         FormsModule,
         ServertdjhipSharedModule,
+        FieldsetModule
     ],
     declarations: [
         SoQuyTienMatComponent,
