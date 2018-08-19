@@ -54,5 +54,4 @@ public interface CuaHangService {
 
     List<CuaHangDTO> findByName(String key);
     
-    CuaHangDTO findByNhanVien(Long id);
 }
