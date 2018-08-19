@@ -47,10 +47,9 @@
             <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group col-md-3">
                 <label class="form-control-label" for="field_cuahang">
                     <span class="fa fa-fw fa-bank"></span>
-                    <span >Cửa hàng</span>
+                    <span>Cửa hàng</span>
                 </label>
                 <select class="form-control" id="field_cuahang" name="cuahang" [(ngModel)]="nhanVien.cuaHangId">
-                         
                     <option [ngValue]="cuaHangOption.id" *ngFor="let cuaHangOption of cuahangs; trackBy: trackCuaHangById">{{cuaHangOption.ten}}</option>
                 </select>
             </div>
@@ -65,6 +64,14 @@
                     <option value="QUANLYCUAHANG">{{'servertdjhipApp.TrangThaiNhanVien.QUANLYCUAHANG' | translate}}</option>
                     <option value="QUANTRI">{{'servertdjhipApp.TrangThaiNhanVien.QUANTRI' | translate}}</option>
                 </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="form-control-label" for="field_xa">
+                    <span class="fa fa-map-o"></span>
+                    <span jhiTranslate="servertdjhipApp.nhanVien.tinh">Tinh</span>
+                </label>
+                <p-autoComplete [(ngModel)]="tinh" name="basic" [suggestions]="filteredTinhs" (completeMethod)="filterTinhs($event)" field="ten"
+                    [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"></p-autoComplete>
             </div>
         </div>
         <div class="row">
@@ -81,14 +88,6 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="form-control-label" for="field_xa">
-                            <span class="fa fa-map-o"></span>
-                            <span jhiTranslate="servertdjhipApp.nhanVien.tinh">Tinh</span>
-                        </label>
-                        <p-autoComplete [(ngModel)]="tinh" name="basic" [suggestions]="filteredTinhs" (completeMethod)="filterTinhs($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'100%'}" placeholder="Tỉnh" [minLength]="1"></p-autoComplete>
-                    </div>
-                    <div class="form-group col-md-6">
                         <label class="form-control-label" for="field_huyen">
                             <span class="fa fa-map-o"></span>
                             <span jhiTranslate="servertdjhipApp.nhanVien.huyen">Huyen</span>
@@ -96,28 +95,25 @@
                         <p-autoComplete [(ngModel)]="huyen" name="basic" [suggestions]="filteredHuyens" (completeMethod)="filterHuyens($event)" field="ten"
                             [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Huyện" [minLength]="1" [dropdown]="true"></p-autoComplete>
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label class="form-control-label" for="field_xa">
                             <span class="fa fa-map-o"></span>
                             <span jhiTranslate="servertdjhipApp.nhanVien.xa">Xa</span>
                         </label>
-                        <!-- <select class="form-control" id="field_xa" name="xa" [(ngModel)]="nhanVien.xaId">
-                            <option [ngValue]="null"></option>
-                            <option [ngValue]="xaOption.id" *ngFor="let xaOption of xas; trackBy: trackXaById">{{xaOption.id}}</option>
-                        </select> -->
                         <p-autoComplete [(ngModel)]="xa" name="basic" [suggestions]="filteredXas" (completeMethod)="filterXas($event)" field="ten"
-                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1"  [dropdown]="true" ></p-autoComplete>
+                            [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dropdown]="true"></p-autoComplete>
                     </div>
-                    <div class="form-group col-md-6">
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
                         <label class="form-control-label" for="field_user">
                             <span class="fa fa-user"></span>
                             <span jhiTranslate="servertdjhipApp.nhanVien.user">User</span>
                         </label>
                         <select class="form-control" id="field_user" name="user" [(ngModel)]="nhanVien.userId">
-                         
-                            <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}-{{userOption.login}}</option>
+                            <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}} - {{userOption.login}}-
+                                <span jhiTranslate="{{'userManagement.' + userOption.authorities}}">{{userOption.authorities}}</span>
+                            </option>
                         </select>
                     </div>
                 </div>

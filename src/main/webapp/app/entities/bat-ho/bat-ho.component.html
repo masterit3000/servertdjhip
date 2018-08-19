@@ -64,13 +64,13 @@
             </ng-template>
             <ng-template pTemplate="body" let-batHo>
                 <tr [pSelectableRow]="batHo" [routerLink]="['../bat-ho', batHo.id ]">
-                    <td>{{batHo.hopdong.mahopdong}}</td>
+                    <td>{{batHo.hopdong.id}}</td>
                     <td>{{batHo.hopdong.khachHangTen}}</td>
                     <td>{{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>{{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>{{batHo.tongsongay}}</td>
                     <td>{{batHo.chuky}}</td>
-                    <td>{{batHo.hopdong.trangthaihopdong}}</td>
+                    <td jhiTranslate="{{'servertdjhipApp.batHo.' + batHo.hopdong.trangthaihopdong}}">{{batHo.hopdong.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
         </p-table>

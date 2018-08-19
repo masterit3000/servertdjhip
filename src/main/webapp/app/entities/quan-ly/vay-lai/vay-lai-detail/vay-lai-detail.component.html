@@ -98,9 +98,9 @@
                             <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
+                                <th>Trạng thái</th>
                                 <th>Tiền lãi</th>
-                                <th>Tiền khác</th>
-                                <th>Tổng lãi</th>
+                                <th>Ngày giao dịch</th>
                                 <th>Tiền khách trả</th>
                             </tr>
                         </ng-template>>
@@ -109,9 +109,9 @@
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.chukylai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</td>
                                 <td>{{vayLai.lai}}</td>
-                                <td>0</td>
-                                <td>{{vayLai.lai}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.lai}}</td>
                             </tr>
                         </ng-template>
@@ -126,9 +126,9 @@
                             <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
+                                <th>Trạng thái</th>
                                 <th>Tiền lãi</th>
-                                <th>Tiền khác</th>
-                                <th>Tổng lãi</th>
+                                <th>Ngày giao dịch</th>
                                 <th>Tiền khách trả</th>
                             </tr>
                         </ng-template>>
@@ -137,9 +137,9 @@
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.chukylai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</td>
                                 <td>{{vayLai.lai}}</td>
-                                <td>0</td>
-                                <td>{{vayLai.lai}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.lai}}</td>
                             </tr>
                         </ng-template>

@@ -20,7 +20,10 @@
             "tongtien": "Tổng tiền",
             "tongsongay": "Tổng số ngày",
             "chuky": "Chu kỳ",
-            "hopdongbh": "Hợp đồng bát họ"
+            "hopdongbh": "Hợp đồng bát họ",
+            "QUAHAN": "Quá hạn đóng tiền họ",
+            "DANGVAY": "Đang vay họ",
+            "DADONG": "Đã đóng hợp đồng"
         }
     }
 }

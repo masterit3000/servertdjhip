@@ -20,11 +20,16 @@
         "email": "Email",
         "activated": "Kích hoạt",
         "deactivated": "Khóa",
-        "profiles": "Các quyền",
+        "profiles": "Quyền truy cập",
         "langKey": "Ngôn ngữ",
         "createdBy": "Người tạo",
         "createdDate": "Ngày tạo",
         "lastModifiedBy": "Người sửa",
-        "lastModifiedDate": "Ngày sửa"
+        "lastModifiedDate": "Ngày sửa",
+        "ROLE_ADMIN": "Quản trị",
+        "ROLE_ANONYMOUS": "Khách viếng thăm",
+        "ROLE_STAFF": "Nhân viên",
+        "ROLE_STORE": "Quản lý cửa hàng",
+        "ROLE_USER": "Người dùng"
     }
 }

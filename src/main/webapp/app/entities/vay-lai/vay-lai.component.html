@@ -64,13 +64,13 @@
             </ng-template>
             <ng-template pTemplate="body" let-vayLai>
                 <tr [pSelectableRow]="vayLai" [routerLink]="['../vay-lai', vayLai.id ]">
-                    <td>{{vayLai.hopdongvl.mahopdong}}</td>
+                    <td>{{vayLai.hopdongvl.id}}</td>
                     <td>{{vayLai.hopdongvl.khachHangTen}}</td>
                     <td>{{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>{{vayLai.thoigianvay}}</td>
                     <td>{{vayLai.chukylai}}</td>
                     <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
-                    <td>{{vayLai.hopdongvl.trangthaihopdong}}</td>
+                    <td jhiTranslate="{{'servertdjhipApp.vayLai.' + vayLai.hopdongvl.trangthaihopdong}}">{{vayLai.hopdongvl.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
         </p-table>
