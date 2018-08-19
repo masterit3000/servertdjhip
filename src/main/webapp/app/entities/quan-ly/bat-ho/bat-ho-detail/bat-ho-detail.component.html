@@ -104,7 +104,7 @@
               <tr [pSelectableRow]="lichSuDongTien">
                 <td>{{lichSuDongTien.id}}</td>
                 <td>
-                  <span>{{lichSuDongTien.trangthai}}</span>
+                  <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                 </td>
                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
@@ -146,7 +146,7 @@
               <tr [pSelectableRow]="lichSuDongTien">
                 <td>{{lichSuDongTien.id}}</td>
                 <td>
-                  <span>{{lichSuDongTien.trangthai}}</span>
+                  <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                 </td>
                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
