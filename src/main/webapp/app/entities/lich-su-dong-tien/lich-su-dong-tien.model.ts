@@ -15,6 +15,7 @@ export class LichSuDongTien implements BaseEntity {
         public sotien?: number,
         public trangthai?: DONGTIEN,
         public ghiChu?: string,
+        public mahopdong?: string,
         public nhanVienId?: number,
         public hopDongId?: number,
         public nhanVienTen?: string,

@@ -58,7 +58,7 @@
             <tbody>
                 <tr>
                     <td class="align-center">
-                        <span style="color:red">{{tongTienVL + tongTienTraGoc + tongTienTraVl - tongTienNoVl - tongTienVLs}}</span>
+                        <span style="color:red">{{tongTienVL + tongTienTraGoc + tongTienTraVl - tongTienNoVl - tongTienVLs-tongTienVLThemBot}}</span>
                     </td>
                     <td class="align-center">
                         <span style="color:red">{{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs}}</span>
@@ -80,7 +80,7 @@
             <tfoot>
                 <tr>
                     <td class="text-center" colspan="6">
-                        <span style="color: red">Tổng tiền = {{tongTienVL + tongTienTraVl + tongTienTraGoc - tongTienNoVl - tongTienVLs + tongTienBH
+                        <span style="color: red">Tổng tiền = {{tongTienVL + tongTienTraVl + tongTienTraGoc - tongTienNoVl - tongTienVLs-tongTienVLThemBot + tongTienBH
                             + tongTienTraBh - tongTienNoBh - tongTienBHs + tienThu - tienChi + tienGopVon - tienRutVon}}</span>
                     </td>
                 </tr>
@@ -120,7 +120,7 @@
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
                             <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
-                                <td>{{lichSuDongTien.id}}</td>
+                                <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.nhanVienTen}}</td>
                                 <td>{{lichSuDongTien.khachHangTen}}</td>
@@ -244,7 +244,7 @@
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-batHo>
                             <tr (click)="findBatHoByHopDong(batHo.id)">
-                                <td>{{batHo.id}}</td>
+                                <td>{{batHo.hopdong.mahopdong}}</td>
                                 <td>{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{batHo.nhanVienTen}}</td>
                                 <td>{{batHo.khachHangTen}}</td>
@@ -304,7 +304,7 @@
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
                             <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
-                                <td>{{lichSuDongTien.id}}</td>
+                                <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.nhanVienTen}}</td>
                                 <td>{{lichSuDongTien.khachHangTen}}</td>
@@ -428,7 +428,7 @@
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-vayLai>
                             <tr (click)="findVayLaiByHopDong(vayLai.hopDongId)">
-                                <td>{{vayLai.id}}</td>
+                                <td>{{vayLai.hopdongvl.mahopdong}}</td>
                                 <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.nhanVienTen}}</td>
                                 <td>{{vayLai.khachHangTen}}</td>
@@ -480,7 +480,7 @@
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-vayLai>
                             <tr (click)="findVayLaiByHopDong(vayLai.hopDongId)">
-                                <td>{{vayLai.id}}</td>
+                                <td>{{vayLai.hopdongvl.mahopdong}}</td>
                                 <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.nhanVienTen}}</td>
                                 <td>{{vayLai.khachHangTen}}</td>
@@ -494,7 +494,7 @@
                                     <strong>Tổng tiền </strong>
                                 </td>
                                 <td align="right" style="background-color:#ECECEC">
-                                    <span style="color:red">{{tongTienVLs}}</span>
+                                    <span style="color:red">{{tongTienVLThemBot}}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -532,7 +532,7 @@
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
                             <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
-                                <td>{{lichSuDongTien.id}}</td>
+                                <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.nhanVienTen}}</td>
                                 <td>{{lichSuDongTien.khachHangTen}}</td>

@@ -44,6 +44,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   tongTienVL: number;
   tongTienBHs: number;
   tongTienVLs: number;
+  tongTienVLThemBot: number;
   tongTienNoBh: number;
   tongTienTraBh: number;
   tongTienNoVl: number;
@@ -81,6 +82,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienBH = 0;
     this.tongTienBHs = 0;
     this.tongTienVLs = 0;
+    this.tongTienVLThemBot = 0;
     this.tongTienNoBh = 0;
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
@@ -117,6 +119,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tongTienBH = 0;
     this.tongTienBHs = 0;
     this.tongTienVLs = 0;
+    this.tongTienVLThemBot = 0;
     this.tongTienNoBh = 0;
     this.tongTienTraBh = 0;
     this.tongTienNoVl = 0;
@@ -202,7 +205,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         (res: HttpResponse<VayLai[]>) => {
           this.vayLaiThemBot = res.body;
           this.vayLaiThemBot.forEach(element => {
-            this.tongTienVLs += element.tienvay;
+            this.tongTienVLThemBot += element.tienvay;
           });
   
         },
@@ -284,7 +287,7 @@ export class BaoCaoBatHoComponent implements OnInit {
         (res: HttpResponse<VayLai[]>) => {
           this.vayLaiThemBot = res.body;
           this.vayLaiThemBot.forEach(element => {
-            this.tongTienVLs += element.tienvay;
+            this.tongTienVLThemBot += element.tienvay;
           });
   
         },
@@ -528,7 +531,7 @@ export class BaoCaoBatHoComponent implements OnInit {
       (res: HttpResponse<VayLai[]>) => {
         this.vayLaiThemBot = res.body;
         this.vayLaiThemBot.forEach(element => {
-          this.tongTienVLs += element.tienvay;
+          this.tongTienVLThemBot += element.tienvay;
         });
 
       },

@@ -63,6 +63,16 @@ public class LichSuDongTienDTO implements Serializable {
     }
 
     private Long hopDongId;
+    
+    private String mahopdong;
+
+    public String getMahopdong() {
+        return mahopdong;
+    }
+
+    public void setMahopdong(String mahopdong) {
+        this.mahopdong = mahopdong;
+    }
 
     public Long getId() {
         return id;
