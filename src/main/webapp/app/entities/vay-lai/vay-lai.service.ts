@@ -103,16 +103,16 @@ export class VayLaiService {
                 this.convertArrayResponse(res)
             );
     }
-    baoCao(start: Date, end: Date): Observable<HttpResponse<VayLai[]>> {
+    baoCao(start: Date, end: Date,chon:number): Observable<HttpResponse<VayLai[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<VayLai[]>(`${this.baocaoUrl}/${startd}/${endd}`, { observe: 'response' })
+        return this.http.get<VayLai[]>(`${this.baocaoUrl}/${startd}/${endd}/${chon}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
-    baoCaoNV(start: Date, end: Date, id: number): Observable<HttpResponse<VayLai[]>> {
+    baoCaoNV(start: Date, end: Date, id: number,chon:number): Observable<HttpResponse<VayLai[]>> {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
-        return this.http.get<VayLai[]>(`${this.baocaoNVUrl}/${startd}/${endd}/${id}`, { observe: 'response' })
+        return this.http.get<VayLai[]>(`${this.baocaoNVUrl}/${startd}/${endd}/${id}/${chon}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
     

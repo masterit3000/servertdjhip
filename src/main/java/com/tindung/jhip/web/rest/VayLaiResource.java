@@ -173,22 +173,22 @@ public class VayLaiResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
-    @GetMapping("/bao-cao-vay-lais/{start}/{end}")
+    @GetMapping("/bao-cao-vay-lais/{start}/{end}/{chon}")
     @Timed
-    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "chon") Integer vayThemTraGoc) {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-        return vayLaiService.baoCao(timeStart, timeEnd);
+        return vayLaiService.baoCao(timeStart, timeEnd,vayThemTraGoc);
     }
 
-    @GetMapping("/bao-cao-vay-lais-nhanvien/{start}/{end}/{id}")
+    @GetMapping("/bao-cao-vay-lais-nhanvien/{start}/{end}/{id}/{chon}")
     @Timed
-    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id,@PathVariable(name = "chon") Integer vayThemTraGoc) {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-        return vayLaiService.baoCao(timeStart, timeEnd, id);
+        return vayLaiService.baoCao(timeStart, timeEnd, id,vayThemTraGoc);
     }
 
     @GetMapping("/vay-lais-by-hopdong/{id}")

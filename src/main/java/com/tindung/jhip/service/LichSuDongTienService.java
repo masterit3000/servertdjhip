@@ -42,7 +42,7 @@ public interface LichSuDongTienService {
      */
     void delete(Long id);
 
-    void setDongTien(Long id,DONGTIEN dongtien);
+    void setDongTien(Long id, DONGTIEN dongtien);
 
     List<LichSuDongTienDTO> findByHopDong(Long id);
 
@@ -55,4 +55,6 @@ public interface LichSuDongTienService {
     List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong);
 
     List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong);
+
+    List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien,Long id);
 }
