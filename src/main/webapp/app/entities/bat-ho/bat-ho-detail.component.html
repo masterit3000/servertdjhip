@@ -101,7 +101,7 @@
         <p-tabPanel header="Lịch đóng tiền">
             <div class="row">
                 <div class="col-md-6">
-                        <p-table [value]="lichSuDongTiens" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                    <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
@@ -120,9 +120,6 @@
                                 <th>
                                     <span>Ngày giao dịch</span>
                                 </th>
-                                <th>
-                                    <span>Đóng tiền</span>
-                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -136,16 +133,12 @@
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
-                                <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'" ></p-tableCheckbox>
-                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'" ></p-tableCheckbox>
-                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                        <p-table [value]="lichSuDongTiens" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
@@ -162,9 +155,6 @@
                                     <span>Tiền khách trả</span>
                                 </th>
                                 <th>
-                                    <span>Ngày giao dịch</span>
-                                </th>
-                                <th>
                                     <span>Đóng tiền</span>
                                 </th>
                             </tr>
@@ -179,10 +169,9 @@
                                 </td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                                <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                                 <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'" ></p-tableCheckbox>
-                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'" ></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'"></p-tableCheckbox>
                                 </td>
                             </tr>
                         </ng-template>
@@ -234,9 +223,9 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
-                                        required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}"
+                                        pKeyFilter="pnum" [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra"
+                                        [disabled]="tienNo-tienTra == 0" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
@@ -348,6 +337,12 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
+                                <td>Mã hợp đồng:</td>
+                                <td>
+                                    <input pInputText  #mahopdong type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Ngày đảo họ:</td>
                                 <td>
                                     <p-calendar></p-calendar>
@@ -387,13 +382,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">Số tiền đưa khách thực tế : {{batHoDao.tienduakhach |currency : 'VND' : true : '1.0-0'}}-{{tienchuadong
-                                    |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}={{batHoDao.tienduakhach-tienchuadong-(tienNo-tienTra)
-                                    |currency : 'VND' : true : '1.0-0'}}</td>
+                                <td colspan="2">Số tiền đưa khách thực tế : {{batHoDao.tienduakhach |currency : 'VND' : true
+                                    : '1.0-0'}}-{{tienchuadong |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra |currency
+                                    : 'VND' : true : '1.0-0'}}={{batHoDao.tienduakhach-tienchuadong-(tienNo-tienTra) |currency
+                                    : 'VND' : true : '1.0-0'}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center bolder-table-last">
-                                    <button (click)="daoHo()" class="btn btn-primary">
+                                    <button (click)="daoHo(mahopdong.value)" class="btn btn-primary">
                                         <span class="fa fa-refresh"></span>
                                         Đảo họ</button>
                                 </td>

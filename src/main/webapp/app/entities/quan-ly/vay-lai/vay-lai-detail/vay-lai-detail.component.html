@@ -2,11 +2,7 @@
     <h2>
         <span>Vay lãi</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
-
-    <div class="row">
-        <div class="col-md-4 offset-md-1">
-            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
-        </div>
+    <div class="row justify-content-center">
         <div class="col-md-6 offset-md-1">
             <table class="table table-responsive">
                 <tbody>
@@ -41,7 +37,7 @@
                         </td>
                         <td>
                             <b>Cách tính lãi</b>:
-                            <span>{{vayLai.cachtinhlai}}</span>
+                            <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -50,7 +46,7 @@
                         </td>
                         <td>
                             <b>Hình thức lãi</b>:
-                            <span>{{vayLai.hinhthuclai}}</span>
+                            <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -91,17 +87,20 @@
         <span>Quay lại</span>
     </button>
     <p-tabView>
-        <p-tabPanel header="Đóng lãi" disabled>
+        <p-tabPanel header="Đóng lãi">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="10" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
+                                <th colspan="7" class="text-white bg-secondary text-center">Tiền lãi chưa đóng</th>
+                            </tr>
+                            <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Số ngày</th>
+                                <th>Trạng thái</th>
                                 <th>Tiền lãi</th>
-                                <th>Tiền khác</th>
-                                <th>Tổng lãi</th>
+                                <th>Ngày giao dịch</th>
                                 <th>Tiền khách trả</th>
                             </tr>
                         </ng-template>>
@@ -110,13 +109,51 @@
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.chukylai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</td>
                                 <td>{{vayLai.lai}}</td>
-                                <td>0</td>
-                                <td>{{vayLai.lai}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.lai}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
+                </div>
+                <div class="col-md-6">
+                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="10" dataKey="id">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="7" class="text-white bg-success text-center">Tiền lãi đã đóng</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Ngày</th>
+                                <th>Số ngày</th>
+                                <th>Trạng thái</th>
+                                <th>Tiền lãi</th>
+                                <th>Ngày giao dịch</th>
+                                <th>Tiền khách trả</th>
+                            </tr>
+                        </ng-template>>
+                        <ng-template pTemplate="body" let-lichSuDongTien>
+                            <tr [pSelectableRow]="lichSuDongTien">
+                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                                <td>{{vayLai.chukylai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</td>
+                                <td>{{vayLai.lai}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                                <td>{{vayLai.lai}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Chứng từ">
+            <div class="row">
+                <div class="col-md-4">
+                    <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
+                </div>
+                <div class="col-md-7 offset-md-1">
+                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>
         </p-tabPanel>

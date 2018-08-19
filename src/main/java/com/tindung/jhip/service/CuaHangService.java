@@ -53,4 +53,6 @@ public interface CuaHangService {
     void delete(Long id);
 
     List<CuaHangDTO> findByName(String key);
+    
+    CuaHangDTO findByNhanVien(Long id);
 }

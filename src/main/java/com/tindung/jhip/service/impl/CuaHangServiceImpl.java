@@ -90,6 +90,12 @@ public class CuaHangServiceImpl implements CuaHangService {
         CuaHang cuaHang = cuaHangRepository.findOne(id);
         return cuaHangMapper.toDto(cuaHang);
     }
+    public CuaHangDTO findByNhanVien(Long id) {
+        log.debug("Request to get CuaHang : {}", id);
+        Long cuaHangId = nhanVienService.findByUserLogin().getCuaHangId();
+        CuaHang cuaHang = cuaHangRepository.findOne(cuaHangId);
+        return cuaHangMapper.toDto(cuaHang);
+    }
 
     /**
      * Delete the cuaHang by id.

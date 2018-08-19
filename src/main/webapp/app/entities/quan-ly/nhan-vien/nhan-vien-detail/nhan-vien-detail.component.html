@@ -3,10 +3,7 @@
     <span>Nhân viên</span> {{nhanVien.ten}}</h2>
   <hr>
 
-  <div class="row">
-    <div class="col-md-4 offset-md-1">
-      <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
-    </div>
+  <div class="row justify-content-center">
     <div class="col-md-6 offset-md-1">
       <table class="table table-responsive">
         <tbody>
@@ -23,7 +20,7 @@
             </td>
             <td>
               <b>Trạng thái</b>:
-              <span>{{nhanVien.trangthai}}</span>
+              <span jhiTranslate="{{'servertdjhipApp.TrangThaiNhanVien.' + nhanVien.trangthai}}">{{nhanVien.trangthai}}</span>
             </td>
           </tr>
           <tr>

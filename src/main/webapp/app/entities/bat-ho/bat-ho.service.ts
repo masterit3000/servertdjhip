@@ -32,9 +32,9 @@ export class BatHoService {
         return this.http.post<BatHo>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
-    daoHo(batHo: BatHo, id: number): Observable<EntityResponseType> {
+    daoHo(batHo: BatHo, id: number,mahopdong:string): Observable<EntityResponseType> {
         const copy = this.convert(batHo);
-        return this.http.post<BatHo>(`${this.daoHoUrl}/${id}`, copy, { observe: 'response' })
+        return this.http.post<BatHo>(`${this.daoHoUrl}/${id}/${mahopdong}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 

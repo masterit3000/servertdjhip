@@ -23,7 +23,10 @@
             "lai": "Lãi",
             "cachtinhlai": "Cách tính lãi",
             "thulaitruoc": "Thu lãi trước",
-            "hopdongvl": "Hợp đồng vay lãi"
+            "hopdongvl": "Hợp đồng vay lãi",
+            "QUAHAN": "Quá hạn đóng lãi",
+            "DANGVAY": "Đang vay",
+            "DADONG": "Đã đóng hợp đồng"
         }
     }
 }

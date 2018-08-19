@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<CuaHang>;
 @Injectable()
 export class CuaHangService {
     private resourceUrl = SERVER_API_URL + 'api/cua-hangs';
+    private findByUserUrl = SERVER_API_URL + 'api/cua-hang-by-user';
     private findCuaHangUrl = SERVER_API_URL + 'api/tim-cua-hangs-by-name';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
@@ -34,6 +35,11 @@ export class CuaHangService {
     find(id: number): Observable<EntityResponseType> {
         return this.http
             .get<CuaHang>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    findByUser(): Observable<EntityResponseType> {
+        return this.http
+            .get<CuaHang>(`${this.findByUserUrl}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -63,6 +69,7 @@ export class CuaHangService {
             observe: 'response'
         });
     }
+
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CuaHang = this.convertItemFromServer(res.body);

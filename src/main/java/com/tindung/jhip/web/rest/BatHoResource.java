@@ -79,19 +79,19 @@ public class BatHoResource {
                 .body(result);
     }
 
-    @PostMapping("/dao-bat-hos/{id}")
+    @PostMapping("/dao-bat-hos/{id}/{mahopdong}")
     @Timed
-    public ResponseEntity<BatHoDTO> daoBatHo(@Valid @RequestBody BatHoDTO batHoDTO, @PathVariable Long id) throws URISyntaxException {
+     public ResponseEntity<BatHoDTO> vay(@RequestBody BatHoDTO batHoDTO, @PathVariable(name="id") Long id,@PathVariable(name = "mahopdong") String mahopdong) throws URISyntaxException {
         log.debug("REST request to save BatHo : {}", batHoDTO);
         if (batHoDTO.getId() != null) {
             throw new BadRequestAlertException("A new batHo cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BatHoDTO result = batHoService.daoHo(batHoDTO, id);
+        BatHoDTO result = batHoService.daoHo(batHoDTO, id,mahopdong);
 
         //
         //save lich su thao tac bat ho
         //
-        return ResponseEntity.created(new URI("/api/bat-hos/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/dao-bat-hos/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }

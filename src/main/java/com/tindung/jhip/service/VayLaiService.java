@@ -43,7 +43,7 @@ public interface VayLaiService {
 
     List<VayLaiDTO> findByNameOrCMND(String key);
 
-    VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id);
+    VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id,String mahopdong);
 
     List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc);
 

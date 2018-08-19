@@ -30,6 +30,7 @@ import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.GhiNoRepository;
 import com.tindung.jhip.repository.ThuChiRepository;
 import com.tindung.jhip.repository.VayLaiRepository;
+import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
@@ -158,10 +159,10 @@ public class BatHoServiceImpl implements BatHoService {
 
                     return batHoMapper.toDto(batHo);
                 } else {
-                    throw new InternalServerErrorException("Không đủ tiền");
+                    throw new BadRequestAlertException("Không đủ tiền", null, null);
                 }
             } else {
-                throw new InternalServerErrorException("Không được sửa bat họ");
+                throw new BadRequestAlertException("Không được sửa bat họ", null, null);
 //                Long idCuaHang = cuaHangService.findIDByUserLogin();
 //                BatHo findOne = batHoRepository.findOne(batHoDTO.getId());
 //
@@ -237,12 +238,12 @@ public class BatHoServiceImpl implements BatHoService {
 
             }
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
 
     }
 
     @Override
-    public BatHoDTO daoHo(BatHoDTO batHoDTO, Long id
+    public BatHoDTO daoHo(BatHoDTO batHoDTO, Long id, String mahopdong
     ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
@@ -257,7 +258,7 @@ public class BatHoServiceImpl implements BatHoService {
                     Long idCuaHang = cuaHangService.findIDByUserLogin();
                     hopdong.setCuaHangId(idCuaHang);
                 }
-                hopdong.setMahopdong("DH");
+                hopdong.setMahopdong(mahopdong);
                 hopdong.setHopdonggocId(id);
                 hopdong.setNgaytao(ZonedDateTime.now());
                 hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
@@ -305,11 +306,11 @@ public class BatHoServiceImpl implements BatHoService {
 
                 return batHoMapper.toDto(batHo);
             } else {
-                throw new InternalServerErrorException("Không đủ tiền");
+                throw new BadRequestAlertException("Không đủ tiền", null, null);
             }
 
         } else {
-            throw new InternalServerErrorException("không có quyền");
+            throw new BadRequestAlertException("không có quyền", null, null);
         }
     }
 
@@ -385,7 +386,7 @@ public class BatHoServiceImpl implements BatHoService {
             }
 
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -398,7 +399,7 @@ public class BatHoServiceImpl implements BatHoService {
             lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
             return lichSuDongTienMapper.toDto(lichSuDongTien);
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -419,7 +420,7 @@ public class BatHoServiceImpl implements BatHoService {
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -433,24 +434,24 @@ public class BatHoServiceImpl implements BatHoService {
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     private void validate(BatHoDTO bh) {
 
         if (bh.getTongsongay() < 0) {
-            throw new InternalServerErrorException("thong tin bat ho - tong so ngay khong dung");
+            throw new BadRequestAlertException("thông tin bát họ - tổng số ngày không đúng", null, null);
         }
 
         if (bh.getChuky() < 0 || bh.getChuky() > bh.getTongsongay()) {
-            throw new InternalServerErrorException("thong tin bat ho - chu ky khong dung");
+            throw new BadRequestAlertException("thông tin bát họ - chu kỳ không đúng", null, null);
         }
         if (bh.getTongtien() < 0) {
-            throw new InternalServerErrorException("thong tin bat ho - tong tien khong dung");
+            throw new BadRequestAlertException("thông tin bát họ -tổng tiền không đúng", null, null);
 
         }
         if (bh.getTienduakhach() < 0) {
-            throw new InternalServerErrorException("thong tin bat ho - tien dua khach khong dung");
+            throw new BadRequestAlertException("thông tin bát họ -tiền đưa khách không đúng", null, null);
 
         }
     }
@@ -498,7 +499,7 @@ public class BatHoServiceImpl implements BatHoService {
             return collect;
 
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -511,7 +512,7 @@ public class BatHoServiceImpl implements BatHoService {
             return collect;
 
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -527,7 +528,7 @@ public class BatHoServiceImpl implements BatHoService {
             return collect;
 
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -559,7 +560,7 @@ public class BatHoServiceImpl implements BatHoService {
             return collect;
 
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -575,7 +576,7 @@ public class BatHoServiceImpl implements BatHoService {
             return collect;
 
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
@@ -599,7 +600,7 @@ public class BatHoServiceImpl implements BatHoService {
             nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
             return nguonvon;
         }
-        throw new InternalServerErrorException("Khong co quyen");
+        throw new BadRequestAlertException("không có quyền", null, null);
     }
 
 }

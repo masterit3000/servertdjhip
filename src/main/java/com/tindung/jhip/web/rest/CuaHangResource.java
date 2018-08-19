@@ -36,10 +36,12 @@ public class CuaHangResource {
     }
 
     /**
-     * POST  /cua-hangs : Create a new cuaHang.
+     * POST /cua-hangs : Create a new cuaHang.
      *
      * @param cuaHangDTO the cuaHangDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new cuaHangDTO, or with status 400 (Bad Request) if the cuaHang has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new cuaHangDTO, or with status 400 (Bad Request) if the cuaHang has
+     * already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/cua-hangs")
@@ -51,17 +53,18 @@ public class CuaHangResource {
         }
         CuaHangDTO result = cuaHangService.save(cuaHangDTO);
         return ResponseEntity.created(new URI("/api/cua-hangs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /cua-hangs : Updates an existing cuaHang.
+     * PUT /cua-hangs : Updates an existing cuaHang.
      *
      * @param cuaHangDTO the cuaHangDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated cuaHangDTO,
-     * or with status 400 (Bad Request) if the cuaHangDTO is not valid,
-     * or with status 500 (Internal Server Error) if the cuaHangDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * cuaHangDTO, or with status 400 (Bad Request) if the cuaHangDTO is not
+     * valid, or with status 500 (Internal Server Error) if the cuaHangDTO
+     * couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/cua-hangs")
@@ -73,33 +76,36 @@ public class CuaHangResource {
         }
         CuaHangDTO result = cuaHangService.save(cuaHangDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, cuaHangDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, cuaHangDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /cua-hangs : get all the cuaHangs.
+     * GET /cua-hangs : get all the cuaHangs.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of cuaHangs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of cuaHangs
+     * in body
      */
     @GetMapping("/cua-hangs")
     @Timed
     public List<CuaHangDTO> getAllCuaHangs() {
         log.debug("REST request to get all CuaHangs");
         return cuaHangService.findAll();
-        }
+    }
+
     @GetMapping("/tim-cua-hangs-by-name/{key}")
     @Timed
     public List<CuaHangDTO> findCuaHang(@PathVariable(name = "key") String key) {
         log.debug("REST request to get all CuaHangs");
         return cuaHangService.findByName(key);
-        }
+    }
 
     /**
-     * GET  /cua-hangs/:id : get the "id" cuaHang.
+     * GET /cua-hangs/:id : get the "id" cuaHang.
      *
      * @param id the id of the cuaHangDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the cuaHangDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * cuaHangDTO, or with status 404 (Not Found)
      */
     @GetMapping("/cua-hangs/{id}")
     @Timed
@@ -108,9 +114,16 @@ public class CuaHangResource {
         CuaHangDTO cuaHangDTO = cuaHangService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(cuaHangDTO));
     }
+    @GetMapping("/cua-hang-by-user")
+    @Timed
+    public ResponseEntity<CuaHangDTO> findByUser() {
+        log.debug("REST request to get CuaHang by user: {}");
+        CuaHangDTO cuaHangDTO = cuaHangService.findByUserLogin();
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(cuaHangDTO));
+    }
 
     /**
-     * DELETE  /cua-hangs/:id : delete the "id" cuaHang.
+     * DELETE /cua-hangs/:id : delete the "id" cuaHang.
      *
      * @param id the id of the cuaHangDTO to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -122,4 +135,6 @@ public class CuaHangResource {
         cuaHangService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+
 }

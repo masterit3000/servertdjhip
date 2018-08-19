@@ -21,10 +21,10 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <div class="row">
+        <div class="row" style="height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="lichSuDongTiensBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id"
+                    <p-table [value]="lichSuDongTiensBHs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected" dataKey="id"
                         *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -83,10 +83,10 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:50px">
+        <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="lichSuDongTienHomNayBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected"
+                    <p-table [value]="lichSuDongTienHomNayBHs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected"
                         dataKey="id" *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -146,10 +146,10 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:50px">
+        <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="hopDongBHs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id"
+                    <p-table [value]="hopDongBHs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected" dataKey="id"
                         *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -185,10 +185,10 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="row">
+        <div class="row" style="height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id"
+                    <p-table [value]="lichSuDongTienVLs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected" dataKey="id"
                         *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -247,10 +247,10 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:50px">
+        <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="lichSuDongTienHomNayVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected"
+                    <p-table [value]="lichSuDongTienHomNayVLs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected"
                         dataKey="id" *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -310,10 +310,10 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:50px">
+        <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="hopDongVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id"
+                    <p-table [value]="hopDongVLs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected" dataKey="id"
                         *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>

@@ -31,9 +31,9 @@ export class VayLaiService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    themBotVayLai(vayLai: VayLai, id: number): Observable<EntityResponseType> {
+    themBotVayLai(vayLai: VayLai, id: number,mahopdong:string): Observable<EntityResponseType> {
         const copy = this.convert(vayLai);
-        return this.http.post<VayLai>(`${this.thembotvaylai}/${id}`, copy, { observe: 'response' })
+        return this.http.post<VayLai>(`${this.thembotvaylai}/${id}/${mahopdong}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -132,8 +132,8 @@ export class VayLaiService {
 
     }
 
-    tienVayThemTraBot(id:number): Observable<HttpResponse<string>> {
-        return this.http.get<string>(`${this.tienVayThemTraBotUrl}/${id}`, { observe: 'response' });
+    tienVayThemTraBot(id:number,mahopdong:string): Observable<HttpResponse<string>> {
+        return this.http.get<string>(`${this.tienVayThemTraBotUrl}/${id}/${mahopdong}`, { observe: 'response' });
     }
 
 }

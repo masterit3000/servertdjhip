@@ -25,7 +25,8 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     batHo: BatHo;
     batHos: BatHo[];
     batHoDao: BatHo;
-    lichSuDongTiens: LichSuDongTien[];
+    lichSuDongTiensDaDong: LichSuDongTien[];
+    lichSuDongTiensChuaDong: LichSuDongTien[];
     lichSuDongTien: LichSuDongTien;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
     selected: LichSuDongTien[];
@@ -130,28 +131,22 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 this.lichSuDongTienService
                     .findByHopDongVaTrangThai(DONGTIEN.DADONG, this.batHo.hopdong.id)
                     .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
-                        this.lichSuDongTiens = lichSuDongTienResponse.body;
+                        this.lichSuDongTiensDaDong = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
-                        this.tienchuadong = 0;
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
-                            // if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
                             this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
                         }
-                        // this.selected[j++] = this.lichSuDongTiens[i];
 
-                        //     } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
-                        //         this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
-                        //     }
+                    });
+                this.lichSuDongTienService
+                    .findByHopDongVaTrangThai(DONGTIEN.CHUADONG, this.batHo.hopdong.id)
+                    .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
+                        this.lichSuDongTiensChuaDong = lichSuDongTienResponse.body;
+                        this.tienchuadong = 0;
+                        for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
+                            this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
+                        }
 
-                        // }
-                        // // let j = 0;
-                        // for (let i = 0; i < this.lichSuDongTiens.length; i++) {
-                        //     if (this.lichSuDongTiens[i].trangthai.toString() == 'DADONG') {
-                        //         this.selected[j++] = this.lichSuDongTiens[i];
-                        //         console.log(this.lichSuDongTiens[i]);
-
-                        //     }
-                        // }
                     });
                 this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.batHo.hopdong.id)
                     .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
@@ -298,10 +293,10 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.jhiAlertService.success('Thêm mới thành công', null, null);
 
     }
-    daoHo() {
+    daoHo(mahopdong:string) {
         this.dongHopDong();
         this.subscribeToSaveResponseBH(
-            this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id));
+            this.batHoService.daoHo(this.batHoDao, this.batHo.hopdong.id,mahopdong));
         this.showDaoHo = true;
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {

@@ -10,6 +10,7 @@ import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.dto.ThuChiDTO;
 import com.tindung.jhip.service.mapper.ThuChiMapper;
+import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,7 @@ public class ThuChiServiceImpl implements ThuChiService {
                 throw new InternalError("Khong sua duoc thu chi");
 
             } else {
-                throw new InternalError("Khong du tien");
+                    throw new BadRequestAlertException("Không đủ tiền", null, null);
             }
         }
         throw new InternalError("Khong cos quyen");

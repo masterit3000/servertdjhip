@@ -22,7 +22,8 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
 
     vayLai: VayLai;
     vayLaiMoi: VayLai;
-    lichSuDongTiens: LichSuDongTien[];
+    lichSuDongTiensDaDong: LichSuDongTien[];
+    lichSuDongTiensChuaDong: LichSuDongTien[];
     selected: LichSuDongTien;
     tiendadong: number;
     tienchuadong: number;
@@ -106,20 +107,24 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             .subscribe((vayLaiResponse: HttpResponse<VayLai>) => {
                 this.vayLai = vayLaiResponse.body;
                 this.lichSuDongTienService
-                    .findByHopDong(this.vayLai.hopdongvl.id)
+                    .findByHopDongVaTrangThai(DONGTIEN.DADONG, this.vayLai.hopdongvl.id)
                     .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
-                        this.lichSuDongTiens = lichSuDongTienResponse.body;
+                        this.lichSuDongTiensDaDong = lichSuDongTienResponse.body;
                         this.tiendadong = 0;
-                        this.tienchuadong = 0;
-                        this.tonglai = 0;
                         for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
-                            this.tonglai += lichSuDongTienResponse.body[i].sotien;
-                            if (lichSuDongTienResponse.body[i].trangthai.toString() == "DADONG") {
-                                this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
-                            } else if (lichSuDongTienResponse.body[i].trangthai.toString() == "CHUADONG") {
-                                this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
-                            }
+                            this.tiendadong = this.tiendadong + lichSuDongTienResponse.body[i].sotien;
                         }
+
+                    });
+                this.lichSuDongTienService
+                    .findByHopDongVaTrangThai(DONGTIEN.CHUADONG, this.vayLai.hopdongvl.id)
+                    .subscribe((lichSuDongTienResponse: HttpResponse<LichSuDongTien[]>) => {
+                        this.lichSuDongTiensChuaDong = lichSuDongTienResponse.body;
+                        this.tienchuadong = 0;
+                        for (let i = 0; i < lichSuDongTienResponse.body.length; i++) {
+                            this.tienchuadong = this.tienchuadong + lichSuDongTienResponse.body[i].sotien;
+                        }
+
                     });
                 this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.vayLai.hopdongvl.id)
                     .subscribe((vayLaiResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
@@ -254,7 +259,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                 this.vayLaiService.create(this.vayLai));
         }
     }
-    traGoc(traBotGoc: string) {
+    traGoc(traBotGoc: string,mahopdong:string) {
         this.vayLaiMoi.cachtinhlai = this.vayLai.cachtinhlai;
         this.vayLaiMoi.thoigianvay = this.vayLai.thoigianvay;
         this.vayLaiMoi.hinhthuclai = this.vayLai.hinhthuclai;
@@ -263,11 +268,11 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.vayLaiMoi.thulaitruoc = this.vayLai.thulaitruoc;
         this.vayLaiMoi.tienvay = this.vayLai.tienvay - parseInt(traBotGoc);
         this.subscribeToSaveResponseVL(
-            this.vayLaiService.themBotVayLai(this.vayLaiMoi, this.vayLai.hopdongvl.id));
+            this.vayLaiService.themBotVayLai(this.vayLaiMoi, this.vayLai.hopdongvl.id,mahopdong));
         this.setSoTienLichSuThaoTac('trả bớt gốc', 0, traBotGoc);
 
     }
-    vayThem(vayThemGoc: string) {
+    vayThem(vayThemGoc: string,mahopdong:string) {
         this.vayLaiMoi.cachtinhlai = this.vayLai.cachtinhlai;
         this.vayLaiMoi.thoigianvay = this.vayLai.thoigianvay;
         this.vayLaiMoi.hinhthuclai = this.vayLai.hinhthuclai;
@@ -276,7 +281,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.vayLaiMoi.thulaitruoc = this.vayLai.thulaitruoc;
         this.vayLaiMoi.tienvay = this.vayLai.tienvay + parseInt(vayThemGoc);
         this.subscribeToSaveResponseVL(
-            this.vayLaiService.themBotVayLai(this.vayLaiMoi, this.vayLai.hopdongvl.id));
+            this.vayLaiService.themBotVayLai(this.vayLaiMoi, this.vayLai.hopdongvl.id,mahopdong));
         this.setSoTienLichSuThaoTac('vay thêm gốc', vayThemGoc, 0);
     }
     giaHan(ngayGiaHan: string) {

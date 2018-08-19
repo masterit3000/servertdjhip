@@ -40,7 +40,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>
-                        <span jhiTranslate="global.field.id">ID</span>
+                        <span>Mã hợp đồng</span>
                     </th>
                     <th>
                         <span>Tên khách hàng</span>
@@ -70,7 +70,7 @@
                     <td>{{vayLai.thoigianvay}}</td>
                     <td>{{vayLai.chukylai}}</td>
                     <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
-                    <td>{{vayLai.hopdongvl.trangthaihopdong}}</td>
+                    <td jhiTranslate="{{'servertdjhipApp.vayLai.' + vayLai.hopdongvl.trangthaihopdong}}">{{vayLai.hopdongvl.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
         </p-table>

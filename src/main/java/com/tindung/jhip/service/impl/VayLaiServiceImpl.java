@@ -249,7 +249,8 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    public VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id) {
+    public VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id,String mahopdong) {
+        
         log.debug("Request to save VayLai : {}", vayLaiDTO);
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
@@ -274,7 +275,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     }
                     hopdong.setNgaytao(ZonedDateTime.now());
                     hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
-                    hopdong.setMahopdong("them-bot-vl");
+                    hopdong.setMahopdong(mahopdong);
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
                     VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);

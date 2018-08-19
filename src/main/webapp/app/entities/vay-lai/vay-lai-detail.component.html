@@ -114,7 +114,7 @@
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiens" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                    <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
@@ -122,9 +122,7 @@
                                 <th>Trạng thái</th>
                                 <th>Chu kỳ lãi</th>
                                 <th>Tiền khách trả</th>
-                                <th>
-                                    Đóng tiền
-                                </th>
+                                <th>Ngày giao dịch</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -136,16 +134,13 @@
                                 </td>
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                                <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
-                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'"></p-tableCheckbox>
-                                </td>
+                                <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiens" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
+                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
@@ -209,8 +204,16 @@
                             <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                 class="form-control" name="trabotgoc" #trabotgoc id="field_trabotgoc" required></p-spinner>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Mã hợp đồng:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input pInputText  #mahopdongtg type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
+                        </div>
                         <div class="col-md-3">
-                            <button (click)="traGoc(trabotgoc.value)" class="btn btn-success">
+                            <button (click)="traGoc(trabotgoc.value,mahopdongtg.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
@@ -237,8 +240,16 @@
                             <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
                                 class="form-control" #vaythem name="vaythemtien" id="field_vaythemtien" required></p-spinner>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="float-right font-size-3">Mã hợp đồng:</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input pInputText type="text" #mahopdong name="mahopdong" class="form-control" id="field_mahopdong" />
+                        </div>
                         <div class="col-md-3">
-                            <button (click)="vayThem(vaythem.value)" class="btn btn-success">
+                            <button (click)="vayThem(vaythem.value,mahopdong.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
@@ -267,14 +278,13 @@
                         <div class="col-md-1">
                             <span>(Ngày)</span>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <button (click)="giaHan(giahan.value)" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-
                     </div>
                 </div>
             </div>
@@ -311,9 +321,9 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
-                                        required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}"
+                                        pKeyFilter="pnum" [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra"
+                                        [disabled]="tienNo-tienTra == 0" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
@@ -358,7 +368,6 @@
                     <br />
                     <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
                         <ng-template pTemplate="header">
-
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Số tiên ghi nợ</th>

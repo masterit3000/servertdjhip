@@ -72,14 +72,14 @@ public class VayLaiResource {
                 .body(result);
     }
 
-    @PostMapping("/them-bot-vay-lais/{id}")
+    @PostMapping("/them-bot-vay-lais/{id}/{mahopdong}")
     @Timed
-    public ResponseEntity<VayLaiDTO> vay(@RequestBody VayLaiDTO vayLaiDTO, @PathVariable Long id) throws URISyntaxException {
+    public ResponseEntity<VayLaiDTO> vay(@RequestBody VayLaiDTO vayLaiDTO, @PathVariable(name="id") Long id,@PathVariable(name = "mahopdong") String mahopdong) throws URISyntaxException {
         log.debug("REST request to save VayLai : {}", vayLaiDTO);
         if (vayLaiDTO.getId() != null) {
             throw new BadRequestAlertException("A new vayLai cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        VayLaiDTO result = vayLaiService.vay(vayLaiDTO, id);
+        VayLaiDTO result = vayLaiService.vay(vayLaiDTO, id,mahopdong);
 
         //
         return ResponseEntity.created(new URI("/api/them-bot-vay-lais/" + result.getId()))

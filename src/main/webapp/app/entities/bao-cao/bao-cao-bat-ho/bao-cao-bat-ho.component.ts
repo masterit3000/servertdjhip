@@ -59,6 +59,7 @@ export class BaoCaoBatHoComponent implements OnInit {
   tongTienTraGoc: number;
   nguonVon: string;
   sotienVayThemTraBot: string[];
+  default : NhanVien;
 
 
   constructor(
@@ -89,9 +90,8 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tienThu = 0;
     this.tienGopVon = 0;
     this.tienRutVon = 0;
+    this.selectedNhanVien = this.default;
 
-
-    this.selectedNhanVien = new NhanVien;
 
   }
 
@@ -126,7 +126,7 @@ export class BaoCaoBatHoComponent implements OnInit {
     this.tienThu = 0;
     this.tienGopVon = 0;
     this.tienRutVon = 0;
-    if (this.selectedNhanVien == 1) {
+    if (this.selectedNhanVien == this.default) {
       console.log(this.denngay);
       this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
         (res: HttpResponse<LichSuDongTien[]>) => {

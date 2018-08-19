@@ -29,6 +29,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {GrowlModule} from 'primeng/growl';
 import {DialogModule} from 'primeng/dialog';
 import {GalleriaModule} from 'primeng/galleria';
+import { ServertdjhipSharedModule } from '../../shared';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import {GalleriaModule} from 'primeng/galleria';
         GrowlModule,
         SpinnerModule,
         ConfirmDialogModule,
-        DialogModule
+        DialogModule,
+        ServertdjhipSharedModule
     ],
     declarations: [
         BatHoAdminComponent,

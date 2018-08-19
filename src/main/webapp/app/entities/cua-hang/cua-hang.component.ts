@@ -28,16 +28,16 @@ export class CuaHangComponent implements OnInit, OnDestroy {
         private principal: Principal
     ) {}
 
-    loadAll() {
-        this.cuaHangService.query().subscribe(
-            (res: HttpResponse<CuaHang[]>) => {
-                this.cuaHangs = res.body;
+    load() {
+        this.cuaHangService.findByUser().subscribe(
+            (res: HttpResponse<CuaHang>) => {
+                this.cuaHang = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
     ngOnInit() {
-        this.loadAll();
+        this.load();
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
@@ -54,7 +54,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     registerChangeInCuaHangs() {
         this.eventSubscriber = this.eventManager.subscribe(
             'cuaHangListModification',
-            response => this.loadAll()
+            response => this.load()
         );
     }
 

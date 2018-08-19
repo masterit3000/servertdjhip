@@ -33,6 +33,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormsModule } from '@angular/forms';
 import { FileUploadModule } from '../../../../../../node_modules/primeng/primeng';
 import {GalleriaModule} from 'primeng/galleria';
+import {KhachHangNumber } from './textNumberKH.directive';
+
 const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
 
 @NgModule({
@@ -64,7 +66,8 @@ const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
         KhachHangDeletePopupComponent,
         CheckThongTinKhachHangComponent,
         KhachCanVayComponent,
-        KhachHangChucNangComponent
+        KhachHangChucNangComponent,
+        KhachHangNumber
     ],
     entryComponents: [
         KhachHangComponent,

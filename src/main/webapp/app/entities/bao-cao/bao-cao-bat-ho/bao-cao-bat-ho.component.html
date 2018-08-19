@@ -22,7 +22,7 @@
                     <div class="col-md-8 form-group">
                         <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
                         <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
-                            <option [ngValue]=1>Tất cả nhân viên</option>
+                            <option [ngValue]="default">Tất cả nhân viên</option>
                             <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
                         </select>
                     </div>
@@ -357,7 +357,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-ghiNo>
-                            <tr>
+                            <tr (click)="findVayLaiByHopDong(ghiNo.hopDongId)">
                                 <td>{{ghiNo.id}}</td>
                                 <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                                 <td>{{ghiNo.nhanVienTen}}</td>
@@ -427,7 +427,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-vayLai>
-                            <tr>
+                            <tr (click)="findVayLaiByHopDong(vayLai.hopDongId)">
                                 <td>{{vayLai.id}}</td>
                                 <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.nhanVienTen}}</td>
@@ -479,7 +479,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-vayLai>
-                            <tr>
+                            <tr (click)="findVayLaiByHopDong(vayLai.hopDongId)">
                                 <td>{{vayLai.id}}</td>
                                 <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.nhanVienTen}}</td>
@@ -590,7 +590,7 @@
                     </ng-template>
                     <!-- Code backend lấy dữ liệu body -->
                     <ng-template pTemplate="body" let-thuChi>
-                        <tr>
+                        <tr >
                             <td>{{thuChi.id}}</td>
                             <td>{{thuChi.thoigian | date:"dd/MM/yyyy"}}</td>
                             <td>{{thuChi.tenNhanVien}}</td>
