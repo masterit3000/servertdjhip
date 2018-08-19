@@ -23,6 +23,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
 import {GalleriaModule} from 'primeng/galleria';
 import { InputTextModule } from 'primeng/inputtext';
+import {NhanVienNumber } from './textNumberNV.directive';
 
 const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
 
@@ -47,7 +48,8 @@ const ENTITY_STATES = [...nhanVienRoute, ...nhanVienPopupRoute];
         NhanVienDeleteDialogComponent,
         NhanVienPopupComponent,
         NhanVienDeletePopupComponent,
-        PhanQuyenNhanVienComponent
+        PhanQuyenNhanVienComponent,
+        NhanVienNumber
     ],
     entryComponents: [
         NhanVienComponent,
