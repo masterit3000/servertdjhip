@@ -2,11 +2,7 @@
     <h2>
         <span>Khách hàng</span> {{khachHang.ten}}</h2>
     <hr>
-
-    <div class="row">
-        <div class="col-md-4 offset-md-1">
-            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
-        </div>
+    <div class="row justify-content-center">
         <div class="col-md-6 offset-md-1">
             <table class="table table-responsive">
                 <tbody>
@@ -75,9 +71,20 @@
             </table>
         </div>
     </div>
-
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span>Quay lại</span>
     </button>
+    <p-tabView>
+        <p-tabPanel header="Chứng từ">
+            <div class="row">
+                <div class="col-md-4">
+                    <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
+                </div>
+                <div class="col-md-7 offset-md-1">
+                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
 </div>
