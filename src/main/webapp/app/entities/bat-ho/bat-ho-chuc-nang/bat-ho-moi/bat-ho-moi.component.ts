@@ -97,6 +97,7 @@ export class BatHoMoiComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+        this.jhiAlertService.success('them moi that bai', null, null);
     }
     previousState() {
         window.history.back();
