@@ -8,9 +8,12 @@ import com.tindung.jhip.domain.enumeration.NOTRA;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.GhiNoRepository;
 import com.tindung.jhip.repository.HopDongRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
+import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import com.tindung.jhip.service.mapper.HopDongMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -72,30 +76,59 @@ public class HopDongServiceImpl implements HopDongService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<HopDongDTO> thongKe(TRANGTHAIHOPDONG trangthai,LOAIHOPDONG loai) {
+    public List<HopDongDTO> thongKe(TRANGTHAIHOPDONG trangthai, LOAIHOPDONG loai) {
         log.debug("Request to get all HopDongs");
-        Long idCuaHang = cuaHangService.findIDByUserLogin();
-        List<HopDong> hopDongs = hopDongRepository.thongke(trangthai, idCuaHang,loai);
-        List<HopDong> listHopDong = new ArrayList<>();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            List<HopDong> hopDongs = hopDongRepository.thongkeAdmin(trangthai, loai);
+            List<HopDong> listHopDong = new ArrayList<>();
 
-        for (HopDong hopDong : hopDongs) {
-            double tienNo = 0;
-            double tienTra = 0;
-            List<GhiNo> list = ghiNoRepository.findByHopDong(hopDong.getId());
-            for (GhiNo ghiNo : list) {
-                if (ghiNo.getTrangthai().equals(NOTRA.NO)) {
-                    tienNo += ghiNo.getSotien();
-                } else if (ghiNo.getTrangthai().equals(NOTRA.TRA)) {
-                    tienNo += ghiNo.getSotien();
+            for (HopDong hopDong : hopDongs) {
+                Double tienNo = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.NO, hopDong.getId()).orElse(0d);
+                Double tienTra = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.TRA, hopDong.getId()).orElse(0d);
+                if (tienNo > tienTra) {
+                    listHopDong.add(hopDong);
                 }
+
             }
-            if (tienNo > tienTra) {
-                listHopDong.add(hopDong);
+            for (HopDong hopDong : listHopDong) {
+                Double tienNo = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.NO, hopDong.getId()).orElse(0d);
+                Double tienTra = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.TRA, hopDong.getId()).orElse(0d);
+                if (tienNo <= tienTra) {
+                    listHopDong.remove(hopDong);
+                }
+
             }
+            return listHopDong.stream()
+                    .map(hopDongMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long idCuaHang = cuaHangService.findIDByUserLogin();
+            List<HopDong> hopDongs = hopDongRepository.thongke(trangthai, idCuaHang, loai);
+            List<HopDong> listHopDong = new ArrayList<>();
+
+            for (HopDong hopDong : hopDongs) {
+                Double tienNo = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.NO, hopDong.getId()).orElse(0d);
+                Double tienTra = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.TRA, hopDong.getId()).orElse(0d);
+                if (tienNo > tienTra) {
+                    listHopDong.add(hopDong);
+                }
+
+            }
+            for (HopDong hopDong : listHopDong) {
+                Double tienNo = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.NO, hopDong.getId()).orElse(0d);
+                Double tienTra = ghiNoRepository.tienNoByHopDongAdmin(NOTRA.TRA, hopDong.getId()).orElse(0d);
+                if (tienNo <= tienTra) {
+                    listHopDong.remove(hopDong);
+                }
+
+            }
+            return listHopDong.stream()
+                    .map(hopDongMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
         }
-        return listHopDong.stream()
-                .map(hopDongMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 
     /**

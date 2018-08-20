@@ -7,11 +7,14 @@ import com.tindung.jhip.repository.NhanVienRepository;
 import com.tindung.jhip.repository.UserRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
+import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.UserService;
 import com.tindung.jhip.service.dto.NhanVienDTO;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.mapper.NhanVienMapper;
 import com.tindung.jhip.service.mapper.UserMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,20 +31,22 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class NhanVienServiceImpl implements NhanVienService {
-    
+
     private final Logger log = LoggerFactory.getLogger(NhanVienServiceImpl.class);
-    
+
     private final NhanVienRepository nhanVienRepository;
     private final UserRepository userRepository;
     private final UserService service;
-    
+
     private final NhanVienMapper nhanVienMapper;
-    
-    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, UserRepository userRepository, UserService service, NhanVienMapper nhanVienMapper) {
+    private final NhatKyService nhatKyService;
+
+    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, UserRepository userRepository, UserService service, NhanVienMapper nhanVienMapper, NhatKyService nhatKyService) {
         this.nhanVienRepository = nhanVienRepository;
         this.userRepository = userRepository;
         this.service = service;
         this.nhanVienMapper = nhanVienMapper;
+        this.nhatKyService = nhatKyService;
     }
 
     /**
@@ -62,8 +67,20 @@ public class NhanVienServiceImpl implements NhanVienService {
             User findOne = userRepository.findOne(user.getId());
             findOne.setActivated(true);
             userRepository.save(findOne);
-            
+
         }
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        NhanVien nv = nhanVienRepository.findOneByUser(login).get();
+        Long cuaHangid = nv.getCuaHang().getId();
+        NhatKyDTO nhatKy = new NhatKyDTO();
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            nhatKy.setCuaHangId(cuaHangid);
+        }
+        nhatKy.setNhanVienId(nv.getId());
+        nhatKy.setThoiGian(ZonedDateTime.now());
+        nhatKy.setNoiDung("Thêm mới nhân viên");
+        nhatKyService.save(nhatKy);
+
         return nhanVienMapper.toDto(nhanVien);
     }
 
@@ -101,7 +118,7 @@ public class NhanVienServiceImpl implements NhanVienService {
             return nhanVienRepository.findAllByCuaHang(id).stream()
                     .map(nhanVienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
-        }        
+        }
         throw new InternalServerErrorException("Khong co quyen");
     }
 
@@ -131,7 +148,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         log.debug("Request to delete NhanVien : {}", id);
         nhanVienRepository.delete(id);
     }
-    
+
     @Override
     public NhanVienDTO findByUserLogin() {
         String user = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
@@ -139,7 +156,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         log.debug("Request tim  NhanVien theo ussername : {}", user);
         return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(user).orElseThrow(() -> new InternalServerErrorException("Current user login not found")));
     }
-    
+
     @Override
     public List<NhanVienDTO> findByNameOrCMND(String key
     ) {
@@ -162,5 +179,5 @@ public class NhanVienServiceImpl implements NhanVienService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
-    
+
 }

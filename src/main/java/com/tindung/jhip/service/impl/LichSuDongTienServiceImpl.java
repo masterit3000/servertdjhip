@@ -253,18 +253,31 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     @Override
     public List<LichSuDongTienDTO> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong
     ) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            ZonedDateTime ngayhientai = ZonedDateTime.now();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraChamAdmin(dongtien, loaihopdong, ngayhientai);
+//            for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
+//                HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
+//                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);
+//                hopDongRepository.save(hopdong);
+//                
+//
+//            }
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
             List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong, ngayhientai, cuaHangid);
-            for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
-                HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
-                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);
-                hopDongRepository.save(hopdong);
-
-            }
+//            for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
+//                HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
+//                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);
+//                hopDongRepository.save(hopdong);
+//
+//            }
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -277,8 +290,14 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     @Override
     public List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong
     ) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            ZonedDateTime ngayhientai = ZonedDateTime.now();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraHomNayAdmin(dongtien, loaihopdong, ngayhientai);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
@@ -293,13 +312,13 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     }
 
     @Override
-    public List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien,Long id) {
+    public List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien, Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.findByTrangThai(dongtien, cuaHangid,id);
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.findByTrangThai(dongtien, cuaHangid, id);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
