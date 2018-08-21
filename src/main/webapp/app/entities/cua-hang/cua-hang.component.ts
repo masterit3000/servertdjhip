@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from "rxjs/Subscription";
+import { JhiEventManager, JhiAlertService } from "ng-jhipster";
 
-import { CuaHang } from './cua-hang.model';
-import { CuaHangService } from './cua-hang.service';
-import { Principal } from '../../shared';
+import { CuaHang } from "./cua-hang.model";
+import { CuaHangService } from "./cua-hang.service";
+import { Principal } from "../../shared";
 
 @Component({
-    selector: 'jhi-cua-hang',
-    templateUrl: './cua-hang.component.html'
+    selector: "jhi-cua-hang",
+    templateUrl: "./cua-hang.component.html"
 })
 export class CuaHangComponent implements OnInit, OnDestroy {
     cuaHangs: CuaHang[];
@@ -19,7 +19,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     none: any;
     cuaHang: CuaHang;
     cuahangs: CuaHang[];
-    keyTimCuaHang:any;
+    keyTimCuaHang: any;
 
     constructor(
         private cuaHangService: CuaHangService,
@@ -53,7 +53,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     }
     registerChangeInCuaHangs() {
         this.eventSubscriber = this.eventManager.subscribe(
-            'cuaHangListModification',
+            "cuaHangListModification",
             response => this.load()
         );
     }
@@ -78,13 +78,14 @@ export class CuaHangComponent implements OnInit, OnDestroy {
         return filtered;
     }
     timCuaHang() {
-        this.cuaHangService
-            .findCuaHang(this.keyTimCuaHang)
-            .subscribe(
-                (res: HttpResponse<CuaHang[]>) => {
-                    this.cuaHangs = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.cuaHangService.findCuaHang(this.keyTimCuaHang).subscribe(
+            (res: HttpResponse<CuaHang[]>) => {
+                this.cuaHangs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    previousState() {
+        window.history.back();
     }
 }
