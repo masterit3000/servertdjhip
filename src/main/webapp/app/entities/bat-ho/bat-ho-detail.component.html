@@ -138,8 +138,8 @@
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                        (onRowUnselect)="onRowUnselect($event)">
+                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
+                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">
@@ -196,25 +196,13 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveNo()" class="btn btn-danger float-right">
+                                    <button (click)="saveNo()" [disabled]="ghiNo.sotien == 0 || ghiNo.sotien == null" class="btn btn-danger float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Ghi nợ</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <p-dialog modal="true" [(visible)]="dongGhiNo">
-                        <p-header>
-                            Ghi nợ
-                        </p-header>
-                        Bạn đã ghi nợ thành công cho hợp đồng này
-                        <br/>Số tiền ghi nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
-                        <p-footer>
-                            <button type="button" (click)="dongGhiNo=false" class="btn btn-success">
-                                <span class="fa fa-close"></span>&nbsp; Xác nhận
-                            </button>
-                        </p-footer>
-                    </p-dialog>
                     <table class="table table-bordered">
                         <thead>
                             <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
@@ -230,25 +218,13 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" [disabled]="tienNo-tienTra == 0" class="btn btn-success float-right">
+                                    <button (click)="saveTraNo()" [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null" class="btn btn-success float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Trả nợ</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <p-dialog modal="true" [(visible)]="dongTraNo">
-                        <p-header>
-                            Trả nợ
-                        </p-header>
-                        Bạn đã trả nợ thành công cho hợp đồng này
-                        <br/>Số tiền trả nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
-                        <p-footer>
-                            <button type="button" (click)="dongTraNo=false" class="btn btn-success">
-                                <span class="fa fa-close"></span>&nbsp; Xác nhận
-                            </button>
-                        </p-footer>
-                    </p-dialog>
                 </div>
                 <div class="col-md-8">
                     <h3>Lịch sử nợ</h3>
@@ -260,7 +236,6 @@
                                 <th>Ngày</th>
                                 <th>Nhân viên</th>
                                 <th>Trạng thái</th>
-
                                 <th>Số tiền</th>
                             </tr>
                         </ng-template>
@@ -276,34 +251,6 @@
                 </div>
             </div>
         </p-tabPanel>
-        <!-- <p-tabPanel header="Trả nợ">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th colspan="2" class="bolder-table-first">Khách hàng trả nợ</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Số tiền trả: </td>
-                                <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
-                                        required></p-spinner>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" class="btn btn-success float-right">
-                                        <span class="fa fa-balance-scale"></span>
-                                        Trả nợ</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </p-tabPanel> -->
         <p-tabPanel header="Lịch sử">
             <div class="row">
                 <div class="col-md-12">
@@ -324,7 +271,6 @@
                                 <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
                                 <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
-
                             </tr>
                         </ng-template>
                         </table>
@@ -339,13 +285,7 @@
                             <tr>
                                 <td>Mã hợp đồng:</td>
                                 <td>
-                                    <input pInputText  #mahopdong type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ngày đảo họ:</td>
-                                <td>
-                                    <p-calendar></p-calendar>
+                                    <input pInputText #mahopdong type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
                                 </td>
                             </tr>
                             <tr>
@@ -418,4 +358,28 @@
             </div>
         </p-tabPanel>
     </p-tabView>
+    <p-dialog modal="true" [(visible)]="dongTraNo">
+        <p-header>
+            Trả nợ
+        </p-header>
+        Bạn đã trả nợ thành công cho hợp đồng này
+        <br/>Số tiền ghi nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
+        <p-footer>
+            <button type="button" (click)="dongTraNo=false" class="btn btn-success">
+                <span class="fa fa-close"></span>&nbsp; Xác nhận
+            </button>
+        </p-footer>
+    </p-dialog>
+    <p-dialog modal="true" [(visible)]="dongGhiNo">
+        <p-header>
+            Ghi nợ
+        </p-header>
+        Bạn đã ghi nợ thành công cho hợp đồng này
+        <br/>Số tiền ghi nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
+        <p-footer>
+            <button type="button" (click)="dongGhiNo=false" class="btn btn-success">
+                <span class="fa fa-close"></span>&nbsp; Xác nhận
+            </button>
+        </p-footer>
+    </p-dialog>
 </div>
