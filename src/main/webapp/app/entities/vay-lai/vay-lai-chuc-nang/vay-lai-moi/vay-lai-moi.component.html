@@ -176,10 +176,19 @@
                     tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
             </div>
             <div class="col-md-6">
-                <label class="form-control-label">
-                    <span class="fa fa-image"></span>
-                    Tài sản / chứng từ</label>
-                <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-control-label">
+                            <span class="fa fa-image"></span>
+                            Tài sản / chứng từ</label>
+                        <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000">
+                        </p-fileUpload>
+                    </div>
+                    <div class="form-group col-md-12 center">
+                        <p-galleria [images]="images" panelWidth="100%" panelHeight="400" [showCaption]="false"></p-galleria>
+
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
