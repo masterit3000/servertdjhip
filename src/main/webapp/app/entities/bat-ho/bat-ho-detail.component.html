@@ -102,6 +102,9 @@
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
+                                <th colspan="6" class="bg-success text-center text-white">Tiền họ đã đóng</th>
+                            </tr>
+                            <tr>
                                 <th colspan="2">
                                     <span>Ngày họ</span>
                                 </th>
@@ -138,6 +141,9 @@
                     <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
                         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="6" class="bg-secondary text-center text-white">Tiền họ chưa đóng</th>
+                            </tr>
                             <tr>
                                 <th colspan="2">
                                     <span>Ngày họ</span>
