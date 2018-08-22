@@ -215,7 +215,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null" class="btn btn-success float-right">
+                                    <button (click)="saveTraNo()" [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null || ghiNo.sotien == 0" class="btn btn-success float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Trả nợ</button>
                                 </td>
@@ -241,7 +241,7 @@
                                 <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                                 <td>{{ghiNo.nhanVienTen}}</td>
                                 <td>{{ghiNo.sotien}}</td>
-                                <td>{{ghiNo.trangthai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -335,7 +335,7 @@
                     </table>
                 </div>
             </div>
-            <p-dialog modal="true" [(visible)]="dongTraNo">
+            <p-dialog modal="true" [(visible)]="showDaoHo">
                 <p-header>
                     Đảo họ
                 </p-header>
@@ -375,7 +375,7 @@
             Ghi nợ
         </p-header>
         Bạn đã ghi nợ thành công cho hợp đồng này
-        <br/>Số tiền ghi nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
+        <br/>Số tiền trả nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
         <p-footer>
             <button type="button" (click)="dongGhiNo=false" class="btn btn-success">
                 <span class="fa fa-close"></span>&nbsp; Xác nhận

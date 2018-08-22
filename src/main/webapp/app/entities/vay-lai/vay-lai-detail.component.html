@@ -115,6 +115,9 @@
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
+                                <th colspan="6" class="bg-success text-center text-white">Tiền họ đã đóng</th>
+                            </tr>
+                            <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Trạng thái</th>
                                 <th>Chu kỳ lãi</th>
@@ -140,6 +143,9 @@
                     <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
                         (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="6" class="bg-secondary text-center text-white">Tiền họ chưa đóng</th>
+                            </tr>
                             <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Trạng thái</th>
@@ -303,7 +309,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveNo()" class="btn btn-danger float-right">
+                                    <button (click)="saveNo()" [disabled]='ghiNo.sotien == 0 || ghiNo.sotien == null' class="btn btn-danger float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Ghi nợ</button>
                                 </td>
@@ -325,7 +331,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button [disabled]="tienNo-tienTra == 0" (click)="saveTraNo()" class="btn btn-success float-right">
+                                    <button [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null || ghiNo.sotien == 0" (click)="saveTraNo()" class="btn btn-success float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Trả nợ</button>
                                 </td>
@@ -351,7 +357,7 @@
                                 <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                                 <td>{{ghiNo.nhanVienTen}}</td>
                                 <td>{{ghiNo.sotien}}</td>
-                                <td>{{ghiNo.trangthai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.vayLai.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
