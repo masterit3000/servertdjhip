@@ -78,6 +78,11 @@
     <span class="fa fa-pencil"></span>&nbsp;
     <span>Chỉnh sửa</span>
   </button>
+  <button type="button"
+    queryParamsHandling="merge" class="btn btn-warning">
+    <span class="fa fa-recycle"></span>&nbsp;
+    <span>Cài đặt mật khẩu</span>
+  </button>
   <p-tabView>
     <p-tabPanel header="Danh sách bát họ">
       <p-table [value]="batHos" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">

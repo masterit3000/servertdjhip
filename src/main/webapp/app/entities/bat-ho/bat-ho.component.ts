@@ -18,14 +18,13 @@ export class BatHoComponent implements OnInit, OnDestroy {
     text: any;
     selected: BatHo;
     none: any;
-    keyTimBatHo:string;
+    keyTimBatHo: string;
     constructor(
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.batHoService.query().subscribe(
@@ -37,7 +36,7 @@ export class BatHoComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInBatHos();
@@ -51,7 +50,10 @@ export class BatHoComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInBatHos() {
-        this.eventSubscriber = this.eventManager.subscribe('batHoListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'batHoListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {
@@ -60,13 +62,11 @@ export class BatHoComponent implements OnInit, OnDestroy {
     timBatHo() {
         // const query = event.query;
         // console.log(query);
-        this.batHoService
-            .findBatHoByTenOrCMND(this.keyTimBatHo)
-            .subscribe(
-                (res: HttpResponse<BatHo[]>) => {
-                    this.batHos = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo).subscribe(
+            (res: HttpResponse<BatHo[]>) => {
+                this.batHos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }

@@ -13,7 +13,6 @@ import { NhanVien, NhanVienService } from '../../nhan-vien';
     styles: []
 })
 export class ChiHoatDongComponent implements OnInit, OnDestroy {
-
     thuChis: ThuChi[];
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -35,42 +34,47 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         this.tongTien = 0;
     }
     timkiem() {
-
-            // console.log(this.tungay);
+        // console.log(this.tungay);
         // console.log(this.denngay);
         this.tongTien = 0;
-        this.thuChiService.findByTime(this.tungay, this.denngay, THUCHI.CHI).subscribe(
-            (res: HttpResponse<ThuChi[]>) => {
-                this.thuChis = res.body;
-                this.thuChis.forEach(element => {
-                    this.tongTien =this.tongTien+ element.sotien;
-                    console.log(element.sotien);
-                    console.log(this.tongTien);
-                    
-                });
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
+        this.thuChiService
+            .findByTime(this.tungay, this.denngay, THUCHI.CHI)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTien = this.tongTien + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTien);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
     save() {
         this.thuchi.thuchi = THUCHI.CHI;
         this.isSaving = true;
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.thuChiService.update(this.thuchi));
+                this.thuChiService.update(this.thuchi)
+            );
         } else {
             this.subscribeToSaveResponse(
-                this.thuChiService.create(this.thuchi));
+                this.thuChiService.create(this.thuchi)
+            );
         }
     }
     private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
         result.subscribe(
-            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body), 
-            (res: HttpErrorResponse) => this.onSaveError());
+            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
     }
     private onSaveSuccess(result: ThuChi) {
-        this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
+        this.eventManager.broadcast({
+            name: 'thuChiListModification',
+            content: 'OK'
+        });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);
@@ -91,30 +95,33 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         this.tungay = new Date();
         this.denngay = new Date();
         console.log(this.tungay);
-        
+
         this.thuChiService
-        .findByTime(this.tungay, this.denngay, THUCHI.CHI)
-        .subscribe(
-            (res: HttpResponse<ThuChi[]>) => {
-                this.thuChis = res.body;
-                this.thuChis.forEach(element => {
-                    this.tongTien =this.tongTien+ element.sotien;
-                    console.log(element.sotien);
-                    console.log(this.tongTien);
-                    
-                });
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+            .findByTime(this.tungay, this.denngay, THUCHI.CHI)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTien = this.tongTien + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTien);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         // this.registerChangeInThuChis();
-        this.nhanVienService.query()
-        .subscribe((res: HttpResponse<NhanVien[]>) => { this.nhanviens = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.nhanVienService.query().subscribe(
+            (res: HttpResponse<NhanVien[]>) => {
+                this.nhanviens = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     ngOnDestroy() {
@@ -125,7 +132,10 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInThuChis() {
-        this.eventSubscriber = this.eventManager.subscribe('thuChiListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'thuChiListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {

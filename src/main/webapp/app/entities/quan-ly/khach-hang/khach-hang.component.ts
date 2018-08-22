@@ -8,7 +8,7 @@ import { KhachHangService } from '../../khach-hang/khach-hang.service';
 import { Principal } from '../../../shared';
 
 @Component({
-    selector: 'khach-hang-admin',
+    selector: 'jhi-khach-hang-admin',
     templateUrl: './khach-hang.component.html',
     styles: []
 })
@@ -20,7 +20,7 @@ export class KhachHangAdminComponent implements OnInit, OnDestroy {
     text: any;
     khachHang: any;
     none: any;
-    keyTimKhachHang:any;
+    keyTimKhachHang: any;
     constructor(
         private khachHangService: KhachHangService,
         private jhiAlertService: JhiAlertService,
@@ -69,11 +69,9 @@ export class KhachHangAdminComponent implements OnInit, OnDestroy {
     filterKhachHangs(event: any) {
         const query = event.query;
         console.log(query);
-        this.khachHangService
-            .query(query)
-            .subscribe((khachHangs: any) => {
-                this.filteredKhachHangs = khachHangs;
-            });
+        this.khachHangService.query(query).subscribe((khachHangs: any) => {
+            this.filteredKhachHangs = khachHangs;
+        });
     }
     timKhachHang() {
         // const query = event.query;

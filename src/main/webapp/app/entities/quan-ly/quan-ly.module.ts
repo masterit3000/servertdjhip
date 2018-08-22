@@ -30,6 +30,7 @@ import {GrowlModule} from 'primeng/growl';
 import {DialogModule} from 'primeng/dialog';
 import {GalleriaModule} from 'primeng/galleria';
 import { ServertdjhipSharedModule } from '../../shared';
+import { ResetPasswordComponent } from './nhan-vien/nhan-vien-detail/reset-password/reset-password.component';
 
 @NgModule({
     imports: [
@@ -65,7 +66,8 @@ import { ServertdjhipSharedModule } from '../../shared';
         CuaHangAdminComponent,
         CuaHangDetailAdminComponent,
         NhanVienAdminComponent,
-        NhanVienDetailAdminComponent
+        NhanVienDetailAdminComponent,
+        ResetPasswordComponent
     ]
 })
 export class QuanLyModule {}

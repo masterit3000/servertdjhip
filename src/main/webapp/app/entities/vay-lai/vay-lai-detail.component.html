@@ -4,10 +4,7 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
 
-    <div class="row">
-        <div class="col-md-4 offset-md-1">
-            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
-        </div>
+    <div class="row justify-content-center">
         <div class="col-md-6 offset-md-1">
             <table class="table table-responsive">
                 <tbody>
@@ -140,8 +137,8 @@
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                        (onRowUnselect)="onRowUnselect($event)">
+                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
+                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">Ngày</th>
@@ -210,7 +207,7 @@
                             <span class="float-right font-size-3">Mã hợp đồng:</span>
                         </div>
                         <div class="col-md-5 form-group">
-                            <input pInputText  #mahopdongtg type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
+                            <input pInputText #mahopdongtg type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
                         </div>
                         <div class="col-md-3">
                             <button (click)="traGoc(trabotgoc.value,mahopdongtg.value)" class="btn btn-success">
@@ -387,9 +384,12 @@
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Chứng từ">
+        <p-tabPanel header="Chứng từ / Tài sản">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
+                    <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
+                </div>
+                <div class="col-md-7 offset-md-1">
                     <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>

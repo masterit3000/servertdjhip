@@ -12,15 +12,16 @@ export const batHoRoute: Routes = [
         path: 'bat-ho',
         component: BatHoComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    },
+    {
         path: 'bat-ho/:id',
         component: BatHoDetailComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -29,7 +30,7 @@ export const batHoRoute: Routes = [
         path: 'batHoMoi',
         component: BatHoMoiComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +42,7 @@ export const batHoPopupRoute: Routes = [
         path: 'bat-ho-new',
         component: BatHoPopupComponent,
         data: {
-            authorities: ['ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +52,7 @@ export const batHoPopupRoute: Routes = [
         path: 'bat-ho/:id/edit',
         component: BatHoPopupComponent,
         data: {
-            authorities: ['ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -61,7 +62,7 @@ export const batHoPopupRoute: Routes = [
         path: 'bat-ho/:id/delete',
         component: BatHoDeletePopupComponent,
         data: {
-            authorities: ['ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.batHo.home.title'
         },
         canActivate: [UserRouteAccessService],

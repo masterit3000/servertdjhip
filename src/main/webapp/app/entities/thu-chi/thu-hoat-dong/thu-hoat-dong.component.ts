@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
@@ -40,7 +40,7 @@ export class ThuHoatDongComponent implements OnInit {
     }
     timkiem() {
         // console.log(this.tungay);
-        this.tongTien=0;
+        this.tongTien = 0;
         console.log(this.denngay);
         this.thuChiService
             .findByTime(this.tungay, this.denngay, THUCHI.THU)
@@ -48,10 +48,9 @@ export class ThuHoatDongComponent implements OnInit {
                 (res: HttpResponse<ThuChi[]>) => {
                     this.thuChis = res.body;
                     this.thuChis.forEach(element => {
-                        this.tongTien =this.tongTien+ element.sotien;
+                        this.tongTien = this.tongTien + element.sotien;
                         console.log(element.sotien);
                         console.log(this.tongTien);
-                        
                     });
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -61,11 +60,10 @@ export class ThuHoatDongComponent implements OnInit {
     //     this.activeModal.dismiss('cancel');
     // }
     save() {
-        
         this.thuchi.thuchi = THUCHI.THU;
         this.isSaving = true;
         console.log(this.thuchi.nhanVienId);
-        
+
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.thuChiService.update(this.thuchi)
@@ -75,12 +73,8 @@ export class ThuHoatDongComponent implements OnInit {
                 this.thuChiService.create(this.thuchi)
             );
         }
-      
-      
     }
-    tinhTong(){
-        
-    }
+    tinhTong() {}
     private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
         result.subscribe(
             (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
@@ -109,21 +103,20 @@ export class ThuHoatDongComponent implements OnInit {
         this.tungay = new Date();
         this.denngay = new Date();
         console.log(this.tungay);
-        
+
         this.thuChiService
-        .findByTime(this.tungay, this.denngay, THUCHI.THU)
-        .subscribe(
-            (res: HttpResponse<ThuChi[]>) => {
-                this.thuChis = res.body;
-                this.thuChis.forEach(element => {
-                    this.tongTien =this.tongTien+ element.sotien;
-                    console.log(element.sotien);
-                    console.log(this.tongTien);
-                    
-                });
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+            .findByTime(this.tungay, this.denngay, THUCHI.THU)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTien = this.tongTien + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTien);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
     ngOnInit() {
         this.loadAll();

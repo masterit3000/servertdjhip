@@ -16,7 +16,6 @@ import { Principal } from '../../../../shared';
     templateUrl: './nhan-vien-detail.component.html'
 })
 export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
-
     nhanVien: NhanVien;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
@@ -27,7 +26,7 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
     selected: BatHo;
     none: any;
     keyTimBatHo: string;
-    keyTimVayLai:string;
+    keyTimVayLai: string;
     constructor(
         private eventManager: JhiEventManager,
         private nhanVienService: NhanVienService,
@@ -36,53 +35,49 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private route: ActivatedRoute
-    ) {
-    }
-
+    ) {}
 
     timBatHo() {
         // const query = event.query;
         // console.log(query);
-        this.batHoService
-            .findBatHoByTenOrCMND(this.keyTimBatHo)
-            .subscribe(
-                (res: HttpResponse<BatHo[]>) => {
-                    this.batHos = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo).subscribe(
+            (res: HttpResponse<BatHo[]>) => {
+                this.batHos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
     ngOnInit() {
-        this.subscription = this.route.params.subscribe((params) => {
+        this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInNhanViens();
-
     }
 
     load(id) {
-        this.nhanVienService.find(id)
+        this.nhanVienService
+            .find(id)
             .subscribe((nhanVienResponse: HttpResponse<NhanVien>) => {
                 this.nhanVien = nhanVienResponse.body;
             });
-            this.batHoService.findByNhanVien(id).subscribe(
-                (res: HttpResponse<BatHo[]>) => {
-                    this.batHos = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
-            this.vayLaiService.getAllByNhanVien(id).subscribe(
-                (res: HttpResponse<VayLai[]>) => {
-                    this.vayLais = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.batHoService.findByNhanVien(id).subscribe(
+            (res: HttpResponse<BatHo[]>) => {
+                this.batHos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.vayLaiService.getAllByNhanVien(id).subscribe(
+            (res: HttpResponse<VayLai[]>) => {
+                this.vayLais = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
     previousState() {
         window.history.back();
@@ -101,17 +96,15 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
     registerChangeInNhanViens() {
         this.eventSubscriber = this.eventManager.subscribe(
             'nhanVienListModification',
-            (response) => this.load(this.nhanVien.id)
+            response => this.load(this.nhanVien.id)
         );
     }
     timVayLai() {
-        this.vayLaiService
-            .findVayLaiByTenOrCMND(this.keyTimVayLai)
-            .subscribe(
-                (res: HttpResponse<VayLai[]>) => {
-                    this.vayLais = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.vayLaiService.findVayLaiByTenOrCMND(this.keyTimVayLai).subscribe(
+            (res: HttpResponse<VayLai[]>) => {
+                this.vayLais = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }

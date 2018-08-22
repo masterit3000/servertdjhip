@@ -44,10 +44,9 @@ export class RutVonComponent implements OnInit {
                 (res: HttpResponse<ThuChi[]>) => {
                     this.thuChis = res.body;
                     this.thuChis.forEach(element => {
-                        this.tongTien =this.tongTien+ element.sotien;
+                        this.tongTien = this.tongTien + element.sotien;
                         console.log(element.sotien);
                         console.log(this.tongTien);
-                        
                     });
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -100,21 +99,20 @@ export class RutVonComponent implements OnInit {
         this.tungay = new Date();
         this.denngay = new Date();
         console.log(this.tungay);
-        
+
         this.thuChiService
-        .findByTime(this.tungay, this.denngay, THUCHI.RUTVON)
-        .subscribe(
-            (res: HttpResponse<ThuChi[]>) => {
-                this.thuChis = res.body;
-                this.thuChis.forEach(element => {
-                    this.tongTien =this.tongTien+ element.sotien;
-                    console.log(element.sotien);
-                    console.log(this.tongTien);
-                    
-                });
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+            .findByTime(this.tungay, this.denngay, THUCHI.RUTVON)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTien = this.tongTien + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTien);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
     ngOnInit() {
         this.loadAll();

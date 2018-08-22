@@ -8,7 +8,7 @@ import { VayLaiService } from '../../vay-lai/vay-lai.service';
 import { Principal } from '../../../shared';
 
 @Component({
-    selector: 'vay-lai-admin',
+    selector: 'jhi-vay-lai-admin',
     templateUrl: './vay-lai.component.html'
 })
 export class VayLaiAdminComponent implements OnInit, OnDestroy {
@@ -18,14 +18,13 @@ export class VayLaiAdminComponent implements OnInit, OnDestroy {
     text: any;
     selected: VayLai;
     none: any;
-    keyTimVayLai:string;
+    keyTimVayLai: string;
     constructor(
         private vayLaiService: VayLaiService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {
-    }
+    ) {}
 
     loadAll() {
         this.vayLaiService.query().subscribe(
@@ -37,7 +36,7 @@ export class VayLaiAdminComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then((account) => {
+        this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInVayLais();
@@ -51,20 +50,21 @@ export class VayLaiAdminComponent implements OnInit, OnDestroy {
         return item.id;
     }
     registerChangeInVayLais() {
-        this.eventSubscriber = this.eventManager.subscribe('vayLaiListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe(
+            'vayLaiListModification',
+            response => this.loadAll()
+        );
     }
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
     timVayLai() {
-        this.vayLaiService
-            .findVayLaiByTenOrCMND(this.keyTimVayLai)
-            .subscribe(
-                (res: HttpResponse<VayLai[]>) => {
-                    this.vayLais = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.vayLaiService.findVayLaiByTenOrCMND(this.keyTimVayLai).subscribe(
+            (res: HttpResponse<VayLai[]>) => {
+                this.vayLais = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }

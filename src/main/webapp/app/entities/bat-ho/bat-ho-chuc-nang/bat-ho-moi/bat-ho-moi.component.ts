@@ -48,7 +48,7 @@ export class BatHoMoiComponent implements OnInit {
         .subscribe('khachHangListModification', response => {
             // đăng ký lắng nghe sự kiện có tên khachHangListModification
             // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
-            //this.loadAll(); // load lại data
+            // this.loadAll(); // load lại data
             // let kh : KhachHang = response;
             console.log(response); // in ra xem sự kiện nổ ra truyền vào cái j
             this.keyTimKhachHang = response.content.cmnd;

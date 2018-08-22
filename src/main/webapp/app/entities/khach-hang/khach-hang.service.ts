@@ -13,10 +13,11 @@ export type EntityResponseType = HttpResponse<KhachHang>;
 @Injectable()
 export class KhachHangService {
     private resourceUrl = SERVER_API_URL + 'api/khach-hangs';
-    private resourceUrlTimKhachHang = SERVER_API_URL + 'api/tim-khach-hang-by-ten-cmnd';
+    private resourceUrlTimKhachHang =
+        SERVER_API_URL + 'api/tim-khach-hang-by-ten-cmnd';
     private findUrl = SERVER_API_URL + 'api/khach-hangs-by-cuahang';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
 
     create(khachHang: KhachHang): Observable<EntityResponseType> {
         const copy = this.convert(khachHang);
@@ -52,7 +53,7 @@ export class KhachHangService {
             );
     }
 
-    findByCuaHang(id:number): Observable<HttpResponse<KhachHang[]>> {
+    findByCuaHang(id: number): Observable<HttpResponse<KhachHang[]>> {
         return this.http
             .get<KhachHang[]>(`${this.findUrl}/${id}`, {
                 observe: 'response'
@@ -104,7 +105,9 @@ export class KhachHangService {
         // copy.ngayTao = this.dateUtils.toDate(khachHang.ngayTao);
         return copy;
     }
-    findKhachHangByTenOrCMND(query: any): Observable<HttpResponse<KhachHang[]>> {
+    findKhachHangByTenOrCMND(
+        query: any
+    ): Observable<HttpResponse<KhachHang[]>> {
         // const options = createRequestOption(req);
         return this.http
             .get<KhachHang[]>(`${this.resourceUrlTimKhachHang}/${query}`, {
@@ -116,6 +119,9 @@ export class KhachHangService {
     }
 
     public getImage(id: number): Observable<Blob> {
-        return this.http.get(SERVER_API_URL + 'api/download/anh-khach-hang/' + id, { responseType: 'blob' });
+        return this.http.get(
+            SERVER_API_URL + 'api/download/anh-khach-hang/' + id,
+            { responseType: 'blob' }
+        );
     }
 }

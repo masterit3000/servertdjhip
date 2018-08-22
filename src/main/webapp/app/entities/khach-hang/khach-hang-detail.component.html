@@ -4,10 +4,7 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
 
-    <div class="row">
-        <div class="col-md-4 offset-md-1">
-            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
-        </div>
+    <div class="row justify-content-center">
         <div class="col-md-6 offset-md-1">
             <table class="table table-responsive">
                 <tbody>
@@ -86,4 +83,16 @@
         <span class="fa fa-pencil"></span>&nbsp;
         <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
+    <p-tabView>
+        <p-tabPanel header="Chứng từ">
+            <div class="row">
+                <div class="col-md-4">
+                    <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
+                </div>
+                <div class="col-md-7 offset-md-1">
+                    <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
 </div>

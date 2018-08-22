@@ -10,50 +10,60 @@ export type EntityResponseType = HttpResponse<Tinh>;
 
 @Injectable()
 export class TinhService {
+    private resourceUrl = SERVER_API_URL + 'api/tinhs';
 
-    private resourceUrl =  SERVER_API_URL + 'api/tinhs';
-
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     create(tinh: Tinh): Observable<EntityResponseType> {
         const copy = this.convert(tinh);
-        return this.http.post<Tinh>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .post<Tinh>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     update(tinh: Tinh): Observable<EntityResponseType> {
         const copy = this.convert(tinh);
-        return this.http.put<Tinh>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .put<Tinh>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Tinh>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http
+            .get<Tinh>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<Tinh[]>> {
         const options = createRequestOption(req);
-        return this.http.get<Tinh[]>(this.resourceUrl, { params: options, observe: 'response' })
+        return this.http
+            .get<Tinh[]>(this.resourceUrl, {
+                params: options,
+                observe: 'response'
+            })
             .map((res: HttpResponse<Tinh[]>) => this.convertArrayResponse(res));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
+            observe: 'response'
+        });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Tinh = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
-    private convertArrayResponse(res: HttpResponse<Tinh[]>): HttpResponse<Tinh[]> {
+    private convertArrayResponse(
+        res: HttpResponse<Tinh[]>
+    ): HttpResponse<Tinh[]> {
         const jsonResponse: Tinh[] = res.body;
         const body: Tinh[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -73,7 +83,7 @@ export class TinhService {
     }
     getTinh(query: any): Observable<Tinh[]> {
         return this.http
-            .get('/api/tinhs/tim/'+query)
+            .get('/api/tinhs/tim/' + query)
             .map(response => response as Tinh[]);
     }
 }
