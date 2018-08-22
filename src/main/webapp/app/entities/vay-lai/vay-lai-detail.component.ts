@@ -45,6 +45,9 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     danhSachTienGocs: any[];
     lichSuGiaHans: any[];
     tonglai: number;
+    traGocDialog: boolean = false;
+    vayThemDialog: boolean = false;
+    giaHanDialog: boolean = false;
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,

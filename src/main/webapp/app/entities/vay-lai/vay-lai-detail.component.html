@@ -172,21 +172,6 @@
                     </p-table>
                 </div>
             </div>
-            <p-dialog modal="true" [(visible)]="dongLai">
-                <p-header>
-                    Đóng lãi cho hợp đồng {{vayLai.hopdongvl.mahopdong}}
-                </p-header>
-                Số tiền đóng: {{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}
-                <br/> Bạn có chắc chắn muốn đóng tiền?
-                <p-footer>
-                    <button (click)="onRowSelect($event)" type="button" class="btn btn-success">
-                        <span class="fa fa-check"></span>&nbsp; Xác nhận
-                    </button>
-                    <button type="button" (click)="dongDongLai()" class="btn btn-danger">
-                        <span class="fa fa-close"></span>&nbsp; Hủy
-                    </button>
-                </p-footer>
-            </p-dialog>
         </p-tabPanel>
         <p-tabPanel header="Trả bớt gốc">
             <div class="row justify-content-center" style="background-color:#e3e3e3">
@@ -216,11 +201,22 @@
                             <input pInputText #mahopdongtg type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
                         </div>
                         <div class="col-md-3">
-                            <button (click)="traGoc(trabotgoc.value,mahopdongtg.value)" class="btn btn-success">
+                            <button (click)="traGoc(trabotgoc.value,mahopdongtg.value);traGocDialog = true" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
                     </div>
+                    <p-dialog modal="true" [(visible)]="traGocDialog">
+                        <p-header>
+                            Trả gốc
+                        </p-header>
+                        Trả gốc thành công!
+                        <p-footer>
+                            <button type="button" (click)="traGocDialog = false" class="btn btn-success">
+                                <span class="fa fa-check"></span>&nbsp; Xác nhận
+                            </button>
+                        </p-footer>
+                    </p-dialog>
                 </div>
             </div>
         </p-tabPanel>
@@ -252,11 +248,22 @@
                             <input pInputText type="text" #mahopdong name="mahopdong" class="form-control" id="field_mahopdong" />
                         </div>
                         <div class="col-md-3">
-                            <button (click)="vayThem(vaythem.value,mahopdong.value)" class="btn btn-success">
+                            <button (click)="vayThem(vaythem.value,mahopdong.value);vayThemDialog = true" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
                     </div>
+                    <p-dialog modal="true" [(visible)]="vayThemDialog">
+                        <p-header>
+                            Vay thêm
+                        </p-header>
+                        Vay thêm thành công!
+                        <p-footer>
+                            <button type="button" (click)="vayThemDialog = false" class="btn btn-success">
+                                <span class="fa fa-check"></span>&nbsp; Xác nhận
+                            </button>
+                        </p-footer>
+                    </p-dialog>
                 </div>
             </div>
         </p-tabPanel>
@@ -282,13 +289,24 @@
                             <span>(Ngày)</span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-md-4">
-                            <button (click)="giaHan(giahan.value)" class="btn btn-success">
+                            <button (click)="giaHan(giahan.value);giaHanDialog = true" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
                     </div>
+                    <p-dialog modal="true" [(visible)]="giaHanDialog">
+                        <p-header>
+                            Gia hạn
+                        </p-header>
+                        Gia hạn thành công!
+                        <p-footer>
+                            <button type="button" (click)="giaHanDialog = false" class="btn btn-success">
+                                <span class="fa fa-check"></span>&nbsp; Xác nhận
+                            </button>
+                        </p-footer>
+                    </p-dialog>
                 </div>
             </div>
         </p-tabPanel>
