@@ -123,6 +123,9 @@
                                 <th>Chu kỳ lãi</th>
                                 <th>Tiền khách trả</th>
                                 <th>Ngày giao dịch</th>
+                                <th *jhiHasAnyAuthority="'ROLE_STORE'">
+                                    Hủy đóng tiền
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -135,6 +138,10 @@
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
+                                <td  *jhiHasAnyAuthority="'ROLE_STORE'">
+                                    <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -164,8 +171,7 @@
                                 </td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
-                                    <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" ></p-tableCheckbox>
                                 </td>
                             </tr>
                         </ng-template>
