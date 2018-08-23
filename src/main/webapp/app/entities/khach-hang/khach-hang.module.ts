@@ -34,12 +34,14 @@ import { FormsModule } from '@angular/forms';
 import { FileUploadModule } from '../../../../../../node_modules/primeng/primeng';
 import {GalleriaModule} from 'primeng/galleria';
 import {KhachHangNumber } from './textNumberKH.directive';
+import { TabViewModule } from 'primeng/tabview';
 
 const ENTITY_STATES = [...khachHangRoute, ...khachHangPopupRoute];
 
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
+        TabViewModule,
         SelectButtonModule,
         AutoCompleteModule,
         RouterModule.forChild(ENTITY_STATES),

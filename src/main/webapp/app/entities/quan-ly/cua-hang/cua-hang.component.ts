@@ -8,7 +8,7 @@ import { CuaHangService } from '../../cua-hang/cua-hang.service';
 import { Principal } from '../../../shared';
 
 @Component({
-    selector: 'cua-hang-admin',
+    selector: 'jhi-cua-hang-admin',
     templateUrl: './cua-hang.component.html'
 })
 export class CuaHangAdminComponent implements OnInit, OnDestroy {
@@ -19,7 +19,7 @@ export class CuaHangAdminComponent implements OnInit, OnDestroy {
     none: any;
     cuaHang: CuaHang;
     cuahangs: CuaHang[];
-    keyTimCuaHang:any;
+    keyTimCuaHang: any;
 
     constructor(
         private cuaHangService: CuaHangService,
@@ -78,13 +78,11 @@ export class CuaHangAdminComponent implements OnInit, OnDestroy {
         return filtered;
     }
     timCuaHang() {
-        this.cuaHangService
-            .findCuaHang(this.keyTimCuaHang)
-            .subscribe(
-                (res: HttpResponse<CuaHang[]>) => {
-                    this.cuaHangs = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.cuaHangService.findCuaHang(this.keyTimCuaHang).subscribe(
+            (res: HttpResponse<CuaHang[]>) => {
+                this.cuaHangs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }

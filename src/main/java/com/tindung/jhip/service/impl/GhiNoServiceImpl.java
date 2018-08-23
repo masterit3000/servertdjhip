@@ -8,7 +8,9 @@ import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.NhanVienService;
+import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.mapper.GhiNoMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.time.ZonedDateTime;
@@ -35,12 +37,14 @@ public class GhiNoServiceImpl implements GhiNoService {
     private final GhiNoMapper ghiNoMapper;
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
+    private final NhatKyService nhatKyService;
 
-    public GhiNoServiceImpl(GhiNoRepository ghiNoRepository, GhiNoMapper ghiNoMapper, NhanVienService nhanVienService, CuaHangService cuaHangService) {
+    public GhiNoServiceImpl(GhiNoRepository ghiNoRepository, GhiNoMapper ghiNoMapper, NhanVienService nhanVienService, CuaHangService cuaHangService, NhatKyService nhatKyService) {
         this.ghiNoRepository = ghiNoRepository;
         this.ghiNoMapper = ghiNoMapper;
         this.nhanVienService = nhanVienService;
         this.cuaHangService = cuaHangService;
+        this.nhatKyService = nhatKyService;
     }
 
     /**
@@ -57,6 +61,16 @@ public class GhiNoServiceImpl implements GhiNoService {
                 ghiNoDTO.setNgayghino(ZonedDateTime.now());
                 ghiNoDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
                 GhiNo ghiNo = ghiNoMapper.toEntity(ghiNoDTO);
+
+                NhatKyDTO nhatKy = new NhatKyDTO();
+                if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                    nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                }
+                nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                nhatKy.setThoiGian(ZonedDateTime.now());
+                nhatKy.setNoiDung("Ghi/Trả nợ");
+                nhatKyService.save(nhatKy);
+
                 ghiNo = ghiNoRepository.save(ghiNo);
                 return ghiNoMapper.toDto(ghiNo);
             }

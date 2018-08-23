@@ -30,6 +30,12 @@ public interface GhiNoRepository extends JpaRepository<GhiNo, Long> {
     @Query(value = "select sum(l.sotien) from GhiNo l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai =?1")
     Optional<Double> tienNo(NOTRA trangthai, Long idcuaHang);
 
+    @Query(value = "select sum(l.sotien) from GhiNo l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai =?1 and h.id =?3")
+    Optional<Double> tienNoByHopDong(NOTRA trangthai, Long idcuaHang, Long idhopdong);
+
+    @Query(value = "select sum(l.sotien) from GhiNo l inner join l.hopDong h  where  l.trangthai =?1 and h.id =?2")
+    Optional<Double> tienNoByHopDongAdmin(NOTRA trangthai, Long idhopdong);
+
     @Query(value = "select l from GhiNo l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai =?1")
     Optional<Double> thongke(NOTRA trangthai, Long idcuaHang);
 }

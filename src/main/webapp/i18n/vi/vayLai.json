@@ -14,7 +14,9 @@
                 "question": "Bạn có chắc là muốn xóa Vay Lãi {{ id }}?"
             },
             "detail": {
-                "title": "Vay Lãi"
+                "title": "Vay Lãi",
+                "NO": "Nợ",
+                "TRA": "Trả"
             },
             "tienvay": "Tiền vay",
             "hinhthuclai": "Hình thức lãi",

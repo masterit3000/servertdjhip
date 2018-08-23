@@ -7,10 +7,13 @@ import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.service.NhanVienService;
+import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.KhachHangDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.mapper.KhachHangMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,12 +37,14 @@ public class KhachHangServiceImpl implements KhachHangService {
     private final KhachHangMapper khachHangMapper;
     private final CuaHangService cuaHangService;
     private final NhanVienService nhanVienService;
+    private final NhatKyService nhatKyService;
 
-    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService, NhanVienService nhanVienService) {
+    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService, NhanVienService nhanVienService, NhatKyService nhatKyService) {
         this.khachHangRepository = khachHangRepository;
         this.khachHangMapper = khachHangMapper;
         this.cuaHangService = cuaHangService;
         this.nhanVienService = nhanVienService;
+        this.nhatKyService = nhatKyService;
     }
 
     /**
@@ -60,6 +65,15 @@ public class KhachHangServiceImpl implements KhachHangService {
             KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
             khachHang = khachHangRepository.saveAndFlush(khachHang);
 
+            NhatKyDTO nhatKy = new NhatKyDTO();
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+            }
+            nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+            nhatKy.setThoiGian(ZonedDateTime.now());
+            nhatKy.setNoiDung("Thêm mới khách hàng");
+            nhatKyService.save(nhatKy);
+
             return khachHangMapper.toDto(khachHang);
         }
 
@@ -76,6 +90,15 @@ public class KhachHangServiceImpl implements KhachHangService {
                 Long idCuaHang = cuaHangService.findIDByUserLogin();
                 khachHangDTO.setCuaHangId(idCuaHang);
             }
+
+            NhatKyDTO nhatKy = new NhatKyDTO();
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+            }
+            nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+            nhatKy.setThoiGian(ZonedDateTime.now());
+            nhatKy.setNoiDung("Thêm mới khách hàng");
+            nhatKyService.save(nhatKy);
 
             KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
             khachHang = khachHangRepository.saveAndFlush(khachHang);

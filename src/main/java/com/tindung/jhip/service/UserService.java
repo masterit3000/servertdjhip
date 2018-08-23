@@ -283,4 +283,19 @@ public class UserService {
         return userRepository.findAllByNewsUser().stream().map(UserDTO::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
+    public List<UserDTO> getActivedNewUsers() {
+        return userRepository.findAllActivedUser().stream().map(UserDTO::new).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public void resetPassword(Long id, String password) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            User user = userRepository.findById(id);
+            String encryptedPassword = passwordEncoder.encode(password);
+            user.setPassword(encryptedPassword);
+            cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLogin());
+            cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(user.getEmail());
+            log.debug("Changed password for User: {}", user);
+        }
+    }
+
 }

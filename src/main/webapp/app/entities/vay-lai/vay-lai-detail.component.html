@@ -4,10 +4,7 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
 
-    <div class="row">
-        <div class="col-md-4 offset-md-1">
-            <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
-        </div>
+    <div class="row justify-content-center">
         <div class="col-md-6 offset-md-1">
             <table class="table table-responsive">
                 <tbody>
@@ -25,7 +22,7 @@
                             <span class="fa fa-credit-card text-primary fa-5x"></span>
                         </td>
                         <td>
-                            <b>Tổng lãi</b>: {{tonglai |currency : 'VND' : true : '1.0-0'}}
+                            <b>Tổng lãi</b>: {{tienchuadong + tiendadong |currency : 'VND' : true : '1.0-0'}}
                         </td>
                     </tr>
                     <tr>
@@ -118,6 +115,9 @@
                         (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
+                                <th colspan="6" class="bg-success text-center text-white">Tiền lãi đã đóng</th>
+                            </tr>
+                            <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Trạng thái</th>
                                 <th>Chu kỳ lãi</th>
@@ -147,9 +147,12 @@
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                        (onRowUnselect)="onRowUnselect($event)">
+                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
+                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="6" class="bg-secondary text-center text-white">Tiền lãi chưa đóng</th>
+                            </tr>
                             <tr>
                                 <th colspan="2">Ngày</th>
                                 <th>Trạng thái</th>
@@ -175,21 +178,6 @@
                     </p-table>
                 </div>
             </div>
-            <p-dialog modal="true" [(visible)]="dongLai">
-                <p-header>
-                    Đóng lãi cho hợp đồng {{vayLai.hopdongvl.mahopdong}}
-                </p-header>
-                Số tiền đóng: {{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}
-                <br/> Bạn có chắc chắn muốn đóng tiền?
-                <p-footer>
-                    <button (click)="onRowSelect($event)" type="button" class="btn btn-success">
-                        <span class="fa fa-check"></span>&nbsp; Xác nhận
-                    </button>
-                    <button type="button" (click)="dongDongLai()" class="btn btn-danger">
-                        <span class="fa fa-close"></span>&nbsp; Hủy
-                    </button>
-                </p-footer>
-            </p-dialog>
         </p-tabPanel>
         <p-tabPanel header="Trả bớt gốc">
             <div class="row justify-content-center" style="background-color:#e3e3e3">
@@ -216,14 +204,25 @@
                             <span class="float-right font-size-3">Mã hợp đồng:</span>
                         </div>
                         <div class="col-md-5 form-group">
-                            <input pInputText  #mahopdongtg type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
+                            <input pInputText #mahopdongtg type="text" name="mahopdong" class="form-control" id="field_mahopdong" />
                         </div>
                         <div class="col-md-3">
-                            <button (click)="traGoc(trabotgoc.value,mahopdongtg.value)" class="btn btn-success">
+                            <button (click)="traGoc(trabotgoc.value,mahopdongtg.value);traGocDialog = true" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
                     </div>
+                    <p-dialog modal="true" [(visible)]="traGocDialog">
+                        <p-header>
+                            Trả gốc
+                        </p-header>
+                        Trả gốc thành công!
+                        <p-footer>
+                            <button type="button" (click)="traGocDialog = false" class="btn btn-success">
+                                <span class="fa fa-check"></span>&nbsp; Xác nhận
+                            </button>
+                        </p-footer>
+                    </p-dialog>
                 </div>
             </div>
         </p-tabPanel>
@@ -255,11 +254,22 @@
                             <input pInputText type="text" #mahopdong name="mahopdong" class="form-control" id="field_mahopdong" />
                         </div>
                         <div class="col-md-3">
-                            <button (click)="vayThem(vaythem.value,mahopdong.value)" class="btn btn-success">
+                            <button (click)="vayThem(vaythem.value,mahopdong.value);vayThemDialog = true" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
                     </div>
+                    <p-dialog modal="true" [(visible)]="vayThemDialog">
+                        <p-header>
+                            Vay thêm
+                        </p-header>
+                        Vay thêm thành công!
+                        <p-footer>
+                            <button type="button" (click)="vayThemDialog = false" class="btn btn-success">
+                                <span class="fa fa-check"></span>&nbsp; Xác nhận
+                            </button>
+                        </p-footer>
+                    </p-dialog>
                 </div>
             </div>
         </p-tabPanel>
@@ -285,13 +295,24 @@
                             <span>(Ngày)</span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-md-4">
-                            <button (click)="giaHan(giahan.value)" class="btn btn-success">
+                            <button (click)="giaHan(giahan.value);giaHanDialog = true" class="btn btn-success">
                                 <span class="fa fa-check"></span>
                                 Đồng ý</button>
                         </div>
                     </div>
+                    <p-dialog modal="true" [(visible)]="giaHanDialog">
+                        <p-header>
+                            Gia hạn
+                        </p-header>
+                        Gia hạn thành công!
+                        <p-footer>
+                            <button type="button" (click)="giaHanDialog = false" class="btn btn-success">
+                                <span class="fa fa-check"></span>&nbsp; Xác nhận
+                            </button>
+                        </p-footer>
+                    </p-dialog>
                 </div>
             </div>
         </p-tabPanel>
@@ -312,7 +333,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveNo()" class="btn btn-danger float-right">
+                                    <button (click)="saveNo()" [disabled]='ghiNo.sotien == 0 || ghiNo.sotien == null' class="btn btn-danger float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Ghi nợ</button>
                                 </td>
@@ -334,7 +355,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button [disabled]="tienNo-tienTra == 0" (click)="saveTraNo()" class="btn btn-success float-right">
+                                    <button [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null || ghiNo.sotien == 0" (click)="saveTraNo()" class="btn btn-success float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Trả nợ</button>
                                 </td>
@@ -360,7 +381,7 @@
                                 <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                                 <td>{{ghiNo.nhanVienTen}}</td>
                                 <td>{{ghiNo.sotien}}</td>
-                                <td>{{ghiNo.trangthai}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.vayLai.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -393,9 +414,12 @@
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Chứng từ">
+        <p-tabPanel header="Chứng từ / Tài sản">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
+                    <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>
+                </div>
+                <div class="col-md-7 offset-md-1">
                     <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>

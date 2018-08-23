@@ -16,7 +16,6 @@ import { TaiSan, TaiSanService } from '../tai-san';
     templateUrl: './anh-tai-san-dialog.component.html'
 })
 export class AnhTaiSanDialogComponent implements OnInit {
-
     anhTaiSan: AnhTaiSan;
     isSaving: boolean;
 
@@ -28,13 +27,16 @@ export class AnhTaiSanDialogComponent implements OnInit {
         private anhTaiSanService: AnhTaiSanService,
         private taiSanService: TaiSanService,
         private eventManager: JhiEventManager
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.taiSanService.query()
-            .subscribe((res: HttpResponse<TaiSan[]>) => { this.taisans = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.taiSanService.query().subscribe(
+            (res: HttpResponse<TaiSan[]>) => {
+                this.taisans = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     clear() {
@@ -45,23 +47,32 @@ export class AnhTaiSanDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.anhTaiSan.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.anhTaiSanService.update(this.anhTaiSan));
+                this.anhTaiSanService.update(this.anhTaiSan)
+            );
         } else {
             this.subscribeToSaveResponse(
-                this.anhTaiSanService.create(this.anhTaiSan));
+                this.anhTaiSanService.create(this.anhTaiSan)
+            );
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<AnhTaiSan>>) {
-        result.subscribe((res: HttpResponse<AnhTaiSan>) =>
-            {this.onSaveSuccess(res.body);
-            console.log(res);
-            }, (res: HttpErrorResponse) => this.onSaveError());
-
+    private subscribeToSaveResponse(
+        result: Observable<HttpResponse<AnhTaiSan>>
+    ) {
+        result.subscribe(
+            (res: HttpResponse<AnhTaiSan>) => {
+                this.onSaveSuccess(res.body);
+                console.log(res);
+            },
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
     }
 
     private onSaveSuccess(result: AnhTaiSan) {
-        this.eventManager.broadcast({ name: 'anhTaiSanListModification', content: 'OK'});
+        this.eventManager.broadcast({
+            name: 'anhTaiSanListModification',
+            content: 'OK'
+        });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -84,7 +95,6 @@ export class AnhTaiSanDialogComponent implements OnInit {
     template: ''
 })
 export class AnhTaiSanPopupComponent implements OnInit, OnDestroy {
-
     routeSub: any;
 
     constructor(
@@ -93,13 +103,16 @@ export class AnhTaiSanPopupComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
-                this.anhTaiSanPopupService
-                    .open(AnhTaiSanDialogComponent as Component, params['id']);
+        this.routeSub = this.route.params.subscribe(params => {
+            if (params['id']) {
+                this.anhTaiSanPopupService.open(
+                    AnhTaiSanDialogComponent as Component,
+                    params['id']
+                );
             } else {
-                this.anhTaiSanPopupService
-                    .open(AnhTaiSanDialogComponent as Component);
+                this.anhTaiSanPopupService.open(
+                    AnhTaiSanDialogComponent as Component
+                );
             }
         });
     }

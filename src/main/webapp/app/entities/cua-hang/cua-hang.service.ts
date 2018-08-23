@@ -70,7 +70,6 @@ export class CuaHangService {
         });
     }
 
-
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CuaHang = this.convertItemFromServer(res.body);
         return res.clone({ body });
@@ -110,6 +109,6 @@ export class CuaHangService {
     getCuaHangs(query: any): Observable<CuaHang[]> {
         return this.http
             .get('/api/cua-hangs')
-            .map((response) => response as CuaHang[]);
+            .map(response => response as CuaHang[]);
     }
 }

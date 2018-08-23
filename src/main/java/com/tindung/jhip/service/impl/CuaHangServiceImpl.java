@@ -3,12 +3,16 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.domain.CuaHang;
 import com.tindung.jhip.repository.CuaHangRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.NhanVienService;
+import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.CuaHangDTO;
 import com.tindung.jhip.service.dto.NhanVienDTO;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.mapper.CuaHangMapper;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
+import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,19 +28,21 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CuaHangServiceImpl implements CuaHangService {
-    
+
     private final Logger log = LoggerFactory.getLogger(CuaHangServiceImpl.class);
-    
+
     private final CuaHangRepository cuaHangRepository;
-    
+
     private final CuaHangMapper cuaHangMapper;
-    
+
     private final NhanVienService nhanVienService;
-    
-    public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService) {
+    private final NhatKyService nhatKyService;
+
+    public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService, NhatKyService nhatKyService) {
         this.cuaHangRepository = cuaHangRepository;
         this.cuaHangMapper = cuaHangMapper;
         this.nhanVienService = nhanVienService;
+        this.nhatKyService = nhatKyService;
     }
 
     /**
@@ -49,6 +55,11 @@ public class CuaHangServiceImpl implements CuaHangService {
     public CuaHangDTO save(CuaHangDTO cuaHangDTO) {
         log.debug("Request to save CuaHang : {}", cuaHangDTO);
         CuaHang cuaHang = cuaHangMapper.toEntity(cuaHangDTO);
+        NhatKyDTO nhatKy = new NhatKyDTO();
+        nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+        nhatKy.setThoiGian(ZonedDateTime.now());
+        nhatKy.setNoiDung("Tạo mới cửa hàng");
+        nhatKyService.save(nhatKy);
         cuaHang = cuaHangRepository.save(cuaHang);
         return cuaHangMapper.toDto(cuaHang);
     }
@@ -66,7 +77,7 @@ public class CuaHangServiceImpl implements CuaHangService {
                 .map(cuaHangMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<CuaHangDTO> findByName(String key) {
@@ -101,13 +112,13 @@ public class CuaHangServiceImpl implements CuaHangService {
         log.debug("Request to delete CuaHang : {}", id);
         cuaHangRepository.delete(id);
     }
-    
+
     @Override
     public CuaHangDTO findByUserLogin() {
-        
+
         return findOne(findIDByUserLogin());
     }
-    
+
     @Override
     public Long findIDByUserLogin() {
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));

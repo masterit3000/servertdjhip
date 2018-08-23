@@ -10,7 +10,7 @@ import { CuaHangAdminComponent } from './cua-hang/cua-hang.component'
 import { CuaHangDetailAdminComponent } from './cua-hang/cua-hang-detail/cua-hang-detail.component'
 import { NhanVienAdminComponent } from './nhan-vien/nhan-vien.component'
 import { NhanVienDetailAdminComponent } from './nhan-vien/nhan-vien-detail/nhan-vien-detail.component'
-
+import { ResetPasswordComponent } from './nhan-vien/nhan-vien-detail/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -74,6 +74,13 @@ const routes: Routes = [
     data: {
       authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.nhanVien.home.title'
+    },
+  },
+  {
+    path: 'reset-password', component: ResetPasswordComponent,
+    data: {
+      authorities: ['ROLE_ADMIN','ROLE_STORE'],
+      pageTitle: 'global.menu.account.password'
     },
   },
   {

@@ -12,69 +12,110 @@ export type EntityResponseType = HttpResponse<ThuChi>;
 
 @Injectable()
 export class ThuChiService {
-
     private resourceUrl = SERVER_API_URL + 'api/thu-chis';
     private baoCaoUrl = SERVER_API_URL + 'api/thu-chis-bao-cao';
     private baoCaoNVUrl = SERVER_API_URL + 'api/thu-chis-bao-cao-nhanvien';
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
-    private thuchi='loai';
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
+    private thuchi = 'loai';
     create(thuChi: ThuChi): Observable<EntityResponseType> {
         const copy = this.convert(thuChi);
-        return this.http.post<ThuChi>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .post<ThuChi>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     update(thuChi: ThuChi): Observable<EntityResponseType> {
         const copy = this.convert(thuChi);
-        return this.http.put<ThuChi>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http
+            .put<ThuChi>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<ThuChi>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+        return this.http
+            .get<ThuChi>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    findByTime(start: Date, end: Date, loaithuchi: THUCHI): Observable<HttpResponse<ThuChi[]>> {
-        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, "dd.MM.yyy");
-        // let endd = this.dateUtils.convertLocalDateToServer(end, "dd.MM.yyy");
+    findByTime(
+        start: Date,
+        end: Date,
+        loaithuchi: THUCHI
+    ): Observable<HttpResponse<ThuChi[]>> {
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, 'dd.MM.yyy');
+        // let endd = this.dateUtils.convertLocalDateToServer(end, 'dd.MM.yyy');
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
 
-        return this.http.get<ThuChi[]>(`${this.resourceUrl}/${startd}/${endd}/${loaithuchi}`, { observe: 'response' })
-            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<ThuChi[]>(
+                `${this.resourceUrl}/${startd}/${endd}/${loaithuchi}`,
+                { observe: 'response' }
+            )
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
-    baoCaoNV(start: Date, end: Date, id:number): Observable<HttpResponse<ThuChi[]>> {
-        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, "dd.MM.yyy");
-        // let endd = this.dateUtils.convertLocalDateToServer(end, "dd.MM.yyy");
+    baoCaoNV(
+        start: Date,
+        end: Date,
+        id: number
+    ): Observable<HttpResponse<ThuChi[]>> {
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, 'dd.MM.yyy');
+        // let endd = this.dateUtils.convertLocalDateToServer(end, 'dd.MM.yyy');
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
 
-        return this.http.get<ThuChi[]>(`${this.baoCaoNVUrl}/${startd}/${endd}/${id}`, { observe: 'response' })
-            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<ThuChi[]>(`${this.baoCaoNVUrl}/${startd}/${endd}/${id}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
     baoCao(start: Date, end: Date): Observable<HttpResponse<ThuChi[]>> {
-        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, "dd.MM.yyy");
-        // let endd = this.dateUtils.convertLocalDateToServer(end, "dd.MM.yyy");
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, 'dd.MM.yyy');
+        // let endd = this.dateUtils.convertLocalDateToServer(end, 'dd.MM.yyy');
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
 
-        return this.http.get<ThuChi[]>(`${this.baoCaoUrl}/${startd}/${endd}`, { observe: 'response' })
-            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<ThuChi[]>(`${this.baoCaoUrl}/${startd}/${endd}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 
     query(req?: any): Observable<HttpResponse<ThuChi[]>> {
         const options = createRequestOption(req);
-        return this.http.get<ThuChi[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+        return this.http
+            .get<ThuChi[]>(this.resourceUrl, {
+                params: options,
+                observe: 'response'
+            })
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
-    findAllThuChiTheoLoai(loaithuchi: THUCHI): Observable<HttpResponse<ThuChi[]>> {
-        return this.http.get<ThuChi[]>(`${this.resourceUrl}/${this.thuchi}/${loaithuchi}`, { observe: 'response' })
-            .map((res: HttpResponse<ThuChi[]>) => this.convertArrayResponse(res));
+    findAllThuChiTheoLoai(
+        loaithuchi: THUCHI
+    ): Observable<HttpResponse<ThuChi[]>> {
+        return this.http
+            .get<ThuChi[]>(`${this.resourceUrl}/${this.thuchi}/${loaithuchi}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, {
+            observe: 'response'
+        });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
@@ -82,7 +123,9 @@ export class ThuChiService {
         return res.clone({ body });
     }
 
-    private convertArrayResponse(res: HttpResponse<ThuChi[]>): HttpResponse<ThuChi[]> {
+    private convertArrayResponse(
+        res: HttpResponse<ThuChi[]>
+    ): HttpResponse<ThuChi[]> {
         const jsonResponse: ThuChi[] = res.body;
         const body: ThuChi[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
@@ -96,8 +139,9 @@ export class ThuChiService {
      */
     private convertItemFromServer(thuChi: ThuChi): ThuChi {
         const copy: ThuChi = Object.assign({}, thuChi);
-        copy.thoigian = this.dateUtils
-            .convertDateTimeFromServer(thuChi.thoigian);
+        copy.thoigian = this.dateUtils.convertDateTimeFromServer(
+            thuChi.thoigian
+        );
         return copy;
     }
 
@@ -111,14 +155,11 @@ export class ThuChiService {
         return copy;
     }
     private convertDateToString(d: Date): String {
-
         let m = d.getMonth() + 1;
         let mm = m < 10 ? '0' + m : m;
         let day = d.getDate();
-        let sday = day<10? '0'+day:day;
-       
-        return d.getFullYear() + ' ' + mm + ' ' + sday;
+        let sday = day < 10 ? '0' + day : day;
 
+        return d.getFullYear() + ' ' + mm + ' ' + sday;
     }
 }
-

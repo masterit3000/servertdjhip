@@ -47,7 +47,7 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private jhiAlertService: JhiAlertService,
         private principal: Principal
-    ) { }
+    ) {}
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
@@ -62,8 +62,6 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInCuaHangs();
-
-
     }
 
     load(id) {
@@ -90,12 +88,14 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
-                this.nhanVienService.findNhanVienByCuaHang(this.cuaHang.id).subscribe(
-                    (res: HttpResponse<NhanVien[]>) => {
-                        this.nhanViens = res.body;
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
+                this.nhanVienService
+                    .findNhanVienByCuaHang(this.cuaHang.id)
+                    .subscribe(
+                        (res: HttpResponse<NhanVien[]>) => {
+                            this.nhanViens = res.body;
+                        },
+                        (res: HttpErrorResponse) => this.onError(res.message)
+                    );
             });
         // this.batHoService                    <----------------THỦ PHẠM BUG
         //     .findByCuaHangId(this.cuaHang.id)

@@ -44,8 +44,8 @@
             Tìm kiếm</button>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="nhanViens">
-        <p-table [value]="nhanViens" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
+    <div *ngIf="nhanViens">
+        <p-table [value]="nhanViens" [paginator]="true" [responsive]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
                 <tr>
                     <th>

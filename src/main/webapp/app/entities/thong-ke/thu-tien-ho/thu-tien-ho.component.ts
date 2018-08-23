@@ -26,6 +26,7 @@ export class  ThuTienHoComponent implements OnInit {
   lichSuDongTienVLs: LichSuDongTien[];
   lichSuDongTienBHs: LichSuDongTien[];
   lichSuDongTienTraGoc: LichSuDongTien[];
+  default:NhanVien;
 
   lichSuDongTien: LichSuDongTien;
   currentAccount: any;
@@ -73,7 +74,7 @@ export class  ThuTienHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     this.tongTienTraGoc = 0;
-    this.selectedNhanVien = new NhanVien;
+    this.selectedNhanVien = this.default;
 
   }
 
@@ -97,7 +98,7 @@ export class  ThuTienHoComponent implements OnInit {
     this.tongTienNoVl = 0;
     this.tongTienTraVl = 0;
     this.tongTienTraGoc = 0;
-    if (this.selectedNhanVien == 1) {
+    if (this.selectedNhanVien == this.default) {
       console.log(this.denngay);
       this.lichSuDongTienService.baoCao(DONGTIEN.DADONG, LOAIHOPDONG.BATHO, this.tungay, this.denngay).subscribe(
         (res: HttpResponse<LichSuDongTien[]>) => {

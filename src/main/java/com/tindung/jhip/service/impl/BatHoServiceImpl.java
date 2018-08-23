@@ -3,6 +3,7 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.domain.BatHo;
 import com.tindung.jhip.domain.LichSuDongTien;
+import com.tindung.jhip.domain.NhatKy;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.repository.BatHoRepository;
@@ -30,6 +31,8 @@ import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.GhiNoRepository;
 import com.tindung.jhip.repository.ThuChiRepository;
 import com.tindung.jhip.repository.VayLaiRepository;
+import com.tindung.jhip.service.NhatKyService;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
@@ -54,6 +57,7 @@ public class BatHoServiceImpl implements BatHoService {
     private final BatHoMapper batHoMapper;
     private final BatHoRepository batHoRepository;
     private final HopDongService hopDongService;
+    private final NhatKyService nhatKyService;
     private final VayLaiRepository vayLaiRepository;
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
@@ -64,10 +68,11 @@ public class BatHoServiceImpl implements BatHoService {
     private final GhiNoRepository ghiNoRepository;
     private final ThuChiRepository thuChiRepository;
 
-    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, VayLaiRepository vayLaiRepository, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
+    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhatKyService nhatKyService, VayLaiRepository vayLaiRepository, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
         this.batHoMapper = batHoMapper;
         this.batHoRepository = batHoRepository;
         this.hopDongService = hopDongService;
+        this.nhatKyService = nhatKyService;
         this.vayLaiRepository = vayLaiRepository;
         this.nhanVienService = nhanVienService;
         this.cuaHangService = cuaHangService;
@@ -156,6 +161,15 @@ public class BatHoServiceImpl implements BatHoService {
                     lichSuThaoTacHopDongDTO.setSoTienGhiCo(0d);
                     lichSuThaoTacHopDongDTO.setSoTienGhiNo(batHo.getTienduakhach());
                     lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
+
+                    NhatKyDTO nhatKy = new NhatKyDTO();
+                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                        nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    }
+                    nhatKy.setNhanVienId(findByUserLogin.getId());
+                    nhatKy.setThoiGian(ZonedDateTime.now());
+                    nhatKy.setNoiDung("Tạo mới bát họ");
+                    nhatKyService.save(nhatKy);
 
                     return batHoMapper.toDto(batHo);
                 } else {
@@ -304,6 +318,15 @@ public class BatHoServiceImpl implements BatHoService {
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
 
+                NhatKyDTO nhatKy = new NhatKyDTO();
+                if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                    nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                }
+                nhatKy.setNhanVienId(findByUserLogin.getId());
+                nhatKy.setThoiGian(ZonedDateTime.now());
+                nhatKy.setNoiDung("Đảo họ");
+                nhatKyService.save(nhatKy);
+
                 return batHoMapper.toDto(batHo);
             } else {
                 throw new BadRequestAlertException("Không đủ tiền", null, null);
@@ -397,6 +420,16 @@ public class BatHoServiceImpl implements BatHoService {
             LichSuDongTien lichSuDongTien = null;
             lichSuDongTien = lichSuDongTienRepository.findOne(id);
             lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+
+            NhatKyDTO nhatKy = new NhatKyDTO();
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+            }
+            nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+            nhatKy.setThoiGian(ZonedDateTime.now());
+            nhatKy.setNoiDung("Đóng tiền bát họ");
+            nhatKyService.save(nhatKy);
+            
             return lichSuDongTienMapper.toDto(lichSuDongTien);
         }
         throw new BadRequestAlertException("không có quyền", null, null);

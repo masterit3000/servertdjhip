@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import {
+    Resolve,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    Routes,
+    CanActivate
+} from '@angular/router';
 
 import { JhiPaginationUtil } from 'ng-jhipster';
 
@@ -12,22 +18,28 @@ import { Principal } from '../../shared';
 
 @Injectable()
 export class UserResolve implements CanActivate {
-
-    constructor(private principal: Principal) { }
+    constructor(private principal: Principal) {}
 
     canActivate() {
-        return this.principal.identity().then((account) => this.principal.hasAnyAuthority(['ROLE_ADMIN','ROLE_STORE']));
+        return this.principal
+            .identity()
+            .then(account =>
+                this.principal.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_STORE'])
+            );
     }
 }
 
 @Injectable()
 export class UserResolvePagingParams implements Resolve<any> {
-
     constructor(private paginationUtil: JhiPaginationUtil) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        const page = route.queryParams['page']
+            ? route.queryParams['page']
+            : '1';
+        const sort = route.queryParams['sort']
+            ? route.queryParams['sort']
+            : 'id,asc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),
@@ -41,7 +53,7 @@ export const userMgmtRoute: Routes = [
         path: 'user-management',
         component: UserMgmtComponent,
         resolve: {
-            'pagingParams': UserResolvePagingParams
+            pagingParams: UserResolvePagingParams
         },
         data: {
             pageTitle: 'userManagement.home.title'

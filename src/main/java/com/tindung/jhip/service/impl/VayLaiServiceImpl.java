@@ -31,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.tindung.jhip.service.BatHoService;
+import com.tindung.jhip.service.NhatKyService;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -55,11 +57,10 @@ public class VayLaiServiceImpl implements VayLaiService {
     private final BatHoService batHoService;
     private final CuaHangService cuaHangService;
     private final LichSuDongTienService lichSuDongTienService;
-    private final LichSuDongTienRepository lichSuDongTienRepository;
-    private final LichSuDongTienMapper lichSuDongTienMapper;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
+    private final NhatKyService nhatKyService;
 
-    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, BatHoService batHoService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService) {
+    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, BatHoService batHoService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, NhatKyService nhatKyService) {
         this.vayLaiRepository = vayLaiRepository;
         this.vayLaiMapper = vayLaiMapper;
         this.hopDongService = hopDongService;
@@ -67,9 +68,8 @@ public class VayLaiServiceImpl implements VayLaiService {
         this.batHoService = batHoService;
         this.cuaHangService = cuaHangService;
         this.lichSuDongTienService = lichSuDongTienService;
-        this.lichSuDongTienRepository = lichSuDongTienRepository;
-        this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
+        this.nhatKyService = nhatKyService;
     }
 
     /**
@@ -159,6 +159,15 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuThaoTacHopDongDTO.setSoTienGhiNo(vayLai.getTienvay());
                     lichSuThaoTacHopDongService.save(lichSuThaoTacHopDongDTO);
 
+                    NhatKyDTO nhatKy = new NhatKyDTO();
+                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                        nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    }
+                    nhatKy.setNhanVienId(nhanVien.getId());
+                    nhatKy.setThoiGian(ZonedDateTime.now());
+                    nhatKy.setNoiDung("Thêm mới vay lãi");
+                    nhatKyService.save(nhatKy);
+
                     return vayLaiMapper.toDto(vayLai);
 
                 } else {
@@ -173,7 +182,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                         hopdong.setCuaHangId(idCuaHang);
                     }
                     hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
-                    hopdong.setNgaytao(ZonedDateTime.now());
+//                    hopdong.setNgaytao();
                     hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
@@ -237,6 +246,15 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                     lichSuDongTienService.save(lichSuDongTienDTO);
 
+                    NhatKyDTO nhatKy = new NhatKyDTO();
+                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                        nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    }
+                    nhatKy.setNhanVienId(nhanVien.getId());
+                    nhatKy.setThoiGian(ZonedDateTime.now());
+                    nhatKy.setNoiDung("Gia hạn vay lãi");
+                    nhatKyService.save(nhatKy);
+
                     return vayLaiMapper.toDto(vayLai);
                 }
             } else {
@@ -249,8 +267,8 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    public VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id,String mahopdong) {
-        
+    public VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id, String mahopdong) {
+
         log.debug("Request to save VayLai : {}", vayLaiDTO);
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
@@ -347,6 +365,15 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienTraGoc.setTrangthai(DONGTIEN.TRAGOC);
                     lichSuDongTienTraGoc.setNgaygiaodich(ZonedDateTime.now());
                     lichSuDongTienService.save(lichSuDongTienTraGoc);
+
+                    NhatKyDTO nhatKy = new NhatKyDTO();
+                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                        nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    }
+                    nhatKy.setNhanVienId(nhanVien.getId());
+                    nhatKy.setThoiGian(ZonedDateTime.now());
+                    nhatKy.setNoiDung("Vay thêm/Trả bớt vay lãi");
+                    nhatKyService.save(nhatKy);
 
                     return vayLaiMapper.toDto(vayLai);
                 }
@@ -566,8 +593,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangId = cuaHangService.findIDByUserLogin();
             VayLai vayLai = vayLaiRepository.findHopDongGoc(cuaHangId, id);
-            Double sotien =0d;
-            sotien = vayLaiRepository.findOne(id).getTienvay()-vayLai.getTienvay();
+            Double sotien = 0d;
+            sotien = vayLaiRepository.findOne(id).getTienvay() - vayLai.getTienvay();
             return sotien;
         }
 

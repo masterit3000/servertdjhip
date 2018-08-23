@@ -19,7 +19,7 @@ export class CuaHangComponent implements OnInit, OnDestroy {
     none: any;
     cuaHang: CuaHang;
     cuahangs: CuaHang[];
-    keyTimCuaHang:any;
+    keyTimCuaHang: any;
 
     constructor(
         private cuaHangService: CuaHangService,
@@ -78,13 +78,14 @@ export class CuaHangComponent implements OnInit, OnDestroy {
         return filtered;
     }
     timCuaHang() {
-        this.cuaHangService
-            .findCuaHang(this.keyTimCuaHang)
-            .subscribe(
-                (res: HttpResponse<CuaHang[]>) => {
-                    this.cuaHangs = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.cuaHangService.findCuaHang(this.keyTimCuaHang).subscribe(
+            (res: HttpResponse<CuaHang[]>) => {
+                this.cuaHangs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    previousState() {
+        window.history.back();
     }
 }

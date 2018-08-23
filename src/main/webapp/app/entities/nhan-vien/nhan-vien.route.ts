@@ -12,15 +12,16 @@ export const nhanVienRoute: Routes = [
         path: 'nhan-vien',
         component: NhanVienComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    },
+    {
         path: 'nhan-vien/:id',
         component: NhanVienDetailComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -29,7 +30,7 @@ export const nhanVienRoute: Routes = [
         path: 'phanQuyenNhanVien',
         component: PhanQuyenNhanVienComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.phanQuyenNhanVien'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +42,7 @@ export const nhanVienPopupRoute: Routes = [
         path: 'nhan-vien-new',
         component: NhanVienPopupComponent,
         data: {
-            authorities: ['ROLE_STORE','ROLE_ADMIN','ROLE_STAFF'],
+            authorities: ['ROLE_STORE', 'ROLE_ADMIN', 'ROLE_STAFF'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +52,7 @@ export const nhanVienPopupRoute: Routes = [
         path: 'nhan-vien/:id/edit',
         component: NhanVienPopupComponent,
         data: {
-            authorities: ['ROLE_STORE','ROLE_ADMIN'],
+            authorities: ['ROLE_STORE', 'ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.nhanVien.home.title'
         },
         canActivate: [UserRouteAccessService],

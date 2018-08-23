@@ -41,18 +41,17 @@ export class VayLaiMoiComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.eventSubscriber = this.eventManager // lưu toàn bộ việc theo dõi sự kiện vào 1 biến để tẹo hủy theo dõi (dòng 48)
-        .subscribe('khachHangListModification', response => {
-            // đăng ký lắng nghe sự kiện có tên khachHangListModification
-            // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
-            //this.loadAll(); // load lại data
-            // let kh : KhachHang = response;
-            console.log(response); // in ra xem sự kiện nổ ra truyền vào cái j
-            this.keyTimKhachHang = response.content.cmnd;
-            this.vayLai.hopdongvl.khachHangId = response.content.id;
-            // this.timKhachHang();
-        });
+            .subscribe('khachHangListModification', response => {
+                // đăng ký lắng nghe sự kiện có tên khachHangListModification
+                // khi sự kện khachHangListModification nổ ra sẽ chạy hàm dưới, response là dữ liệu mà sự kiện nổ ra truyền vào
+                //this.loadAll(); // load lại data
+                // let kh : KhachHang = response;
+                console.log(response); // in ra xem sự kiện nổ ra truyền vào cái j
+                this.keyTimKhachHang = response.content.cmnd;
+                this.vayLai.hopdongvl.khachHangId = response.content.id;
+                // this.timKhachHang();
+            });
     }
     // save() {
     //     console.log(this.vayLai);
@@ -75,25 +74,34 @@ export class VayLaiMoiComponent implements OnInit {
     //     // VayLai.hopdong.mahopdong = this.mahopdong;
     //     // this.VayLaiService.cre
     // }
-    clear() {this.previousState();}
+    clear() {
+        this.previousState();
+    }
     save() {
         this.isSaving = true;
         if (this.vayLai.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.VayLaiService.update(this.vayLai));
+                this.VayLaiService.update(this.vayLai)
+            );
         } else {
             this.subscribeToSaveResponse(
-                this.VayLaiService.create(this.vayLai));
+                this.VayLaiService.create(this.vayLai)
+            );
         }
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<VayLai>>) {
-        result.subscribe((res: HttpResponse<VayLai>) =>
-            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe(
+            (res: HttpResponse<VayLai>) => this.onSaveSuccess(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
     }
 
     private onSaveSuccess(result: VayLai) {
-        this.eventManager.broadcast({ name: 'vayLaiListModification', content: 'OK'});
+        this.eventManager.broadcast({
+            name: 'vayLaiListModification',
+            content: 'OK'
+        });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.jhiAlertService.success('them moi thanh cong', null, null);

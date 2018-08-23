@@ -8,6 +8,8 @@ import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.service.CuaHangService;
+import com.tindung.jhip.service.NhatKyService;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.dto.ThuChiDTO;
 import com.tindung.jhip.service.mapper.ThuChiMapper;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
@@ -35,12 +37,14 @@ public class ThuChiServiceImpl implements ThuChiService {
     private final ThuChiMapper thuChiMapper;
     private final CuaHangService cuaHangService;
     private final BatHoService batHoService;
+    private final NhatKyService nhatKyService;
 
-    public ThuChiServiceImpl(ThuChiRepository thuChiRepository, ThuChiMapper thuChiMapper, CuaHangService cuaHangService, BatHoService batHoService) {
+    public ThuChiServiceImpl(ThuChiRepository thuChiRepository, ThuChiMapper thuChiMapper, CuaHangService cuaHangService, BatHoService batHoService, NhatKyService nhatKyService) {
         this.thuChiRepository = thuChiRepository;
         this.thuChiMapper = thuChiMapper;
         this.cuaHangService = cuaHangService;
         this.batHoService = batHoService;
+        this.nhatKyService = nhatKyService;
     }
 
     /**
@@ -61,6 +65,16 @@ public class ThuChiServiceImpl implements ThuChiService {
                     thuChiDTO.setCuaHangId(cuaHangService.findIDByUserLogin());
                     ThuChi thuChi = thuChiMapper.toEntity(thuChiDTO);
 //            thuChi.setThoigian(ZonedDateTime.now());
+
+                    NhatKyDTO nhatKy = new NhatKyDTO();
+                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                        nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+                    }
+                    nhatKy.setNhanVienId(thuChiDTO.getNhanVienId());
+                    nhatKy.setThoiGian(ZonedDateTime.now());
+                    nhatKy.setNoiDung("Thêm mới thu chi");
+                    nhatKyService.save(nhatKy);
+
                     thuChi = thuChiRepository.save(thuChi);
                     return thuChiMapper.toDto(thuChi);
 
@@ -68,7 +82,7 @@ public class ThuChiServiceImpl implements ThuChiService {
                 throw new InternalError("Khong sua duoc thu chi");
 
             } else {
-                    throw new BadRequestAlertException("Không đủ tiền", null, null);
+                throw new BadRequestAlertException("Không đủ tiền", null, null);
             }
         }
         throw new InternalError("Khong cos quyen");
