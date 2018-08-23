@@ -1,6 +1,8 @@
 package com.tindung.jhip.repository;
 
 import com.tindung.jhip.domain.VayLai;
+import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,12 @@ public interface VayLaiRepository extends JpaRepository<VayLai, Long> {
 
     @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =:idcuahang")
     public List<VayLai> findAllByCuaHang(@Param(value = "idcuahang") Long cuaHangId);
+
+    @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where h.trangthaihopdong =?1 and c.id =?2")
+    public List<VayLai> findAllByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai, Long cuaHangId);
+
+    @Query(value = "select b from VayLai b inner join b.hopdongvl h where h.trangthaihopdong =?1 ")
+    public List<VayLai> findAllByTrangThaiHopDongAdmin(TRANGTHAIHOPDONG trangthai);
 
     @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.nhanVien c where c.id =:idnhanvien")
     public List<VayLai> findByNhanVien(@Param(value = "idnhanvien") Long id);
@@ -49,7 +57,7 @@ public interface VayLaiRepository extends JpaRepository<VayLai, Long> {
     Optional<Double> tienVayDuaKhach(@Param(value = "idcuahang") Long cuaHangId);
 
     @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =?1 and h.hopdonggoc.id =?2")
-    public VayLai findHopDongGoc(Long cuahangid,Long id); 
+    public VayLai findHopDongGoc(Long cuahangid, Long id);
     //    @Query(value = "select b from VayLai b inner join b.hopdongvl h inner join h.cuaHang c where c.id =:idcuahang")
     //    public List<VayLai> findTaoMoiByCuaHang(@Param(value = "idcuahang") Long cuaHangId);
 }

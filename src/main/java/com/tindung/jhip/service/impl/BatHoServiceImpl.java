@@ -340,22 +340,23 @@ public class BatHoServiceImpl implements BatHoService {
     /**
      * Get all the batHos.
      *
+     * @param trangthai
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<BatHoDTO> findAll() {
+    public List<BatHoDTO> findAll(TRANGTHAIHOPDONG trangthai) {
         log.debug("Request to get all BatHos");
 
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            LinkedList<BatHoDTO> collect = batHoRepository.findAll().stream()
+            LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDongAdmin(trangthai).stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
         } else {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            LinkedList<BatHoDTO> collect = batHoRepository.findAllByCuaHang(idCuaHang).stream()
+            LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDong(trangthai,idCuaHang).stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;

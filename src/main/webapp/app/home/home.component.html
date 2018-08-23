@@ -59,7 +59,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
+                            <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
                                 <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>

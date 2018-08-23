@@ -81,12 +81,12 @@ public class BatHoResource {
 
     @PostMapping("/dao-bat-hos/{id}/{mahopdong}")
     @Timed
-     public ResponseEntity<BatHoDTO> vay(@RequestBody BatHoDTO batHoDTO, @PathVariable(name="id") Long id,@PathVariable(name = "mahopdong") String mahopdong) throws URISyntaxException {
+    public ResponseEntity<BatHoDTO> vay(@RequestBody BatHoDTO batHoDTO, @PathVariable(name = "id") Long id, @PathVariable(name = "mahopdong") String mahopdong) throws URISyntaxException {
         log.debug("REST request to save BatHo : {}", batHoDTO);
         if (batHoDTO.getId() != null) {
             throw new BadRequestAlertException("A new batHo cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BatHoDTO result = batHoService.daoHo(batHoDTO, id,mahopdong);
+        BatHoDTO result = batHoService.daoHo(batHoDTO, id, mahopdong);
 
         //
         //save lich su thao tac bat ho
@@ -122,15 +122,27 @@ public class BatHoResource {
     /**
      * GET /bat-hos : get all the batHos.
      *
+     * @param trangthai
      * @return the ResponseEntity with status 200 (OK) and the list of batHos in
      * body
      */
-    @GetMapping("/bat-hos")
+    @GetMapping("/bat-hos/{trangthai}")
     @Timed
-    public List<BatHoDTO> getAllBatHos() {
+    public List<BatHoDTO> getAllBatHos(@PathVariable(name = "trangthai") String trangthai) {
         log.debug("REST request to get all BatHos");
-
-        return batHoService.findAll();
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+        switch (trangthai) {
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
+        }
+        return batHoService.findAll(trangthaihopdong);
     }
 
     /**
@@ -146,7 +158,7 @@ public class BatHoResource {
      * @return the ResponseEntity with status 200 (OK) and with body the
      * batHoDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/bat-hos/{id}")
+    @GetMapping("/find-one-bat-hos/{id}")
     @Timed
     public ResponseEntity<BatHoDTO> getBatHo(@PathVariable Long id) {
         log.debug("REST request to get BatHo : {}", id);
@@ -155,6 +167,7 @@ public class BatHoResource {
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(batHoDTO));
     }
+
     @GetMapping("/tim-bat-hos/{id}")
     @Timed
     public ResponseEntity<BatHoDTO> getBatHoByHopDong(@PathVariable Long id) {
@@ -205,8 +218,6 @@ public class BatHoResource {
     }
     //Tùng end
 
-
-
     @GetMapping("/bao-cao-bat-hos-nhanvien/{start}/{end}/{id}")
     @Timed
     public List<BatHoDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
@@ -235,10 +246,13 @@ public class BatHoResource {
         switch (trangthai) {
             case "0":
                 trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
             case "1":
                 trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
             case "2":
                 trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
         }
         return batHoService.findByTrangThai(timeStart, timeEnd, trangthaihopdong);
     }
@@ -252,13 +266,17 @@ public class BatHoResource {
         switch (trangthai) {
             case "0":
                 trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
             case "1":
                 trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
             case "2":
                 trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
         }
         return batHoService.findByTrangThaiHopDong(trangthaihopdong);
     }
+
     @GetMapping("/find-by-nhanvien/{id}")
     @Timed
     public List<BatHoDTO> findByTrangThai(@PathVariable Long id) {
@@ -277,10 +295,13 @@ public class BatHoResource {
         switch (trangthai) {
             case "0":
                 trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
             case "1":
                 trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
             case "2":
                 trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
         }
         return batHoService.findByTrangThaiNV(timeStart, timeEnd, trangthaihopdong, id);
     }

@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<BatHo>;
 export class BatHoService {
 
     private resourceUrl = SERVER_API_URL + 'api/bat-hos';
+    private findonneUrl = SERVER_API_URL + 'api/find-one-bat-hos';
     private quanLyVonUrl = SERVER_API_URL + 'api/quan-ly-von';
     private daoHoUrl = SERVER_API_URL + 'api/dao-bat-hos';
     private resourceUrlBatHoByCuaHang = SERVER_API_URL + 'api/bat-hos-by-cua-hang';
@@ -45,7 +46,7 @@ export class BatHoService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<BatHo>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+        return this.http.get<BatHo>(`${this.findonneUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
     findByHopDong(id: number): Observable<EntityResponseType> {
@@ -53,9 +54,8 @@ export class BatHoService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<HttpResponse<BatHo[]>> {
-        const options = createRequestOption(req);
-        return this.http.get<BatHo[]>(this.resourceUrl, { params: options, observe: 'response' })
+    query(trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {
+        return this.http.get<BatHo[]>(`${this.resourceUrl}/${trangthai}`, { observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
 

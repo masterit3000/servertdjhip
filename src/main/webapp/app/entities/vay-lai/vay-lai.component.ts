@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { VayLai } from './vay-lai.model';
 import { VayLaiService } from './vay-lai.service';
 import { Principal } from '../../shared';
+import { TRANGTHAIHOPDONG } from '../hop-dong';
 
 @Component({
     selector: 'jhi-vay-lai',
@@ -28,7 +29,7 @@ export class VayLaiComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.vayLaiService.query().subscribe(
+        this.vayLaiService.query(TRANGTHAIHOPDONG.DANGVAY).subscribe(
             (res: HttpResponse<VayLai[]>) => {
                 this.vayLais = res.body;
             },

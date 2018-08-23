@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.NhanVienService;
 import com.tindung.jhip.service.VayLaiService;
@@ -74,12 +75,12 @@ public class VayLaiResource {
 
     @PostMapping("/them-bot-vay-lais/{id}/{mahopdong}")
     @Timed
-    public ResponseEntity<VayLaiDTO> vay(@RequestBody VayLaiDTO vayLaiDTO, @PathVariable(name="id") Long id,@PathVariable(name = "mahopdong") String mahopdong) throws URISyntaxException {
+    public ResponseEntity<VayLaiDTO> vay(@RequestBody VayLaiDTO vayLaiDTO, @PathVariable(name = "id") Long id, @PathVariable(name = "mahopdong") String mahopdong) throws URISyntaxException {
         log.debug("REST request to save VayLai : {}", vayLaiDTO);
         if (vayLaiDTO.getId() != null) {
             throw new BadRequestAlertException("A new vayLai cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        VayLaiDTO result = vayLaiService.vay(vayLaiDTO, id,mahopdong);
+        VayLaiDTO result = vayLaiService.vay(vayLaiDTO, id, mahopdong);
 
         //
         return ResponseEntity.created(new URI("/api/them-bot-vay-lais/" + result.getId()))
@@ -116,11 +117,23 @@ public class VayLaiResource {
      * @return the ResponseEntity with status 200 (OK) and the list of vayLais
      * in body
      */
-    @GetMapping("/vay-lais")
+    @GetMapping("/vay-lais/{trangthai}")
     @Timed
-    public List<VayLaiDTO> getAllVayLais() {
+    public List<VayLaiDTO> getAllVayLais(@PathVariable String trangthai) {
         log.debug("REST request to get all VayLais");
-        return vayLaiService.findAll();
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+        switch (trangthai) {
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
+        }
+        return vayLaiService.findAll(trangthaihopdong);
     }
 
     @GetMapping("/vay-lais-by-cuaHang/{id}")
@@ -151,7 +164,7 @@ public class VayLaiResource {
      * @return the ResponseEntity with status 200 (OK) and with body the
      * vayLaiDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/vay-lais/{id}")
+    @GetMapping("/find-one-vay-lais/{id}")
     @Timed
     public ResponseEntity<VayLaiDTO> getVayLai(@PathVariable Long id) {
         log.debug("REST request to get VayLai : {}", id);
@@ -207,5 +220,3 @@ public class VayLaiResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 }
-
-

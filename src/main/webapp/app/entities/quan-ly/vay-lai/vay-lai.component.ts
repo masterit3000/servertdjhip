@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { VayLai } from '../../vay-lai/vay-lai.model';
 import { VayLaiService } from '../../vay-lai/vay-lai.service';
 import { Principal } from '../../../shared';
+import { TRANGTHAIHOPDONG } from '../../hop-dong';
 
 @Component({
     selector: 'jhi-vay-lai-admin',
@@ -19,20 +20,33 @@ export class VayLaiAdminComponent implements OnInit, OnDestroy {
     selected: VayLai;
     none: any;
     keyTimVayLai: string;
+    loaihopdong:any;
     constructor(
         private vayLaiService: VayLaiService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {}
+    ) {
+        this.loaihopdong = 1;
+    }
 
     loadAll() {
-        this.vayLaiService.query().subscribe(
-            (res: HttpResponse<VayLai[]>) => {
-                this.vayLais = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if(this.loaihopdong == 1){
+            this.vayLaiService.query(TRANGTHAIHOPDONG.DANGVAY).subscribe(
+                (res: HttpResponse<VayLai[]>) => {
+                    this.vayLais = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }else{
+            this.vayLaiService.query(TRANGTHAIHOPDONG.DADONG).subscribe(
+                (res: HttpResponse<VayLai[]>) => {
+                    this.vayLais = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
+
     }
     ngOnInit() {
         this.loadAll();

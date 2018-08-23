@@ -36,9 +36,9 @@
             Tìm kiếm</button>
     </div>
     <div class="ui-g-2">
-        <select class="form-control" >
-            <option >Đã đóng</option>
-            <option >Đang vay</option>
+        <select class="form-control"  [(ngModel)]= "loaihopdong" (change)="loadAll()">
+            <option  [ngValue]="1" >Đang vay</option>
+            <option [ngValue]="2" >Đã đóng</option>
         </select>
     </div>
     <div class="table-responsive" *ngIf="batHos">
