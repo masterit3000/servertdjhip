@@ -20,7 +20,7 @@
                             <span class="fa fa-credit-card text-primary fa-5x"></span>
                         </td>
                         <td>
-                            <b>Tổng lãi</b>: {{tonglai |currency : 'VND' : true : '1.0-0'}}
+                            <b>Tổng lãi: </b>: {{tienchuadong + tiendadong |currency : 'VND' : true : '1.0-0'}}
                         </td>
                     </tr>
                     <tr>
@@ -74,7 +74,7 @@
                             <a [routerLink]="['../../khach-hang-admin', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
                         </td>
                         <td class="text-warning">
-                            <b>Còn lại</b>: {{tonglai - tiendadong |currency : 'VND' : true : '1.0-0'}}
+                            <b>Còn lại</b>: {{tienchuadong|currency : 'VND' : true : '1.0-0'}}
                         </td>
                     </tr>
                 </tbody>
@@ -90,7 +90,7 @@
         <p-tabPanel header="Đóng lãi">
             <div class="row">
                 <div class="col-md-6">
-                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="10" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiensChuaDong" [paginator]="true" [rows]="10" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="7" class="text-white bg-secondary text-center">Tiền lãi chưa đóng</th>
@@ -118,7 +118,7 @@
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table class="text-center" [value]="lichSuDongTiens" [paginator]="true" [rows]="10" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiensDaDong" [paginator]="true" [rows]="10" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="7" class="text-white bg-success text-center">Tiền lãi đã đóng</th>

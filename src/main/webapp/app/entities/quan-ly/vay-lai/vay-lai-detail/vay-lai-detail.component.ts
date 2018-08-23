@@ -19,9 +19,11 @@ import { LichSuThaoTacHopDongService } from '../../../lich-su-thao-tac-hop-dong/
 })
 export class VayLaiDetailAdminComponent implements OnInit, OnDestroy {
     vayLai: VayLai;
-    lichSuDongTiens: LichSuDongTien[];
+    lichSuDongTiensDaDong: LichSuDongTien[];
+    lichSuDongTiensChuaDong: LichSuDongTien[];
     selected: LichSuDongTien;
     tiendadong: number;
+    tienchuadong: number;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
@@ -52,32 +54,55 @@ export class VayLaiDetailAdminComponent implements OnInit, OnDestroy {
             .subscribe((vayLaiResponse: HttpResponse<VayLai>) => {
                 this.vayLai = vayLaiResponse.body;
                 this.lichSuDongTienService
-                    .findByHopDong(this.vayLai.hopdongvl.id)
-                    .subscribe(
-                        (
-                            lichSuDongTienResponse: HttpResponse<
-                                LichSuDongTien[]
-                            >
-                        ) => {
-                            this.lichSuDongTiens = lichSuDongTienResponse.body;
-                            this.tiendadong = 0;
-                            for (
-                                let i = 0;
-                                i < lichSuDongTienResponse.body.length;
-                                i++
-                            ) {
-                                if (
-                                    lichSuDongTienResponse.body[
-                                        i
-                                    ].trangthai.toString() == 'DADONG'
-                                ) {
-                                    this.tiendadong =
-                                        this.tiendadong +
-                                        lichSuDongTienResponse.body[i].sotien;
-                                }
-                            }
+                .findByHopDongVaTrangThai(
+                    DONGTIEN.DADONG,
+                    this.vayLai.hopdongvl.id
+                )
+                .subscribe(
+                    (
+                        lichSuDongTienResponse: HttpResponse<
+                            LichSuDongTien[]
+                        >
+                    ) => {
+                        this.lichSuDongTiensDaDong =
+                            lichSuDongTienResponse.body;
+                        this.tiendadong = 0;
+                        for (
+                            let i = 0;
+                            i < lichSuDongTienResponse.body.length;
+                            i++
+                        ) {
+                            this.tiendadong =
+                                this.tiendadong +
+                                lichSuDongTienResponse.body[i].sotien;
                         }
-                    );
+                    }
+                );
+            this.lichSuDongTienService
+                .findByHopDongVaTrangThai(
+                    DONGTIEN.CHUADONG,
+                    this.vayLai.hopdongvl.id
+                )
+                .subscribe(
+                    (
+                        lichSuDongTienResponse: HttpResponse<
+                            LichSuDongTien[]
+                        >
+                    ) => {
+                        this.lichSuDongTiensChuaDong =
+                            lichSuDongTienResponse.body;
+                        this.tienchuadong = 0;
+                        for (
+                            let i = 0;
+                            i < lichSuDongTienResponse.body.length;
+                            i++
+                        ) {
+                            this.tienchuadong =
+                                this.tienchuadong +
+                                lichSuDongTienResponse.body[i].sotien;
+                        }
+                    }
+                );
                 this.lichSuThaoTacHopDongService
                     .findThaoTacByHopDong(this.vayLai.hopdongvl.id)
                     .subscribe(

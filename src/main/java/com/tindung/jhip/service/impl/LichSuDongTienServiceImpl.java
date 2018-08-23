@@ -313,8 +313,14 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     @Override
     public List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien, Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            ZonedDateTime ngayhientai = ZonedDateTime.now();
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.findByTrangThaiAdmin(dongtien, id);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
