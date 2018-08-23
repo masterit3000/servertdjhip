@@ -6,12 +6,14 @@ import { LichSuThaoTacHopDong } from '../lich-su-thao-tac-hop-dong';
 import { VayLai } from './vay-lai.model';
 import { createRequestOption } from '../../shared';
 import { LichSuDongTien } from '../lich-su-dong-tien';
+import { TRANGTHAIHOPDONG } from '../hop-dong';
 export type EntityResponseType = HttpResponse<VayLai>;
 
 @Injectable()
 export class VayLaiService {
 
     private resourceUrl = SERVER_API_URL + 'api/vay-lais';
+    private findoneURl = SERVER_API_URL + 'api/find-one-vay-lais';
     private tienVayThemTraBotUrl = SERVER_API_URL + 'api/vay-them-tra-bot';
     private lichSuDongTien = 'lichsudongtien';
     private resourceUrlTimVayLai = SERVER_API_URL + 'api/tim-vay-lais-by-ten-cmnd';
@@ -44,13 +46,12 @@ export class VayLaiService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<VayLai>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+        return this.http.get<VayLai>(`${this.findoneURl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<HttpResponse<VayLai[]>> {
-        const options = createRequestOption(req);
-        return this.http.get<VayLai[]>(this.resourceUrl, { params: options, observe: 'response' })
+    query(trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<VayLai[]>> {
+        return this.http.get<VayLai[]>(`${this.resourceUrl}/${trangthai}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
     getAllByCuaHang(id?: number): Observable<HttpResponse<VayLai[]>> {

@@ -392,18 +392,18 @@ public class VayLaiServiceImpl implements VayLaiService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<VayLaiDTO> findAll() {
+    public List<VayLaiDTO> findAll(TRANGTHAIHOPDONG trangthai) {
         log.debug("Request to get all VayLais");
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAll().stream()
+            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByTrangThaiHopDongAdmin(trangthai).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
         } else {
             NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
             Long cuaHangId = nhanVien.getCuaHangId();
-            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByCuaHang(cuaHangId).stream()
+            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByTrangThaiHopDong(trangthai,cuaHangId).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;

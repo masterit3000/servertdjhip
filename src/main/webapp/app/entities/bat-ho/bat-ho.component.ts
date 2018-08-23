@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { BatHo } from './bat-ho.model';
 import { BatHoService } from './bat-ho.service';
 import { Principal } from '../../shared';
+import { TRANGTHAIHOPDONG } from '../hop-dong';
 
 @Component({
     selector: 'jhi-bat-ho',
@@ -27,7 +28,7 @@ export class BatHoComponent implements OnInit, OnDestroy {
     ) {}
 
     loadAll() {
-        this.batHoService.query().subscribe(
+        this.batHoService.query(TRANGTHAIHOPDONG.DANGVAY).subscribe(
             (res: HttpResponse<BatHo[]>) => {
                 this.batHos = res.body;
             },
