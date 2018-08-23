@@ -8,6 +8,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HopDong } from '../../../hop-dong';
 import { Observable } from '../../../../../../../../node_modules/rxjs/Observable';
 import { Subscription } from '../../../../../../../../node_modules/rxjs';
+import { TaiSan } from '../../../tai-san';
 
 @Component({
     selector: 'jhi-vay-lai-moi',
@@ -23,6 +24,7 @@ export class VayLaiMoiComponent implements OnInit {
     isSaving: boolean;
     eventSubscriber: Subscription;
     selected: KhachHang;
+    taiSan: TaiSan;
 
     constructor(
         private khachHangService: KhachHangService,
@@ -31,6 +33,7 @@ export class VayLaiMoiComponent implements OnInit {
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {
+        this.taiSan = new TaiSan();
         this.vayLai = new VayLai();
         this.vayLai.hopdongvl = new HopDong();
         this.vayLai.hopdongvl.khachHangId = 0;
