@@ -6,7 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { BatHo } from './bat-ho.model';
 import { BatHoService } from './bat-ho.service';
 import { Principal } from '../../shared';
-import { TRANGTHAIHOPDONG } from '../hop-dong';
+import { TRANGTHAIHOPDONG, LOAIHOPDONG } from '../hop-dong';
 
 @Component({
     selector: 'jhi-bat-ho',
@@ -20,20 +20,37 @@ export class BatHoComponent implements OnInit, OnDestroy {
     selected: BatHo;
     none: any;
     keyTimBatHo: string;
+    loaihopdong: any;
+    defauut:any;
+    dadong:any;
     constructor(
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
-    ) {}
+    ) {
+        this.loaihopdong =1;
+    }
 
     loadAll() {
-        this.batHoService.query(TRANGTHAIHOPDONG.DANGVAY).subscribe(
-            (res: HttpResponse<BatHo[]>) => {
-                this.batHos = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if (this.loaihopdong == 1) {
+
+            this.batHoService.query(TRANGTHAIHOPDONG.DANGVAY).subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        } else   {
+            console.log("chon duoc")
+            this.batHoService.query(TRANGTHAIHOPDONG.DADONG).subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
+
     }
     ngOnInit() {
         this.loadAll();
