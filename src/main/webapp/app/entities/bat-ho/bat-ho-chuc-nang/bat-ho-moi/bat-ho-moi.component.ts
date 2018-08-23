@@ -8,6 +8,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HopDong } from '../../../hop-dong';
 import { Observable } from '../../../../../../../../node_modules/rxjs/Observable';
 import { Subscription } from '../../../../../../../../node_modules/rxjs';
+import { TaiSan } from '../../../tai-san';
 
 @Component({
     selector: 'jhi-bat-ho-moi',
@@ -23,6 +24,7 @@ export class BatHoMoiComponent implements OnInit {
     isSaving: boolean;
     eventSubscriber: Subscription;
     selected: KhachHang;
+    taiSan: TaiSan;
     constructor(
         private khachHangService: KhachHangService,
         private batHoService: BatHoService,
@@ -31,6 +33,7 @@ export class BatHoMoiComponent implements OnInit {
         private principal: Principal,
     ) {
         this.batHo = new BatHo();
+        this.taiSan = new TaiSan();
         this.batHo.hopdong = new HopDong();
         this.batHo.hopdong.khachHangId = 0;
         // this.batHo.hopdong.mahopdong ='';

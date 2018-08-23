@@ -26,6 +26,12 @@
             <span class="fa fa-search"></span>
             Tìm kiếm</button>
     </div>
+    <div class="ui-g-2">
+        <select class="form-control" >
+            <option >Đã đóng</option>
+            <option >Đang vay</option>
+        </select>
+    </div>
     <div class="table-responsive" *ngIf="vayLais">
         <p-table [value]="vayLais" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
