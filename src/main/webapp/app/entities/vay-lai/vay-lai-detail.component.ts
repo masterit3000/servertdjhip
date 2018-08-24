@@ -17,7 +17,7 @@ import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TaiSan } from '../tai-san';
+import { TaiSan, TaiSanService } from '../tai-san';
 @Component({
     selector: 'jhi-vay-lai-detail',
     templateUrl: './vay-lai-detail.component.html'
@@ -50,6 +50,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     vayThemDialog: boolean = false;
     giaHanDialog: boolean = false;
     taiSan: TaiSan;
+    
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -58,7 +59,8 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private ghiNoService: GhiNoService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private taiSanService: TaiSanService
     ) {
         this.taiSan = new TaiSan();
         this.ghiNo = new GhiNo();
@@ -278,6 +280,19 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.ghiNo.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponse(this.ghiNoService.create(this.ghiNo));
             this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
+        }
+    }
+    saveChungTu(){
+        this.isSaving = true;
+        if (this.taiSan.id !== undefined) {
+            this.taiSan.hopDongId = this.vayLai.hopdongvl.id;
+            this.subscribeToSaveResponse(
+                this.taiSanService.update(this.taiSan));
+        } else {
+            this.taiSan.hopDongId = this.vayLai.hopdongvl.id;
+            this.subscribeToSaveResponse(
+            
+                this.taiSanService.create(this.taiSan));
         }
     }
     private subscribeToSaveResponse(result: Observable<HttpResponse<GhiNo>>) {

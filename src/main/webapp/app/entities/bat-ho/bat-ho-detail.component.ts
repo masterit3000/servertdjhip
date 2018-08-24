@@ -18,7 +18,7 @@ import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TaiSan } from '../tai-san';
+import { TaiSan, TaiSanService } from '../tai-san';
 
 @Component({
     selector: 'jhi-bat-ho-detail',
@@ -61,7 +61,8 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         private ghiNoService: GhiNoService,
         private jhiAlertService: JhiAlertService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private taiSanService: TaiSanService
     ) // private confirmationService: ConfirmationService
     {
         this.taiSan = new TaiSan();
@@ -292,6 +293,19 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         }
         this.setSoTienLichSuThaoTac('Trả nợ', 0, this.ghiNo.sotien);
         this.dongTraNo = true;
+    }
+    saveChungTu(){
+        this.isSaving = true;
+        if (this.taiSan.id !== undefined) {
+            this.taiSan.hopDongId = this.batHo.hopdong.id;
+            this.subscribeToSaveResponse(
+                this.taiSanService.update(this.taiSan));
+        } else {
+            this.taiSan.hopDongId = this.batHo.hopdong.id;
+            this.subscribeToSaveResponse(
+            
+                this.taiSanService.create(this.taiSan));
+        }
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<GhiNo>>) {
