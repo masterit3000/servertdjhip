@@ -18,6 +18,7 @@ import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { TaiSan } from '../tai-san';
 
 @Component({
     selector: 'jhi-bat-ho-detail',
@@ -50,6 +51,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     soTienGhiNo: number;
     soTienGhiCo: number;
     images: any[];
+    taiSan: TaiSan;
 
     constructor(
         private eventManager: JhiEventManager,
@@ -62,6 +64,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute
     ) // private confirmationService: ConfirmationService
     {
+        this.taiSan = new TaiSan();
         this.ghiNo = new GhiNo();
         this.batHoDao = new BatHo();
         this.lichSuDongTien = new LichSuDongTien();

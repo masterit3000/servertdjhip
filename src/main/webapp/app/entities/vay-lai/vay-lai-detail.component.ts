@@ -17,6 +17,7 @@ import { GhiNo, NOTRA } from '../ghi-no';
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { TaiSan } from '../tai-san';
 @Component({
     selector: 'jhi-vay-lai-detail',
     templateUrl: './vay-lai-detail.component.html'
@@ -48,6 +49,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     traGocDialog: boolean = false;
     vayThemDialog: boolean = false;
     giaHanDialog: boolean = false;
+    taiSan: TaiSan;
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -58,6 +60,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         private router: Router,
         private route: ActivatedRoute
     ) {
+        this.taiSan = new TaiSan();
         this.ghiNo = new GhiNo();
         this.lichSuDongTien = new LichSuDongTien();
         this.lichSuThaoTacHopDong = new LichSuThaoTacHopDong();

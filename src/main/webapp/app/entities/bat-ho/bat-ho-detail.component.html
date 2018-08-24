@@ -369,6 +369,73 @@
                     <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-header">
+                        <h4>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="modal-title" >
+                                Thông tin chứng từ tài sản</span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                            <div class="form-group col-md-4">
+                                    <label class="form-control-label" >
+                                        <span class="fa fa-calendar-check-o"></span>
+                                        <span >Số hiệu</span>
+                                    </label>
+                                    <input [(ngModel)]="taiSan.sohieu"  class="form-control" name="tongsongay" id="field_sohieu"
+                                        placeholder="0" [min]="0" pTooltip="Nhập số hiệu tài sản, chứng từ" tooltipPosition="top"
+                                        tooltipEvent="focus" required/>
+                                </div>
+                                <div class="form-group col-md-4">
+                                        <label class="form-control-label" for="field_mota">
+                                                <span class="fa fa-sticky-note-o"></span>
+                                                <span >Mô tả</span>
+                                            </label>
+                                            <textarea [(ngModel)]="taiSan.mota" [rows]="5" class="form-control" name="moTa" id="field_moTa" [cols]="30" pTooltip="Mô tả thông tin tài sản, chứng từ"
+                                                tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+                                </div>
+                                <div class="form-group col-md-4">
+                                        <label class="form-control-label" for="field_noicat">
+                                                <span class="fa fa-sticky-note-o"></span>
+                                                <span >Nơi cất</span>
+                                            </label>
+                                            <textarea [(ngModel)]="taiSan.noicat" [rows]="5" class="form-control" name="noiCat" id="field_noiCat" [cols]="30" pTooltip="Điền nơi cất chứng từ, tài sản"
+                                                tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+                                </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Danh sách chứng từ tài sản</h3>
+                    <hr/>
+                    <br />
+                    <p-table  [paginator]="true" [rows]="10">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Số hiệu</th>
+                                <th>Mô tả</th>
+                                <th>Nơi cất</th>
+                     
+                            </tr>
+                        </ng-template>
+                        <!-- <ng-template pTemplate="body" let-ghiNo>
+                            <tr>
+                                <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
+                                <td>{{ghiNo.nhanVienTen}}</td>
+                                <td>{{ghiNo.sotien}}</td>
+                                <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
+                            </tr>
+                        </ng-template> -->
+                    </p-table>
+                </div>
+            </div>
         </p-tabPanel>
     </p-tabView>
     <p-dialog modal="true" [(visible)]="dongTraNo">
