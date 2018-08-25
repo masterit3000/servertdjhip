@@ -105,6 +105,7 @@ public class NhatKyServiceImpl implements NhatKyService {
         nhatKyRepository.delete(id);
     }
 
+    @Override
     public List<NhatKyDTO> findAllByNoiDungorNhanVien(String key) {
         key = new StringBuffer("%").append(key).append("%").toString();
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
