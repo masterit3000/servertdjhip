@@ -88,6 +88,12 @@ public class NhatKyResource {
         log.debug("REST request to get all NhatKies");
         return nhatKyService.findAll();
         }
+    @GetMapping("/find-nhat-kies/{key}")
+    @Timed
+    public List<NhatKyDTO> getAllNhatKiesByNoiDungorNhanVien(@PathVariable String key) {
+        log.debug("REST request to get all NhatKies");
+        return nhatKyService.findAllByNoiDungorNhanVien(key);
+        }
 
     /**
      * GET  /nhat-kies/:id : get the "id" nhatKy.

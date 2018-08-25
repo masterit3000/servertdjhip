@@ -11,6 +11,7 @@ export class NhanVien implements BaseEntity {
         public ten?: string,
         public diachi?: string,
         public dienthoai?: string,
+        public userLogin?:string,
         public cmnd?: string,
         public trangthai?: TrangThaiNhanVien,
         public ngayTao?: any,

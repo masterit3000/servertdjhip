@@ -1,28 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { Principal } from '../../../../shared';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
+import { UserService, User } from '../../../../shared';
+import { NhanVienService, NhanVien } from '../../../nhan-vien';
 @Component({
-  selector: 'jhi-reset-matkhau',
-  templateUrl: './reset-matkhau.component.html',
-  styles: []
+    selector: 'jhi-reset-matkhau',
+    templateUrl: './reset-matkhau.component.html',
+    styles: []
 })
 export class ResetMatkhauComponent implements OnInit {
-  doNotMatch: string;
+    doNotMatch: string;
     error: string;
     success: string;
     account: any;
     password: string;
     confirmPassword: string;
+    nhanVien: NhanVien;
+    user: User;
+    private subscription: Subscription;
+    private eventSubscriber: Subscription;
 
     constructor(
-        private principal: Principal
-    ) {}
+        private eventManager: JhiEventManager,
+        private userService: UserService,
+        private nhanVienService: NhanVienService,
+
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit() {
-        this.principal.identity().then(account => {
-            this.account = account;
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params['id']);
         });
     }
+    load(id) {
+        this.nhanVienService.find(id)
+            .subscribe((nhanVienResponse: HttpResponse<NhanVien>) => {
+                this.nhanVien = nhanVienResponse.body;
 
-    
+                this.userService.find(this.nhanVien.userLogin)
+                    .subscribe((userResponse: HttpResponse<User>) => {
+                        this.user = userResponse.body;
+                    }
+                    );
+            });
+
+    }
+
+
 }

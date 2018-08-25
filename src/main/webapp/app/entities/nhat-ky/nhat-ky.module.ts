@@ -2,6 +2,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {TableModule} from 'primeng/table';
 import { ServertdjhipSharedModule } from '../../shared';
+import { TooltipModule } from 'primeng/tooltip';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { SpinnerModule } from 'primeng/spinner';
+import { InputTextModule } from 'primeng/inputtext';
 import {
     NhatKyService,
     NhatKyPopupService,
@@ -23,7 +27,9 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         ServertdjhipSharedModule,
+        TooltipModule,
         TableModule,
+        InputTextModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

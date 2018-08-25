@@ -21,10 +21,10 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h where h.id =:idhopdong")
     List<LichSuDongTien> findByHopDong(@Param(value = "idhopdong") long idhopdong);
 
-    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.ngaygiaodich between  ?3 and ?4 and l.trangthai=?1 and  h.loaihopdong =?2 and c.id =?5 order by l.ngaygiaodich ")
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.ngaygiaodich between  ?3 and ?4 and l.trangthai=?1 and  h.loaihopdong =?2 and c.id =?5 order by l.ngaygiaodich desc")
     List<LichSuDongTien> baocao(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long cuaHangid);
 
-    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c inner join h.nhanVien n where l.ngaygiaodich between  ?3 and ?4 and l.trangthai=?1 and  h.loaihopdong =?2 and c.id =?5 and n.id =?6 order by l.ngaygiaodich ")
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c inner join h.nhanVien n where l.ngaygiaodich between  ?3 and ?4 and l.trangthai=?1 and  h.loaihopdong =?2 and c.id =?5 and n.id =?6 order by l.ngaygiaodich desc ")
     List<LichSuDongTien> baocaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long cuaHangid, Long nhanVienid);
 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai= ?1 and h.id =?3")
@@ -39,13 +39,13 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     @Query(value = "select sum(l.sotien) from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai= ?1")
     Optional<Double> lichSuDongTien(DONGTIEN trangthai, Long idcuahang);
 
-    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) and c.id =?4 order by l.ngaygiaodich ")
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) and c.id =?4 order by l.ngayketthuc ")
     List<LichSuDongTien> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h  where l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) order by l.ngaygiaodich ")
     List<LichSuDongTien> lichSuTraChamAdmin(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai);
 
-    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (?3 between l.ngaybatdau and l.ngayketthuc ) and c.id =?4 order by l.ngaygiaodich ")
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (?3 between l.ngaybatdau and l.ngayketthuc ) and c.id =?4 order by l.ngaybatdau ")
     List<LichSuDongTien> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h  where l.trangthai =?1 and h.loaihopdong=?2 and (?3 between l.ngaybatdau and l.ngayketthuc )  order by l.ngaygiaodich ")

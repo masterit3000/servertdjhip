@@ -126,7 +126,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                         soChuKy++;
                     }
 
-                    long soTienTrongChuKy = Math.round(tienTrongChuKi * 1000) / 1000;//lam tron den 1000d
+                    long soTienTrongChuKy = Math.round(tienTrongChuKi / 1000) * 1000;//lam tron den 1000d
                     for (int i = 0; i < soChuKy - 1; i++) {
                         LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                         lichSuDongTienDTO.setHopDongId(hopdong.getId());
@@ -331,7 +331,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                         soChuKy++;
                     }
 
-                    long soTienTrongChuKy = Math.round(tienTrongChuKi * 1000) / 1000;//lam tron den 1000d
+                    long soTienTrongChuKy = Math.round(tienTrongChuKi / 1000) * 1000;//lam tron den 1000d
                     for (int i = 0; i < soChuKy - 1; i++) {
                         LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                         lichSuDongTienDTO.setHopDongId(hopdong.getId());

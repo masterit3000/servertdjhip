@@ -13,7 +13,8 @@ export type EntityResponseType = HttpResponse<NhatKy>;
 @Injectable()
 export class NhatKyService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/nhat-kies';
+    private resourceUrl = SERVER_API_URL + 'api/nhat-kies';
+    private findNhatKyUrl = SERVER_API_URL + 'api/find-nhat-kies';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -30,7 +31,7 @@ export class NhatKyService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<NhatKy>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<NhatKy>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -40,13 +41,18 @@ export class NhatKyService {
             .map((res: HttpResponse<NhatKy[]>) => this.convertArrayResponse(res));
     }
 
+    findNhatKy(key: any): Observable<HttpResponse<NhatKy[]>> {
+        return this.http.get<NhatKy[]>(`${this.findNhatKyUrl}/${key}`, { observe: 'response' })
+            .map((res: HttpResponse<NhatKy[]>) => this.convertArrayResponse(res));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: NhatKy = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<NhatKy[]>): HttpResponse<NhatKy[]> {
@@ -55,7 +61,7 @@ export class NhatKyService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

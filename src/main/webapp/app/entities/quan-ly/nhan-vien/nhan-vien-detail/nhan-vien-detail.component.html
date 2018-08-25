@@ -78,11 +78,7 @@
     <span class="fa fa-pencil"></span>&nbsp;
     <span>Chỉnh sửa</span>
   </button>
-  <button type="button"
-     class="btn btn-warning" routerLink="/resetMatkhau" routerLinkActive="active" >
-    <span class="fa fa-recycle"></span>&nbsp;
-    <span>Cài đặt mật khẩu</span>
-  </button>
+
   <p-tabView>
     <p-tabPanel header="Danh sách bát họ">
       <p-table [value]="batHos" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
@@ -155,6 +151,39 @@
           </tr>
         </ng-template>
       </p-table>
+    </p-tabPanel>
+    <p-tabPanel header="Reset Mật khẩu">
+      <div>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <h2 jhiTranslate="password.title" translateValues="{username: '{{account.login}}'}" *ngIf="account">Password for [<b>{{account.login}}</b>]</h2>
+            <div class="alert alert-success" *ngIf="success" jhiTranslate="password.messages.success">
+              <strong>Password changed!</strong>
+            </div>
+            <div class="alert alert-danger" *ngIf="error" jhiTranslate="password.messages.error">
+              <strong>An error has occurred!</strong> The password could not be changed.
+            </div>
+            <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+              The password and its confirmation do not match!
+            </div>
+            <form name="form" role="form" (ngSubmit)="changePassword()" #passwordForm="ngForm">
+              <div class="form-group">
+                <label class="form-control-label" for="password" jhiTranslate="global.form.newpassword">New password</label>
+                <input type="password" class="form-control" id="password" name="password" #passwordInput="ngModel" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                  [(ngModel)]="password" minlength=4 maxlength=50 required>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label" for="confirmPassword" jhiTranslate="global.form.confirmpassword">New password
+                  confirmation</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
+                  [(ngModel)]="confirmPassword" minlength=4 maxlength=50 required>
+              </div>
+              <button type="submit" [disabled]="passwordForm.form.invalid" class="btn btn-primary" jhiTranslate="password.form.button">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </p-tabPanel>
   </p-tabView>
 </div>

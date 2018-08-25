@@ -21,8 +21,6 @@ export class BatHoComponent implements OnInit, OnDestroy {
     none: any;
     keyTimBatHo: string;
     loaihopdong: any;
-    defauut:any;
-    dadong:any;
     constructor(
         private batHoService: BatHoService,
         private jhiAlertService: JhiAlertService,

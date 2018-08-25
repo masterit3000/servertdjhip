@@ -25,9 +25,9 @@ public class LichSuThaoTacHopDongDTO implements Serializable {
 
     private Long hopDongId;
     private String nhanVienTen;
-    @NotNull
+//    @NotNull
     private Double soTienGhiNo;
-    @NotNull
+//    @NotNull
     private Double soTienGhiCo;
     
     public Double getSoTienGhiNo() {

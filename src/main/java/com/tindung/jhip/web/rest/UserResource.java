@@ -212,6 +212,14 @@ public class UserResource {
         return userService.getAuthorities();
     }
 
+    @PostMapping("/change-pass-nv-users/{id}/{password}")
+    @Timed
+    @Secured({AuthoritiesConstants.ADMIN})
+    public ResponseEntity<Void> ChangePassById(@PathVariable(name = "id") Long id, @PathVariable(name = "password") String password) {
+        userService.changePasswordByAdmin(id, password);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("User password has been change!",null)).build();
+    }
+
     /**
      * GET /users/:login : get the "login" user.
      *
