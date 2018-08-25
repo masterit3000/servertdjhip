@@ -12,6 +12,7 @@ export type EntityResponseType = HttpResponse<TaiSan>;
 export class TaiSanService {
 
     private resourceUrl =  SERVER_API_URL + 'api/tai-sans';
+    private taisanUrl= SERVER_API_URL + 'api/tai-sans-by-hopdong';
 
     constructor(private http: HttpClient) { }
 
@@ -31,7 +32,13 @@ export class TaiSanService {
         return this.http.get<TaiSan>(`${this.resourceUrl}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
-
+    findByHopDong(id: number): Observable<HttpResponse<TaiSan[]>> {
+        return this.http
+            .get<TaiSan[]>(`${this.taisanUrl}/${id}`, { observe: 'response' })
+            .map((res: HttpResponse<TaiSan[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
     query(req?: any): Observable<HttpResponse<TaiSan[]>> {
         const options = createRequestOption(req);
         return this.http.get<TaiSan[]>(this.resourceUrl, { params: options, observe: 'response' })

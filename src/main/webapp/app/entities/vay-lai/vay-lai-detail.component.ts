@@ -23,6 +23,8 @@ import { TaiSan, TaiSanService } from '../tai-san';
     templateUrl: './vay-lai-detail.component.html'
 })
 export class VayLaiDetailComponent implements OnInit, OnDestroy {
+  
+ 
     vayLai: VayLai;
     vayLaiMoi: VayLai;
     lichSuDongTiensDaDong: LichSuDongTien[];
@@ -50,7 +52,8 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
     vayThemDialog: boolean = false;
     giaHanDialog: boolean = false;
     taiSan: TaiSan;
-    
+    taiSans: TaiSan[];
+
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -124,7 +127,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                            >
+                                >
                         ) => {
                             this.lichSuDongTiensDaDong =
                                 lichSuDongTienResponse.body;
@@ -149,7 +152,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                            >
+                                >
                         ) => {
                             this.lichSuDongTiensChuaDong =
                                 lichSuDongTienResponse.body;
@@ -192,7 +195,15 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                                     this.tienTra + ghiNoResponse.body[i].sotien;
                             }
                         }
-                    });
+                    }
+                );
+                this.taiSanService
+                    .findByHopDong(this.vayLai.hopdongvl.id)
+                    .subscribe((taiSanResponse: HttpResponse<TaiSan[]>) => {
+                       this.taiSans = taiSanResponse.body;
+                    }
+                );
+             
             });
     }
     previousState() {
@@ -282,16 +293,16 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
         }
     }
-    saveChungTu(){
+    saveChungTu() {
         this.isSaving = true;
         if (this.taiSan.id !== undefined) {
             this.taiSan.hopDongId = this.vayLai.hopdongvl.id;
-            this.subscribeToSaveResponse(
+            this.subscribeToSaveResponseTS(
                 this.taiSanService.update(this.taiSan));
         } else {
             this.taiSan.hopDongId = this.vayLai.hopdongvl.id;
-            this.subscribeToSaveResponse(
-            
+            this.subscribeToSaveResponseTS(
+
                 this.taiSanService.create(this.taiSan));
         }
     }
@@ -301,6 +312,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             (res: HttpErrorResponse) => this.onSaveError()
         );
     }
+   
 
     private onSaveSuccess(result: GhiNo) {
         this.eventManager.broadcast({
@@ -386,6 +398,24 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             (res: HttpResponse<VayLai>) => this.onSaveSuccessVL(res.body),
             (res: HttpErrorResponse) => this.onSaveError()
         );
+    }
+    private subscribeToSaveResponseTS(
+        result: Observable<HttpResponse<TaiSan>>
+    ) {
+        result.subscribe(
+            (res: HttpResponse<TaiSan>) => this.onSaveSuccessTS(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
+    }
+    private onSaveSuccessTS(result: TaiSan) {
+        this.eventManager.broadcast({
+            name: 'taiSanListModification',
+            content: 'OK'
+        });
+        this.isSaving = false;
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params['id']);
+        });
     }
     private onSaveSuccessVL(result: VayLai) {
         this.eventManager.broadcast({

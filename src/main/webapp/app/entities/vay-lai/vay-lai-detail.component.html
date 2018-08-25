@@ -472,7 +472,7 @@
                         <div class="col-md-12">
                             <h4>Danh sách chứng từ tài sản</h4>
                             <hr/>
-                            <p-table [paginator]="true" [rows]="10">
+                            <p-table [value]="taiSans" [paginator]="true" [rows]="10" dataKey="id">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>Số hiệu</th>
@@ -481,14 +481,13 @@
 
                                     </tr>
                                 </ng-template>
-                                <!-- <ng-template pTemplate="body" let-ghiNo>
+                                <ng-template pTemplate="body" let-taiSan>
                                         <tr>
-                                            <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
-                                            <td>{{ghiNo.nhanVienTen}}</td>
-                                            <td>{{ghiNo.sotien}}</td>
-                                            <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
+                                            <td>{{taiSan.sohieu}}</td>
+                                            <td>{{taiSan.mota}}</td>
+                                            <td>{{taiSan.noicat}}</td>
                                         </tr>
-                                    </ng-template> -->
+                                    </ng-template>
                             </p-table>
                         </div>
                     </div>
