@@ -24,7 +24,8 @@
             "nhanVien": "Nhân viên",
             "hopDong": "Hợp đồng",
             "DADONG": "Đã đóng",
-            "CHUADONG": "Chưa đóng"
+            "CHUADONG": "Chưa đóng",
+            "TRAGOC": "Trả gốc"
         }
     }
 }

@@ -21,7 +21,11 @@
             "thuchi": "Thuchi",
             "sotien": "Sotien",
             "cuaHang": "Cua Hang",
-            "nhanVien": "Nhan Vien"
+            "nhanVien": "Nhan Vien",
+            "THU":"Thu",
+            "CHI":"Chi",
+            "GOPVON":"Góp Vốn",
+            "RUTVON":"Rút Vốn"
         }
     }
 }
