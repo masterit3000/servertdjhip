@@ -15,6 +15,7 @@ export class NhatKyComponent implements OnInit, OnDestroy {
 nhatKies: NhatKy[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    keyTimNhatKy:any;
 
     constructor(
         private nhatKyService: NhatKyService,
@@ -53,5 +54,13 @@ nhatKies: NhatKy[];
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+    timNhatKy() {
+        this.nhatKyService.findNhatKy(this.keyTimNhatKy).subscribe(
+            (res: HttpResponse<NhatKy[]>) => {
+                this.nhatKies = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }

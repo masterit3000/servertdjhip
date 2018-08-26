@@ -130,7 +130,7 @@ public class BatHoServiceImpl implements BatHoService {
                         soChuKy++;
                     }
 
-                    long soTienTrongChuKy = Math.round((tongtien / soChuKy) * 1000) / 1000;//lam tron den 1000d
+                    long soTienTrongChuKy = Math.round((tongtien / soChuKy) / 1000) * 1000;//lam tron den 1000d
                     for (int i = 0; i < soChuKy - 1; i++) {
                         LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                         lichSuDongTienDTO.setHopDongId(hopdong.getId());
@@ -295,7 +295,7 @@ public class BatHoServiceImpl implements BatHoService {
                     soChuKy++;
                 }
 
-                long soTienTrongChuKy = Math.round((tongtien / soChuKy) * 1000) / 1000;//lam tron den 1000d
+                long soTienTrongChuKy = Math.round((tongtien / soChuKy) / 1000) * 1000;//lam tron den 1000d
                 for (int i = 0; i < soChuKy - 1; i++) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
@@ -317,6 +317,15 @@ public class BatHoServiceImpl implements BatHoService {
                 lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                 lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                 lichSuDongTienService.save(lichSuDongTienDTO);
+
+                LichSuThaoTacHopDongDTO lichSuThaoTacHopDong = new LichSuThaoTacHopDongDTO();
+                lichSuThaoTacHopDong.setHopDongId(hopdong.getId());
+                lichSuThaoTacHopDong.setNhanVienId(cuaHangService.findIDByUserLogin());
+                lichSuThaoTacHopDong.setSoTienGhiCo(0d);
+                lichSuThaoTacHopDong.setSoTienGhiNo(0d);
+                lichSuThaoTacHopDong.setThoigian(ZonedDateTime.now());
+                lichSuThaoTacHopDong.setNoidung("Đảo họ");
+                lichSuThaoTacHopDongService.save(lichSuThaoTacHopDong);
 
                 NhatKyDTO nhatKy = new NhatKyDTO();
                 if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
@@ -356,7 +365,7 @@ public class BatHoServiceImpl implements BatHoService {
             return collect;
         } else {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
-            LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDong(trangthai,idCuaHang).stream()
+            LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDong(trangthai, idCuaHang).stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
@@ -430,7 +439,7 @@ public class BatHoServiceImpl implements BatHoService {
             nhatKy.setThoiGian(ZonedDateTime.now());
             nhatKy.setNoiDung("Đóng tiền bát họ");
             nhatKyService.save(nhatKy);
-            
+
             return lichSuDongTienMapper.toDto(lichSuDongTien);
         }
         throw new BadRequestAlertException("không có quyền", null, null);

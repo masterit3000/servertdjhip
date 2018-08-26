@@ -1,10 +1,16 @@
 package com.tindung.jhip.service.impl;
 
+import com.tindung.jhip.domain.NhanVien;
 import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.domain.NhatKy;
+import com.tindung.jhip.repository.CuaHangRepository;
+import com.tindung.jhip.repository.NhanVienRepository;
 import com.tindung.jhip.repository.NhatKyRepository;
+import com.tindung.jhip.security.AuthoritiesConstants;
+import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.mapper.NhatKyMapper;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,9 +33,12 @@ public class NhatKyServiceImpl implements NhatKyService {
 
     private final NhatKyMapper nhatKyMapper;
 
-    public NhatKyServiceImpl(NhatKyRepository nhatKyRepository, NhatKyMapper nhatKyMapper) {
+    private final NhanVienRepository nhanVienRepository;
+
+    public NhatKyServiceImpl(NhatKyRepository nhatKyRepository, NhatKyMapper nhatKyMapper, NhanVienRepository nhanVienRepository) {
         this.nhatKyRepository = nhatKyRepository;
         this.nhatKyMapper = nhatKyMapper;
+        this.nhanVienRepository = nhanVienRepository;
     }
 
     /**
@@ -55,9 +64,20 @@ public class NhatKyServiceImpl implements NhatKyService {
     @Transactional(readOnly = true)
     public List<NhatKyDTO> findAll() {
         log.debug("Request to get all NhatKies");
-        return nhatKyRepository.findAll().stream()
-            .map(nhatKyMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            NhanVien nv = nhanVienRepository.findOneByUser(login).get();
+            return nhatKyRepository.findAllByCuaHang(nv.getCuaHang().getId()).stream()
+                    .map(nhatKyMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return nhatKyRepository.findAll().stream()
+                    .map(nhatKyMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 
     /**
@@ -83,5 +103,23 @@ public class NhatKyServiceImpl implements NhatKyService {
     public void delete(Long id) {
         log.debug("Request to delete NhatKy : {}", id);
         nhatKyRepository.delete(id);
+    }
+
+    @Override
+    public List<NhatKyDTO> findAllByNoiDungorNhanVien(String key) {
+        key = new StringBuffer("%").append(key).append("%").toString();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            NhanVien nv = nhanVienRepository.findOneByUser(login).get();
+            return nhatKyRepository.findAllByNoiDungorNhanVien(key,nv.getCuaHang().getId()).stream()
+                    .map(nhatKyMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return nhatKyRepository.findAllByNoiDungorNhanVienAdmin(key).stream()
+                    .map(nhatKyMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 }

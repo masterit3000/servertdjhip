@@ -9,7 +9,8 @@ import { BatHo } from '../../../bat-ho/bat-ho.model';
 import { BatHoService } from '../../../bat-ho/bat-ho.service';
 import { NhanVien } from '../../../nhan-vien/nhan-vien.model';
 import { NhanVienService } from '../../../nhan-vien/nhan-vien.service';
-import { Principal } from '../../../../shared';
+import { Principal, User, UserService } from '../../../../shared';
+import { PasswordService } from '../../../../account';
 
 @Component({
     selector: 'nhan-vien-detail-admin',
@@ -27,14 +28,26 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
     none: any;
     keyTimBatHo: string;
     keyTimVayLai: string;
+    user: User;
+    userService: UserService  ;
+    confirmPassword: string;
+    doNotMatch: string;
+    error: string;
+    keyMissing: boolean;
+    resetAccount: any;
+    success: string;
+    key: string;    
+    password: string;
     constructor(
         private eventManager: JhiEventManager,
         private nhanVienService: NhanVienService,
         private batHoService: BatHoService,
         private vayLaiService: VayLaiService,
+        private passwordService: PasswordService,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+      
     ) {}
 
     timBatHo() {
@@ -65,6 +78,11 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
             .find(id)
             .subscribe((nhanVienResponse: HttpResponse<NhanVien>) => {
                 this.nhanVien = nhanVienResponse.body;
+                this.userService.find(this.nhanVien.userLogin)
+                .subscribe((userResponse: HttpResponse<User>) => {
+                    this.user = userResponse.body;
+                }
+                );
             });
         this.batHoService.findByNhanVien(id).subscribe(
             (res: HttpResponse<BatHo[]>) => {
@@ -106,5 +124,25 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+    
+    changePassword() {
+        if (this.password !== this.confirmPassword) {
+            this.error = null;
+            this.success = null;
+            this.doNotMatch = 'ERROR';
+        } else {
+            this.doNotMatch = null;
+            this.passwordService.changPassById(this.nhanVien.userId,this.password).subscribe(
+                () => {
+                    this.error = null;
+                    this.success = 'OK';
+                },
+                () => {
+                    this.success = null;
+                    this.error = 'ERROR';
+                }
+            );
+        }
     }
 }

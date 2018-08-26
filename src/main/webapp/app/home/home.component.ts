@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
         );
     }
     loadHopDongBH() {
-        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DADONG,LOAIHOPDONG.BATHO).subscribe(
+        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DADONG, LOAIHOPDONG.BATHO).subscribe(
             (res: HttpResponse<HopDong[]>) => {
                 this.hopDongBHs = res.body;
             },
@@ -128,7 +128,7 @@ export class HomeComponent implements OnInit {
         );
     }
     loadHopDongVL() {
-        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DADONG,LOAIHOPDONG.VAYLAI).subscribe(
+        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DADONG, LOAIHOPDONG.VAYLAI).subscribe(
             (res: HttpResponse<HopDong[]>) => {
                 this.hopDongVLs = res.body;
             },
@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-    findBatHoByHopDong(id:number) {
+    findBatHoByHopDong(id: number) {
         this.batHoService.findByHopDong(id).subscribe(
             (res: HttpResponse<BatHo>) => {
                 this.batHo = res.body;
@@ -148,7 +148,7 @@ export class HomeComponent implements OnInit {
         );
 
     }
-    findVayLaiByHopDong(id:number) {
+    findVayLaiByHopDong(id: number) {
         this.vayLaiService.findByHopDong(id).subscribe(
             (res: HttpResponse<VayLai>) => {
                 this.vayLai = res.body;

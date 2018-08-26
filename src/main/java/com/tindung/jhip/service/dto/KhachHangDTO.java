@@ -18,6 +18,15 @@ public class KhachHangDTO implements Serializable {
     private String tenHuyen;
 
     private String tenXa;
+    private String userLogin;
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
 
     private Set<AnhKhachHangDTO> anhs;
 

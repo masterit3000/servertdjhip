@@ -37,4 +37,6 @@ public interface NhatKyService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    List<NhatKyDTO> findAllByNoiDungorNhanVien(String key);
 }

@@ -69,16 +69,21 @@ public class NhanVienServiceImpl implements NhanVienService {
             userRepository.save(findOne);
 
         }
-        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        NhanVien nv = nhanVienRepository.findOneByUser(login).get();
-        Long cuaHangid = nv.getCuaHang().getId();
+
         NhatKyDTO nhatKy = new NhatKyDTO();
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            NhanVien nv = nhanVienRepository.findOneByUser(login).get();
+            Long cuaHangid = nv.getCuaHang().getId();
             nhatKy.setCuaHangId(cuaHangid);
+            nhatKy.setNhanVienId(nv.getId());
         }
-        nhatKy.setNhanVienId(nv.getId());
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         nhatKy.setThoiGian(ZonedDateTime.now());
         nhatKy.setNoiDung("Thêm mới nhân viên");
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            nhatKy.setNoiDung("Thêm mới nhân viên- " + login);
+        }
         nhatKyService.save(nhatKy);
 
         return nhanVienMapper.toDto(nhanVien);

@@ -87,13 +87,14 @@ const routes: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'resetMatkhau', component: ResetMatkhauComponent,
+    path: 'resetMatkhau/:id', component: ResetMatkhauComponent,
     data: {
       authorities: ['ROLE_ADMIN','ROLE_STORE'],
       pageTitle: 'global.menu.account.password'
     },
     canActivate: [UserRouteAccessService]
   },
+
   {
     path: 'nhan-vien-admin/:id', component: NhanVienDetailAdminComponent,
     data: {
