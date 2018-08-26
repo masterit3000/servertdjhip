@@ -10,6 +10,8 @@ import { LichSuDongTien, DONGTIEN } from '../../../lich-su-dong-tien/lich-su-don
 import { LichSuThaoTacHopDong } from '../../../lich-su-thao-tac-hop-dong';
 import { LichSuDongTienService } from '../../../lich-su-dong-tien/lich-su-dong-tien.service';
 import { LichSuThaoTacHopDongService } from '../../../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
+import { TaiSanService, TaiSan } from '../../../tai-san';
+import { GhiNo, GhiNoService } from '../../../ghi-no';
 @Component({
     selector: 'bat-ho-detail-admin',
     templateUrl: './bat-ho-detail.component.html'
@@ -26,15 +28,27 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     dongHD: boolean = false;
+    taiSan: TaiSan;
+    taiSans: TaiSan[];
+    ghiNo: GhiNo;
+    ghiNos: GhiNo[];
+    tienNo: number;
+    tienTra: number;
+
 
     constructor(
         private eventManager: JhiEventManager,
         private batHoService: BatHoService,
+        private taiSanService: TaiSanService,
+        private ghiNoService: GhiNoService,
         private lichSuDongTienService: LichSuDongTienService,
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
         private route: ActivatedRoute,
+
         // private confirmationService: ConfirmationService
-    ) { }
+    ) {
+
+    }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
@@ -48,7 +62,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     hienDongHD() {
         this.dongHD = true;
     }
-    dongDongHD(){
+    dongDongHD() {
         this.dongHD = false;
     }
 
@@ -70,7 +84,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                            >
+                                >
                         ) => {
                             this.lichSuDongTiensDaDong =
                                 lichSuDongTienResponse.body;
@@ -95,7 +109,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                            >
+                                >
                         ) => {
                             this.lichSuDongTiensChuaDong =
                                 lichSuDongTienResponse.body;
@@ -115,6 +129,31 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                     .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
                         this.lichSuThaoTacHopDongs = batHoResponse.body;
                     });
+                this.ghiNoService
+                    .findByHopDong(this.batHo.hopdong.id)
+                    .subscribe((ghiNoResponse: HttpResponse<GhiNo[]>) => {
+                        this.ghiNos = ghiNoResponse.body;
+                        this.tienNo = 0;
+                        this.tienTra = 0;
+                        for (let i = 0; i < ghiNoResponse.body.length; i++) {
+                            if (
+                                ghiNoResponse.body[i].trangthai.toString() ==
+                                'NO'
+                            ) {
+                                this.tienNo =
+                                    this.tienNo + ghiNoResponse.body[i].sotien;
+                            } else {
+                                this.tienTra =
+                                    this.tienTra + ghiNoResponse.body[i].sotien;
+                            }
+                        }
+                    });
+                this.taiSanService
+                    .findByHopDong(this.batHo.hopdong.id)
+                    .subscribe((taiSanResponse: HttpResponse<TaiSan[]>) => {
+                        this.taiSans = taiSanResponse.body;
+                    }
+                    );
             });
     }
     previousState() {

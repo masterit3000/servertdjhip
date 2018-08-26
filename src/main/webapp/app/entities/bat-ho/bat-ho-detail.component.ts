@@ -52,6 +52,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
     soTienGhiCo: number;
     images: any[];
     taiSan: TaiSan;
+    taiSans: TaiSan[];
 
     constructor(
         private eventManager: JhiEventManager,
@@ -204,6 +205,12 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                             }
                         }
                     });
+                    this.taiSanService
+                    .findByHopDong(this.batHo.hopdong.id)
+                    .subscribe((taiSanResponse: HttpResponse<TaiSan[]>) => {
+                       this.taiSans = taiSanResponse.body;
+                    }
+                );
             });
     }
     previousState() {
@@ -298,11 +305,11 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.isSaving = true;
         if (this.taiSan.id !== undefined) {
             this.taiSan.hopDongId = this.batHo.hopdong.id;
-            this.subscribeToSaveResponse(
+            this.subscribeToSaveResponseTS(
                 this.taiSanService.update(this.taiSan));
         } else {
             this.taiSan.hopDongId = this.batHo.hopdong.id;
-            this.subscribeToSaveResponse(
+            this.subscribeToSaveResponseTS(
             
                 this.taiSanService.create(this.taiSan));
         }
@@ -395,6 +402,24 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             content: 'OK'
         });
         this.isSaving = false;
+    }
+    private subscribeToSaveResponseTS(
+        result: Observable<HttpResponse<TaiSan>>
+    ) {
+        result.subscribe(
+            (res: HttpResponse<TaiSan>) => this.onSaveSuccessTS(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
+    }
+    private onSaveSuccessTS(result: TaiSan) {
+        this.eventManager.broadcast({
+            name: 'taiSanListModification',
+            content: 'OK'
+        });
+        this.isSaving = false;
+        this.subscription = this.route.params.subscribe(params => {
+            this.load(params['id']);
+        });
     }
     // findHopDong() {
     //     this.batHoService.findByHopDong(this.batHo.hopdong.id)

@@ -84,4 +84,12 @@ public class TaiSanServiceImpl implements TaiSanService {
         log.debug("Request to delete TaiSan : {}", id);
         taiSanRepository.delete(id);
     }
+
+    @Override
+    public List<TaiSanDTO> findByHopDong(Long id) {
+     log.debug("Request to get all GhiNos by hopdong");
+
+        return taiSanRepository.findByHopDong(id).stream()
+                .map(taiSanMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));    }
 }

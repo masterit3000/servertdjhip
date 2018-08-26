@@ -109,6 +109,12 @@ public class TaiSanResource {
      * @param id the id of the taiSanDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
+       @GetMapping("/tai-sans-by-hopdong/{id}")
+    @Timed
+    public List<TaiSanDTO> getTaiSanByHopDong(@PathVariable Long id) {
+        log.debug("REST request to get all TaiSans");
+        return taiSanService.findByHopDong(id);
+    }
     @DeleteMapping("/tai-sans/{id}")
     @Timed
     public ResponseEntity<Void> deleteTaiSan(@PathVariable Long id) {
