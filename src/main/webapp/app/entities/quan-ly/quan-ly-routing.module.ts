@@ -12,7 +12,6 @@ import { NhanVienAdminComponent } from './nhan-vien/nhan-vien.component'
 import { NhanVienDetailAdminComponent } from './nhan-vien/nhan-vien-detail/nhan-vien-detail.component'
 import { ResetPasswordComponent } from './nhan-vien/nhan-vien-detail/reset-password/reset-password.component';
 import { UserRouteAccessService } from '../../shared';
-import { ResetMatkhauComponent } from './nhan-vien/reset-matkhau/reset-matkhau.component';
 
 const routes: Routes = [
   {
@@ -86,15 +85,6 @@ const routes: Routes = [
     },
     canActivate: [UserRouteAccessService]
   },
-  {
-    path: 'resetMatkhau/:id', component: ResetMatkhauComponent,
-    data: {
-      authorities: ['ROLE_ADMIN','ROLE_STORE'],
-      pageTitle: 'global.menu.account.password'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-
   {
     path: 'nhan-vien-admin/:id', component: NhanVienDetailAdminComponent,
     data: {
