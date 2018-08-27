@@ -127,7 +127,7 @@
                     <td>{{ghiNo.nhanVienTen}}</td>
                     <td>{{ghiNo.khachHangTen}}</td>
                     <td>{{ghiNo.sotien}}</td>
-                    <td>{{ghiNo.trangthai}}</td>
+                    <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
@@ -200,7 +200,7 @@
                     <td>{{batHo.khachHangTen}}</td>
                     <td>{{batHo.tienduakhach}}</td>
                     <td>
-                        <span>{{batHo.hopdong.trangthaihopdong}}</span>
+                        <span jhiTranslate="{{'servertdjhipApp.batHo.' + batHo.hopdong.trangthaihopdong}}">{{batHo.hopdong.trangthaihopdong}}</span>
                     </td>
                 </tr>
             </ng-template>
