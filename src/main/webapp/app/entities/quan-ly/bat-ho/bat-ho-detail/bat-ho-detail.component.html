@@ -4,9 +4,9 @@
   <hr>
 
   <div class="row justify-content-center">
-    <div class="col-md-6 offset-md-1">
+    <div class="col-md-4">
       <table class="table table-responsive">
-        <tbody>
+        <h3>
           <tr>
             <td rowspan="2">
               <span class="fa fa-address-card-o fa-4x text-primary"></span>
@@ -15,30 +15,19 @@
               <b>Khách hàng</b>:
               <a [routerLink]="['../../khach-hang-admin', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangTen}}</a>
             </td>
-            <td rowspan="6">&nbsp;</td>
-            <td rowspan="4">
-              <span class="fa fa-credit-card text-primary fa-5x"></span>
-            </td>
-            <td>
-              <b>Số tiền đưa khách</b>: {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}
-            </td>
           </tr>
           <tr>
             <td>
               <b>ID</b>:
               <a [routerLink]="['../../khach-hang-admin', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangId}}</a>
             </td>
-            <td>
-              <b>Tổng tiền phải đóng</b>: {{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}
-            </td>
           </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="text-success">
-              <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
+        </h3>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <table class="table table-responsive">
+        <h3>
           <tr>
             <td rowspan="3">
               <span class="fa fa-paypal fa-5x text-primary"></span>
@@ -60,11 +49,39 @@
               <b>Số nợ còn lại</b>: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
             </td>
           </tr>
-        </tbody>
+        </h3>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <table class="table table-responsive">
+        <h3>
+          <tr>
+            <td rowspan="4">
+              <span class="fa fa-credit-card text-primary fa-5x"></span>
+            </td>
+            <td>
+              <b>Số tiền đưa khách</b>: {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Tổng tiền phải đóng</b>: {{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-success">
+              <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-warning">
+              <b>Còn lại</b>: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
+            </td>
+          </tr>
+        </h3>
       </table>
     </div>
   </div>
-
   <button type="submit" (click)="previousState()" class="btn btn-info">
     <span class="fa fa-arrow-left"></span>&nbsp;
     <span> Quay lại</span>
@@ -160,7 +177,6 @@
     </p-tabPanel>
     <p-tabPanel header="Nợ">
       <div class="row justify-content-center">
-
         <div class="col-md-8">
           <h3>Lịch sử nợ</h3>
           <hr/>
