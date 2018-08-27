@@ -56,9 +56,9 @@ public class CuaHangServiceImpl implements CuaHangService {
         log.debug("Request to save CuaHang : {}", cuaHangDTO);
         CuaHang cuaHang = cuaHangMapper.toEntity(cuaHangDTO);
         NhatKyDTO nhatKy = new NhatKyDTO();
-        nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         nhatKy.setThoiGian(ZonedDateTime.now());
-        nhatKy.setNoiDung("Tạo mới cửa hàng");
+        nhatKy.setNoiDung("Tạo mới cửa hàng- "+login);
         nhatKyService.save(nhatKy);
         cuaHang = cuaHangRepository.save(cuaHang);
         return cuaHangMapper.toDto(cuaHang);

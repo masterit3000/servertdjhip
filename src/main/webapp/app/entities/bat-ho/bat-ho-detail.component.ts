@@ -367,6 +367,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 mahopdong
             )
         );
+        this.setSoTienLichSuThaoTac('Đảo họ', 0, 0);
         this.showDaoHo = true;
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {

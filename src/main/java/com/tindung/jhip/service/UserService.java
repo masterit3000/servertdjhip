@@ -10,6 +10,7 @@ import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.util.RandomUtil;
 import com.tindung.jhip.service.dto.UserDTO;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -283,11 +284,7 @@ public class UserService {
         return userRepository.findAllByNewsUser().stream().map(UserDTO::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public List<UserDTO> getActivedNewUsers() {
-        return userRepository.findAllActivedUser().stream().map(UserDTO::new).collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    public void resetPassword(Long id, String password) {
+    public void changePasswordByAdmin(Long id, String password) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             User user = userRepository.findById(id);
             String encryptedPassword = passwordEncoder.encode(password);
@@ -296,6 +293,6 @@ public class UserService {
             cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(user.getEmail());
             log.debug("Changed password for User: {}", user);
         }
+        throw new InternalServerErrorException("Khong co quyen");
     }
-
 }

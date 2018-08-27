@@ -46,6 +46,13 @@ export class UserService {
             observe: 'response'
         });
     }
+    activedUSer(req?: any): Observable<HttpResponse<User[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(this.resourceUrl + '/actived', {
+            params: options,
+            observe: 'response'
+        });
+    }
     delete(login: string): Observable<HttpResponse<any>> {
         return this.http.delete(`${this.resourceUrl}/${login}`, {
             observe: 'response'

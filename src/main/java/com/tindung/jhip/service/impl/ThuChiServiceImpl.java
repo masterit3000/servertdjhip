@@ -13,6 +13,7 @@ import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.dto.ThuChiDTO;
 import com.tindung.jhip.service.mapper.ThuChiMapper;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
+import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +71,8 @@ public class ThuChiServiceImpl implements ThuChiService {
                     if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
                         nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
                     }
+                    String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+
                     nhatKy.setNhanVienId(thuChiDTO.getNhanVienId());
                     nhatKy.setThoiGian(ZonedDateTime.now());
                     nhatKy.setNoiDung("Thêm mới thu chi");

@@ -49,9 +49,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.activated = false")
     List<User> findAllByNewsUser();
 
-    @Query("select u from User u where u.activated = true")
-    List<User> findAllActivedUser();
-
-    @Query("select u from User u where u.id =:id")
+    @Query("select u from User u where u.activated = true and u.id = ?1")
     User findById(Long id);
+
 }
