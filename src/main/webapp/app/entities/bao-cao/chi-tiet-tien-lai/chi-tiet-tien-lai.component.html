@@ -181,7 +181,7 @@
         <td>{{batHo.tongtien}}</td>
         <td>{{batHo.tienduakhach}}</td>
         <td>{{batHo.tongtien-batHo.tienduakhach}}</td>
-        <td>{{batHo.hopdong.trangthaihopdong}}</td>
+        <td jhiTranslate="{{'servertdjhipApp.batHo.' + batHo.hopdong.trangthaihopdong}}">{{batHo.hopdong.trangthaihopdong}}</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="footer">
@@ -246,7 +246,7 @@
         <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
         <td>{{lichSuDongTien.sotien}}</td>
 
-        <td>{{lichSuDongTien.trangthai}}</td>
+        <td jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="footer">

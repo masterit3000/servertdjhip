@@ -37,4 +37,5 @@ public interface TaiSanService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    List<TaiSanDTO> findByHopDong(Long id);
 }
