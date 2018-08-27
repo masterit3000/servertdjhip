@@ -46,7 +46,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-    
     @Query("select u from User u where u.activated = false")
-    List<User>  findAllByNewsUser();
+    List<User> findAllByNewsUser();
+
+    @Query("select u from User u where u.activated = true")
+    List<User> findAllActivedUser();
+
+    @Query("select u from User u where u.id =:id")
+    User findById(Long id);
 }

@@ -1,5 +1,6 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import com.tindung.jhip.service.dto.VayLaiDTO;
@@ -24,7 +25,7 @@ public interface VayLaiService {
      *
      * @return the list of entities
      */
-    List<VayLaiDTO> findAll();
+    List<VayLaiDTO> findAll(TRANGTHAIHOPDONG trangthai);
 
     /**
      * Get the "id" vayLai.

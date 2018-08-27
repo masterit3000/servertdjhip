@@ -35,6 +35,9 @@
             <td>
               <b>Bát họ</b>: {{batHo.tongtien |currency : 'VND' : true : '2.0-0'}}
             </td>
+            <td class="text-warning">
+              <b>Còn lại</b>: {{tienchuadong |currency : 'VND' : true : '1.0-0'}}
+            </td>
           </tr>
           <tr>
             <td>
@@ -87,7 +90,7 @@
     <p-tabPanel header="Lịch đóng tiền">
       <div class="row">
         <div class="col-md-6">
-          <p-table [value]="lichSuDongTiens" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
+          <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
             dataKey="id">
             <ng-template pTemplate="header">
               <tr>
@@ -129,7 +132,7 @@
           </p-table>
         </div>
         <div class="col-md-6">
-          <p-table [value]="lichSuDongTiens" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
+          <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
             dataKey="id">
             <ng-template pTemplate="header">
               <tr>

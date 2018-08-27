@@ -30,6 +30,9 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where c.id =?2 and l.trangthai= ?1 and h.id =?3")
     List<LichSuDongTien> findByTrangThai(DONGTIEN trangthai, Long idcuahang, Long idhopdong);
 
+    @Query(value = "select l from LichSuDongTien l inner join l.hopDong h where l.trangthai= ?1 and h.id =?2")
+    List<LichSuDongTien> findByTrangThaiAdmin(DONGTIEN trangthai, Long idhopdong);
+
     @Query(value = "select case when count(l) >0 then true else false end from LichSuDongTien l inner join l.hopDong h where h.id =:idhopdong and l.ngayketthuc < now() ")
     boolean kiemtra(@Param(value = "idhopdong") long idhopdong);
 

@@ -23,9 +23,10 @@ public interface BatHoService {
     /**
      * Get all the batHos.
      *
+     * @param trangthai
      * @return the list of entities
      */
-    List<BatHoDTO> findAll();
+    List<BatHoDTO> findAll(TRANGTHAIHOPDONG trangthai);
 
     /**
      * Get the "id" batHo.

@@ -25,6 +25,12 @@
             <span class="fa fa-search"></span>
             Tìm kiếm</button>
     </div>
+    <div class="ui-g-2">
+            <select class="form-control"  [(ngModel)]= "loaihopdong" (change)="loadAll()">
+                <option  [ngValue]="1" >Đang vay</option>
+                <option [ngValue]="2" >Đã đóng</option>
+            </select>
+        </div>
     <div class="table-responsive" *ngIf="batHos">
         <p-table [value]="batHos" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
