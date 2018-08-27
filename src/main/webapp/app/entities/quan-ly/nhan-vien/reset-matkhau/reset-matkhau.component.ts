@@ -30,6 +30,10 @@ export class ResetMatkhauComponent implements OnInit {
         private route: ActivatedRoute
     ) { }
 
+    changePassword(){
+        
+    }
+
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
