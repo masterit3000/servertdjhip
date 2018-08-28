@@ -9,6 +9,7 @@ import { VayLai, VayLaiService } from '../../vay-lai';
 import { JhiEventManager, JhiAlertService } from '../../../../../../../node_modules/ng-jhipster';
 import { Principal } from '../../../shared';
 import { HttpResponse, HttpErrorResponse } from '../../../../../../../node_modules/@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-thu-tien-vay-lai',
@@ -55,6 +56,7 @@ export class ThuTienVayLaiComponent implements OnInit {
     private hopDongService: HopDongService,
     private lichSuDongTienService: LichSuDongTienService,
     private ghiNoService: GhiNoService,
+    private router: Router,
     private jhiAlertService: JhiAlertService,
     private eventManager: JhiEventManager,
     private principal: Principal
@@ -313,6 +315,15 @@ export class ThuTienVayLaiComponent implements OnInit {
       (res: HttpErrorResponse) => this.onError(res.message)
     );
   }
+  findVayLaiByHopDong(id: number) {
+    this.vayLaiService.findByHopDong(id).subscribe(
+        (res: HttpResponse<VayLai>) => {
+            this.vayLai = res.body;
+            this.router.navigate(['/vay-lai', this.vayLai.id]);
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+    );
+}
 
 
 }

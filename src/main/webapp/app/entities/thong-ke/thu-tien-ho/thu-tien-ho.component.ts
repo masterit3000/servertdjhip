@@ -11,6 +11,7 @@ import { LichSuDongTien, DONGTIEN } from '../../lich-su-dong-tien/lich-su-dong-t
 import { LichSuDongTienService } from '../../lich-su-dong-tien/lich-su-dong-tien.service';
 import { Principal } from '../../../shared';
 import { GhiNo, GhiNoService } from '../../ghi-no';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-thu-tien-ho',
@@ -19,6 +20,7 @@ import { GhiNo, GhiNoService } from '../../ghi-no';
 })
 export class  ThuTienHoComponent implements OnInit {
   batHos: BatHo[];
+  batHo: BatHo;
   selected: BatHo;
   tungay: Date;
   denngay: Date;
@@ -58,6 +60,7 @@ export class  ThuTienHoComponent implements OnInit {
     private vayLaiService: VayLaiService,
     private hopDongService: HopDongService,
     private lichSuDongTienService: LichSuDongTienService,
+    private router: Router,
     private ghiNoService: GhiNoService,
     private jhiAlertService: JhiAlertService,
     private eventManager: JhiEventManager,
@@ -255,6 +258,15 @@ export class  ThuTienHoComponent implements OnInit {
   private onError(error) {
     this.jhiAlertService.error(error.message, null, null);
   }
+  findBatHoByHopDong(id: number) {
+    this.batHoService.findByHopDong(id).subscribe(
+        (res: HttpResponse<BatHo>) => {
+            this.batHo = res.body;
+            this.router.navigate(['/bat-ho', this.batHo.id]);
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+    );
+}
 
 
 }

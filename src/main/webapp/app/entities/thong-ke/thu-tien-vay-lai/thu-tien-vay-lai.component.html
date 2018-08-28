@@ -63,12 +63,12 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-lichSuDongTien>
-                <tr>
+                <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                     <td>{{lichSuDongTien.mahopdong}}</td>
                     <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
-                    <td>{{lichSuDongTien.sotien}}</td>
+                    <td>{{lichSuDongTien.sotien  |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>
                         <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                     </td>
@@ -80,7 +80,7 @@
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienVL}}</span>
+                        <span style="color:red">{{tongTienVL  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -118,12 +118,12 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-ghiNo>
-                <tr>
+                <tr (click)="findVayLaiByHopDong(ghiNo.hopDongId)">
                     <td>{{ghiNo.id}}</td>
                     <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                     <td>{{ghiNo.nhanVienTen}}</td>
                     <td>{{ghiNo.khachHangTen}}</td>
-                    <td>{{ghiNo.sotien}}</td>
+                    <td>{{ghiNo.sotien  |currency : 'VND' : true : '1.0-0'}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                 </tr>
             </ng-template>
@@ -133,7 +133,7 @@
                         <strong>Tổng nợ </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienNoVl}}</span>
+                        <span style="color:red">{{tongTienNoVl  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -142,7 +142,7 @@
                         <strong>Tổng trả </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraVl}}</span>
+                        <span style="color:red">{{tongTienTraVl  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -151,7 +151,7 @@
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraVl-tongTienNoVl}}</span>
+                        <span style="color:red">{{tongTienTraVl-tongTienNoVl  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -189,12 +189,12 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-vayLai>
-                <tr>
+                <tr (click)="findVayLaiByHopDong(vayLai.hopdong.id)">
                     <td>{{vayLai.hopdongvl.mahopdong}}</td>
                     <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <td>{{vayLai.nhanVienTen}}</td>
                     <td>{{vayLai.khachHangTen}}</td>
-                    <td>{{vayLai.tienvay}}</td>
+                    <td>{{vayLai.tienvay  |currency : 'VND' : true : '1.0-0'}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.vayLai.' + vayLai.hopdongvl.trangthaihopdong}}">{{vayLai.hopdongvl.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
@@ -204,8 +204,9 @@
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienVLThemBot}}</span>
+                        <span style="color:red">{{tongTienVLThemBot |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
+                    <td></td>
                 </tr>
 
             </ng-template>
@@ -241,13 +242,13 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-lichSuDongTien>
-                <tr>
+                <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                     <td>{{lichSuDongTien.mahopdong}}</td>
                     <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
 
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
-                    <td>{{lichSuDongTien.sotien}}</td>
+                    <td>{{lichSuDongTien.sotien  |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>
                         <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                     </td>
@@ -259,7 +260,7 @@
                         <strong>Tổng</strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraGoc}}</span>
+                        <span style="color:red">{{tongTienTraGoc |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
 
                     <td></td>
@@ -298,12 +299,12 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-vayLai>
-                <tr>
+                <tr  (click)="findVayLaiByHopDong(vayLai.hopdongvl.id)">
                     <td>{{vayLai.hopdongvl.mahopdong}}</td>
                     <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <td>{{vayLai.nhanVienTen}}</td>
                     <td>{{vayLai.khachHangTen}}</td>
-                    <td>{{vayLai.tienvay}}</td>
+                    <td>{{vayLai.tienvay  |currency : 'VND' : true : '1.0-0'}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.vayLai.' + vayLai.hopdongvl.trangthaihopdong}}">{{vayLai.hopdongvl.trangthaihopdong}}</td>
                 </tr>
             </ng-template>
@@ -313,7 +314,7 @@
                         <strong>Tổng tiền </strong>
                     </td>
                     <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienVLs}}</span>
+                        <span style="color:red">{{tongTienVLs |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
