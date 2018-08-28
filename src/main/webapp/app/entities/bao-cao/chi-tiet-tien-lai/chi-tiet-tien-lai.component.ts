@@ -53,6 +53,7 @@ export class ChiTietTienLaiComponent implements OnInit {
     vayLai: VayLai;
     vayLais: VayLai[];
     selectedNhanVien: NhanVien;
+    default:NhanVien;
     constructor(
         private nhanVienService: NhanVienService,
         private batHoService: BatHoService,
@@ -64,11 +65,12 @@ export class ChiTietTienLaiComponent implements OnInit {
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {
-        this.selectedNhanVien = new NhanVien();
+        this.selectedNhanVien = this.default;
         this.tongTienBHs = 0;
         this.tongTienVL = 0;
         this.tongTienTienBatHo = 0;
         this.tongTienLaiBatHo = 0;
+
     }
 
     ngOnInit() {
@@ -81,7 +83,7 @@ export class ChiTietTienLaiComponent implements OnInit {
         this.tongTienVL = 0;
         this.tongTienTienBatHo = 0;
         this.tongTienLaiBatHo = 0;
-        if (this.selectedNhanVien == 1) {
+        if (this.selectedNhanVien == this.default) {
             this.batHoService
                 .findByTrangThai(
                     this.tungay,

@@ -8,40 +8,38 @@
   <div class="widget-header" style="padding-top:15px">
     <div class="row">
       <div class="col-md-3">
-        <div class="row">
-          <label class="col-md-4 control-label">
-            Nhân Viên
-          </label>
-          <div class="col-md-8 form-group">
-            <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
-              <option selected [ngValue]=1>Tất cả nhân viên</option>
-              <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
-            </select>
+          <div class="row">
+              <label class="col-md-4 control-label">
+                  Nhân Viên
+              </label>
+              <div class="col-md-8 form-group">
+                  <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
+                  <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
+                      <option [ngValue]="default">Tất cả nhân viên</option>
+                      <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
+                  </select>
+              </div>
           </div>
-        </div>
       </div>
       <div class="col-md-4">
-        <label>Từ Ngày</label>
-        <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+          <label>Từ Ngày</label>
+          <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
       </div>
       <div class="col-md-5">
-        <label>Đến Ngày</label>
-        <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
-        <button class="btn btn-info pull-right" (click)="timKiem()">
-          <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
+          <label>Đến Ngày</label>
+          <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+          <button class="btn btn-info pull-right" (click)="timKiem()">
+              <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
       </div>
-    </div>
+  </div>
   </div>
   <div class="table-responsive" style="padding-top: 50px">
     <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="9" class="bg-primary text-white text-center">Báo cáo thu lãi bát họ</th>
+          <th colspan="8" class="bg-primary text-white text-center">Báo cáo thu lãi bát họ</th>
         </tr>
         <tr>
-          <th>
-            <span jhiTranslate="global.field.id">#</span>
-          </th>
           <th>
             <span>Mã HĐ</span>
           </th>
@@ -71,7 +69,6 @@
       <!-- Code backend lấy dữ liệu body -->
       <ng-template pTemplate="body" let-batHo>
         <tr>
-          <td></td>
           <td>{{batHo.hopdong.mahopdong}}</td>
           <td>{{batHo.khachHangTen}}</td>
           <td>{{batHo.nhanVienTen}}</td>
@@ -84,7 +81,7 @@
       </ng-template>
       <ng-template pTemplate="footer">
         <tr class="text-right">
-          <td style="color:red;background-color:#ECECEC" colspan="5">
+          <td style="color:red;background-color:#ECECEC" colspan="4">
             <strong>Tổng</strong>
           </td>
           <td style="background-color:#ECECEC">
@@ -105,12 +102,9 @@
     <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="7" class="bg-primary text-white text-center">Báo cáo thu lãi vay lãi </th>
+          <th colspan="6" class="bg-primary text-white text-center">Báo cáo thu lãi vay lãi </th>
         </tr>
         <tr>
-          <th>
-            <span jhiTranslate="global.field.id">#</span>
-          </th>
           <th>
             <span>Mã HĐ</span>
           </th>
@@ -134,9 +128,7 @@
       <!-- Code backend lấy dữ liệu body -->
       <ng-template pTemplate="body" let-lichSuDongTien>
         <tr>
-          <td></td>
-          <td></td>
-          <!-- <td>{{lichSuDongTien.mahopdong}}</td> -->
+          <td>{{lichSuDongTien.mahopdong}}</td>
           <td>{{lichSuDongTien.khachHangTen}}</td>
           <td>{{lichSuDongTien.nhanVienTen}}</td>
           <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
@@ -146,7 +138,7 @@
       </ng-template>
       <ng-template pTemplate="footer">
         <tr class="text-right">
-          <td style="color:red;background-color:#ECECEC" colspan="5">
+          <td style="color:red;background-color:#ECECEC" colspan="4">
             <strong>Tổng</strong>
           </td>
           <td style="background-color:#ECECEC">
