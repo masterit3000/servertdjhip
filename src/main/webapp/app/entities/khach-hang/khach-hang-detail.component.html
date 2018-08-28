@@ -3,77 +3,84 @@
         <span jhiTranslate="servertdjhipApp.khachHang.detail.title">Khach Hang</span> {{khachHang.ten}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-
     <div class="row justify-content-center">
-        <div class="col-md-6 offset-md-1">
-            <table class="table table-responsive">
-                <tbody>
-                    <tr>
-                        <td rowspan="4">
-                            <span class="fa fa-address-card-o fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Tên khách hàng</b>: {{khachHang.ten}}
-                        </td>
-                        <td rowspan="4"></td>
-                        <td rowspan="3">
-                            <span class="fa fa-share-alt fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <span class="fa fa-envelope-o text-primary"></span>: {{khachHang.email}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>ID</b>: {{khachHang.id}}
-                        </td>
-                        <td>
-                            <span class="fa fa-facebook-square text-primary"></span>: {{khachHang.facebook}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Số chứng minh thư</b>: {{khachHang.cmnd}}
-                        </td>
-                        <td>
-                            <b>Trạng thái</b>:
-                            <span jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="fa fa-phone text-primary"></span>: {{khachHang.dienthoai}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            <span class="fa fa-map-marker fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Địa chỉ</b>: {{khachHang.diachi}}
-                        </td>
-                        <td rowspan="3">&nbsp;</td>
-                        <td rowspan="2">
-                            <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
-                            <br/>Ghi chú
-                        </td>
-                        <td rowspan="2">
-                            <span>{{khachHang.ghiChu}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{khachHang.tenTinh}} - {{khachHang.tenHuyen}} - {{khachHang.tenXa}}
-                        </td>
-                    </tr>
-                </tbody>
+        <div class="col-md-4">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="4">
+                        <span class="fa fa-address-card-o fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Tên khách hàng</b>: {{khachHang.ten}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>ID</b>: {{khachHang.id}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Số chứng minh thư</b>: {{khachHang.cmnd}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="fa fa-phone text-primary"></span>: {{khachHang.dienthoai}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="3">
+                        <span class="fa fa-share-alt fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <span class="fa fa-envelope-o text-primary"></span>: {{khachHang.email}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="fa fa-facebook-square text-primary"></span>: {{khachHang.facebook}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Trạng thái</b>:
+                        <span jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-map-marker fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Địa chỉ</b>: {{khachHang.diachi}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{khachHang.tenTinh}} - {{khachHang.tenHuyen}} - {{khachHang.tenXa}}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
+                        <br/>Ghi chú
+                    </td>
+                    <td rowspan="2">
+                        <span>{{khachHang.ghiChu}}</span>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
-
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>

@@ -5,80 +5,71 @@
 
   <div class="row justify-content-center">
     <div class="col-md-4">
-      <table class="table table-responsive">
-        <h3>
-          <tr>
-            <td rowspan="2">
-              <span class="fa fa-address-card-o fa-4x text-primary"></span>
-            </td>
-            <td>
-              <b>Khách hàng</b>:
-              <a [routerLink]="['../../khach-hang-admin', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangTen}}</a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <b>ID</b>:
-              <a [routerLink]="['../../khach-hang-admin', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangId}}</a>
-            </td>
-          </tr>
-        </h3>
+      <table class="table table-responsive h4">
+        <tr>
+          <td rowspan="2">
+            <span class="fa fa-address-card-o fa-4x text-primary"></span>
+          </td>
+          <td>
+            <b>Khách hàng</b>:
+            <a [routerLink]="['../../khach-hang-admin', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangTen}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>ID</b>:
+            <a [routerLink]="['../../khach-hang-admin', batHo.hopdong.khachHangId ]">{{batHo.hopdong.khachHangId}}</a>
+          </td>
+        </tr>
       </table>
     </div>
     <div class="col-md-4">
-      <table class="table table-responsive">
-        <h3>
-          <tr>
-            <td rowspan="3">
-              <span class="fa fa-paypal fa-5x text-primary"></span>
-            </td>
-            <td>
-              <b>Bát họ</b>: {{batHo.tongtien |currency : 'VND' : true : '2.0-0'}}
-            </td>
-            <td class="text-warning">
-              <b>Còn lại</b>: {{tienchuadong |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <b>Họ từ ngày</b>: {{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}
-            </td>
-          </tr>
-          <tr>
-            <td class="text-danger">
-              <b>Số nợ còn lại</b>: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
-        </h3>
+      <table class="table table-responsive h4">
+        <tr>
+          <td rowspan="3">
+            <span class="fa fa-paypal fa-5x text-primary"></span>
+          </td>
+          <td>
+            <b>Bát họ</b>: {{batHo.tongtien |currency : 'VND' : true : '2.0-0'}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Họ từ ngày</b>: {{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-danger">
+            <b>Số nợ còn lại</b>: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
+          </td>
+        </tr>
       </table>
     </div>
     <div class="col-md-4">
-      <table class="table table-responsive">
-        <h3>
-          <tr>
-            <td rowspan="4">
-              <span class="fa fa-credit-card text-primary fa-5x"></span>
-            </td>
-            <td>
-              <b>Số tiền đưa khách</b>: {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <b>Tổng tiền phải đóng</b>: {{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
-          <tr>
-            <td class="text-success">
-              <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
-          <tr>
-            <td class="text-warning">
-              <b>Còn lại</b>: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
-            </td>
-          </tr>
-        </h3>
+      <table class="table table-responsive h4">
+        <tr>
+          <td rowspan="4">
+            <span class="fa fa-credit-card text-primary fa-5x"></span>
+          </td>
+          <td>
+            <b>Số tiền đưa khách</b>: {{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Tổng tiền phải đóng</b>: {{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-success">
+            <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
+          </td>
+        </tr>
+        <tr>
+          <td class="text-warning">
+            <b>Còn lại</b>: {{batHo.tongtien-tiendadong |currency : 'VND' : true : '1.0-0'}}
+          </td>
+        </tr>
       </table>
     </div>
   </div>
@@ -204,30 +195,30 @@
     </p-tabPanel>
     <p-tabPanel header="Lịch sử">
       <div class="row">
-          <div class="col-md-12">
-              <h3>Lịch sử thao tác</h3>
-              <br />
-              <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
-                  <ng-template pTemplate="header">
-                      <th>Ngày</th>
-                      <th>Nhân viên</th>
-                      <th>Số tiền ghi nợ</th>
-                      <th>Số tiền ghi trả</th>
-                      <th>Nội dung</th>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
-                      <tr [pSelectableRow]="lichSuThaoTacHopDong">
-                          <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
-                          <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
-                          <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
-                          <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
-                          <td>{{lichSuThaoTacHopDong.noidung}}</td>
-                      </tr>
-                  </ng-template>
-                  </table>
-          </div>
+        <div class="col-md-12">
+          <h3>Lịch sử thao tác</h3>
+          <br />
+          <p-table [value]="lichSuThaoTacHopDongs" [paginator]="true" [rows]="5" dataKey="id">
+            <ng-template pTemplate="header">
+              <th>Ngày</th>
+              <th>Nhân viên</th>
+              <th>Số tiền ghi nợ</th>
+              <th>Số tiền ghi trả</th>
+              <th>Nội dung</th>
+            </ng-template>
+            <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
+              <tr [pSelectableRow]="lichSuThaoTacHopDong">
+                <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
+                <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
+                <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
+                <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
+                <td>{{lichSuThaoTacHopDong.noidung}}</td>
+              </tr>
+            </ng-template>
+            </table>
+        </div>
       </div>
-  </p-tabPanel>
+    </p-tabPanel>
     <p-tabPanel header="Chứng từ">
       <div class="row justify-content-center">
         <div class="col-md-8">

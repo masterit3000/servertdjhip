@@ -4,79 +4,65 @@
     </h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <div class="row">
-        <div class="col-md-6 offset-md-4">
-            <table class="table table-responsive">
-                <tbody>
-                    <tr>
-                        <td rowspan="3">
-                            <span class="fa fa-bank fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Tên cửa hàng</b>: {{cuaHang.ten}}
-                        </td>
-                        <td rowspan="3">&nbsp;</td>
-                        <td rowspan="3">
-                            <span class="fa fa-cogs fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Trạng thái</b>: {{cuaHang.trangthai}}
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="fa fa-user text-primary"></span>
-                            <b>Quản lý hiện tại</b>: 
-                        </td>
-                        <td rowspan="2">
-                            <span class="fa fa-user text-primary"></span>
-                            <b>Ngày tạo</b>: {{cuaHang.ngayTao | date:"dd/MM/yyyy"}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="fa fa-phone text-primary"></span>: {{cuaHang.dienthoai}}
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            <span class="fa fa-map-marker fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Địa chỉ</b>: {{cuaHang.diachi}}
-                        </td>
-                        <td rowspan="3">&nbsp;</td>
-                        <td rowspan="2">
-                            <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
-                            <br/>Ghi chú
-                            {{cuaHang.ghiChu}}
-                        </td>
-                        <td rowspan="2">
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                </tbody>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-bank fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Tên cửa hàng</b>: {{cuaHang.ten}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="fa fa-phone text-primary"></span>: {{cuaHang.dienthoai}}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-cogs fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Trạng thái</b>:
+                        <span jhiTranslate="{{'servertdjhipApp.TrangThaiCuaHang.' + cuaHang.trangthai}}">{{cuaHang.trangthai}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Ngày tạo</b>: {{cuaHang.ngayTao | date:"dd/MM/yyyy"}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-map-marker fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Địa chỉ</b>: {{cuaHang.diachi}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{cuaHang.tenTinh}} - {{cuaHang.tenHuyen}} - {{cuaHang.tenXa}}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-pencil-square-o text-primary fa-4x"></span>
+                        <br/>Ghi chú
+                    </td>
+                    <td rowspan="2">
+                        {{cuaHang.ghiChu}}
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
-
-    <!-- <button type="submit" (click)="previousState()" class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;
-        <span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-    <button type="button" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
-        class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;
-        <span jhiTranslate="entity.action.edit"> Edit</span>
-    </button> -->
     <button type="submit" (click)="previousState()" class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span jhiTranslate="entity.action.back"> Back</span>

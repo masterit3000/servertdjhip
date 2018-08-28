@@ -3,83 +3,93 @@
         <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-
     <div class="row justify-content-center">
-        <div class="col-md-6 offset-md-1">
-            <table class="table table-responsive">
-                <tbody>
-                    <tr>
-                        <td rowspan="4">
-                            <span class="fa fa-paypal fa-5x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Tiền vay</b>: {{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}
-                        </td>
-                        <td rowspan="4">
-                            &nbsp;
-                        </td>
-                        <td rowspan="4">
-                            <span class="fa fa-credit-card text-primary fa-5x"></span>
-                        </td>
-                        <td>
-                            <b>Tổng lãi</b>: {{tienchuadong + tiendadong |currency : 'VND' : true : '1.0-0'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Ngày vay</b>: {{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}
-                        </td>
-                        <td>
-                            <b>Lãi</b>: {{vayLai.lai |currency : 'VND' : true : '1.0-0'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Số ngày vay</b>: {{vayLai.thoigianvay}}
-                        </td>
-                        <td>
-                            <b>Cách tính lãi</b>:
-                            <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-danger">
-                            <b>Số nợ còn lại</b>: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
-                        </td>
-                        <td>
-                            <b>Hình thức lãi</b>:
-                            <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">
-                            <span class="fa fa-address-card-o fa-4x text-primary"></span>
-                        </td>
-                        <td>
-                            <b>Khách hàng</b>:
-                            <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangTen}}</a>
-                        </td>
-                        <td rowspan="2">&nbsp;</td>
-                        <td rowspan="2">
-                            <span class="fa fa-refresh text-primary fa-5x"></span>
-                        </td>
-                        <td class="text-success">
-                            <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>ID</b>:
-                            <a [routerLink]="['../../khach-hang', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
-                        </td>
-                        <td class="text-warning">
-                            <b>Còn lại</b>: {{tonglai - tiendadong |currency : 'VND' : true : '1.0-0'}}
-                        </td>
-                    </tr>
-                </tbody>
+        <div class="col-md-4">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-address-card-o fa-4x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Khách hàng</b>:
+                        <a [routerLink]="['../../khach-hang-admin', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangTen}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>ID</b>:
+                        <a [routerLink]="['../../khach-hang-admin', vayLai.hopdongvl.khachHangId ]">{{vayLai.hopdongvl.khachHangId}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <span class="fa fa-refresh text-primary fa-5x"></span>
+                    </td>
+                    <td class="text-success">
+                        <b>Đã đóng</b>: {{tiendadong |currency : 'VND' : true : '1.0-0'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-warning">
+                        <b>Còn lại</b>: {{tienchuadong|currency : 'VND' : true : '1.0-0'}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="4">
+                        <span class="fa fa-paypal fa-5x text-primary"></span>
+                    </td>
+                    <td>
+                        <b>Tiền vay</b>: {{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Ngày vay</b>: {{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Số ngày vay</b>: {{vayLai.thoigianvay}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-danger">
+                        <b>Số nợ còn lại</b>: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-responsive h4">
+                <tr>
+                    <td rowspan="4">
+                        <span class="fa fa-credit-card text-primary fa-5x"></span>
+                    </td>
+                    <td>
+                        <b>Tổng lãi: </b>: {{tienchuadong + tiendadong |currency : 'VND' : true : '1.0-0'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Lãi</b>: {{vayLai.lai |currency : 'VND' : true : '1.0-0'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Cách tính lãi</b>:
+                        <span jhiTranslate="{{'servertdjhipApp.TINHLAI.' + vayLai.cachtinhlai}}">{{vayLai.cachtinhlai}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Hình thức lãi</b>:
+                        <span jhiTranslate="{{'servertdjhipApp.HINHTHUCLAI.' + vayLai.hinhthuclai}}">{{vayLai.hinhthuclai}}</span>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -482,12 +492,12 @@
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-taiSan>
-                                        <tr>
-                                            <td>{{taiSan.sohieu}}</td>
-                                            <td>{{taiSan.mota}}</td>
-                                            <td>{{taiSan.noicat}}</td>
-                                        </tr>
-                                    </ng-template>
+                                    <tr>
+                                        <td>{{taiSan.sohieu}}</td>
+                                        <td>{{taiSan.mota}}</td>
+                                        <td>{{taiSan.noicat}}</td>
+                                    </tr>
+                                </ng-template>
                             </p-table>
                         </div>
                     </div>
