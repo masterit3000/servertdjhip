@@ -68,7 +68,7 @@
       </ng-template>
       <!-- Code backend lấy dữ liệu body -->
       <ng-template pTemplate="body" let-batHo>
-        <tr>
+        <tr (click)="findBatHoByHopDong(batHo.hopdong.id)">
           <td>{{batHo.hopdong.mahopdong}}</td>
           <td>{{batHo.khachHangTen}}</td>
           <td>{{batHo.nhanVienTen}}</td>
@@ -127,7 +127,7 @@
       </ng-template>
       <!-- Code backend lấy dữ liệu body -->
       <ng-template pTemplate="body" let-lichSuDongTien>
-        <tr>
+        <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
           <td>{{lichSuDongTien.mahopdong}}</td>
           <td>{{lichSuDongTien.khachHangTen}}</td>
           <td>{{lichSuDongTien.nhanVienTen}}</td>

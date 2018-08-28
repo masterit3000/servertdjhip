@@ -18,6 +18,7 @@ import {
 import { LichSuDongTienService } from '../../lich-su-dong-tien/lich-su-dong-tien.service';
 import { Principal } from '../../../shared';
 import { GhiNo, GhiNoService } from '../../ghi-no';
+import { Router } from '@angular/router';
 @Component({
     selector: 'jhi-chi-tiet-tien-lai',
     templateUrl: './chi-tiet-tien-lai.component.html',
@@ -25,6 +26,7 @@ import { GhiNo, GhiNoService } from '../../ghi-no';
 })
 export class ChiTietTienLaiComponent implements OnInit {
     batHos: BatHo[];
+    batHo:BatHo;
     selected: BatHo;
     tungay: Date;
     denngay: Date;
@@ -63,6 +65,7 @@ export class ChiTietTienLaiComponent implements OnInit {
         private ghiNoService: GhiNoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
+        private router: Router,
         private principal: Principal
     ) {
         this.selectedNhanVien = this.default;
@@ -208,5 +211,23 @@ export class ChiTietTienLaiComponent implements OnInit {
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+    findBatHoByHopDong(id: number) {
+        this.batHoService.findByHopDong(id).subscribe(
+            (res: HttpResponse<BatHo>) => {
+                this.batHo = res.body;
+                this.router.navigate(['/bat-ho', this.batHo.id]);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    findVayLaiByHopDong(id: number) {
+        this.vayLaiService.findByHopDong(id).subscribe(
+            (res: HttpResponse<VayLai>) => {
+                this.vayLai = res.body;
+                this.router.navigate(['/vay-lai', this.vayLai.id]);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }
