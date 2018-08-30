@@ -254,15 +254,15 @@
                             <tr>
                                 <th>Ngày</th>
                                 <th>Nhân viên</th>
-                                <th>Trạng thái</th>
                                 <th>Số tiền</th>
+                                <th>Nội dung</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-ghiNo>
                             <tr>
                                 <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                                 <td>{{ghiNo.nhanVienTen}}</td>
-                                <td>{{ghiNo.sotien}}</td>
+                                <td>{{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                             </tr>
                         </ng-template>
@@ -280,15 +280,15 @@
                             <th>Ngày</th>
                             <th>Nhân viên</th>
                             <th>Số tiền ghi nợ</th>
-                            <th>Số tiền ghi trả</th>
+                            <th>Số tiền trả nợ</th>
                             <th>Nội dung</th>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
                             <tr [pSelectableRow]="lichSuThaoTacHopDong">
                                 <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
-                                <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
-                                <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
+                                <td>{{lichSuThaoTacHopDong.soTienGhiNo |currency : 'VND' : true : '1.0-0'}}</td>
+                                <td>{{lichSuThaoTacHopDong.soTienGhiCo |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
                             </tr>
                         </ng-template>
@@ -409,16 +409,13 @@
                                     <textarea [(ngModel)]="taiSan.noicat" [rows]="5" class="form-control" name="noiCat" id="field_noiCat" [cols]="30" pTooltip="Điền nơi cất chứng từ, tài sản"
                                         tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
                                 </div>
-
                             </div>
-
                         </div>
                         <div class="col-md-12">
                             <button type="button" class="btn btn-success" (click)="saveChungTu()">
                                 <span class="fa fa-save"></span>&nbsp;
                                 <span jhiTranslate="entity.action.save">Save</span>
                             </button>
-
                         </div>
                     </div>
                 </div>
@@ -433,7 +430,6 @@
                                         <th>Số hiệu</th>
                                         <th>Mô tả</th>
                                         <th>Nơi cất</th>
-
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-taiSan>
@@ -448,7 +444,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <!-- <div class="col-md-4">
                     <p-galleria [images]="images" panelWidth="100%" panelHeight="313" [showCaption]="false"></p-galleria>

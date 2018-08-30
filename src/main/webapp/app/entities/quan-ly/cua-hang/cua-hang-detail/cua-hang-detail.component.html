@@ -99,8 +99,8 @@
                     <tr [pSelectableRow]="batHo" [routerLink]="['../../bat-ho-admin', batHo.id ]">
                         <td>{{batHo.id}}</td>
                         <td>{{batHo.hopdong.khachHangTen}}</td>
-                        <td>{{batHo.tienduakhach}}</td>
-                        <td>{{batHo.tongtien}}</td>
+                        <td>{{batHo.tienduakhach |currency : 'VND' : true : '1.0-0'}}</td>
+                        <td>{{batHo.tongtien |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>{{batHo.tongsongay}}</td>
                         <td>{{batHo.chuky}}</td>
                     </tr>
@@ -135,10 +135,10 @@
                     <tr [pSelectableRow]="vayLai" [routerLink]="['../../vay-lai-admin', vayLai.id ]">
                         <td>{{vayLai.id}}</td>
                         <td>{{vayLai.hopdongvl.khachHangTen}}</td>
-                        <td>{{vayLai.tienvay}}</td>
+                        <td>{{vayLai.tienvay |currency : 'VND' : true : '1.0-0'}}</td>
                         <td>{{vayLai.thoigianvay}}</td>
                         <td>{{vayLai.chukylai}}</td>
-                        <td>{{vayLai.lai}}</td>
+                        <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
                     </tr>
                 </ng-template>
             </p-table>
