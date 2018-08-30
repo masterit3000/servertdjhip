@@ -208,7 +208,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                     this.taiSanService
                     .findByHopDong(this.batHo.hopdong.id)
                     .subscribe((taiSanResponse: HttpResponse<TaiSan[]>) => {
-                       this.taiSans = taiSanResponse.body;
+                    this.taiSans = taiSanResponse.body;
                     }
                 );
             });
@@ -232,7 +232,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.msgs = [
             {
                 severity: 'info',
-                summary: 'Da dong',
+                summary: 'Thao tác thành công',
                 detail: 'id: ' + event.data.id
             }
         ];
@@ -248,7 +248,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                     this.load(params['id']);
                 });
             });
-        this.setSoTienLichSuThaoTac('đóng tiền', 0, event.data.sotien);
+        this.setSoTienLichSuThaoTac('Đóng tiền họ', 0, event.data.sotien);
     }
     onRowUnselect(event) {
         this.msgs = [
