@@ -107,11 +107,10 @@
         <p-tabPanel header="Lịch đóng tiền">
             <div class="row">
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)"
-                        (onRowUnselect)="onRowUnselect($event)">
+                    <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-success text-center text-white">Tiền họ đã đóng</th>
+                                <th colspan="7" class="bg-success text-center text-white">Tiền họ đã đóng</th>
                             </tr>
                             <tr>
                                 <th colspan="2">
@@ -155,7 +154,7 @@
                 </div>
                 <div class="col-md-6">
                     <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
-                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+                        (onRowSelect)="onRowSelect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="6" class="bg-secondary text-center text-white">Tiền họ chưa đóng</th>
