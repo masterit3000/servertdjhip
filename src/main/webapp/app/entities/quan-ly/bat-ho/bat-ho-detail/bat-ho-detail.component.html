@@ -177,15 +177,15 @@
               <tr>
                 <th>Ngày</th>
                 <th>Nhân viên</th>
-                <th>Trạng thái</th>
                 <th>Số tiền</th>
+                <th>Nội dung</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-ghiNo>
               <tr>
                 <td>{{ghiNo.ngayghino | date:"dd/MM/yyyy"}}</td>
                 <td>{{ghiNo.nhanVienTen}}</td>
-                <td>{{ghiNo.sotien}}</td>
+                <td>{{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                 <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
               </tr>
             </ng-template>
@@ -203,15 +203,15 @@
               <th>Ngày</th>
               <th>Nhân viên</th>
               <th>Số tiền ghi nợ</th>
-              <th>Số tiền ghi trả</th>
+              <th>Số tiền trả nợ</th>
               <th>Nội dung</th>
             </ng-template>
             <ng-template pTemplate="body" let-lichSuThaoTacHopDong>
               <tr [pSelectableRow]="lichSuThaoTacHopDong">
                 <td>{{lichSuThaoTacHopDong.thoigian | date: "dd/MM/yyyy lúc hh:mm:ss"}}</td>
                 <td>{{lichSuThaoTacHopDong.nhanVienTen}}</td>
-                <td>{{lichSuThaoTacHopDong.soTienGhiNo}}</td>
-                <td>{{lichSuThaoTacHopDong.soTienGhiCo}}</td>
+                <td>{{lichSuThaoTacHopDong.soTienGhiNo |currency : 'VND' : true : '1.0-0'}}</td>
+                <td>{{lichSuThaoTacHopDong.soTienGhiCo |currency : 'VND' : true : '1.0-0'}}</td>
                 <td>{{lichSuThaoTacHopDong.noidung}}</td>
               </tr>
             </ng-template>

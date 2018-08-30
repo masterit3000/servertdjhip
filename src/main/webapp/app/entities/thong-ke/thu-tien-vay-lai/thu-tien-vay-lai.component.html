@@ -55,7 +55,6 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -68,23 +67,22 @@
                     <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
-                    <td>{{lichSuDongTien.sotien  |currency : 'VND' : true : '1.0-0'}}</td>
+                    <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                     <td>
                         <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
-                <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                <tr class="text-right text-danger">
+                    <td style="background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienVL  |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienVL  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
-
             </ng-template>
         </p-table>
     </div>
@@ -110,7 +108,6 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -127,35 +124,34 @@
                     <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template pTemplate="footer" class="text-right text-danger">
                 <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                    <td style="background-color:#ECECEC" colspan="4">
                         <strong>Tổng nợ </strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienNoVl  |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienNoVl  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                    <td style="background-color:#ECECEC" colspan="4">
                         <strong>Tổng trả </strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraVl  |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienTraVl  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                    <td style="ackground-cbolor:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraVl-tongTienNoVl  |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienTraVl-tongTienNoVl  |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
-
             </ng-template>
         </p-table>
     </div>
@@ -181,7 +177,6 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -199,16 +194,15 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
-                <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                <tr class="text-right text-danger">
+                    <td style="background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienVLThemBot |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienVLThemBot |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
-
             </ng-template>
         </p-table>
     </div>
@@ -234,7 +228,6 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -245,7 +238,6 @@
                 <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                     <td>{{lichSuDongTien.mahopdong}}</td>
                     <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
-
                     <td>{{lichSuDongTien.nhanVienTen}}</td>
                     <td>{{lichSuDongTien.khachHangTen}}</td>
                     <td>{{lichSuDongTien.sotien  |currency : 'VND' : true : '1.0-0'}}</td>
@@ -255,17 +247,15 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
-                <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                <tr class="text-right text-danger">
+                    <td style="background-color:#ECECEC" colspan="4">
                         <strong>Tổng</strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienTraGoc |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienTraGoc |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
-
                     <td></td>
                 </tr>
-
             </ng-template>
         </p-table>
     </div>
@@ -291,7 +281,6 @@
                     <th>
                         <span>Số tiền</span>
                     </th>
-
                     <th>
                         <span>Trạng thái</span>
                     </th>
@@ -309,18 +298,16 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
-                <tr>
-                    <td align="right" style="color:red;background-color:#ECECEC" colspan="4">
+                <tr class="text-right text-danger">
+                    <td style="background-color:#ECECEC" colspan="4">
                         <strong>Tổng tiền </strong>
                     </td>
-                    <td align="right" style="background-color:#ECECEC">
-                        <span style="color:red">{{tongTienVLs |currency : 'VND' : true : '1.0-0'}}</span>
+                    <td style="background-color:#ECECEC">
+                        <span>{{tongTienVLs |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
-
             </ng-template>
         </p-table>
     </div>
-
 </div>
