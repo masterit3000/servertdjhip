@@ -184,7 +184,7 @@
             </ng-template>
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-vayLai>
-                <tr (click)="findVayLaiByHopDong(vayLai.hopdong.id)">
+                <tr (click)="findVayLaiByHopDong(vayLai.hopdongvl.id)">
                     <td>{{vayLai.hopdongvl.mahopdong}}</td>
                     <td>{{vayLai.hopdongvl.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <td>{{vayLai.nhanVienTen}}</td>
