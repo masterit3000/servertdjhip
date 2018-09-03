@@ -60,7 +60,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
+                            <tr class="bg-danger text-white" (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
                                 <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -73,11 +73,11 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">
-                            <tr class="text-right text-danger">
-                                <td style="background-color:#ECECEC" colspan="5">
+                            <tr style="background-color:#ECECEC">
+                                <td class="text-right text-danger" colspan="5">
                                     <strong>Tổng</strong>
                                 </td>
-                                <td style="background-color:#ECECEC">
+                                <td class="text-left text-danger">
                                     <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                                 </td>
                                 <td></td>
@@ -125,7 +125,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
+                            <tr class="bg-warning" (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
                                 <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -138,11 +138,11 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">
-                            <tr class="text-right text-danger">
-                                <td style="background-color:#ECECEC" colspan="5">
+                            <tr style="background-color:#ECECEC">
+                                <td class="text-right text-danger" colspan="5">
                                     <strong>Tổng</strong>
                                 </td>
-                                <td align="right" style="background-color:#ECECEC">
+                                <td class="text-left text-danger">
                                     <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                                 </td>
                                 <td></td>
@@ -179,7 +179,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-hopDong>
-                            <tr (click)="findBatHoByHopDong(hopDong.id)">
+                            <tr class="bg-danger text-white" (click)="findBatHoByHopDong(hopDong.id)">
                                 <td>{{hopDong.mahopdong}}</td>
                                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{hopDong.nhanVienTen}}</td>
@@ -229,7 +229,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
+                            <tr class="bg-danger text-white" (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                                 <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -242,11 +242,11 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">
-                            <tr class="text-right text-danger">
-                                <td style="background-color:#ECECEC" colspan="5">
+                            <tr style="background-color:#ECECEC">
+                                <td class="text-right text-danger" colspan="5">
                                     <strong>Tổng</strong>
                                 </td>
-                                <td align="right" style="background-color:#ECECEC">
+                                <td class="text-left text-danger">
                                     <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                                 </td>
                                 <td></td>
@@ -294,7 +294,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
+                            <tr class="bg-warning" (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
                                 <td>{{lichSuDongTien.mahopdong}}</td>
                                 <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
@@ -307,11 +307,11 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">
-                            <tr class="text-right text-danger">
-                                <td style="background-color:#ECECEC" colspan="5">
+                            <tr style="background-color:#ECECEC">
+                                <td class="text-right text-danger" colspan="5">
                                     <strong>Tổng</strong>
                                 </td>
-                                <td style="background-color:#ECECEC">
+                                <td class="text-left text-danger">
                                     <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                                 </td>
                                 <td></td>
@@ -348,7 +348,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-hopDong>
-                            <tr (click)="findVayLaiByHopDong(hopDong.id)">
+                            <tr class="bg-danger text-white" (click)="findVayLaiByHopDong(hopDong.id)">
                                 <td>{{hopDong.mahopdong}}</td>
                                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{hopDong.nhanVienTen}}</td>
