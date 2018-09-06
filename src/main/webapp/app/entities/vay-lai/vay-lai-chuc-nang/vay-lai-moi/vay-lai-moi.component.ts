@@ -17,8 +17,10 @@ import { TaiSan } from '../../../tai-san';
 })
 export class VayLaiMoiComponent implements OnInit {
     khachHangs: KhachHang[]; // chua danh sach khach hang
+    khachHangsInSystem:KhachHang[];
     vayLai: VayLai; // vay lai hien tai biding voi thong tin vay lai
     keyTimKhachHang: String;
+    keyKhachHangInSystem:String;
     khachhangid: any;
     mahopdong: any;
     isSaving: boolean;
@@ -126,6 +128,18 @@ export class VayLaiMoiComponent implements OnInit {
             .subscribe(
                 (res: HttpResponse<KhachHang[]>) => {
                     this.khachHangs = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    kiemTraTrongHeThong() {
+        // const query = event.query;
+        // console.log(query);
+        this.khachHangService
+            .findInSystem(this.keyKhachHangInSystem)
+            .subscribe(
+                (res: HttpResponse<KhachHang[]>) => {
+                    this.khachHangsInSystem = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );

@@ -1,5 +1,6 @@
 package com.tindung.jhip.service;
 
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import com.tindung.jhip.service.dto.KhachHangDTO;
 import java.util.List;
 
@@ -41,5 +42,8 @@ public interface KhachHangService {
     void delete(Long id);
 
     List<KhachHangDTO> findByNameOrCMND(String key);
+    List<KhachHangDTO> findInSystem(String key);
     List<KhachHangDTO> findAllByCuaHang(Long id);
+    public void setStatus(Long id,StatusKhachHang status);
+    
 }

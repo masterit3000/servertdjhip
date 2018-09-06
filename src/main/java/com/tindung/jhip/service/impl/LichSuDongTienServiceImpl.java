@@ -7,6 +7,7 @@ import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.repository.BatHoRepository;
 import com.tindung.jhip.repository.HopDongRepository;
@@ -27,6 +28,7 @@ import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.time.ZonedDateTime;
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.service.HopDongService;
+import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import com.tindung.jhip.service.dto.HopDongDTO;
@@ -51,6 +53,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final HopDongRepository hopDongRepository;
     private final NhanVienService nhanVienService;
     private final HopDongService hopDongService;
+    private final KhachHangService khachHangService;
 
 //    @Autowired
     private final CuaHangService cuaHangService;
@@ -58,12 +61,13 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     private final VayLaiRepository vayLaiRepository;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, KhachHangService khachHangService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.hopDongRepository = hopDongRepository;
         this.nhanVienService = nhanVienService;
         this.hopDongService = hopDongService;
+        this.khachHangService = khachHangService;
         this.cuaHangService = cuaHangService;
         this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
@@ -167,6 +171,9 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                     lichSuDongTienRepository.delete(lichSuDongTien);
                 }
             }
+            
+            khachHangService.setStatus(hopDongRepository.findOne(id).getKhachHang().getId(), StatusKhachHang.DUNGHOATDONG);
+            
             LichSuThaoTacHopDongDTO lichSuThaoTacHopDong = new LichSuThaoTacHopDongDTO();
             lichSuThaoTacHopDong.setHopDongId(id);
             lichSuThaoTacHopDong.setNhanVienId(cuaHangService.findIDByUserLogin());

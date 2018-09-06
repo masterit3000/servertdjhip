@@ -138,8 +138,63 @@
                         <span class="fa fa-sticky-note-o"></span>
                         <span jhiTranslate="servertdjhipApp.hopDong.ghichu">Ghichu</span>
                     </label>
-                    <textarea  [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
+                    <textarea [rows]="5" class="form-control" name="ghiChu" id="field_ghiChu" [cols]="30" pTooltip="Điền thêm các thông tin khác"
                         tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="keyTimKhachHang" pInputText placeholder="Kiểm tra khách hàng có trong hệ thống" pTooltip="Nhập CMND"
+                                tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyKhachHangInSystem">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary float-left" (click)="kiemTraTrongHeThong()">
+                                <span class="pi pi-search"></span>
+                                <span>Tìm kiếm</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                                <p-table [value]="khachHangsInSystem" [paginator]="true" selectionMode="single" [rows]="5" [(selection)]="selected" dataKey="id"
+                                    (onRowSelect)="onRowSelect($event)">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>
+                                                <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="servertdjhipApp.khachHang.cmnd">CMND</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                                            </th>
+                                            <th>Cửa hàng</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-khachHang>
+                                        <tr [pSelectableRow]="khachHang">
+                                            <td>{{khachHang.ten}}</td>
+                                            <td>{{khachHang.cmnd}}</td>
+                                            <td>{{khachHang.diachi}}</td>
+                                            <td>{{khachHang.dienthoai}}</td>
+                                            <td>{{khachHang.trangthai}}</td>
+                                            <td>{{khachHang.cuaHangId}}</td>
+                                            <td>{{khachHang.status}}</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </p-scrollPanel>
+                        </div>
+                    </div>
                 </div>
                 <!-- <div class="col-md-6">
                     <div class="row">
@@ -158,7 +213,7 @@
                     </div>
                 </div> -->
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
                     <span class="fa fa-ban"></span>&nbsp;

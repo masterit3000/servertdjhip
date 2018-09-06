@@ -1,13 +1,18 @@
 package com.tindung.jhip.service.impl;
 
+import com.tindung.jhip.domain.KhachHang;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.service.VayLaiService;
 import com.tindung.jhip.domain.VayLai;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
 import com.tindung.jhip.domain.enumeration.HINHTHUCLAI;
 import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import com.tindung.jhip.domain.enumeration.TINHLAI;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TrangThaiKhachHang;
+import com.tindung.jhip.repository.HopDongRepository;
+import com.tindung.jhip.repository.KhachHangRepository;
 import com.tindung.jhip.repository.LichSuDongTienRepository;
 import com.tindung.jhip.repository.VayLaiRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
@@ -31,8 +36,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.tindung.jhip.service.BatHoService;
+import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.NhatKyDTO;
+import com.tindung.jhip.service.mapper.KhachHangMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -54,22 +61,29 @@ public class VayLaiServiceImpl implements VayLaiService {
     private final HopDongService hopDongService;
 
     private final NhanVienService nhanVienService;
+    private final KhachHangRepository khachHangRepository;
+
+    private final KhachHangService khachHangService;
     private final BatHoService batHoService;
     private final CuaHangService cuaHangService;
     private final LichSuDongTienService lichSuDongTienService;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     private final NhatKyService nhatKyService;
+    private final HopDongRepository hopDongRepository;
 
-    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, BatHoService batHoService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, NhatKyService nhatKyService) {
+    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, KhachHangRepository khachHangRepository, KhachHangService khachHangService, BatHoService batHoService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, NhatKyService nhatKyService, HopDongRepository hopDongRepository) {
         this.vayLaiRepository = vayLaiRepository;
         this.vayLaiMapper = vayLaiMapper;
         this.hopDongService = hopDongService;
         this.nhanVienService = nhanVienService;
+        this.khachHangRepository = khachHangRepository;
+        this.khachHangService = khachHangService;
         this.batHoService = batHoService;
         this.cuaHangService = cuaHangService;
         this.lichSuDongTienService = lichSuDongTienService;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
         this.nhatKyService = nhatKyService;
+        this.hopDongRepository = hopDongRepository;
     }
 
     /**
@@ -86,7 +100,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay()) {
-                if (vayLaiDTO.getId() == null) {// add new vay lai
+                if (vayLaiDTO.getId() == null
+                        && khachHangRepository.findOne(vayLaiDTO.getHopdongvl().getKhachHangId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {// add new vay lai
                     HopDongDTO hopdong = vayLaiDTO.getHopdongvl();
                     hopdong.setLoaihopdong(LOAIHOPDONG.VAYLAI);
                     NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
@@ -101,6 +116,9 @@ public class VayLaiServiceImpl implements VayLaiService {
                     hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
+
+                    khachHangService.setStatus(hopdong.getKhachHangId(), StatusKhachHang.HOATDONG);// set trang thai khach hang
+
                     VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
                     vayLai = vayLaiRepository.save(vayLai);
                     // lay du lieu nhan ve
@@ -186,6 +204,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                     hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
+
+                    khachHangService.setStatus(hopdong.getKhachHangId(), StatusKhachHang.HOATDONG);// set trang thai khach hang
                     VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
                     vayLai = vayLaiRepository.save(vayLai);
                     // lay du lieu nhan ve
@@ -274,7 +294,8 @@ public class VayLaiServiceImpl implements VayLaiService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay()) {
+            if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay()
+                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
                 if (vayLaiDTO.getId() == null) {// add new vay lai
                     HopDongDTO hopdongcu = hopDongService.findOne(id);
                     hopdongcu.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
@@ -296,6 +317,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                     hopdong.setMahopdong(mahopdong);
                     hopdong = hopDongService.save(hopdong);
                     vayLaiDTO.setHopdongvl(hopdong);
+
+                    khachHangService.setStatus(hopdong.getKhachHangId(), StatusKhachHang.HOATDONG);// set trang thai khach hang
                     VayLai vayLai = vayLaiMapper.toEntity(vayLaiDTO);
                     vayLai = vayLaiRepository.save(vayLai);
                     // lay du lieu nhan ve
@@ -403,7 +426,7 @@ public class VayLaiServiceImpl implements VayLaiService {
         } else {
             NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
             Long cuaHangId = nhanVien.getCuaHangId();
-            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByTrangThaiHopDong(trangthai,cuaHangId).stream()
+            LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByTrangThaiHopDong(trangthai, cuaHangId).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;

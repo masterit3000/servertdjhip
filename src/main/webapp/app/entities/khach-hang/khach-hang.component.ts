@@ -14,6 +14,7 @@ import { Principal } from '../../shared';
 })
 export class KhachHangComponent implements OnInit, OnDestroy {
     khachHangs: KhachHang[];
+    khachHangsInSystem: KhachHang[];
     currentAccount: any;
     eventSubscriber: Subscription;
     filteredKhachHangs: KhachHang[];
@@ -21,6 +22,7 @@ export class KhachHangComponent implements OnInit, OnDestroy {
     khachHang: any;
     none: any;
     keyTimKhachHang: String;
+    keyKhachHangInSystem: String;
     constructor(
         private khachHangService: KhachHangService,
         private jhiAlertService: JhiAlertService,
@@ -35,6 +37,18 @@ export class KhachHangComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<KhachHang[]>) => {
                     this.khachHangs = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    kiemTraTrongHeThong() {
+        // const query = event.query;
+        // console.log(query);
+        this.khachHangService
+            .findInSystem(this.keyKhachHangInSystem)
+            .subscribe(
+                (res: HttpResponse<KhachHang[]>) => {
+                    this.khachHangsInSystem = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
