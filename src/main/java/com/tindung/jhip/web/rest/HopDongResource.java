@@ -113,10 +113,13 @@ public class HopDongResource {
         switch (trangthai) {
             case "0":
                 trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
             case "1":
                 trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
             case "2":
                 trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
         }
         return hopDongService.thongKe(trangthaihopdong, loai);
     }
