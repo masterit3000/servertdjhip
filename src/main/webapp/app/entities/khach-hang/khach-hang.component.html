@@ -19,6 +19,72 @@
     <br/>
     <h3>
         <i class="pi pi-search" width="20%" aria-hidden="true"></i>
+        Kiểm tra khách hàng có trong hệ thống
+    </h3>
+    <div class="ui-g-2">
+        <pe-step label="Float label">
+            <span class="ui-float-label">
+                <input id="float-input" name="keyTimKhachHang" [(ngModel)]="keyKhachHangInSystem" pInputText type="text" size="30" pTooltip="Tên khách hàng / CMND / SĐT"
+                    tooltipPosition="top" tooltipEvent="focus">
+                <label for="float-input">Thông tin tìm kiếm</label>
+            </span>
+        </pe-step>
+    </div>
+    <div class="ui-g-2">
+        <button class="btn btn-primary float-left" (click)="kiemTraTrongHeThong()">
+            <span class="pi pi-search"></span>
+            Tìm kiếm</button>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="khachHangs">
+        <p-table [value]="khachHangsInSystem" [paginator]="true" [rows]="10" selectionMode="single" [(selection)]="selected" dataKey="id">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <span jhiTranslate="global.field.id">ID</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.ten">Ten</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.diachi">Diachi</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.dienthoai">Dienthoai</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.cmnd">Cmnd</span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
+                    </th>
+                    <th>
+                        <span >Cửa hàng</span>
+                    </th>
+                    <th>
+                        <span >Status</span>
+                    </th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-khachHang>
+                <tr [pSelectableRow]="khachHang" [routerLink]="['../khach-hang', khachHang.id ]">
+                    <td>{{khachHang.id}}</td>
+                    <td>{{khachHang.ten}}</td>
+                    <td>{{khachHang.diachi}}</td>
+                    <td>{{khachHang.dienthoai}}</td>
+                    <td>{{khachHang.cmnd}}</td>
+                    <td jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</td>
+                    <td>{{khachHang.cuaHangId}}</td>
+                    <td>{{khachHang.status}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <h3>
+        <i class="pi pi-search" width="20%" aria-hidden="true"></i>
         Tìm khách hàng
     </h3>
     <div class="ui-g-2">
@@ -58,6 +124,9 @@
                     <th>
                         <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
                     </th>
+                    <th>
+                        <span >Status</span>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-khachHang>
@@ -68,6 +137,8 @@
                     <td>{{khachHang.dienthoai}}</td>
                     <td>{{khachHang.cmnd}}</td>
                     <td jhiTranslate="{{'servertdjhipApp.TrangThaiKhachHang.' + khachHang.trangthai}}">{{khachHang.trangthai}}</td>
+                    <td>{{khachHang.status}}</td>
+
                 </tr>
             </ng-template>
         </p-table>

@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<KhachHang>;
 @Injectable()
 export class KhachHangService {
     private resourceUrl = SERVER_API_URL + 'api/khach-hangs';
+    private findInSystemUrl = SERVER_API_URL + 'api/tim-khach-hang-trong-he-thong';
     private resourceUrlTimKhachHang =
         SERVER_API_URL + 'api/tim-khach-hang-by-ten-cmnd';
     private findUrl = SERVER_API_URL + 'api/khach-hangs-by-cuahang';
@@ -111,6 +112,18 @@ export class KhachHangService {
         // const options = createRequestOption(req);
         return this.http
             .get<KhachHang[]>(`${this.resourceUrlTimKhachHang}/${query}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<KhachHang[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+    findInSystem(
+        query: any
+    ): Observable<HttpResponse<KhachHang[]>> {
+        // const options = createRequestOption(req);
+        return this.http
+            .get<KhachHang[]>(`${this.findInSystemUrl}/${query}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<KhachHang[]>) =>

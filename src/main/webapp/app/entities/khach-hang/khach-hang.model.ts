@@ -8,6 +8,10 @@ export const enum TrangThaiKhachHang {
     'CAPDO2',
     'CAPDO3'
 }
+export const enum StatusKhachHang {
+    'HOATDONG',
+    'DUNGHOATDONG',
+}
 
 export class KhachHang implements BaseEntity {
     constructor(
@@ -17,6 +21,7 @@ export class KhachHang implements BaseEntity {
         public dienthoai?: string,
         public cmnd?: string,
         public trangthai?: TrangThaiKhachHang,
+        public status?: StatusKhachHang,
         public ngayTao?: Date,
         public email?: string,
         public facebook?: string,

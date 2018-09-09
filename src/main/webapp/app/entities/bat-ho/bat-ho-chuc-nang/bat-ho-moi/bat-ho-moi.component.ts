@@ -17,8 +17,10 @@ import { TaiSan } from '../../../tai-san';
 })
 export class BatHoMoiComponent implements OnInit {
     khachHangs: KhachHang[]; // chua danh sach khach hang
+    khachHangsInSystem: KhachHang[];
     batHo: BatHo; // bat ho hien tai biding voi thong tin bat ho
     keyTimKhachHang: String;
+    keyKhachHangInSystem: String;
     khachhangid: any;
     mahopdong: any;
     isSaving: boolean;
@@ -113,6 +115,18 @@ export class BatHoMoiComponent implements OnInit {
             .subscribe(
                 (res: HttpResponse<KhachHang[]>) => {
                     this.khachHangs = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    kiemTraTrongHeThong() {
+        // const query = event.query;
+        // console.log(query);
+        this.khachHangService
+            .findInSystem(this.keyKhachHangInSystem)
+            .subscribe(
+                (res: HttpResponse<KhachHang[]>) => {
+                    this.khachHangsInSystem = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
