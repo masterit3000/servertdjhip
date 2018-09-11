@@ -217,7 +217,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-hopDong>
-                            <tr (click)="findBatHoByHopDong(hopDong.id)">
+                            <tr class="bg-danger text-white" (click)="findBatHoByHopDong(hopDong.id)">
                                 <td>{{hopDong.mahopdong}}</td>
                                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{hopDong.nhanVienTen}}</td>
@@ -424,7 +424,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-hopDong>
-                            <tr (click)="findVayLaiByHopDong(hopDong.id)">
+                            <tr class="bg-danger text-white" (click)="findVayLaiByHopDong(hopDong.id)">
                                 <td>{{hopDong.mahopdong}}</td>
                                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{hopDong.nhanVienTen}}</td>
