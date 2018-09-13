@@ -1,6 +1,7 @@
 package com.tindung.jhip.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -47,6 +48,18 @@ public class KhachHang implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "trangthai")
     private TrangThaiKhachHang trangthai;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusKhachHang status;
+
+    public StatusKhachHang getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusKhachHang status) {
+        this.status = status;
+    }
 
     @Column(name = "ngay_tao")
     private ZonedDateTime ngayTao;

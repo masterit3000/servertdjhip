@@ -2,6 +2,7 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.BatHoService;
 import com.tindung.jhip.domain.BatHo;
+import com.tindung.jhip.domain.KhachHang;
 import com.tindung.jhip.domain.LichSuDongTien;
 import com.tindung.jhip.domain.NhatKy;
 import com.tindung.jhip.domain.enumeration.DONGTIEN;
@@ -26,13 +27,19 @@ import com.tindung.jhip.service.mapper.BatHoMapper;
 import com.tindung.jhip.service.mapper.LichSuDongTienMapper;
 import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.domain.enumeration.NOTRA;
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import com.tindung.jhip.domain.enumeration.THUCHI;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
+import com.tindung.jhip.domain.enumeration.TrangThaiKhachHang;
 import com.tindung.jhip.repository.GhiNoRepository;
+import com.tindung.jhip.repository.HopDongRepository;
+import com.tindung.jhip.repository.KhachHangRepository;
 import com.tindung.jhip.repository.ThuChiRepository;
 import com.tindung.jhip.repository.VayLaiRepository;
+import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.NhatKyDTO;
+import com.tindung.jhip.service.mapper.KhachHangMapper;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
@@ -56,9 +63,13 @@ public class BatHoServiceImpl implements BatHoService {
 
     private final BatHoMapper batHoMapper;
     private final BatHoRepository batHoRepository;
+    private final HopDongRepository hopDongRepository;
     private final HopDongService hopDongService;
     private final NhatKyService nhatKyService;
     private final VayLaiRepository vayLaiRepository;
+    private final KhachHangRepository khachHangRepository;
+    private final KhachHangMapper khachHangMapper;
+    private final KhachHangService khachHangService;
     private final NhanVienService nhanVienService;
     private final CuaHangService cuaHangService;
     private final LichSuDongTienService lichSuDongTienService;
@@ -68,12 +79,16 @@ public class BatHoServiceImpl implements BatHoService {
     private final GhiNoRepository ghiNoRepository;
     private final ThuChiRepository thuChiRepository;
 
-    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongService hopDongService, NhatKyService nhatKyService, VayLaiRepository vayLaiRepository, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
+    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongRepository hopDongRepository, HopDongService hopDongService, NhatKyService nhatKyService, VayLaiRepository vayLaiRepository, KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, KhachHangService khachHangService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
         this.batHoMapper = batHoMapper;
         this.batHoRepository = batHoRepository;
+        this.hopDongRepository = hopDongRepository;
         this.hopDongService = hopDongService;
         this.nhatKyService = nhatKyService;
         this.vayLaiRepository = vayLaiRepository;
+        this.khachHangRepository = khachHangRepository;
+        this.khachHangMapper = khachHangMapper;
+        this.khachHangService = khachHangService;
         this.nhanVienService = nhanVienService;
         this.cuaHangService = cuaHangService;
         this.lichSuDongTienService = lichSuDongTienService;
@@ -83,6 +98,8 @@ public class BatHoServiceImpl implements BatHoService {
         this.ghiNoRepository = ghiNoRepository;
         this.thuChiRepository = thuChiRepository;
     }
+
+
 
     /**
      * Save a batHo.
@@ -99,7 +116,8 @@ public class BatHoServiceImpl implements BatHoService {
 
             validate(batHoDTO);
             if (batHoDTO.getId() == null) { //add new bat ho
-                if (batHoDTO.getTienduakhach() <= quanLyVon()) {
+                if (batHoDTO.getTienduakhach() <= quanLyVon() 
+                && khachHangRepository.findOne(batHoDTO.getHopdong().getKhachHangId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
                     HopDongDTO hopdong = batHoDTO.getHopdong();
                     hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                     hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -114,8 +132,10 @@ public class BatHoServiceImpl implements BatHoService {
                     hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
                     hopdong = hopDongService.save(hopdong);
                     batHoDTO.setHopdong(hopdong);
+                    khachHangService.setStatus(hopdong.getKhachHangId(), StatusKhachHang.HOATDONG);
                     BatHo batHo = batHoMapper.toEntity(batHoDTO);
                     batHo = batHoRepository.save(batHo);
+
                     Integer chuky = batHo.getChuky();
                     Double tienduakhach = batHo.getTienduakhach();
                     Integer tongsongay = batHo.getTongsongay();
@@ -262,7 +282,8 @@ public class BatHoServiceImpl implements BatHoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            if (batHoDTO.getTienduakhach() < quanLyVon()) {
+            if (batHoDTO.getTienduakhach() < quanLyVon()
+                && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
                 HopDongDTO hopdong = new HopDongDTO();
                 hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                 hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -279,6 +300,7 @@ public class BatHoServiceImpl implements BatHoService {
                 hopdong.setKhachHangId(hopDongService.findOne(id).getKhachHangId());
                 hopdong = hopDongService.save(hopdong);
                 batHoDTO.setHopdong(hopdong);
+                khachHangService.setStatus(hopdong.getKhachHangId(), StatusKhachHang.HOATDONG);
                 BatHo batHo = batHoMapper.toEntity(batHoDTO);
                 batHo = batHoRepository.save(batHo);
                 Integer chuky = batHo.getChuky();

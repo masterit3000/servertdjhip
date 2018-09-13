@@ -112,6 +112,12 @@ public class KhachHangResource {
         log.debug("REST request to get all KhachHangs");
         return khachHangService.findByNameOrCMND(key);
     }
+    @GetMapping("/tim-khach-hang-trong-he-thong/{key}")
+    @Timed
+    public List<KhachHangDTO> findKhachHangsInSystem(@PathVariable(name = "key") String key) {
+        log.debug("REST request to get all KhachHangs");
+        return khachHangService.findInSystem(key);
+    }
 
     /**
      * GET /khach-hangs/:id : get the "id" khachHang.

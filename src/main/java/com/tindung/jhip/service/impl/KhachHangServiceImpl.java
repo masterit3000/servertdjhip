@@ -2,6 +2,7 @@ package com.tindung.jhip.service.impl;
 
 import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.domain.KhachHang;
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import com.tindung.jhip.repository.KhachHangRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
@@ -73,7 +74,7 @@ public class KhachHangServiceImpl implements KhachHangService {
             nhatKy.setThoiGian(ZonedDateTime.now());
             nhatKy.setNoiDung("Thêm mới khách hàng");
             nhatKyService.save(nhatKy);
-
+            setStatus(khachHang.getId(), StatusKhachHang.DUNGHOATDONG);
             return khachHangMapper.toDto(khachHang);
         }
 
@@ -99,10 +100,9 @@ public class KhachHangServiceImpl implements KhachHangService {
             nhatKy.setThoiGian(ZonedDateTime.now());
             nhatKy.setNoiDung("Thêm mới khách hàng");
             nhatKyService.save(nhatKy);
-
             KhachHang khachHang = khachHangMapper.toEntity(khachHangDTO);
             khachHang = khachHangRepository.saveAndFlush(khachHang);
-
+            setStatus(khachHang.getId(), StatusKhachHang.DUNGHOATDONG);
             return khachHangMapper.toDto(khachHang);
         }
 
@@ -208,5 +208,35 @@ public class KhachHangServiceImpl implements KhachHangService {
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
+    }
+
+    public List<KhachHangDTO> findInSystem(String key) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+
+            return khachHangRepository.findInSystem(key).stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            log.debug("Request to get all KhachHangs");
+            key = new StringBuffer("%").append(key).append("%").toString();
+            return khachHangRepository.findInSystem(key).stream()
+                    .map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
+
+    public void setStatus(Long id, StatusKhachHang status) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            KhachHang khachHang = khachHangRepository.findOne(id);
+            khachHang.setStatus(status);
+            khachHangRepository.saveAndFlush(khachHang);
+        }
+
     }
 }

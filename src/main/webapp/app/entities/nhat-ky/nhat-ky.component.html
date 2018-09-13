@@ -56,12 +56,12 @@
                 <td>{{nhatKy.noiDung}}</td>
                 <td>
                     <div *ngIf="nhatKy.cuaHangId">
-                        <a [routerLink]="['../cua-hang', nhatKy.cuaHangId  ]">{{nhatKy.cuaHangId}}</a>
+                        <a [routerLink]="['../cua-hang', nhatKy.cuaHangId  ]">{{nhatKy.cuaHangTen}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="nhatKy.nhanVienId">
-                        <a [routerLink]="['../nhan-vien', nhatKy.nhanVienId  ]">{{nhatKy.nhanVienId}}</a>
+                        <a [routerLink]="['../nhan-vien', nhatKy.nhanVienId  ]">{{nhatKy.nhanVienTen}}</a>
                     </div>
                 </td>
             </tr>

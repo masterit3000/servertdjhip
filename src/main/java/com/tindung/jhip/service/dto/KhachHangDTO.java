@@ -1,5 +1,6 @@
 package com.tindung.jhip.service.dto;
 
+import com.tindung.jhip.domain.enumeration.StatusKhachHang;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -76,6 +77,16 @@ public class KhachHangDTO implements Serializable {
     private String cmnd;
 
     private TrangThaiKhachHang trangthai;
+
+    public StatusKhachHang getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusKhachHang status) {
+        this.status = status;
+    }
+    
+    private StatusKhachHang status;
 
     private ZonedDateTime ngayTao;
 

@@ -19,4 +19,7 @@ public interface HopDongRepository extends JpaRepository<HopDong, Long> {
 
     @Query(value = "select h from HopDong h  where h.trangthaihopdong =?1 and h.loaihopdong = ?2")
     List<HopDong> thongkeAdmin(TRANGTHAIHOPDONG trangthai, LOAIHOPDONG loai);
+    
+    @Query(value = "SELECT * from hop_dong WHERE tinhNo(hop_dong.id) > 0 AND hop_dong.trangthai=?1 and hop_dong.loaihopdong =?2",nativeQuery = true)
+    List<HopDong> thongkeHopDongNo(TRANGTHAIHOPDONG trangthai, LOAIHOPDONG loai);
 }

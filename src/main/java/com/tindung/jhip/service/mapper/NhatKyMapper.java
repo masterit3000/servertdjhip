@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface NhatKyMapper extends EntityMapper<NhatKyDTO, NhatKy> {
 
     @Mapping(source = "cuaHang.id", target = "cuaHangId")
+    @Mapping(source = "cuaHang.ten", target = "cuaHangTen")
     @Mapping(source = "nhanVien.id", target = "nhanVienId")
+    @Mapping(source = "nhanVien.ten", target = "nhanVienTen")
     NhatKyDTO toDto(NhatKy nhatKy);
 
     @Mapping(source = "cuaHangId", target = "cuaHang")

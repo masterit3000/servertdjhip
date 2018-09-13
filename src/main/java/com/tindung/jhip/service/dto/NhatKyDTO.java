@@ -1,6 +1,5 @@
 package com.tindung.jhip.service.dto;
 
-
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -22,7 +21,27 @@ public class NhatKyDTO implements Serializable {
 
     private Long cuaHangId;
 
+    private String cuaHangTen;
+
     private Long nhanVienId;
+
+    public String getCuaHangTen() {
+        return cuaHangTen;
+    }
+
+    public void setCuaHangTen(String cuaHangTen) {
+        this.cuaHangTen = cuaHangTen;
+    }
+
+    public String getNhanVienTen() {
+        return nhanVienTen;
+    }
+
+    public void setNhanVienTen(String nhanVienTen) {
+        this.nhanVienTen = nhanVienTen;
+    }
+
+    private String nhanVienTen;
 
     public Long getId() {
         return id;
@@ -74,7 +93,7 @@ public class NhatKyDTO implements Serializable {
         }
 
         NhatKyDTO nhatKyDTO = (NhatKyDTO) o;
-        if(nhatKyDTO.getId() == null || getId() == null) {
+        if (nhatKyDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), nhatKyDTO.getId());
@@ -87,10 +106,10 @@ public class NhatKyDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "NhatKyDTO{" +
-            "id=" + getId() +
-            ", thoiGian='" + getThoiGian() + "'" +
-            ", noiDung='" + getNoiDung() + "'" +
-            "}";
+        return "NhatKyDTO{"
+                + "id=" + getId()
+                + ", thoiGian='" + getThoiGian() + "'"
+                + ", noiDung='" + getNoiDung() + "'"
+                + "}";
     }
 }
