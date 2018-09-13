@@ -30,6 +30,7 @@
         "ROLE_ANONYMOUS": "Khách viếng thăm",
         "ROLE_STAFF": "Nhân viên",
         "ROLE_STORE": "Quản lý cửa hàng",
-        "ROLE_USER": "Người dùng"
+        "ROLE_USER": "Người dùng",
+        "ROLE_KETOAN": "Kế toán"
     }
 }
