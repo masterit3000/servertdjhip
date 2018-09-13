@@ -18,7 +18,6 @@ logging:
         ROOT: INFO
         com.tindung.jhip: INFO
         io.github.jhipster: INFO
-
 spring:
     devtools:
         restart:
