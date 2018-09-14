@@ -52,6 +52,7 @@
     <include file="config/liquibase/changelog/20180625160634_added_entity_AddColumn.LichSuThaoTacHopDong.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_added_entity_AddColumn.LichSuDongTien.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_added_entity_SuaAnhKhachHang.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180625160634_added_entity_AddColumnCuaHang.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_added_entity_ThemStatusKhachHang.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_ThemStored.xml" relativeToChangelogFile="false"/>
 

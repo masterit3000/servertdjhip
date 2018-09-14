@@ -133,7 +133,7 @@ public class UserService {
         }
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream().filter((String t) -> {
-                if (t.equals(AuthoritiesConstants.ADMIN)) {
+                if (t.equals(AuthoritiesConstants.ADMIN)||t.equals(AuthoritiesConstants.KETOAN)) {
                     user.setActivated(true);
                 }
                 return true;
