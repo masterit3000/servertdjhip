@@ -10,14 +10,10 @@
     <!--
         Added the entity NhatKy.
     -->
-    <changeSet id="20180509130644-1" author="jhipster">
+    <changeSet id="20180913163044-1" author="jhipster">
         <addColumn 
-                tableName="bat_ho">
-            <column name="songaytracham" type="int"/>
-        </addColumn>
-        <addColumn 
-                tableName="bat_ho">
-            <column name="sotientracham" type="double"/>
+                tableName="cua_hang">
+            <column name="ketoan_id" type="bigint(20)"/>
         </addColumn>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

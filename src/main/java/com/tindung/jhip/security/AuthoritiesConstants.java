@@ -6,6 +6,7 @@ package com.tindung.jhip.security;
 public final class AuthoritiesConstants {
 
     public static final String ADMIN = "ROLE_ADMIN";
+    public static final String KETOAN = "ROLE_KETOAN";
 
     public static final String USER = "ROLE_USER";
 

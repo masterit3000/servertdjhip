@@ -38,7 +38,9 @@ export class HomeComponent implements OnInit {
     lichSuDongTienVLs: LichSuDongTien[];
     lichSuDongTienHomNayVLs: LichSuDongTien[];
     hopDongBHs: HopDong[];
+    hopDongDangNoBHs: HopDong[];
     hopDongVLs: HopDong[];
+    hopDongDangNoVLs: HopDong[];
     ghiNos: GhiNo[];
     tienNo: number;
     tienTra: number;
@@ -64,6 +66,10 @@ export class HomeComponent implements OnInit {
         this.loadLichSuTraChamVL();
         this.loadLichSuTraBatHoHomNay();
         this.loadLichSuTraVayLaiHomNay();
+        this.loadHopDongBH();
+        this.loadHopDongVL();
+        this.loadHopDongDangNoVL();
+        this.loadHopDongDangNoBH();
         this.principal.identity().then((account) => {
             this.account = account;
         });
@@ -111,10 +117,26 @@ export class HomeComponent implements OnInit {
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
+    loadHopDongDangNoBH() {
+        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DANGVAY, LOAIHOPDONG.BATHO).subscribe(
+            (res: HttpResponse<HopDong[]>) => {
+                this.hopDongDangNoBHs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
     loadHopDongVL() {
         this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DADONG, LOAIHOPDONG.VAYLAI).subscribe(
             (res: HttpResponse<HopDong[]>) => {
                 this.hopDongVLs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    loadHopDongDangNoVL() {
+        this.hopDongService.thongkehopdong(TRANGTHAIHOPDONG.DANGVAY, LOAIHOPDONG.VAYLAI).subscribe(
+            (res: HttpResponse<HopDong[]>) => {
+                this.hopDongDangNoVLs = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
