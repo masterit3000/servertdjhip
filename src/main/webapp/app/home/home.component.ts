@@ -26,6 +26,8 @@ import { Router } from "@angular/router";
 export class HomeComponent implements OnInit {
     account: Account;
     batHo: BatHo;
+    batHosTraCham: BatHo[];
+    vayLaisTraCham: VayLai[];
     vayLai: VayLai;
     lichSuDongTiens: LichSuDongTien[];
     modalRef: NgbModalRef;
@@ -58,12 +60,10 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
-        this.loadLichSuTraChamBatHo();
-        this.loadLichSuTraChamVayLai();
+        this.loadLichSuTraChamBH();
+        this.loadLichSuTraChamVL();
         this.loadLichSuTraBatHoHomNay();
         this.loadLichSuTraVayLaiHomNay();
-        this.loadHopDongBH();
-        this.loadHopDongVL();
         this.principal.identity().then((account) => {
             this.account = account;
         });
@@ -87,22 +87,6 @@ export class HomeComponent implements OnInit {
         this.modalRef = this.loginModalService.open();
     }
 
-    loadLichSuTraChamBatHo() {
-        this.lichSuDongTienService.lichSuTraCham(DONGTIEN.CHUADONG, LOAIHOPDONG.BATHO).subscribe(
-            (res: HttpResponse<LichSuDongTien[]>) => {
-                this.lichSuDongTienBHs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
-    loadLichSuTraChamVayLai() {
-        this.lichSuDongTienService.lichSuTraCham(DONGTIEN.CHUADONG, LOAIHOPDONG.VAYLAI).subscribe(
-            (res: HttpResponse<LichSuDongTien[]>) => {
-                this.lichSuDongTienVLs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
     loadLichSuTraBatHoHomNay() {
         this.lichSuDongTienService.lichSuTraHomNay(DONGTIEN.CHUADONG, LOAIHOPDONG.BATHO).subscribe(
             (res: HttpResponse<LichSuDongTien[]>) => {
@@ -158,5 +142,22 @@ export class HomeComponent implements OnInit {
         );
 
     }
+    loadLichSuTraChamBH(){
+        this.batHoService.loadLichSuTraCham().subscribe(
+            (res: HttpResponse<BatHo[]>)=>{
+                this.batHosTraCham = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+    loadLichSuTraChamVL(){
+        this.vayLaiService.lichSuTraCham().subscribe(
+            (res: HttpResponse<BatHo[]>)=>{
+                this.vayLaisTraCham = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
 }
 

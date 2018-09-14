@@ -13,6 +13,8 @@ export type EntityResponseType = HttpResponse<BatHo>;
 export class BatHoService {
 
     private resourceUrl = SERVER_API_URL + 'api/bat-hos';
+    private trachamUrl = SERVER_API_URL + 'api/so-tien-so-ngay-tra-cham';
+    private lichSuTraCham = SERVER_API_URL + 'api/bat-hos-tra-cham';
     private findonneUrl = SERVER_API_URL + 'api/find-one-bat-hos';
     private quanLyVonUrl = SERVER_API_URL + 'api/quan-ly-von';
     private daoHoUrl = SERVER_API_URL + 'api/dao-bat-hos';
@@ -33,7 +35,7 @@ export class BatHoService {
         return this.http.post<BatHo>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
-    daoHo(batHo: BatHo, id: number,mahopdong:string): Observable<EntityResponseType> {
+    daoHo(batHo: BatHo, id: number, mahopdong: string): Observable<EntityResponseType> {
         const copy = this.convert(batHo);
         return this.http.post<BatHo>(`${this.daoHoUrl}/${id}/${mahopdong}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
@@ -59,12 +61,21 @@ export class BatHoService {
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
 
+    loadLichSuTraCham(): Observable<HttpResponse<BatHo[]>> {
+        return this.http.get<BatHo[]>(`${this.lichSuTraCham}`, { observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     quanLyVon(): Observable<HttpResponse<string>> {
         return this.http.get<string>(`${this.quanLyVonUrl}`, { observe: 'response' });
+    }
+
+    tinhNgayOrTienTraCham(id:number,choice:number): Observable<HttpResponse<string>> {
+        return this.http.get<string>(`${this.trachamUrl}/${id}/${choice}`, { observe: 'response' });
     }
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: BatHo = this.convertItemFromServer(res.body);

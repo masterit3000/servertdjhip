@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
+import java.util.Set;
 
 /**
  * Service Implementation for managing LichSuDongTien.
@@ -278,7 +279,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
-            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong, ngayhientai, cuaHangid);
+            Set<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong, ngayhientai, cuaHangid);
 //            for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
 //                HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
 //                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);

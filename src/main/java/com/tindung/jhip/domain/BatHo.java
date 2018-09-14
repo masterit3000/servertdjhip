@@ -34,6 +34,28 @@ public class BatHo implements Serializable {
     @NotNull
     @Column(name = "tongsongay", nullable = false)
     private Integer tongsongay;
+    
+    @Column(name = "songaytracham")
+    private Integer songaytracham;
+
+    public Integer getSongaytracham() {
+        return songaytracham;
+    }
+
+    public void setSongaytracham(Integer songaytracham) {
+        this.songaytracham = songaytracham;
+    }
+
+    public Integer getSotientracham() {
+        return sotientracham;
+    }
+
+    public void setSotientracham(Integer sotientracham) {
+        this.sotientracham = sotientracham;
+    }
+    
+    @Column(name = "sotientracham")
+    private Integer sotientracham;
 
     @NotNull
     @Column(name = "chuky", nullable = false)
@@ -140,12 +162,12 @@ public class BatHo implements Serializable {
 
     @Override
     public String toString() {
-        return "BatHo{" +
-            "id=" + getId() +
-            ", tienduakhach=" + getTienduakhach() +
-            ", tongtien=" + getTongtien() +
-            ", tongsongay=" + getTongsongay() +
-            ", chuky=" + getChuky() +
-            "}";
+        return "BatHo{"
+                + "id=" + getId()
+                + ", tienduakhach=" + getTienduakhach()
+                + ", tongtien=" + getTongtien()
+                + ", tongsongay=" + getTongsongay()
+                + ", chuky=" + getChuky()
+                + "}";
     }
 }

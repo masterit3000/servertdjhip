@@ -40,9 +40,12 @@ import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.NhatKyDTO;
 import com.tindung.jhip.service.mapper.KhachHangMapper;
+import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -623,4 +626,24 @@ public class VayLaiServiceImpl implements VayLaiService {
 
         throw new InternalServerErrorException("Khong co quyen");
     }
+
+    @Override
+    public List<VayLaiDTO> lichSuTraCham() {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<LichSuDongTienDTO> listLichSuDongTien = lichSuDongTienService.lichSuTraCham(DONGTIEN.CHUADONG, LOAIHOPDONG.VAYLAI);
+            Set<VayLai> listVayLaiTraCham = new HashSet<VayLai>();
+            for (LichSuDongTienDTO lichSuDongTien : listLichSuDongTien) {
+                listVayLaiTraCham.add(vayLaiRepository.findByHopDong(lichSuDongTien.getHopDongId()));
+            }
+            List<VayLaiDTO> collect = listVayLaiTraCham.stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new BadRequestAlertException("không có quyền", null, null);
+    }
+
 }

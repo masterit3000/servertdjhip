@@ -27,7 +27,7 @@
         <div class="row" style="height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="lichSuDongTienBHs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected"
+                    <p-table [value]="lichSuDongTienHomNayBHs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected"
                         dataKey="id" *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -60,16 +60,17 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findBatHoByHopDong(lichSuDongTien.hopDongId)">
-                                <td>{{lichSuDongTien.mahopdong}}</td>
-                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                                <td>{{lichSuDongTien.nhanVienTen}}</td>
-                                <td>{{lichSuDongTien.khachHangTen}}</td>
-                                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                            <tr (click)="findBatHoByHopDong(lichSuDongTien.hopdong.id)">
+                                <td>{{lichSuDongTien.hopdong.mahopdong}}</td>
+                                <!-- <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td> -->
+                                <td>{{lichSuDongTien.hopdong.nhanVienTen}}</td>
+                                <td>{{lichSuDongTien.hopdong.khachHangTen}}</td>
+                                <!-- <td>{{ soTienOrSoNgayTraCham(batHo.hopdong.id,1)}}</td> -->
+                                <!-- <td>{{batHo.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
                                     <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
-                                </td>
+                                </td> -->
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">
@@ -196,7 +197,7 @@
         <div class="row" style="height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="lichSuDongTienVLs" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected"
+                    <p-table [value]="vayLaisTraCham" [scrollable]="true" scrollHeight="300px" selectionMode="single" [(selection)]="selected"
                         dataKey="id" *ngSwitchCase="true">
                         <ng-template pTemplate="header">
                             <tr>
@@ -228,17 +229,18 @@
                             </tr>
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
-                        <ng-template pTemplate="body" let-lichSuDongTien>
-                            <tr (click)="findVayLaiByHopDong(lichSuDongTien.hopDongId)">
-                                <td>{{lichSuDongTien.mahopdong}}</td>
-                                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                                <td>{{lichSuDongTien.nhanVienTen}}</td>
-                                <td>{{lichSuDongTien.khachHangTen}}</td>
-                                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                        <ng-template pTemplate="body" let-vayLai>
+                            <tr (click)="findVayLaiByHopDong (vayLai.hopdongvl.id)">
+                                <td>{{vayLai.hopdongvl.mahopdong}}</td>
+                                <!-- <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td> -->
+                                <td>{{vayLai.hopdongvl.nhanVienTen}}</td>
+                                <td>{{vayLai.hopdongvl.khachHangTen}}</td>
+                                <!-- <td>{{ soTienOrSoNgayTraCham(batHo.hopdong.id,1)}}</td> -->
+                                <!-- <td>{{batHo.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
                                     <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
-                                </td>
+                                </td> -->
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">

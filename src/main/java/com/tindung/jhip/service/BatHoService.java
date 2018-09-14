@@ -6,6 +6,7 @@ import com.tindung.jhip.service.dto.LichSuDongTienDTO;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service Interface for managing BatHo.
@@ -59,4 +60,6 @@ public interface BatHoService {
     List<BatHoDTO> findByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai) ;
     Double quanLyVon();
     List<BatHoDTO> findByNhanVien(Long idNhanVien);
+    List<BatHoDTO> lichSuTraCham();
+    
 }

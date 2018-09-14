@@ -6,6 +6,7 @@ import com.tindung.jhip.domain.enumeration.LOAIHOPDONG;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -40,7 +41,7 @@ public interface LichSuDongTienRepository extends JpaRepository<LichSuDongTien, 
     Optional<Double> lichSuDongTien(DONGTIEN trangthai, Long idcuahang);
 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) and c.id =?4 order by l.ngayketthuc ")
-    List<LichSuDongTien> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
+    Set<LichSuDongTien> lichSuTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
 
     @Query(value = "select l from LichSuDongTien l inner join l.hopDong h  where l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) order by l.ngaygiaodich ")
     List<LichSuDongTien> lichSuTraChamAdmin(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai);

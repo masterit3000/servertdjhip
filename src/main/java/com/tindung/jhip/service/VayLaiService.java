@@ -57,6 +57,8 @@ public interface VayLaiService {
     VayLaiDTO findByHopDong(Long id);
 
     Double tienVayThemTraBot(Long id);
+    
+    List<VayLaiDTO> lichSuTraCham();
 
 //    List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id);
 }
