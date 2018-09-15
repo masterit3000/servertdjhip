@@ -20,15 +20,15 @@ export class ThuHoatDongComponent implements OnInit {
     thuChis: ThuChi[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    thuchi: ThuChi;
     tungay: Date;
     denngay: Date;
+    thuchi: ThuChi;
     isSaving: boolean;
-    nhanviens: NhanVien[];
+    nhanViens: NhanVien[];
     tongTien: number;
+    
 
     constructor(
-        // public activeModal: NgbActiveModal,
         private thuChiService: ThuChiService,
         private jhiAlertService: JhiAlertService,
         private nhanVienService: NhanVienService,
@@ -39,7 +39,6 @@ export class ThuHoatDongComponent implements OnInit {
         this.tongTien = 0;
     }
     timkiem() {
-        // console.log(this.tungay);
         this.tongTien = 0;
         console.log(this.denngay);
         this.thuChiService
@@ -126,7 +125,7 @@ export class ThuHoatDongComponent implements OnInit {
         // this.registerChangeInThuChis();
         this.nhanVienService.query().subscribe(
             (res: HttpResponse<NhanVien[]>) => {
-                this.nhanviens = res.body;
+                this.nhanViens = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

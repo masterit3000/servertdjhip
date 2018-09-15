@@ -34,8 +34,6 @@ export class ChiHoatDongComponent implements OnInit, OnDestroy {
         this.tongTien = 0;
     }
     timkiem() {
-        // console.log(this.tungay);
-        // console.log(this.denngay);
         this.tongTien = 0;
         this.thuChiService
             .findByTime(this.tungay, this.denngay, THUCHI.CHI)
