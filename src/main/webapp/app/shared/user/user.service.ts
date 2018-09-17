@@ -30,6 +30,12 @@ export class UserService {
         return this.http.get<User>(`${this.resourceUrl}/${login}`, {
             observe: 'response'
         });
+    };
+
+    findAllKeToan(): Observable<HttpResponse<User[]>> {
+        return this.http.get<User[]>(this.resourceUrl + '/ketoan', {
+            observe: 'response'
+        });
     }
 
     query(req?: any): Observable<HttpResponse<User[]>> {
@@ -63,5 +69,8 @@ export class UserService {
         return this.http.get<string[]>(
             SERVER_API_URL + 'api/users/authorities'
         );
-    }
+    };
+
+    
+    
 }

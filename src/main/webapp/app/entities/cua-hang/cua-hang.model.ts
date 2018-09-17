@@ -16,6 +16,7 @@ export class CuaHang implements BaseEntity {
         public ngayTao?: any,
         public ghiChu?: string,
         public xaId?: number,
+        public keToanId?: number,
         public tenXa?: string,
         public tenHuyen?: string,
         public tenTinh?: string,
