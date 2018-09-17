@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<HopDong>;
 @Injectable()
 export class HopDongService {
     private resourceUrl = SERVER_API_URL + 'api/hop-dongs';
+    private hopdongtrachamUrl = SERVER_API_URL + 'api/hop-dongs-tra-cham';
     private thongkeUrl = SERVER_API_URL + 'api/thong-ke-hop-dongs';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
@@ -103,5 +104,15 @@ export class HopDongService {
         return this.http
             .get('/api/hop-dongs')
             .map(response => response as HopDong[]);
+    }
+
+    getHopDongsTraCham(loai?: LOAIHOPDONG): Observable<HttpResponse<HopDong[]>> {
+        return this.http
+            .get<HopDong[]>(`${this.hopdongtrachamUrl}/${loai}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<HopDong[]>) =>
+                this.convertArrayResponse(res)
+            );
     }
 }

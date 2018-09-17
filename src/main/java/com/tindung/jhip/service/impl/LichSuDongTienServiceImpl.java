@@ -279,13 +279,8 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
             ZonedDateTime ngayhientai = ZonedDateTime.now();
-            Set<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong, ngayhientai, cuaHangid);
-//            for (LichSuDongTien lichSuDongTien : lichSuDongTiens) {
-//                HopDong hopdong = hopDongRepository.findOne(lichSuDongTien.getHopDong().getId());
-//                hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.QUAHAN);
-//                hopDongRepository.save(hopdong);
-//
-//            }
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.lichSuTraCham(dongtien, loaihopdong, ngayhientai, cuaHangid);
+            
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
                     .map(lichSuDongTienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

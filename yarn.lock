@@ -393,6 +393,10 @@ angular2-template-loader@0.6.2:
   dependencies:
     loader-utils "^0.2.15"
 
+angular5-csv@^0.2.10:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/angular5-csv/-/angular5-csv-0.2.10.tgz#ef1400df7b403fac9e02c20f51cf4cd2a4b3de17"
+
 ansi-cyan@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ansi-cyan/-/ansi-cyan-0.1.1.tgz#538ae528af8982f28ae30d86f2f17456d2609873"

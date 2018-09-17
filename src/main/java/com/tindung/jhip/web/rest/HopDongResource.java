@@ -152,4 +152,20 @@ public class HopDongResource {
         hopDongService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/hop-dongs-tra-cham/{loaihopdong}")
+    @Timed
+    public List<HopDongDTO> getAllHopDongsTraCham(@PathVariable(name = "loaihopdong") String loaihopdong) {
+        log.debug("REST request to get all HopDongs");
+        LOAIHOPDONG loai = LOAIHOPDONG.BATHO;
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        return hopDongService.findHopDongTraCham(loai);
+    }
 }

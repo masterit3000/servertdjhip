@@ -22,6 +22,24 @@ public class HopDongDTO implements Serializable {
 
     @Size(max = 3000)
     private String ghichu;
+    private int songaytracham;
+    private int sotientracham;
+
+    public int getSotientracham() {
+        return sotientracham;
+    }
+
+    public void setSotientracham(int sotientracham) {
+        this.sotientracham = sotientracham;
+    }
+
+    public int getSongaytracham() {
+        return songaytracham;
+    }
+
+    public void setSongaytracham(int songaytracham) {
+        this.songaytracham = songaytracham;
+    }
 
 //    @NotNull
     private LOAIHOPDONG loaihopdong;

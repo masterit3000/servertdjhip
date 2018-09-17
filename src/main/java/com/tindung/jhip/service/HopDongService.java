@@ -41,4 +41,6 @@ public interface HopDongService {
     void delete(Long id);
     
     List<HopDongDTO> thongKe(TRANGTHAIHOPDONG trangthai,LOAIHOPDONG loai);
+    
+    List<HopDongDTO> findHopDongTraCham(LOAIHOPDONG loaihopdong);
 }
