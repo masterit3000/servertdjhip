@@ -52,4 +52,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.activated = true and u.id = ?1")
     User findById(Long id);
 
+ 
+    @Query("select u from User u inner join u.authorities a  where a.name ='ROLE_KETOAN'")
+    List<User> findAllKeToan();
+
+
 }

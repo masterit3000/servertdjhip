@@ -17,7 +17,7 @@ public class CuaHangDTO implements Serializable {
     private String tenTinh;
     private String tenHuyen;
     private String tenXa;
-
+    
     public String getTenTinh() {
         return tenTinh;
     }
@@ -60,6 +60,16 @@ public class CuaHangDTO implements Serializable {
     private String ghiChu;
 
     private Long xaId;
+    
+    private Long keToanId;
+
+    public Long getKeToanId() {
+        return keToanId;
+    }
+
+    public void setKeToanId(Long keToanId) {
+        this.keToanId = keToanId;
+    }
 
     public Long getId() {
         return id;

@@ -201,6 +201,14 @@ public class UserResource {
 //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    
+    @GetMapping("/users/ketoan")
+    @Timed
+    public ResponseEntity<List<UserDTO>> findAllKeToan() {
+        final List<UserDTO> list = userService.findAllKeToan();
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
     /**
      * @return a string list of the all of the roles

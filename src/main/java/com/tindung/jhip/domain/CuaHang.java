@@ -47,13 +47,26 @@ public class CuaHang implements Serializable {
     @Column(name = "ngay_tao")
     private ZonedDateTime ngayTao;
 
+ 
+    @ManyToOne
+    private User ketoan;
+
+    public User getKetoan() {
+        return ketoan;
+    }
+
+    public void setKetoan(User ketoan) {
+        this.ketoan = ketoan;
+    }
+
     @Size(max = 3000)
     @Column(name = "ghi_chu", length = 3000)
     private String ghiChu;
 
     @ManyToOne
     private Xa xa;
-
+    
+    
     @OneToMany(mappedBy = "cuaHang")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -78,6 +91,8 @@ public class CuaHang implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<HopDong> hopdongs = new HashSet<>();
+
+    
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

@@ -37,7 +37,6 @@ public class CuaHangServiceImpl implements CuaHangService {
 
     private final NhanVienService nhanVienService;
     private final NhatKyService nhatKyService;
-
     public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService, NhatKyService nhatKyService) {
         this.cuaHangRepository = cuaHangRepository;
         this.cuaHangMapper = cuaHangMapper;
@@ -88,6 +87,7 @@ public class CuaHangServiceImpl implements CuaHangService {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+
     /**
      * Get one cuaHang by id.
      *
@@ -126,4 +126,5 @@ public class CuaHangServiceImpl implements CuaHangService {
         Long cuaHangId = nhanVien.getCuaHangId();
         return cuaHangId;
     }
+
 }

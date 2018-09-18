@@ -87,12 +87,19 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "jhi_user_authority",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+            name = "jhi_user_authority",
+            joinColumns = {
+                @JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "authority_name", referencedColumnName = "name")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @OneToMany(mappedBy = "ketoan")
+    @JsonIgnore
+//    @Cache(usage = CacheConcurrencyStrategy.NONE)
+    private Set<CuaHang> cuahangs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -198,6 +205,19 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+    public Set<CuaHang> getCuahangs() {
+        return cuahangs;
+    }
+
+    public User cuahangs(Set<CuaHang> cuaHangs) {
+        this.cuahangs = cuaHangs;
+        return this;
+    }
+    
+
+    public void setCuahangs(Set<CuaHang> cuaHangs) {
+        this.cuahangs = cuaHangs;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -219,15 +239,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
+        return "User{"
+                + "login='" + login + '\''
+                + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", email='" + email + '\''
+                + ", imageUrl='" + imageUrl + '\''
+                + ", activated='" + activated + '\''
+                + ", langKey='" + langKey + '\''
+                + ", activationKey='" + activationKey + '\''
+                + "}";
     }
 }

@@ -272,6 +272,11 @@ public class UserService {
         return userRepository.findAllByNewsUser().stream().map(UserDTO::new)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
+    
+    public List<UserDTO> findAllKeToan() {
+        return userRepository.findAllKeToan().stream().map(UserDTO::new)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     public void changePasswordByAdmin(Long id, String password) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {

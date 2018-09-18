@@ -12,6 +12,7 @@ import { CuaHangService } from './cua-hang.service';
 import { Xa, XaService } from '../xa';
 import { Tinh, TinhService } from '../tinh';
 import { Huyen, HuyenService } from '../huyen';
+import { UserService, User } from '../../shared';
 
 @Component({
     selector: 'jhi-cua-hang-dialog',
@@ -32,21 +33,28 @@ export class CuaHangDialogComponent implements OnInit {
     xa: Xa;
     tinh: Tinh;
     huyen: Huyen;
+    users: User[];
+    user: User;
+    ketoan: any;
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private cuaHangService: CuaHangService,
         private xaService: XaService,
         private tinhService: TinhService,
+        private userService: UserService,
         private huyenService: HuyenService,
         private eventManager: JhiEventManager
+
     ) {
+        this.user = new User;
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.xaService.query()
             .subscribe((res: HttpResponse<Xa[]>) => { this.xas = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.loadAllKeToan();
     }
 
     clear() {
@@ -56,6 +64,9 @@ export class CuaHangDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.cuaHang.xaId = this.xa.id;
+        this.cuaHang.keToanId = this.user.id;
+        console.log(this.cuaHang.keToanId);
+        
         if (this.cuaHang.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.cuaHangService.update(this.cuaHang));
@@ -76,7 +87,7 @@ export class CuaHangDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError() {
+    private onSaveError() { 
         this.isSaving = false;
     }
 
@@ -141,6 +152,16 @@ export class CuaHangDialogComponent implements OnInit {
         }
         return filtered;
     }
+    loadAllKeToan(){
+        this.userService.findAllKeToan().subscribe(
+            (res: HttpResponse<User[]>) => {
+                this.users = res.body;
+                console.log(this.user.id);
+                
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
 }
 
 @Component({
@@ -164,7 +185,8 @@ export class CuaHangPopupComponent implements OnInit, OnDestroy {
             } else {
                 this.cuaHangPopupService
                     .open(CuaHangDialogComponent as Component);
-            }
+        
+                }
         });
     }
 
