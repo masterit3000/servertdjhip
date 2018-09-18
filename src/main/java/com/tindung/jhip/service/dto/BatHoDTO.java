@@ -14,6 +14,24 @@ public class BatHoDTO implements Serializable {
     private Long id;
     private String nhanVienTen;
     private String khachHangTen;
+    private int soNgayTraCham;
+    private double soTienTraCham;
+
+    public int getSoNgayTraCham() {
+        return soNgayTraCham;
+    }
+
+    public void setSoNgayTraCham(int soNgayTraCham) {
+        this.soNgayTraCham = soNgayTraCham;
+    }
+
+    public double getSoTienTraCham() {
+        return soTienTraCham;
+    }
+
+    public void setSoTienTraCham(double soTienTraCham) {
+        this.soTienTraCham = soTienTraCham;
+    }
 
     public String getNhanVienTen() {
         return nhanVienTen;

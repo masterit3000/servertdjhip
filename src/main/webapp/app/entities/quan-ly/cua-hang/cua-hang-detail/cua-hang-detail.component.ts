@@ -39,16 +39,6 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     none: any;
     keyTimBatHo: string;
     keyTimVayLai: string;
-    // Thu Chi Nguon Von
-    // thuChis: ThuChi[];
-    // tungay: Date;
-    // denngay: Date;
-    // thuchi: ThuChi;
-    // isSaving: boolean;
-    // tongTienThu: number;
-    // tongTienChi: number;
-    // tongTienGop: number;
-    // tongTienRut: number;
     constructor(
         private batHoService: BatHoService,
         private vayLaiService: VayLaiService,
@@ -59,13 +49,7 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
-        // private thuChiService: ThuChiService,
     ) {
-        // this.thuchi = new ThuChi();
-        // this.tongTienThu = 0;
-        // this.tongTienChi = 0;
-        // this.tongTienGop = 0;
-        // this.tongTienRut = 0;
     }
 
     private onError(error) {

@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<VayLai>;
 export class VayLaiService {
 
     private resourceUrl = SERVER_API_URL + 'api/vay-lais';
+    private traChamUrl = SERVER_API_URL + 'api/vay-lais-tra-cham';
     private findoneURl = SERVER_API_URL + 'api/find-one-vay-lais';
     private tienVayThemTraBotUrl = SERVER_API_URL + 'api/vay-them-tra-bot';
     private lichSuDongTien = 'lichsudongtien';
@@ -52,6 +53,10 @@ export class VayLaiService {
 
     query(trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<VayLai[]>> {
         return this.http.get<VayLai[]>(`${this.resourceUrl}/${trangthai}`, { observe: 'response' })
+            .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
+    }
+    lichSuTraCham(): Observable<HttpResponse<VayLai[]>> {
+        return this.http.get<VayLai[]>(`${this.traChamUrl}`, { observe: 'response' })
             .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
     getAllByCuaHang(id?: number): Observable<HttpResponse<VayLai[]>> {

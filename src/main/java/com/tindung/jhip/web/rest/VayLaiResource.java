@@ -215,8 +215,15 @@ public class VayLaiResource {
     @GetMapping("/vay-them-tra-bot/{id}")
     @Timed
     public ResponseEntity<String> quanLyVon(@PathVariable Long id) {
-        log.debug("REST request to get all BatHos");
+        log.debug("REST request to get all Vay Lai");
         String result = vayLaiService.tienVayThemTraBot(id).toString();
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+    }
+
+    @GetMapping("/vay-lais-tra-cham")
+    @Timed
+    public List<VayLaiDTO> lichSuBatHoTraCham() {
+        log.debug("REST request to get Vay Lai : {}");
+        return vayLaiService.lichSuTraCham();
     }
 }

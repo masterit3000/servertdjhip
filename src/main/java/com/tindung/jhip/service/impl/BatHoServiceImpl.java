@@ -44,12 +44,14 @@ import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.errors.InternalServerErrorException;
 import java.sql.Date;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -99,8 +101,6 @@ public class BatHoServiceImpl implements BatHoService {
         this.thuChiRepository = thuChiRepository;
     }
 
-
-
     /**
      * Save a batHo.
      *
@@ -116,8 +116,8 @@ public class BatHoServiceImpl implements BatHoService {
 
             validate(batHoDTO);
             if (batHoDTO.getId() == null) { //add new bat ho
-                if (batHoDTO.getTienduakhach() <= quanLyVon() 
-                && khachHangRepository.findOne(batHoDTO.getHopdong().getKhachHangId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
+                if (batHoDTO.getTienduakhach() <= quanLyVon()
+                        && khachHangRepository.findOne(batHoDTO.getHopdong().getKhachHangId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
                     HopDongDTO hopdong = batHoDTO.getHopdong();
                     hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                     hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -283,7 +283,7 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             if (batHoDTO.getTienduakhach() < quanLyVon()
-                && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
+                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
                 HopDongDTO hopdong = new HopDongDTO();
                 hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                 hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -664,6 +664,33 @@ public class BatHoServiceImpl implements BatHoService {
             Double nguonvon = 0d;
             nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
             return nguonvon;
+        }
+        throw new BadRequestAlertException("không có quyền", null, null);
+    }
+
+    @Override
+    public List<BatHoDTO> lichSuTraCham() {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            List<LichSuDongTienDTO> listLichSuDongTien = lichSuDongTienService.lichSuTraCham(DONGTIEN.CHUADONG, LOAIHOPDONG.BATHO);
+            Set<BatHo> listBatHoTraCham = new HashSet<BatHo>();
+            int soNgayTraCham = 0;
+            for (LichSuDongTienDTO lichSuDongTien : listLichSuDongTien) {
+                BatHo batHoTraCham = batHoRepository.findByHopDong(lichSuDongTien.getHopDongId());
+                if (listBatHoTraCham.contains(lichSuDongTien)) {
+                    soNgayTraCham++;
+                    batHoRepository.save(batHoTraCham);
+                }
+                batHoTraCham.setSongaytracham(soNgayTraCham);
+                listBatHoTraCham.add(batHoTraCham);
+            }
+
+            List<BatHoDTO> collect = listBatHoTraCham.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
