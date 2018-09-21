@@ -15,7 +15,7 @@ import { GhiNo, GhiNoService } from '../../app/entities/ghi-no';
 import { BatHo, BatHoService } from '../../app/entities/bat-ho';
 import { VayLai, VayLaiService } from '../../app/entities/vay-lai';
 import { Router } from "@angular/router";
-import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+// import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',

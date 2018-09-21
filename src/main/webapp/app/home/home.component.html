@@ -406,29 +406,6 @@
                             </tr>
                         </ng-template>
                     </p-table>
-                    <!-- <p-table #dt [columns]="cols" [value]="hopDongDangNoVLs" selectionMode="multiple" [(selection)]="selectedCars">
-                            <ng-template pTemplate="caption">
-                                <div class="ui-helper-clearfix">
-                                    <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left">in tat ca</button>
-                                    <button type="button" pButton icon="fa fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th *ngFor="let col of columns">
-                                        {{col.header}}
-                                    </th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                <tr [pSelectableRow]="rowData">
-                                    <td *ngFor="let col of columns">
-                                        <span>{{rowData[col.field]}}</span>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table> -->
-
                 </div>
             </div>
         </div>

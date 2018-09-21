@@ -314,10 +314,4 @@ public class BatHoResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 
-    @GetMapping("/bat-hos-tra-cham")
-    @Timed
-    public List<BatHoDTO> lichSuBatHoTraCham() {
-        log.debug("REST request to get BatHo : {}");
-        return batHoService.lichSuTraCham();
-    }
 }

@@ -60,6 +60,5 @@ public interface BatHoService {
     List<BatHoDTO> findByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai) ;
     Double quanLyVon();
     List<BatHoDTO> findByNhanVien(Long idNhanVien);
-    List<BatHoDTO> lichSuTraCham();
     
 }

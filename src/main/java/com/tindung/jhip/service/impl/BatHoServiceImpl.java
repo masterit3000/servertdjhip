@@ -668,31 +668,4 @@ public class BatHoServiceImpl implements BatHoService {
         throw new BadRequestAlertException("không có quyền", null, null);
     }
 
-    @Override
-    public List<BatHoDTO> lichSuTraCham() {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            List<LichSuDongTienDTO> listLichSuDongTien = lichSuDongTienService.lichSuTraCham(DONGTIEN.CHUADONG, LOAIHOPDONG.BATHO);
-            Set<BatHo> listBatHoTraCham = new HashSet<BatHo>();
-            int soNgayTraCham = 0;
-            for (LichSuDongTienDTO lichSuDongTien : listLichSuDongTien) {
-                BatHo batHoTraCham = batHoRepository.findByHopDong(lichSuDongTien.getHopDongId());
-                if (listBatHoTraCham.contains(lichSuDongTien)) {
-                    soNgayTraCham++;
-                    batHoRepository.save(batHoTraCham);
-                }
-                batHoTraCham.setSongaytracham(soNgayTraCham);
-                listBatHoTraCham.add(batHoTraCham);
-            }
-
-            List<BatHoDTO> collect = listBatHoTraCham.stream()
-                    .map(batHoMapper::toDto)
-                    .collect(Collectors.toCollection(LinkedList::new));
-            return collect;
-
-        }
-        throw new BadRequestAlertException("không có quyền", null, null);
-    }
-
 }

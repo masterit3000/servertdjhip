@@ -59,9 +59,8 @@
                             <span>Kế toán</span>
                         </label>
                         <div class="d-flex">
-                            <select class="form-control" name="ketoan" id="field_ketoan">
-                                <option>Kế toán 1</option>
-                                <option>Kế toán 2</option>
+                            <select class="form-control" id="field_ketoan" name="keToan" [(ngModel)]="user">
+                                <option *ngFor="let user of users" [ngValue]="user">{{user.id}}</option>
                             </select>
                         </div>
                     </div>
@@ -94,17 +93,6 @@
                         </select> -->
                         <p-autoComplete [(ngModel)]="xa" name="basic" [suggestions]="filteredXas" (completeMethod)="filterXas($event)" field="ten"
                             [size]="30" [inputStyle]="{'width':'80%'}" placeholder="Xã" [minLength]="1" [dropdown]="true"></p-autoComplete>
-                    </div>
-                </div>
-                <div class="row">
-                        <label class="form-control-label" for="field_ketoan">
-                                <span class="fa fa-fw fa-bank"></span>
-                                <span>Kế toán</span>
-                            </label>
-                    <div class="form-group col-md-6">
-                        <select class="form-control" id="field_ketoan" name="keToan" [(ngModel)]="user">
-                            <option *ngFor="let user of users" [ngValue]="user">{{user.id}}</option>
-                        </select>
                     </div>
                 </div>
             </div>
