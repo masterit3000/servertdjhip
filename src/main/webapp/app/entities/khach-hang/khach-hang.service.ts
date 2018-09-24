@@ -5,7 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { KhachHang } from './khach-hang.model';
+import { KhachHang, TrangThaiKhachHang } from './khach-hang.model';
 import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<KhachHang>;
@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<KhachHang>;
 @Injectable()
 export class KhachHangService {
     private resourceUrl = SERVER_API_URL + 'api/khach-hangs';
+    private setTrangThaiUrl = SERVER_API_URL + 'api/set-trang-thai-khach-hang';
     private findInSystemUrl = SERVER_API_URL + 'api/tim-khach-hang-trong-he-thong';
     private resourceUrlTimKhachHang =
         SERVER_API_URL + 'api/tim-khach-hang-by-ten-cmnd';
@@ -135,6 +136,13 @@ export class KhachHangService {
         return this.http.get(
             SERVER_API_URL + 'api/download/anh-khach-hang/' + id,
             { responseType: 'blob' }
+        );
+    }
+
+    setTrangThai(id: number, trangthai: TrangThaiKhachHang): Observable<any> {
+        return this.http.get<any>(
+            `${this.setTrangThaiUrl}/${id}/${trangthai}`,
+            { observe: 'response' }
         );
     }
 }

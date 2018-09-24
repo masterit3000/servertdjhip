@@ -235,6 +235,14 @@ public class BatHoResource {
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return batHoService.baoCao(timeStart, timeEnd);
     }
+    @GetMapping("/bao-cao-bat-hos-ketoan/{start}/{end}/{idcuahang}")
+    @Timed
+    public List<BatHoDTO> baoCaoKeToan(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable (name="idcuahang") Long id) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return batHoService.baoCaoKeToan(timeStart, timeEnd,id);
+    }
 
     @GetMapping("/find-by-trangthai-bat-hos/{start}/{end}/{trangthai}")
     @Timed
@@ -311,6 +319,13 @@ public class BatHoResource {
     public ResponseEntity<String> quanLyVon() {
         log.debug("REST request to get all BatHos");
         String result = batHoService.quanLyVon().toString();
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+    }
+    @GetMapping("/quan-ly-von-ke-toan/{id}")
+    @Timed
+    public ResponseEntity<String> quanLyVon(Long id) {
+        log.debug("REST request to get all BatHos");
+        String result = batHoService.quanLyVonByKeToan(id).toString();
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 

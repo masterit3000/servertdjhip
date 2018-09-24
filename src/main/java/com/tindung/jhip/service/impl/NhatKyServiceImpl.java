@@ -71,7 +71,7 @@ public class NhatKyServiceImpl implements NhatKyService {
             return nhatKyRepository.findAllByCuaHang(nv.getCuaHang().getId()).stream()
                     .map(nhatKyMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
-        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             return nhatKyRepository.findAll().stream()
                     .map(nhatKyMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

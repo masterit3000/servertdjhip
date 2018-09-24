@@ -1,6 +1,7 @@
 package com.tindung.jhip.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.tindung.jhip.domain.enumeration.TrangThaiKhachHang;
 import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.web.rest.errors.BadRequestAlertException;
 import com.tindung.jhip.web.rest.util.HeaderUtil;
@@ -94,6 +95,7 @@ public class KhachHangResource {
         log.debug("REST request to get all KhachHangs");
         return khachHangService.findAll();
     }
+
     @GetMapping("/khach-hangs-by-cuahang/{id}")
     @Timed
     public List<KhachHangDTO> getAllKhachHangsByCuaHang(@PathVariable(name = "id") Long id) {
@@ -112,6 +114,7 @@ public class KhachHangResource {
         log.debug("REST request to get all KhachHangs");
         return khachHangService.findByNameOrCMND(key);
     }
+
     @GetMapping("/tim-khach-hang-trong-he-thong/{key}")
     @Timed
     public List<KhachHangDTO> findKhachHangsInSystem(@PathVariable(name = "key") String key) {
@@ -146,5 +149,31 @@ public class KhachHangResource {
         log.debug("REST request to delete KhachHang : {}", id);
         khachHangService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/set-trang-thai-khach-hang{id}/{trangthai}")
+    @Timed
+    public ResponseEntity<Void> setTrangThai(@PathVariable Long id, @PathVariable(name = "trangthai") String trangthai) throws URISyntaxException {
+        log.debug("REST request to setDongtien LichSuDongTien : {}");
+        TrangThaiKhachHang trangthaikhachhang = TrangThaiKhachHang.HOATDONG;
+        switch (trangthai) {
+            case "0":
+                trangthaikhachhang = TrangThaiKhachHang.HOATDONG;
+                break;
+            case "1":
+                trangthaikhachhang = TrangThaiKhachHang.DUNGHOATDONG;
+                break;
+            case "2":
+                trangthaikhachhang = TrangThaiKhachHang.CAPDO1;
+                break;
+            case "3":
+                trangthaikhachhang = TrangThaiKhachHang.CAPDO2;
+                break;
+            case "4":
+                trangthaikhachhang = TrangThaiKhachHang.CAPDO3;
+                break;
+        }
+        khachHangService.setTrangThai(id, trangthaikhachhang);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
     }
 }

@@ -63,6 +63,20 @@ public class ThuChiResource {
                 .body(result);
     }
 
+    @PostMapping("/thu-chis-ke-toan/{id}")
+    @Timed
+    public ResponseEntity<ThuChiDTO> createThuChiByKeToan(@Valid @RequestBody ThuChiDTO thuChiDTO, @PathVariable(name = "id") Long id) throws URISyntaxException {
+        //   thuChiDTO.setThoiGian();
+        log.debug("REST request to save ThuChi : {}", thuChiDTO);
+        if (thuChiDTO.getId() != null) {
+            throw new BadRequestAlertException("A new thuChi cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        ThuChiDTO result = thuChiService.saveKeToan(thuChiDTO, id);
+        return ResponseEntity.created(new URI("/api/thu-chis/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+    }
+
     /**
      * PUT /thu-chis : Updates an existing thuChi.
      *
@@ -247,4 +261,33 @@ public class ThuChiResource {
         thuChiService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/thu-chis/{start}/{end}/{loai}/{id}")
+    @Timed
+    public List<ThuChiDTO> getAllThuChisByTimeKeToan(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "loai") String thuchi, @PathVariable(name = "id") Long id) {
+        log.debug("REST request to get all ThuChis");//ghi log thôi
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+//2 dòng trên để convert thời gian từ client gửi lên thành dạng ZoneDateTime, client gửi lên dạng 2018 07 15. plusSeconds(86399);-> đê tạo tahfh thời diểm 23h59m59s của ngày đó
+
+        THUCHI loai = THUCHI.THU;
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
+        switch (thuchi) {
+            case "0":
+                loai = THUCHI.THU;
+                break;
+            case "1":
+                loai = THUCHI.CHI;
+                break;
+            case "2":
+                loai = THUCHI.GOPVON;
+                break;
+            case "3":
+                loai = THUCHI.RUTVON;
+                break;
+
+        }
+        return thuChiService.findByTimeKeToan(timeStart, timeEnd, loai, id);//goi service chạy
+    }
+
 }

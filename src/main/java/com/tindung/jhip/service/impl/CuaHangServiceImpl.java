@@ -3,6 +3,7 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.CuaHangService;
 import com.tindung.jhip.domain.CuaHang;
 import com.tindung.jhip.repository.CuaHangRepository;
+import com.tindung.jhip.repository.UserRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
 import com.tindung.jhip.service.NhanVienService;
@@ -36,11 +37,14 @@ public class CuaHangServiceImpl implements CuaHangService {
     private final CuaHangMapper cuaHangMapper;
 
     private final NhanVienService nhanVienService;
+    private final UserRepository userRepository;
     private final NhatKyService nhatKyService;
-    public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService, NhatKyService nhatKyService) {
+
+    public CuaHangServiceImpl(CuaHangRepository cuaHangRepository, CuaHangMapper cuaHangMapper, NhanVienService nhanVienService, UserRepository userRepository, NhatKyService nhatKyService) {
         this.cuaHangRepository = cuaHangRepository;
         this.cuaHangMapper = cuaHangMapper;
         this.nhanVienService = nhanVienService;
+        this.userRepository = userRepository;
         this.nhatKyService = nhatKyService;
     }
 
@@ -57,7 +61,7 @@ public class CuaHangServiceImpl implements CuaHangService {
         NhatKyDTO nhatKy = new NhatKyDTO();
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         nhatKy.setThoiGian(ZonedDateTime.now());
-        nhatKy.setNoiDung("Tạo mới cửa hàng- "+login);
+        nhatKy.setNoiDung("Tạo mới cửa hàng- " + login);
         nhatKyService.save(nhatKy);
         cuaHang = cuaHangRepository.save(cuaHang);
         return cuaHangMapper.toDto(cuaHang);
@@ -72,9 +76,22 @@ public class CuaHangServiceImpl implements CuaHangService {
     @Transactional(readOnly = true)
     public List<CuaHangDTO> findAll() {
         log.debug("Request to get all CuaHangs");
-        return cuaHangRepository.findAll().stream()
-                .map(cuaHangMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            Long idKeToan = userRepository.findOneByLogin(login).get().getId();
+            List<CuaHang> list = cuaHangRepository.findByKeToan(idKeToan);
+            return list.stream()
+                    .map(cuaHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+
+        } else
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            return cuaHangRepository.findAll().stream()
+                    .map(cuaHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
     }
 
     @Override
@@ -86,7 +103,6 @@ public class CuaHangServiceImpl implements CuaHangService {
                 .map(cuaHangMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     /**
      * Get one cuaHang by id.
@@ -125,6 +141,15 @@ public class CuaHangServiceImpl implements CuaHangService {
         NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
         Long cuaHangId = nhanVien.getCuaHangId();
         return cuaHangId;
+    }
+
+    public void setKeToanId(Long idcuahang, Long idketoan) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            CuaHang cuaHang = cuaHangRepository.findOne(idcuahang);
+            CuaHangDTO cuaHangDTO = cuaHangMapper.toDto(cuaHang);
+            cuaHangDTO.setKeToanId(idketoan);
+            cuaHangRepository.save(cuaHangMapper.toEntity(cuaHangDTO));
+        }
     }
 
 }

@@ -60,5 +60,7 @@ public interface BatHoService {
     List<BatHoDTO> findByTrangThaiHopDong(TRANGTHAIHOPDONG trangthai) ;
     Double quanLyVon();
     List<BatHoDTO> findByNhanVien(Long idNhanVien);
+    List<BatHoDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end,Long idcuahang);
+    Double quanLyVonByKeToan(Long idCuaHang);
     
 }

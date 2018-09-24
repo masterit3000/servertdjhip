@@ -13,6 +13,7 @@ export type EntityResponseType = HttpResponse<ThuChi>;
 @Injectable()
 export class ThuChiService {
     private resourceUrl = SERVER_API_URL + 'api/thu-chis';
+    private saveByKeToan = SERVER_API_URL + 'api/thu-chis-ke-toan';
     private baoCaoUrl = SERVER_API_URL + 'api/thu-chis-bao-cao';
     private baoCaoNVUrl = SERVER_API_URL + 'api/thu-chis-bao-cao-nhanvien';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
@@ -21,6 +22,12 @@ export class ThuChiService {
         const copy = this.convert(thuChi);
         return this.http
             .post<ThuChi>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    createByKeToan(thuChi: ThuChi,id:number): Observable<EntityResponseType> {
+        const copy = this.convert(thuChi);
+        return this.http
+            .post<ThuChi>(`${this.saveByKeToan}/${id}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -50,6 +57,26 @@ export class ThuChiService {
         return this.http
             .get<ThuChi[]>(
                 `${this.resourceUrl}/${startd}/${endd}/${loaithuchi}`,
+                { observe: 'response' }
+            )
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+    findByTimeKeToan(
+        start: Date,
+        end: Date,
+        loaithuchi: THUCHI,
+        idCuaHang:number
+    ): Observable<HttpResponse<ThuChi[]>> {
+        // let staconvertDateToStringrtd = this.dateUtils.convertLocalDateToServer(start, 'dd.MM.yyy');
+        // let endd = this.dateUtils.convertLocalDateToServer(end, 'dd.MM.yyy');
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+
+        return this.http
+            .get<ThuChi[]>(
+                `${this.resourceUrl}/${startd}/${endd}/${loaithuchi}/${idCuaHang}`,
                 { observe: 'response' }
             )
             .map((res: HttpResponse<ThuChi[]>) =>

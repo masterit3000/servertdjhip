@@ -3,6 +3,7 @@ package com.tindung.jhip.service.impl;
 import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.domain.KhachHang;
 import com.tindung.jhip.domain.enumeration.StatusKhachHang;
+import com.tindung.jhip.domain.enumeration.TrangThaiKhachHang;
 import com.tindung.jhip.repository.KhachHangRepository;
 import com.tindung.jhip.security.AuthoritiesConstants;
 import com.tindung.jhip.security.SecurityUtils;
@@ -133,7 +134,7 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     @Transactional(readOnly = true)
     public List<KhachHangDTO> findAllByCuaHang(Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             log.debug("Request to get all KhachHangs");
             return khachHangRepository.findAllByCuaHAng(id).stream()
                     .map(khachHangMapper::toDto)
@@ -235,6 +236,26 @@ public class KhachHangServiceImpl implements KhachHangService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             KhachHang khachHang = khachHangRepository.findOne(id);
             khachHang.setStatus(status);
+            khachHangRepository.saveAndFlush(khachHang);
+        }
+
+    }
+
+    public void setTrangThai(Long id, TrangThaiKhachHang trangthai) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            KhachHang khachHang = khachHangRepository.findOne(id);
+            khachHang.setTrangthai(trangthai);
+
+            NhatKyDTO nhatKy = new NhatKyDTO();
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                nhatKy.setCuaHangId(cuaHangService.findIDByUserLogin());
+            }
+            nhatKy.setNhanVienId(nhanVienService.findByUserLogin().getId());
+            nhatKy.setThoiGian(ZonedDateTime.now());
+            nhatKy.setNoiDung("Thay đổi trạng thái khách hàng ");
+            nhatKyService.save(nhatKy);
             khachHangRepository.saveAndFlush(khachHang);
         }
 

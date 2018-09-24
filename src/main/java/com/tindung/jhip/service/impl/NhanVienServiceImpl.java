@@ -118,7 +118,7 @@ public class NhanVienServiceImpl implements NhanVienService {
     @Override
     @Transactional(readOnly = true)
     public List<NhanVienDTO> findAllByCuaHang(Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             log.debug("Request to get all NhanViens");
             return nhanVienRepository.findAllByCuaHang(id).stream()
                     .map(nhanVienMapper::toDto)

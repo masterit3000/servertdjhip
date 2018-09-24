@@ -16,6 +16,11 @@ import { NhanVien } from '../../../nhan-vien/nhan-vien.model';
 import { NhanVienService } from '../../../nhan-vien/nhan-vien.service';
 import { ThuChi, THUCHI } from '../../../thu-chi/thu-chi.model';
 import { ThuChiService } from '../../../thu-chi/thu-chi.service';
+import { Observable } from 'rxjs';
+
+
+
+
 
 @Component({
     selector: 'jhi-cua-hang-detail-admin',
@@ -39,6 +44,12 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     none: any;
     keyTimBatHo: string;
     keyTimVayLai: string;
+    thuChis: ThuChi[];
+    tungay: Date;
+    denngay: Date;
+    thuchi: ThuChi;
+    isSaving: boolean;
+    tongTien: number;
     constructor(
         private batHoService: BatHoService,
         private vayLaiService: VayLaiService,
@@ -46,10 +57,13 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         private nhanVienService: NhanVienService,
         private eventManager: JhiEventManager,
         private cuaHangService: CuaHangService,
+        private thuChiService: ThuChiService,
         private route: ActivatedRoute,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
     ) {
+        this.thuchi = new ThuChi();
+        this.tongTien = 0;
     }
 
     private onError(error) {
@@ -68,6 +82,8 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
+        this.tungay = new Date();
+        this.denngay = new Date();
         this.cuaHangService
             .find(id)
             .subscribe((cuaHangResponse: HttpResponse<CuaHang>) => {
@@ -99,6 +115,14 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
                         },
                         (res: HttpErrorResponse) => this.onError(res.message)
                     );
+                    this.thuChiService.findByTimeKeToan(this.tungay, this.denngay, THUCHI.THU,this.cuaHang.id)
+                    .subscribe(
+                        (res: HttpResponse<ThuChi[]>)=>{
+                            this.thuChis = res.body;
+                        },
+                        (res: HttpErrorResponse) => this.onError(res.message)
+                    );
+                
             });
         // this.batHoService                    <----------------THỦ PHẠM BUG
         //     .findByCuaHangId(this.cuaHang.id)
@@ -156,5 +180,52 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         this.nhanVienService.getNhanVien(query).subscribe((nhanViens: any) => {
             this.filteredNhanViens = nhanViens;
         });
+    }
+    save() {
+        this.thuchi.thuchi = THUCHI.THU;
+        this.isSaving = true;
+        console.log(this.thuchi.nhanVienId);
+
+        if (this.thuchi.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.thuChiService.update(this.thuchi)
+            );
+        } else {
+            this.subscribeToSaveResponse(
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+            );
+        }
+    }
+    timkiem() {
+        this.tongTien = 0;
+        console.log(this.denngay);
+        this.thuChiService
+            .findByTimeKeToan(this.tungay, this.denngay, THUCHI.THU,this.cuaHang.id)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTien = this.tongTien + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTien);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
+        result.subscribe(
+            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
+    }
+    private onSaveSuccess(result: ThuChi) {
+        // this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
+        this.isSaving = false;
+        // this.activeModal.dismiss(result);
+        this.jhiAlertService.success('them moi thanh cong', null, null);
+    }
+    private onSaveError() {
+        this.isSaving = false;
     }
 }

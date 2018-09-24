@@ -132,12 +132,12 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     public void setDongTien(Long id, DONGTIEN dongtien) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
             LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
-            lichSuDongTien.setTrangthai(dongtien);
+            lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
             lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
             lichSuDongTienRepository.save(lichSuDongTien);
-        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
-            lichSuDongTien.setTrangthai(DONGTIEN.DADONG);
+            lichSuDongTien.setTrangthai(DONGTIEN.CHUADONG);
             lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
             lichSuDongTienRepository.save(lichSuDongTien);
         }

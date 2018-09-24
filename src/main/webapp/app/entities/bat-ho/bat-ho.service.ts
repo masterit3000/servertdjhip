@@ -17,6 +17,7 @@ export class BatHoService {
     private lichSuTraCham = SERVER_API_URL + 'api/bat-hos-tra-cham';
     private findonneUrl = SERVER_API_URL + 'api/find-one-bat-hos';
     private quanLyVonUrl = SERVER_API_URL + 'api/quan-ly-von';
+    private quanLyVonKeToanUrl = SERVER_API_URL + 'api/quan-ly-von-ke-toan';
     private daoHoUrl = SERVER_API_URL + 'api/dao-bat-hos';
     private resourceUrlBatHoByCuaHang = SERVER_API_URL + 'api/bat-hos-by-cua-hang';
     // private resourceUrl =  SERVER_API_URL + 'api/bat-hos';
@@ -24,6 +25,7 @@ export class BatHoService {
     private resourceUrlTimBatHo = SERVER_API_URL + 'api/tim-bat-hos-by-ten-cmnd';
     private resourceUrlBatHoByHopDong = SERVER_API_URL + 'api/tim-bat-hos';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-bat-hos';
+    private baocaoKeToanUrl = SERVER_API_URL + 'api/bao-cao-bat-hos-ke-toan';
     private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-bat-hos-nhanvien';
     private findbytrangthaiUrl = SERVER_API_URL + 'api/find-by-trangthai-bat-hos';
     private nhanVienUrl = SERVER_API_URL + 'api/find-by-nhanvien';
@@ -72,6 +74,9 @@ export class BatHoService {
 
     quanLyVon(): Observable<HttpResponse<string>> {
         return this.http.get<string>(`${this.quanLyVonUrl}`, { observe: 'response' });
+    }
+    quanLyVonKeToan(id:number): Observable<HttpResponse<string>> {
+        return this.http.get<string>(`${this.quanLyVonKeToanUrl}/${id}`, { observe: 'response' });
     }
 
     tinhNgayOrTienTraCham(id:number,choice:number): Observable<HttpResponse<string>> {
@@ -135,6 +140,12 @@ export class BatHoService {
         let endd = this.convertDateToString(end);
         let startd = this.convertDateToString(start);
         return this.http.get<BatHo[]>(`${this.baocaoUrl}/${startd}/${endd}`, { observe: 'response' })
+            .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
+    }
+    baoCaoKeToan(start: Date, end: Date,idCuaHang: number): Observable<HttpResponse<BatHo[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<BatHo[]>(`${this.baocaoKeToanUrl}/${startd}/${endd}/${idCuaHang}`, { observe: 'response' })
             .map((res: HttpResponse<BatHo[]>) => this.convertArrayResponse(res));
     }
     findByTrangThai(start: Date, end: Date, trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {

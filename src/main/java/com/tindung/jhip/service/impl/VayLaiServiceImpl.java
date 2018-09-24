@@ -445,7 +445,7 @@ public class VayLaiServiceImpl implements VayLaiService {
     public List<VayLaiDTO> findAllByCuaHang(Long id) {
         log.debug("Request to get all VayLais");
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByCuaHang(id).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

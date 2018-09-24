@@ -566,6 +566,19 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
+    @Override
+    public List<BatHoDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end,Long idcuahang) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+
+            List<BatHo> baoCao = batHoRepository.baocao(start, end, idcuahang);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new BadRequestAlertException("không có quyền", null, null);
+    }
 
     @Override
     public List<BatHoDTO> findByNhanVien(Long idNhanVien) {
@@ -649,6 +662,28 @@ public class BatHoServiceImpl implements BatHoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
+
+            Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
+            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;
+            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);;
+            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);;
+            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang).orElse(0d);;
+            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);;
+            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);;
+            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);;
+            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);;
+            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);;
+
+            Double nguonvon = 0d;
+            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
+            return nguonvon;
+        }
+        throw new BadRequestAlertException("không có quyền", null, null);
+    }
+    @Override
+    public Double quanLyVonByKeToan(Long idCuaHang) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
 
             Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
             Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;

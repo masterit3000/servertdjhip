@@ -222,7 +222,132 @@
         <p-tabPanel header="Thu chi">
             <p-tabView>
                 <p-tabPanel header="Thu hoạt động">
-
+                    <div class="main-content">
+                        <!-- <div class="container-fluid">
+                            <!-- header -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="modal-header">
+                                        <h2>
+                                            <i class="fa fa-money" width="20%" aria-hidden="true"></i>
+                                            Thu hoạt động
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- content -->
+                            <jhi-alert></jhi-alert>
+                            <div class="row" style="padding-top: 2%">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="well" style="  min-height: 20px; padding: 15px; margin-bottom: 20px; border-radius: 0; border: 1px solid #e3e3e3; box-shadow: none;  background-color: #f9f9f9; border-color: #d9d9d9;">
+                                                <form class="form-horizontal">
+                                                    <div class="row">
+                                                        <label class="col-md-4 control-label">
+                                                            Số tiền
+                                                            <span style="color: red;">*</span>
+                                                        </label>
+                                                        <div class="col-md-6 form-group">
+                                                            <p-spinner [step]="500000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" name="sotien"
+                                                                id="field_sotien" class="form-control" [(ngModel)]="thuchi.sotien" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-md-4 control-label">
+                                                            Lý do thu
+                                                            <span style="color: red;">*</span>
+                                                        </label>
+                                                        <div class="col-md-8 form-group">
+                                                            <textarea rows="2" cols="6" class="auto form-control" name="noidung" id="field_noidung" [(ngModel)]="thuchi.noidung" required
+                                                                maxlength="3000"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class=" col-md-12">
+                                                            <button class="btn btn-xs btn-primary pull-right" (click)="save()">Thu tiền</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div> 
+                                        <div class="col-md-8">
+                                            <div class="widget ">
+                                                <div class="widget-header">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <h4>
+                                                                <i class="fa fa-calendar" style="margin-right:2px;"></i>Lịch sử thu</h4>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Từ Ngày</label>
+                                                            <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <label>Đến Ngày</label>
+                                                            <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+                                                            <button class="btn btn-info pull-right" (click)="timkiem()">
+                                                                <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-content">
+                                                    <div>
+                                                        <table class="table table-striped table-checkable table-hover table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="hidden-xs">
+                                                                        ID
+                                                                    </th>
+                                                                    <th class="align-center">
+                                                                        Nội Dung
+                                                                    </th>
+                                                                    <th class="align-center">
+                                                                        Ngày
+                                                                    </th>
+                                                                    <th class="align-right">
+                                                                        Số tiền
+                                                                    </th>
+                                                                    <th class="align-right">
+                                                                        Nhân viên
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let thuChi of thuChis ;trackBy: trackId">
+                                                                    <td>
+                                                                        <a [routerLink]="['../thu-chi', thuChi.id ]">{{thuChi.id}}</a>
+                                                                    </td>
+                                                                    <td>{{thuChi.noidung}}</td>
+                                                                    <td>{{thuChi.thoigian | date:'medium'}}</td>
+                                                                    <td>{{thuChi.sotien | currency:"VND":true:'2.0-0'}}</td>
+                                                                    <td>{{thuChi.tenNhanVien}}
+                                                                        <!-- <div *ngIf="thuChi.nhanVienId">
+                                                                            <a [routerLink]="['../nhan-vien', thuChi.nhanVienId  ]">{{thuChi.nhanVienId}}</a>
+                                                                        </div> -->
+                                                                        <!-- <div *ngIf="thuChi.tenNhanVien">
+                                                                            <a [routerLink]="['../nhan-vien', thuChi.tenNhanVien  ]">{{thuChi.tenNhanVien}}</a>
+                                                                        </div> -->
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <th>Tổng tiền</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th style="color: red">{{tongTien | currency:"VND":true:'2.0-0'}}</th>
+                                                                <th></th>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </p-tabPanel>
                 <p-tabPanel header="Chi hoạt động">
 

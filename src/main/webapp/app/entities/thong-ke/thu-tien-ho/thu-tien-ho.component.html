@@ -79,7 +79,7 @@
                         <strong>Tổng</strong>
                     </td>
                     <td style="background-color:#ECECEC">
-                        <span>{{tongTienBH}}</span>
+                        <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td></td>
                 </tr>
@@ -187,7 +187,7 @@
             <!-- Code backend lấy dữ liệu body -->
             <ng-template pTemplate="body" let-batHo>
                 <tr (click)="findBatHoByHopDong(batHo.hopdong.id)">
-                    <td>{{batHo.mahopdong}}</td>
+                    <td>{{batHo.hopdong.mahopdong}}</td>
                     <td>{{batHo.hopdong.ngaytao | date:"dd/MM/yyyy"}}</td>
                     <td>{{batHo.nhanVienTen}}</td>
                     <td>{{batHo.khachHangTen}}</td>

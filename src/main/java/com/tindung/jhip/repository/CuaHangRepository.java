@@ -16,6 +16,8 @@ public interface CuaHangRepository extends JpaRepository<CuaHang, Long> {
 
     @Query("select k from CuaHang k  where k.ten like :key or k.dienthoai like :key")
     public List<CuaHang> findByName(@Param("key") String key);
+    @Query("select k from CuaHang k inner join k.ketoan u where u.id  =?1 ")
+    public List<CuaHang> findByKeToan(Long id);
 
 
 }
