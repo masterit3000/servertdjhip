@@ -50,6 +50,8 @@ export class HomeComponent implements OnInit {
     songaytracham:number;
     sotientracham:number;
     temp:number;
+    tongTienBH: number;
+    tongTienVL: number;
 
     constructor(
         private principal: Principal,
@@ -69,7 +71,8 @@ export class HomeComponent implements OnInit {
             { field: 'nhanVienTen', header: 'Nhan Vien ' },
             { field: 'khachHangTen', header: 'Khach hang' }
         ];
-
+        this.tongTienBH = 0;
+        this.tongTienVL = 0;
     }
 
     ngOnInit() {
@@ -122,6 +125,9 @@ export class HomeComponent implements OnInit {
         this.lichSuDongTienService.lichSuTraHomNay(DONGTIEN.CHUADONG, LOAIHOPDONG.BATHO).subscribe(
             (res: HttpResponse<LichSuDongTien[]>) => {
                 this.lichSuDongTienHomNayBHs = res.body;
+                this.lichSuDongTienHomNayBHs.forEach(element => {
+                    this.tongTienBH = this.tongTienBH + element.sotien;
+                });
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -130,6 +136,9 @@ export class HomeComponent implements OnInit {
         this.lichSuDongTienService.lichSuTraHomNay(DONGTIEN.CHUADONG, LOAIHOPDONG.VAYLAI).subscribe(
             (res: HttpResponse<LichSuDongTien[]>) => {
                 this.lichSuDongTienHomNayVLs = res.body;
+                this.lichSuDongTienHomNayVLs.forEach(element => {
+                    this.tongTienVL = this.tongTienVL + element.sotien;
+                });
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
