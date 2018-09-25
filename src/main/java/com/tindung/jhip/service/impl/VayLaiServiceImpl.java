@@ -421,7 +421,7 @@ public class VayLaiServiceImpl implements VayLaiService {
     public List<VayLaiDTO> findAll(TRANGTHAIHOPDONG trangthai) {
         log.debug("Request to get all VayLais");
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByTrangThaiHopDongAdmin(trangthai).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

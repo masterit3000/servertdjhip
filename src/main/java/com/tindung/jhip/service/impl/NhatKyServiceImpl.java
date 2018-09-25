@@ -35,7 +35,8 @@ public class NhatKyServiceImpl implements NhatKyService {
 
     private final NhanVienRepository nhanVienRepository;
 
-    public NhatKyServiceImpl(NhatKyRepository nhatKyRepository, NhatKyMapper nhatKyMapper, NhanVienRepository nhanVienRepository) {
+    public NhatKyServiceImpl(NhatKyRepository nhatKyRepository, NhatKyMapper nhatKyMapper,
+            NhanVienRepository nhanVienRepository) {
         this.nhatKyRepository = nhatKyRepository;
         this.nhatKyMapper = nhatKyMapper;
         this.nhanVienRepository = nhanVienRepository;
@@ -65,15 +66,18 @@ public class NhatKyServiceImpl implements NhatKyService {
     public List<NhatKyDTO> findAll() {
         log.debug("Request to get all NhatKies");
 
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            String login = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             NhanVien nv = nhanVienRepository.findOneByUser(login).get();
-            return nhatKyRepository.findAllByCuaHang(nv.getCuaHang().getId()).stream()
-                    .map(nhatKyMapper::toDto)
+            return nhatKyRepository.findAllByCuaHang(nv.getCuaHang().getId()).stream().map(nhatKyMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
-        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
-            return nhatKyRepository.findAll().stream()
-                    .map(nhatKyMapper::toDto)
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return nhatKyRepository.findAll().stream().map(nhatKyMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) { // KETOAN
+            return nhatKyRepository.findAll().stream().map(nhatKyMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
@@ -108,15 +112,15 @@ public class NhatKyServiceImpl implements NhatKyService {
     @Override
     public List<NhatKyDTO> findAllByNoiDungorNhanVien(String key) {
         key = new StringBuffer("%").append(key).append("%").toString();
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            String login = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             NhanVien nv = nhanVienRepository.findOneByUser(login).get();
-            return nhatKyRepository.findAllByNoiDungorNhanVien(key,nv.getCuaHang().getId()).stream()
-                    .map(nhatKyMapper::toDto)
-                    .collect(Collectors.toCollection(LinkedList::new));
+            return nhatKyRepository.findAllByNoiDungorNhanVien(key, nv.getCuaHang().getId()).stream()
+                    .map(nhatKyMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            return nhatKyRepository.findAllByNoiDungorNhanVienAdmin(key).stream()
-                    .map(nhatKyMapper::toDto)
+            return nhatKyRepository.findAllByNoiDungorNhanVienAdmin(key).stream().map(nhatKyMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");

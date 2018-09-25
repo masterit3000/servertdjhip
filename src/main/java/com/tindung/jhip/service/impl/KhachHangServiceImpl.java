@@ -41,7 +41,8 @@ public class KhachHangServiceImpl implements KhachHangService {
     private final NhanVienService nhanVienService;
     private final NhatKyService nhatKyService;
 
-    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, CuaHangService cuaHangService, NhanVienService nhanVienService, NhatKyService nhatKyService) {
+    public KhachHangServiceImpl(KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper,
+            CuaHangService cuaHangService, NhanVienService nhanVienService, NhatKyService nhatKyService) {
         this.khachHangRepository = khachHangRepository;
         this.khachHangMapper = khachHangMapper;
         this.cuaHangService = cuaHangService;
@@ -120,13 +121,15 @@ public class KhachHangServiceImpl implements KhachHangService {
     public List<KhachHangDTO> findAll() {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
-            return khachHangRepository.findAll().stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findAll().stream().map(khachHangMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) { // KETOAN
+            log.debug("Request to get all KhachHangs");
+            return khachHangRepository.findAll().stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else {
             Long cuaHangid = cuaHangService.findIDByUserLogin();
-            return khachHangRepository.findAllByCuaHAng(cuaHangid).stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findAllByCuaHAng(cuaHangid).stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
     }
@@ -134,10 +137,10 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     @Transactional(readOnly = true)
     public List<KhachHangDTO> findAllByCuaHang(Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             log.debug("Request to get all KhachHangs");
-            return khachHangRepository.findAllByCuaHAng(id).stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findAllByCuaHAng(id).stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
@@ -151,8 +154,7 @@ public class KhachHangServiceImpl implements KhachHangService {
      */
     @Override
     @Transactional(readOnly = true)
-    public KhachHangDTO findOne(Long id
-    ) {
+    public KhachHangDTO findOne(Long id) {
         log.debug("Request to get KhachHang : {}", id);
         KhachHang khachHang = khachHangRepository.findOne(id);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
@@ -174,8 +176,7 @@ public class KhachHangServiceImpl implements KhachHangService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id
-    ) {
+    public void delete(Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to delete KhachHang : {}", id);
@@ -189,14 +190,12 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public List<KhachHangDTO> findByNameOrCMND(String key
-    ) {
+    public List<KhachHangDTO> findByNameOrCMND(String key) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
 
-            return khachHangRepository.findByNameOrCMND(key).stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findByNameOrCMND(key).stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
@@ -204,8 +203,7 @@ public class KhachHangServiceImpl implements KhachHangService {
             key = new StringBuffer("%").append(key).append("%").toString();
             NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
             Long cuaHangId = nhanVien.getCuaHangId();
-            return khachHangRepository.findByNameOrCMNDAdmin(key, cuaHangId).stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findByNameOrCMNDAdmin(key, cuaHangId).stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
@@ -216,15 +214,13 @@ public class KhachHangServiceImpl implements KhachHangService {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
 
-            return khachHangRepository.findInSystem(key).stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findInSystem(key).stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            return khachHangRepository.findInSystem(key).stream()
-                    .map(khachHangMapper::toDto)
+            return khachHangRepository.findInSystem(key).stream().map(khachHangMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");

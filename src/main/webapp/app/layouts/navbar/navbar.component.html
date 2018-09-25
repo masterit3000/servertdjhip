@@ -166,8 +166,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_STAFF', 'ROLE_ADMIN', 'ROLE_KETOAN']" class="nav-link" routerLink="nhat-ky" routerLinkActive="active"
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="nhat-ky" routerLinkActive="active"
                     (click)="collapseNavbar()">
                     <i class="fa fa-fw fa-book" aria-hidden="true"></i>
                     <span>Nhật ký</span>

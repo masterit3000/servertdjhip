@@ -41,7 +41,8 @@ public class NhanVienServiceImpl implements NhanVienService {
     private final NhanVienMapper nhanVienMapper;
     private final NhatKyService nhatKyService;
 
-    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, UserRepository userRepository, UserService service, NhanVienMapper nhanVienMapper, NhatKyService nhatKyService) {
+    public NhanVienServiceImpl(NhanVienRepository nhanVienRepository, UserRepository userRepository,
+            UserService service, NhanVienMapper nhanVienMapper, NhatKyService nhatKyService) {
         this.nhanVienRepository = nhanVienRepository;
         this.userRepository = userRepository;
         this.service = service;
@@ -61,9 +62,10 @@ public class NhanVienServiceImpl implements NhanVienService {
         NhanVien nhanVien = nhanVienMapper.toEntity(nhanVienDTO);
         nhanVien = nhanVienRepository.save(nhanVien);
         User user = nhanVien.getUser();
-//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + user.getId());
+        // System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        // + user.getId());
         if (user != null) {
-//            System.out.println(findOne);
+            // System.out.println(findOne);
             User findOne = userRepository.findOne(user.getId());
             findOne.setActivated(true);
             userRepository.save(findOne);
@@ -72,13 +74,15 @@ public class NhanVienServiceImpl implements NhanVienService {
 
         NhatKyDTO nhatKy = new NhatKyDTO();
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)) {
-            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            String login = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             NhanVien nv = nhanVienRepository.findOneByUser(login).get();
             Long cuaHangid = nv.getCuaHang().getId();
             nhatKy.setCuaHangId(cuaHangid);
             nhatKy.setNhanVienId(nv.getId());
         }
-        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        String login = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         nhatKy.setThoiGian(ZonedDateTime.now());
         nhatKy.setNoiDung("Thêm mới nhân viên");
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
@@ -99,17 +103,20 @@ public class NhanVienServiceImpl implements NhanVienService {
     public List<NhanVienDTO> findAll() {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all NhanViens");
-            return nhanVienRepository.findAll().stream()
-                    .map(nhanVienMapper::toDto)
+            return nhanVienRepository.findAll().stream().map(nhanVienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) { // KETOAN
+            log.debug("Request to get all NhanViens");
+            return nhanVienRepository.findAll().stream().map(nhanVienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all NhanViens");
-            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            String login = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             NhanVien nv = nhanVienRepository.findOneByUser(login).get();
             Long cuaHangid = nv.getCuaHang().getId();
-            return nhanVienRepository.findAllByCuaHang(cuaHangid).stream()
-                    .map(nhanVienMapper::toDto)
+            return nhanVienRepository.findAllByCuaHang(cuaHangid).stream().map(nhanVienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
@@ -118,10 +125,10 @@ public class NhanVienServiceImpl implements NhanVienService {
     @Override
     @Transactional(readOnly = true)
     public List<NhanVienDTO> findAllByCuaHang(Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             log.debug("Request to get all NhanViens");
-            return nhanVienRepository.findAllByCuaHang(id).stream()
-                    .map(nhanVienMapper::toDto)
+            return nhanVienRepository.findAllByCuaHang(id).stream().map(nhanVienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
@@ -135,8 +142,7 @@ public class NhanVienServiceImpl implements NhanVienService {
      */
     @Override
     @Transactional(readOnly = true)
-    public NhanVienDTO findOne(Long id
-    ) {
+    public NhanVienDTO findOne(Long id) {
         log.debug("Request to get NhanVien : {}", id);
         NhanVien nhanVien = nhanVienRepository.findOne(id);
         return nhanVienMapper.toDto(nhanVien);
@@ -148,38 +154,37 @@ public class NhanVienServiceImpl implements NhanVienService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id
-    ) {
+    public void delete(Long id) {
         log.debug("Request to delete NhanVien : {}", id);
         nhanVienRepository.delete(id);
     }
 
     @Override
     public NhanVienDTO findByUserLogin() {
-        String user = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-//        User get = userRepository.findOneByLogin(user).get();
+        String user = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        // User get = userRepository.findOneByLogin(user).get();
         log.debug("Request tim  NhanVien theo ussername : {}", user);
-        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(user).orElseThrow(() -> new InternalServerErrorException("Current user login not found")));
+        return nhanVienMapper.toDto(nhanVienRepository.findOneByUser(user)
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found")));
     }
 
     @Override
-    public List<NhanVienDTO> findByNameOrCMND(String key
-    ) {
+    public List<NhanVienDTO> findByNameOrCMND(String key) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            return nhanVienRepository.findByNameOrCMND(key).stream()
-                    .map(nhanVienMapper::toDto)
+            return nhanVienRepository.findByNameOrCMND(key).stream().map(nhanVienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+            String login = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             NhanVien nv = nhanVienRepository.findOneByUser(login).get();
             Long cuaHangid = nv.getCuaHang().getId();
-            return nhanVienRepository.findByNameOrCMND(key, cuaHangid).stream()
-                    .map(nhanVienMapper::toDto)
+            return nhanVienRepository.findByNameOrCMND(key, cuaHangid).stream().map(nhanVienMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");

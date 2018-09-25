@@ -18,10 +18,6 @@ import { ThuChi, THUCHI } from '../../../thu-chi/thu-chi.model';
 import { ThuChiService } from '../../../thu-chi/thu-chi.service';
 import { Observable } from 'rxjs';
 
-
-
-
-
 @Component({
     selector: 'jhi-cua-hang-detail-admin',
     templateUrl: './cua-hang-detail.component.html'
@@ -49,7 +45,10 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
     denngay: Date;
     thuchi: ThuChi;
     isSaving: boolean;
-    tongTien: number;
+    tongTienThu: number;
+    tongTienChi: number;
+    tongTienGop: number;
+    tongTienRut: number;
     constructor(
         private batHoService: BatHoService,
         private vayLaiService: VayLaiService,
@@ -63,7 +62,10 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         private principal: Principal,
     ) {
         this.thuchi = new ThuChi();
-        this.tongTien = 0;
+        this.tongTienThu = 0;
+        this.tongTienChi = 0;
+        this.tongTienGop = 0;
+        this.tongTienRut = 0;
     }
 
     private onError(error) {
@@ -181,7 +183,7 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
             this.filteredNhanViens = nhanViens;
         });
     }
-    save() {
+    saveThu() {
         this.thuchi.thuchi = THUCHI.THU;
         this.isSaving = true;
         console.log(this.thuchi.nhanVienId);
@@ -196,8 +198,8 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
             );
         }
     }
-    timkiem() {
-        this.tongTien = 0;
+    timKiemThu() {
+        this.tongTienThu = 0;
         console.log(this.denngay);
         this.thuChiService
             .findByTimeKeToan(this.tungay, this.denngay, THUCHI.THU,this.cuaHang.id)
@@ -205,9 +207,105 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
                 (res: HttpResponse<ThuChi[]>) => {
                     this.thuChis = res.body;
                     this.thuChis.forEach(element => {
-                        this.tongTien = this.tongTien + element.sotien;
+                        this.tongTienThu = this.tongTienThu + element.sotien;
                         console.log(element.sotien);
-                        console.log(this.tongTien);
+                        console.log(this.tongTienThu);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    saveChi() {
+        this.thuchi.thuchi = THUCHI.CHI;
+        this.isSaving = true;
+        console.log(this.thuchi.nhanVienId);
+
+        if (this.thuchi.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.thuChiService.update(this.thuchi)
+            );
+        } else {
+            this.subscribeToSaveResponse(
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+            );
+        }
+    }
+    timKiemChi() {
+        this.tongTienChi = 0;
+        console.log(this.denngay);
+        this.thuChiService
+            .findByTimeKeToan(this.tungay, this.denngay, THUCHI.CHI,this.cuaHang.id)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTienChi = this.tongTienChi + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTienChi);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    saveGop() {
+        this.thuchi.thuchi = THUCHI.GOPVON;
+        this.isSaving = true;
+        console.log(this.thuchi.nhanVienId);
+
+        if (this.thuchi.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.thuChiService.update(this.thuchi)
+            );
+        } else {
+            this.subscribeToSaveResponse(
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+            );
+        }
+    }
+    timKiemGop() {
+        this.tongTienGop = 0;
+        console.log(this.denngay);
+        this.thuChiService
+            .findByTimeKeToan(this.tungay, this.denngay, THUCHI.GOPVON,this.cuaHang.id)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTienGop = this.tongTienGop + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTienGop);
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+    saveRut() {
+        this.thuchi.thuchi = THUCHI.RUTVON;
+        this.isSaving = true;
+        console.log(this.thuchi.nhanVienId);
+
+        if (this.thuchi.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.thuChiService.update(this.thuchi)
+            );
+        } else {
+            this.subscribeToSaveResponse(
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+            );
+        }
+    }
+    timKiemRut() {
+        this.tongTienRut = 0;
+        console.log(this.denngay);
+        this.thuChiService
+            .findByTimeKeToan(this.tungay, this.denngay, THUCHI.RUTVON,this.cuaHang.id)
+            .subscribe(
+                (res: HttpResponse<ThuChi[]>) => {
+                    this.thuChis = res.body;
+                    this.thuChis.forEach(element => {
+                        this.tongTienRut = this.tongTienRut + element.sotien;
+                        console.log(element.sotien);
+                        console.log(this.tongTienRut);
                     });
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)

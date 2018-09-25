@@ -380,7 +380,7 @@ public class BatHoServiceImpl implements BatHoService {
         log.debug("Request to get all BatHos");
 
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDongAdmin(trangthai).stream()
                     .map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));

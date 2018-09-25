@@ -11,7 +11,7 @@ export const nhatKyRoute: Routes = [
         path: 'nhat-ky',
         component: NhatKyComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF','ROLE_KETOAN'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const nhatKyRoute: Routes = [
         path: 'nhat-ky/:id',
         component: NhatKyDetailComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF','ROLE_KETOAN'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService]
