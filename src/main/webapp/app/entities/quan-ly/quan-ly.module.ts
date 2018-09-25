@@ -32,6 +32,7 @@ import {GalleriaModule} from 'primeng/galleria';
 import { ServertdjhipSharedModule } from '../../shared';
 import { ResetPasswordComponent } from './nhan-vien/nhan-vien-detail/reset-password/reset-password.component';
 import { ResetMatkhauComponent } from './nhan-vien/reset-matkhau/reset-matkhau.component';
+import { BaoCaoKeToanComponent } from './bao-cao-ke-toan/bao-cao-ke-toan.component';
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { ResetMatkhauComponent } from './nhan-vien/reset-matkhau/reset-matkhau.c
         NhanVienAdminComponent,
         NhanVienDetailAdminComponent,
         ResetPasswordComponent,
-        ResetMatkhauComponent
+        ResetMatkhauComponent,
+        BaoCaoKeToanComponent
     ]
 })
 export class QuanLyModule {}

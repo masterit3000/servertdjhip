@@ -12,6 +12,8 @@ import { NhanVienAdminComponent } from './nhan-vien/nhan-vien.component'
 import { NhanVienDetailAdminComponent } from './nhan-vien/nhan-vien-detail/nhan-vien-detail.component'
 import { ResetPasswordComponent } from './nhan-vien/nhan-vien-detail/reset-password/reset-password.component';
 import { UserRouteAccessService } from '../../shared';
+import { BaoCaoKeToanComponent } from './bao-cao-ke-toan/bao-cao-ke-toan.component';
+
 
 const routes: Routes = [
   {
@@ -19,6 +21,13 @@ const routes: Routes = [
     data: {
       authorities: ['ROLE_ADMIN'],
       pageTitle: 'servertdjhipApp.batHo.home.title'
+    },
+  },
+  {
+    path: 'bao-cao-ke-toan', component: BaoCaoKeToanComponent,
+    data: {
+      authorities: ['ROLE_KETOAN'],
+      pageTitle: 'servertdjhipApp.baoCao.home.title'
     },
   },
   {
