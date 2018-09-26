@@ -70,9 +70,17 @@
         <span class="fa fa-pencil"></span>&nbsp;
         <span>Chỉnh sửa</span>
     </button>
-    <button type="button" routerLink="/bao-cao-ke-toan" routerLinkActive="active" class="btn btn-success">
+    <button *jhiHasAnyAuthority="'ROLE_KETOAN'" type="button" routerLink="/so-quy-tien-mat" routerLinkActive="active" class="btn btn-success">
         <span class="fa fa-folder-o"></span>&nbsp;
-        <span>Báo cáo</span>
+        <span>Báo cáo Số quỹ tiền mặt</span>
+    </button>
+    <button *jhiHasAnyAuthority="'ROLE_KETOAN'" type="button" routerLink="/chi-tiet-tien-lai" routerLinkActive="active" class="btn btn-success">
+        <span class="fa fa-folder-o"></span>&nbsp;
+        <span>Báo cáo Chi tiết tiền lãi</span>
+    </button>
+    <button *jhiHasAnyAuthority="'ROLE_KETOAN'" type="button" routerLink="/thong-ke-ke-toan" routerLinkActive="active" class="btn btn-success">
+        <span class="fa fa-folder-o"></span>&nbsp;
+        <span>Thống kê thu tiền hợp đồng</span>
     </button>
     <p-tabView>
         <p-tabPanel header="Danh sách bát họ">

@@ -33,6 +33,9 @@ import { ServertdjhipSharedModule } from '../../shared';
 import { ResetPasswordComponent } from './nhan-vien/nhan-vien-detail/reset-password/reset-password.component';
 import { ResetMatkhauComponent } from './nhan-vien/reset-matkhau/reset-matkhau.component';
 import { BaoCaoKeToanComponent } from './bao-cao-ke-toan/bao-cao-ke-toan.component';
+import { ChiTietTienLaiComponent } from './bao-cao-ke-toan/chi-tiet-tien-lai/chi-tiet-tien-lai.component';
+import { SoQuyTienMatComponent } from './bao-cao-ke-toan/so-quy-tien-mat/so-quy-tien-mat.component';
+import { ThongKeKeToanComponent } from './thong-ke-ke-toan/thong-ke-ke-toan.component';
 
 @NgModule({
     imports: [
@@ -71,7 +74,10 @@ import { BaoCaoKeToanComponent } from './bao-cao-ke-toan/bao-cao-ke-toan.compone
         NhanVienDetailAdminComponent,
         ResetPasswordComponent,
         ResetMatkhauComponent,
-        BaoCaoKeToanComponent
+        BaoCaoKeToanComponent,
+        ChiTietTienLaiComponent,
+        SoQuyTienMatComponent,
+        ThongKeKeToanComponent
     ]
 })
 export class QuanLyModule {}

@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-<br>
+<br/>
 <div class="row">
     <div class="col-md-6">
         <div class="row" style="height:300px">
@@ -59,7 +59,7 @@
                         </ng-template>
                         <!-- Code backend lấy dữ liệu body -->
                         <ng-template pTemplate="body" let-hopDong>
-                            <tr (click)="findBatHoByHopDong(hopDong.id)">
+                            <tr (click)="findBatHoByHopDong(hopDong.id)" class="" >
                                 <td>{{hopDong.mahopdong}}</td>
                                 <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                 <td>{{hopDong.nhanVienTen}}</td>
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <br>
+        <br/>
         <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
@@ -138,46 +138,8 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="row" style="margin-top:50px;height:300px">
-            <div class="col-md-12">
-                <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="hopDongBHs" [scrollable]="true" scrollHeight="300px" selectionMode="single"
-                        [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th colspan="4" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu bát
-                                    họ</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <span>Mã hợp đồng</span>
-                                </th>
-                                <th>
-                                    <span>Ngày tạo</span>
-                                </th>
-                                <th>
-                                    <span>Nhân viên</span>
-                                </th>
-                                <th>
-                                    <span>Khách hàng</span>
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <!-- Code backend lấy dữ liệu body -->
-                        <ng-template pTemplate="body" let-hopDong>
-                            <tr class="bg-danger text-white" (click)="findBatHoByHopDong(hopDong.id)">
-                                <td>{{hopDong.mahopdong}}</td>
-                                <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
-                                <td>{{hopDong.nhanVienTen}}</td>
-                                <td>{{hopDong.khachHangTen}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-        </div>
-        <br>
+        <br/>
+        <br/>
         <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
@@ -217,7 +179,7 @@
             </div>
         </div>
     </div>
-    <br>
+    <br/>
     <div class="col-md-6">
         <div class="row" style="height:300px">
             <div class="col-md-12">
@@ -265,7 +227,7 @@
                 </div>
             </div>
         </div>
-        <br>
+        <br/>
         <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
@@ -331,46 +293,8 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="row" style="margin-top:50px;height:300px">
-            <div class="col-md-12">
-                <div class="table-responsive" [ngSwitch]="isAuthenticated()">
-                    <p-table [value]="hopDongVLs" [scrollable]="true" scrollHeight="300px" selectionMode="single"
-                        [(selection)]="selected" dataKey="id" *ngSwitchCase="true">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th colspan="4" class="bg-primary text-white text-center">Báo cáo hợp đồng nợ xấu vay
-                                    lãi</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <span>Mã hợp đồng</span>
-                                </th>
-                                <th>
-                                    <span>Ngày tạo</span>
-                                </th>
-                                <th>
-                                    <span>Nhân viên</span>
-                                </th>
-                                <th>
-                                    <span>Khách hàng</span>
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <!-- Code backend lấy dữ liệu body -->
-                        <ng-template pTemplate="body" let-hopDong>
-                            <tr class="bg-danger text-white" (click)="findVayLaiByHopDong(hopDong.id)">
-                                <td>{{hopDong.mahopdong}}</td>
-                                <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
-                                <td>{{hopDong.nhanVienTen}}</td>
-                                <td>{{hopDong.khachHangTen}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-        </div>
-        <br>
+        <br/>
+        <br/>
         <div class="row" style="margin-top:50px;height:300px">
             <div class="col-md-12">
                 <div class="table-responsive" [ngSwitch]="isAuthenticated()">
