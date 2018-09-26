@@ -145,6 +145,20 @@ public class GhiNoServiceImpl implements GhiNoService {
 
     }
 
+    
+    @Override
+    public List<GhiNoDTO> baoCaoKeToan(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long cuaHangId) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            List< GhiNo> ghiNos = ghiNoRepository.baocao(loaihopdong, start, end, cuaHangId);
+            List<GhiNoDTO> collect = ghiNos.stream()
+                    .map(ghiNoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+
     @Override
     public List<GhiNoDTO> baoCaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)

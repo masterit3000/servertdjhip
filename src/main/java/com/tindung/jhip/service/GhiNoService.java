@@ -45,4 +45,6 @@ public interface GhiNoService {
     List<GhiNoDTO> baoCao(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end);
 
     List<GhiNoDTO> baoCaoNV(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long nhanVienid);
+    
+    List<GhiNoDTO> baoCaoKeToan(LOAIHOPDONG loaihopdong, ZonedDateTime start, ZonedDateTime end, Long cuaHangId);
 }

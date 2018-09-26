@@ -238,6 +238,19 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+    @Override
+    public List<LichSuDongTienDTO> baoCaoKeToan(DONGTIEN dongtien, LOAIHOPDONG loaihopdong,
+            ZonedDateTime start, ZonedDateTime end, Long cuaHangid) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.baocao(dongtien, loaihopdong, start, end, cuaHangid);
+            List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
+                    .map(lichSuDongTienMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
 
     @Override
     public List<LichSuDongTienDTO> baoCaoNV(DONGTIEN dongtien, LOAIHOPDONG loaihopdong,

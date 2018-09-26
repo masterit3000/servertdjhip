@@ -15,6 +15,7 @@ export class ThuChiService {
     private resourceUrl = SERVER_API_URL + 'api/thu-chis';
     private saveByKeToan = SERVER_API_URL + 'api/thu-chis-ke-toan';
     private baoCaoUrl = SERVER_API_URL + 'api/thu-chis-bao-cao';
+    private baoCaoKeToanUrl = SERVER_API_URL + 'api/thu-chis-bao-cao-ke-toan';
     private baoCaoNVUrl = SERVER_API_URL + 'api/thu-chis-bao-cao-nhanvien';
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {}
     private thuchi = 'loai';
@@ -109,6 +110,18 @@ export class ThuChiService {
 
         return this.http
             .get<ThuChi[]>(`${this.baoCaoUrl}/${startd}/${endd}`, {
+                observe: 'response'
+            })
+            .map((res: HttpResponse<ThuChi[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+    baoCaoKeToan(start: Date, end: Date,idCuaHang:number): Observable<HttpResponse<ThuChi[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+
+        return this.http
+            .get<ThuChi[]>(`${this.baoCaoKeToanUrl}/${startd}/${endd}/${idCuaHang}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<ThuChi[]>) =>

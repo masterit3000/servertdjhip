@@ -56,5 +56,8 @@ public interface LichSuDongTienService {
 
     List<LichSuDongTienDTO> lichSuTraHomNay(DONGTIEN dongtien, LOAIHOPDONG loaihopdong);
 
-    List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien,Long id);
+    List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien, Long id);
+
+    List<LichSuDongTienDTO> baoCaoKeToan(DONGTIEN dongtien, LOAIHOPDONG loaihopdong,
+            ZonedDateTime start, ZonedDateTime end, Long cuaHangid);
 }

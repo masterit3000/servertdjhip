@@ -21,6 +21,7 @@ export class VayLaiService {
     private lichSuThaoTacHopDong = 'lichsuthaotac';
     private thembotvaylai = SERVER_API_URL + 'api/them-bot-vay-lais';
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-vay-lais';
+    private baocaoUrlKeToan = SERVER_API_URL + 'api/bao-cao-vay-lais-ke-toan';
     private baocaoNVUrl = SERVER_API_URL + 'api/bao-cao-vay-lais-nhanvien';
     private findByCuaHangUrl = SERVER_API_URL + 'api/vay-lais-by-cuaHang';
     private findByNhanVienUrl = SERVER_API_URL + 'api/vay-lais-by-nhanvien';
@@ -140,6 +141,12 @@ export class VayLaiService {
 
     tienVayThemTraBot(id:number,mahopdong:string): Observable<HttpResponse<string>> {
         return this.http.get<string>(`${this.tienVayThemTraBotUrl}/${id}/${mahopdong}`, { observe: 'response' });
+    }
+    baoCaoKeToan(start: Date, end: Date,chon:number,id:number): Observable<HttpResponse<VayLai[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http.get<VayLai[]>(`${this.baocaoUrlKeToan}/${startd}/${endd}/${chon}/${id}`, { observe: 'response' })
+            .map((res: HttpResponse<VayLai[]>) => this.convertArrayResponse(res));
     }
 
 }

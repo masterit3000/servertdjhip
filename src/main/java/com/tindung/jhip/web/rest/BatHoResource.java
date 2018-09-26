@@ -235,7 +235,7 @@ public class BatHoResource {
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
         return batHoService.baoCao(timeStart, timeEnd);
     }
-    @GetMapping("/bao-cao-bat-hos-ketoan/{start}/{end}/{idcuahang}")
+    @GetMapping("/bao-cao-bat-hos-ke-toan/{start}/{end}/{idcuahang}")
     @Timed
     public List<BatHoDTO> baoCaoKeToan(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable (name="idcuahang") Long id) {
         log.debug("REST request to get all BatHos");
@@ -323,10 +323,31 @@ public class BatHoResource {
     }
     @GetMapping("/quan-ly-von-ke-toan/{id}")
     @Timed
-    public ResponseEntity<String> quanLyVon(Long id) {
+    public ResponseEntity<String> quanLyVonKeToan(@PathVariable Long id) {
         log.debug("REST request to get all BatHos");
         String result = batHoService.quanLyVonByKeToan(id).toString();
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+    }
+    
+        @GetMapping("/find-by-trangthai-bat-hos-ke-toan/{start}/{end}/{trangthai}/{id}")
+    @Timed
+    public List<BatHoDTO> findByTrangThaiKeToan(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "trangthai") String trangthai,@PathVariable (name="id") Long id) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+        switch (trangthai) {
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
+        }
+        return batHoService.findByTrangThaiKeToan(timeStart, timeEnd, trangthaihopdong,id);
     }
 
 }

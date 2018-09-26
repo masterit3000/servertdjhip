@@ -566,8 +566,9 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
+
     @Override
-    public List<BatHoDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end,Long idcuahang) {
+    public List<BatHoDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end, Long idcuahang) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
 
             List<BatHo> baoCao = batHoRepository.baocao(start, end, idcuahang);
@@ -680,10 +681,10 @@ public class BatHoServiceImpl implements BatHoService {
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
+
     @Override
     public Double quanLyVonByKeToan(Long idCuaHang) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
-                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
 
             Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
             Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;
@@ -701,6 +702,19 @@ public class BatHoServiceImpl implements BatHoService {
             return nguonvon;
         }
         throw new BadRequestAlertException("không có quyền", null, null);
+    }
+
+    @Override
+    public List<BatHoDTO> findByTrangThaiKeToan(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai, Long idCuaHang) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            List<BatHo> baoCao = batHoRepository.findByTrangThai(start, end, trangthai, idCuaHang);
+            List<BatHoDTO> collect = baoCao.stream()
+                    .map(batHoMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
     }
 
 }

@@ -110,6 +110,26 @@ export class LichSuDongTienService {
                 this.convertArrayResponse(res)
             );
     }
+    baoCaoKeToan(
+        loaidongtien: DONGTIEN,
+        loaihopdong: LOAIHOPDONG,
+        start: Date,
+        end: Date,
+        idCuaHang:number
+    ): Observable<HttpResponse<LichSuDongTien[]>> {
+        let endd = this.convertDateToString(end);
+        let startd = this.convertDateToString(start);
+        return this.http
+            .get<LichSuDongTien[]>(
+                `${
+                    this.baocaoUrl
+                }/${loaidongtien}/${loaihopdong}/${startd}/${endd}/${idCuaHang}`,
+                { observe: 'response' }
+            )
+            .map((res: HttpResponse<LichSuDongTien[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
     baoCaoNV(
         loaidongtien: DONGTIEN,
         loaihopdong: LOAIHOPDONG,

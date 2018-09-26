@@ -19,6 +19,7 @@ import { LichSuDongTienService } from '../../../lich-su-dong-tien/lich-su-dong-t
 import { Principal } from '../../../../shared';
 import { GhiNo, GhiNoService } from '../../../ghi-no';
 import { Router } from '@angular/router';
+import { CuaHang, CuaHangService } from '../../../cua-hang';
 @Component({
     selector: 'jhi-chi-tiet-tien-lai',
     templateUrl: './chi-tiet-tien-lai.component.html',
@@ -37,8 +38,8 @@ export class ChiTietTienLaiComponent implements OnInit {
     currentAccount: any;
     eventSubscriber: Subscription;
     hopDongs: HopDong[];
-    nhanViens: NhanVien[];
-    nhanVien: NhanVien;
+    cuaHangs: CuaHang[];
+    cuaHang: CuaHang;
     ghiNoVLs: GhiNo[];
     ghiNoBHs: GhiNo[];
     ghiNo: GhiNo;
@@ -54,10 +55,10 @@ export class ChiTietTienLaiComponent implements OnInit {
     tongTienLaiBatHo: number;
     vayLai: VayLai;
     vayLais: VayLai[];
-    selectedNhanVien: NhanVien;
+    selectedCuaHang: CuaHang;
     default: NhanVien;
     constructor(
-        private nhanVienService: NhanVienService,
+        private cuaHangService: CuaHangService,
         private batHoService: BatHoService,
         private vayLaiService: VayLaiService,
         private hopDongService: HopDongService,
@@ -68,7 +69,6 @@ export class ChiTietTienLaiComponent implements OnInit {
         private router: Router,
         private principal: Principal
     ) {
-        this.selectedNhanVien = this.default;
         this.tongTienBHs = 0;
         this.tongTienVL = 0;
         this.tongTienTienBatHo = 0;
@@ -76,9 +76,9 @@ export class ChiTietTienLaiComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadNhanVien();
-        this.loadBatHo();
-        this.loadLichSuDongTienVL();
+        this.loadCuaHang();
+        // this.loadBatHo();
+        // this.loadLichSuDongTienVL();
     }
 
     previousState() {
@@ -90,49 +90,13 @@ export class ChiTietTienLaiComponent implements OnInit {
         this.tongTienVL = 0;
         this.tongTienTienBatHo = 0;
         this.tongTienLaiBatHo = 0;
-        if (this.selectedNhanVien == this.default) {
             this.batHoService
-                .findByTrangThai(
-                    this.tungay,
-                    this.denngay,
-                    TRANGTHAIHOPDONG.DADONG
-                )
-                .subscribe(
-                    (res: HttpResponse<BatHo[]>) => {
-                        this.batHos = res.body;
-                        this.batHos.forEach(element => {
-                            this.tongTienBHs += element.tienduakhach;
-                            this.tongTienTienBatHo += element.tongtien;
-                            this.tongTienLaiBatHo =
-                                this.tongTienTienBatHo - this.tongTienBHs;
-                        });
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-            this.lichSuDongTienService
-                .baoCao(
-                    DONGTIEN.DADONG,
-                    LOAIHOPDONG.VAYLAI,
-                    this.tungay,
-                    this.denngay
-                )
-                .subscribe(
-                    (res: HttpResponse<LichSuDongTien[]>) => {
-                        this.lichSuDongTienVLs = res.body;
-                        this.lichSuDongTienVLs.forEach(element => {
-                            this.tongTienVL = this.tongTienVL + element.sotien;
-                            console.log(element.sotien);
-                        });
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-        } else {
-            this.batHoService
-                .findByTrangThaiNV(
+                .findByTrangThaiKeToan(
                     this.tungay,
                     this.denngay,
                     TRANGTHAIHOPDONG.DADONG,
-                    this.selectedNhanVien.id
+                    this.selectedCuaHang.id
+
                 )
                 .subscribe(
                     (res: HttpResponse<BatHo[]>) => {
@@ -147,12 +111,12 @@ export class ChiTietTienLaiComponent implements OnInit {
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             this.lichSuDongTienService
-                .baoCaoNV(
+                .baoCaoKeToan(
                     DONGTIEN.DADONG,
                     LOAIHOPDONG.VAYLAI,
                     this.tungay,
                     this.denngay,
-                    this.selectedNhanVien.id
+                    this.selectedCuaHang.id
                 )
                 .subscribe(
                     (res: HttpResponse<LichSuDongTien[]>) => {
@@ -164,12 +128,11 @@ export class ChiTietTienLaiComponent implements OnInit {
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
-        }
     }
-    loadNhanVien() {
-        this.nhanVienService.query().subscribe(
-            (res: HttpResponse<NhanVien[]>) => {
-                this.nhanViens = res.body;
+    loadCuaHang() {
+        this.cuaHangService.query().subscribe(
+            (res: HttpResponse<CuaHang[]>) => {
+                this.cuaHangs = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -178,7 +141,7 @@ export class ChiTietTienLaiComponent implements OnInit {
         this.tungay = new Date();
         this.denngay = new Date();
         this.batHoService
-            .findByTrangThai(this.tungay, this.denngay, TRANGTHAIHOPDONG.DADONG)
+            .findByTrangThaiKeToan(this.tungay, this.denngay, TRANGTHAIHOPDONG.DADONG,this.selectedCuaHang.id)
             .subscribe(
                 (res: HttpResponse<BatHo[]>) => {
                     this.batHos = res.body;
@@ -200,11 +163,12 @@ export class ChiTietTienLaiComponent implements OnInit {
         this.denngay = new Date();
         console.log(this.tungay);
         this.lichSuDongTienService
-            .baoCao(
+            .baoCaoKeToan(
                 DONGTIEN.DADONG,
                 LOAIHOPDONG.VAYLAI,
                 this.tungay,
-                this.denngay
+                this.denngay,
+                this.selectedCuaHang.id
             )
             .subscribe(
                 (res: HttpResponse<LichSuDongTien[]>) => {

@@ -30,13 +30,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class LichSuDongTienResource {
-    
+
     private final Logger log = LoggerFactory.getLogger(LichSuDongTienResource.class);
-    
+
     private static final String ENTITY_NAME = "lichSuDongTien";
-    
+
     private final LichSuDongTienService lichSuDongTienService;
-    
+
     public LichSuDongTienResource(LichSuDongTienService lichSuDongTienService) {
         this.lichSuDongTienService = lichSuDongTienService;
     }
@@ -85,7 +85,7 @@ public class LichSuDongTienResource {
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, lichSuDongTienDTO.getId().toString()))
                 .body(result);
     }
-    
+
     @GetMapping("/lich-su-dong-tiens/dongtien/{id}/{dongtien}")
     @Timed
     public ResponseEntity<Void> setDongTien(@PathVariable Long id, @PathVariable(name = "dongtien") String dongtien) throws URISyntaxException {
@@ -101,7 +101,7 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-            
+
         }
         lichSuDongTienService.setDongTien(id, loaidongtien);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
@@ -148,7 +148,7 @@ public class LichSuDongTienResource {
         lichSuDongTienService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-    
+
     @GetMapping("/dong-hop-dong/{id}")
     @Timed
     public ResponseEntity<Void> dongHopDong(@PathVariable Long id) {
@@ -156,14 +156,14 @@ public class LichSuDongTienResource {
         lichSuDongTienService.dongHopDong(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString())).build();
     }
-    
+
     @GetMapping("/lich-su-dong-tiens/lichsudongtien/{id}")
     @Timed
     public List<LichSuDongTienDTO> getLichSuDongTienByHopDong(@PathVariable Long id) {
         log.debug("REST request to get LichSuDongTien by HopDong: {}", id);
         return lichSuDongTienService.findByHopDong(id);
     }
-    
+
     @GetMapping("/bao-cao-lich-su-dong-tiens/{dongtien}/{loaihopdong}/{start}/{end}")
     @Timed
     public List<LichSuDongTienDTO> baoCao(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end) {
@@ -181,7 +181,7 @@ public class LichSuDongTienResource {
                 loai = LOAIHOPDONG.BATHO;
                 break;
         }
-        
+
         switch (dongtien) {
             case "0":
                 loaidongtien = DONGTIEN.CHUADONG;
@@ -192,11 +192,11 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-            
+
         }
         return lichSuDongTienService.baoCao(loaidongtien, loai, timeStart, timeEnd);
     }
-    
+
     @GetMapping("/bao-cao-lich-su-dong-tiens-nhanvien/{dongtien}/{loaihopdong}/{start}/{end}/{id}")
     @Timed
     public List<LichSuDongTienDTO> baoCaoNV(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
@@ -214,7 +214,7 @@ public class LichSuDongTienResource {
                 loai = LOAIHOPDONG.BATHO;
                 break;
         }
-        
+
         switch (dongtien) {
             case "0":
                 loaidongtien = DONGTIEN.CHUADONG;
@@ -225,17 +225,17 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-            
+
         }
         return lichSuDongTienService.baoCaoNV(loaidongtien, loai, timeStart, timeEnd, id);
     }
-    
+
     @GetMapping("/lich-su-dong-tiens-tracham/{dongtien}/{loaihopdong}")
     @Timed
     public List<LichSuDongTienDTO> lichSuTraCham(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong) {
         log.debug("REST request to get baoCao LichSuDongTien: {}");
         LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
-        
+
         switch (loaihopdong) {
             case "0":
                 loai = LOAIHOPDONG.VAYLAI;
@@ -255,11 +255,11 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-            
+
         }
         return lichSuDongTienService.lichSuTraCham(loaidongtien, loai);
     }
-    
+
     @GetMapping("/lich-su-dong-tiens-homnay/{dongtien}/{loaihopdong}")
     @Timed
     public List<LichSuDongTienDTO> lichSuTraHomNay(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong) {
@@ -274,7 +274,7 @@ public class LichSuDongTienResource {
                 loai = LOAIHOPDONG.BATHO;
                 break;
         }
-        
+
         switch (dongtien) {
             case "0":
                 loaidongtien = DONGTIEN.CHUADONG;
@@ -285,14 +285,14 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-            
+
         }
         return lichSuDongTienService.lichSuTraHomNay(loaidongtien, loai);
     }
-    
+
     @GetMapping("/lich-su-dong-tiens-trangthai/{trangthai}/{id}")
     @Timed
-    public List<LichSuDongTienDTO> getAllLichSuDongTiensByTrangThai(@PathVariable(name = "trangthai") String trangthai,@PathVariable(name = "id") Long id) {
+    public List<LichSuDongTienDTO> getAllLichSuDongTiensByTrangThai(@PathVariable(name = "trangthai") String trangthai, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get all LichSuDongTiens");
         DONGTIEN loaidongtien = DONGTIEN.DADONG;
         switch (trangthai) {
@@ -305,9 +305,42 @@ public class LichSuDongTienResource {
             case "2":
                 loaidongtien = DONGTIEN.TRAGOC;
                 break;
-            
+
         }
-        return lichSuDongTienService.findByTrangThai(loaidongtien,id);
+        return lichSuDongTienService.findByTrangThai(loaidongtien, id);
     }
-    
+
+    @GetMapping("/bao-cao-lich-su-dong-tiens/{dongtien}/{loaihopdong}/{start}/{end}/{id}")
+    @Timed
+    public List<LichSuDongTienDTO> baoCaoKeToan(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable (name="id")Long id) {
+        log.debug("REST request to get baoCao LichSuDongTien: {}");
+        LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+        DONGTIEN loaidongtien = DONGTIEN.TRAGOC;
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+
+        switch (dongtien) {
+            case "0":
+                loaidongtien = DONGTIEN.CHUADONG;
+                break;
+            case "1":
+                loaidongtien = DONGTIEN.DADONG;
+                break;
+            case "2":
+                loaidongtien = DONGTIEN.TRAGOC;
+                break;
+
+        }
+        return lichSuDongTienService.baoCaoKeToan(loaidongtien, loai, timeStart, timeEnd,id);
+    }
+
 }

@@ -576,6 +576,24 @@ public class VayLaiServiceImpl implements VayLaiService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+    @Override
+    public List<VayLaiDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc,Long idCuaHang) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            List<VayLai> baoCao = null;
+            if (vayThemTraGoc == 0) {
+                baoCao = vayLaiRepository.baocao(start, end, idCuaHang);
+            } else {
+                baoCao = vayLaiRepository.vayThemTraGoc(start, end, idCuaHang);
+            }
+
+            List<VayLaiDTO> collect = baoCao.stream()
+                    .map(vayLaiMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            return collect;
+
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+    }
 
     @Override
     public List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end,

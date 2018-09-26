@@ -289,5 +289,19 @@ public class ThuChiResource {
         }
         return thuChiService.findByTimeKeToan(timeStart, timeEnd, loai, id);//goi service chạy
     }
+    
+        @GetMapping("/thu-chis-bao-cao-ke-toan/{start}/{end}/{id}")
+    @Timed
+    public List<ThuChiDTO> baoCaoKeToan(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable(name="id")Long id) {
+        log.debug("REST request to get all ThuChis");//ghi log thôi
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+//2 dòng trên để convert thời gian từ client gửi lên thành dạng ZoneDateTime, client gửi lên dạng 2018 07 15. plusSeconds(86399);-> đê tạo tahfh thời diểm 23h59m59s của ngày đó
+
+        THUCHI loai = THUCHI.THU;
+
+        return thuChiService.baoCaoKeToan(timeStart, timeEnd,id);//goi service chạy
+    }
+
 
 }

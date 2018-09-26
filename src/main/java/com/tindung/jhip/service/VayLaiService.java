@@ -44,7 +44,7 @@ public interface VayLaiService {
 
     List<VayLaiDTO> findByNameOrCMND(String key);
 
-    VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id,String mahopdong);
+    VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id, String mahopdong);
 
     List<VayLaiDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc);
 
@@ -57,8 +57,10 @@ public interface VayLaiService {
     VayLaiDTO findByHopDong(Long id);
 
     Double tienVayThemTraBot(Long id);
-    
+
     List<VayLaiDTO> lichSuTraCham();
+
+    List<VayLaiDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc, Long idCuaHang);
 
 //    List<VayLaiDTO> findByKhachHang(List<VayLaiDTO> list, Long id);
 }

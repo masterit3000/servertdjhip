@@ -226,4 +226,13 @@ public class VayLaiResource {
         log.debug("REST request to get Vay Lai : {}");
         return vayLaiService.lichSuTraCham();
     }
+
+    @GetMapping("/bao-cao-vay-lais-ke-toan/{start}/{end}/{chon}/{id}")
+    @Timed
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "chon") Integer vayThemTraGoc,@PathVariable(name="id") Long id) {
+        log.debug("REST request to get all BatHos");
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        return vayLaiService.baoCaoKeToan(timeStart, timeEnd, vayThemTraGoc,id);
+    }
 }

@@ -172,4 +172,23 @@ public class GhiNoResource {
         return ghiNoService.baoCaoNV(loai, timeStart, timeEnd, id);
     }
 
+    @GetMapping("/bao-cao-ghi-nos-ke-toan/{loaihopdong}/{start}/{end}/{id}")
+    @Timed
+    public List<GhiNoDTO> baoCaoKeToan(@PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable (name="id")Long id) {
+        log.debug("REST request to get all GhiNos");
+        LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+        ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
+        //doạn này convert loai thu chi dạng text sang dạng enum THUCHI
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        return ghiNoService.baoCaoKeToan(loai, timeStart, timeEnd,id);
+    }
+
 }

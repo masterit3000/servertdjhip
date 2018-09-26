@@ -51,4 +51,6 @@ public interface ThuChiService {
     ThuChiDTO saveKeToan(ThuChiDTO thuChiDTO, Long idcuahang);
 
     List<ThuChiDTO> findByTimeKeToan(ZonedDateTime start, ZonedDateTime end, THUCHI thuchi, Long cuahangID);
+    
+    List<ThuChiDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end,Long cuahangID);
 }
