@@ -205,14 +205,14 @@ public class ThuChiServiceImpl implements ThuChiService {
             // kiem tra quyền
             Long cuahangID = cuaHangService.findIDByUserLogin();// lây về cửa hang của user hiên tại
             List<ThuChi> findbyTime = thuChiRepository.findbyTime(start, end, thuchi, cuahangID);// goi hàm để lây vê
-                                                                                                 // thu chi của cửa hang
-                                                                                                 // fhienej tauij
+            // thu chi của cửa hang
+            // fhienej tauij
             return findbyTime.stream().map(thuChiMapper::toDto).collect(Collectors.toCollection(LinkedList::new));// convert
-                                                                                                                  // sang
-                                                                                                                  // DTO
-                                                                                                                  // và
-                                                                                                                  // trả
-                                                                                                                  // vè
+            // sang
+            // DTO
+            // và
+            // trả
+            // vè
         }
         throw new InternalError("Khong cos quyen");
     }

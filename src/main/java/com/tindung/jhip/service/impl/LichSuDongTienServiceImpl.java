@@ -329,7 +329,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
 
     @Override
     public List<LichSuDongTienDTO> findByTrangThai(DONGTIEN dongtien, Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             ZonedDateTime ngayhientai = ZonedDateTime.now();
             List<LichSuDongTien> lichSuDongTiens = lichSuDongTienRepository.findByTrangThaiAdmin(dongtien, id);
             List<LichSuDongTienDTO> collect = lichSuDongTiens.stream()
