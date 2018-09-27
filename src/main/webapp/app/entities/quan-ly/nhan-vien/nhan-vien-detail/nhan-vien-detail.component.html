@@ -159,7 +159,7 @@
         </ng-template>
       </p-table>
     </p-tabPanel>
-    <p-tabPanel header="Reset Mật khẩu">
+    <p-tabPanel *jhiHasAnyAuthority="'ROLE_ADMIN'" header="Reset Mật khẩu">
       <div>
         <div class="row justify-content-center">
           <div class="col-md-8">
