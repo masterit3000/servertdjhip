@@ -81,7 +81,13 @@ public class BatHoServiceImpl implements BatHoService {
     private final GhiNoRepository ghiNoRepository;
     private final ThuChiRepository thuChiRepository;
 
-    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository, HopDongRepository hopDongRepository, HopDongService hopDongService, NhatKyService nhatKyService, VayLaiRepository vayLaiRepository, KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper, KhachHangService khachHangService, NhanVienService nhanVienService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
+    public BatHoServiceImpl(BatHoMapper batHoMapper, BatHoRepository batHoRepository,
+            HopDongRepository hopDongRepository, HopDongService hopDongService, NhatKyService nhatKyService,
+            VayLaiRepository vayLaiRepository, KhachHangRepository khachHangRepository, KhachHangMapper khachHangMapper,
+            KhachHangService khachHangService, NhanVienService nhanVienService, CuaHangService cuaHangService,
+            LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository,
+            LichSuDongTienMapper lichSuDongTienMapper, LichSuThaoTacHopDongService lichSuThaoTacHopDongService,
+            GhiNoRepository ghiNoRepository, ThuChiRepository thuChiRepository) {
         this.batHoMapper = batHoMapper;
         this.batHoRepository = batHoRepository;
         this.hopDongRepository = hopDongRepository;
@@ -115,9 +121,10 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
 
             validate(batHoDTO);
-            if (batHoDTO.getId() == null) { //add new bat ho
+            if (batHoDTO.getId() == null) { // add new bat ho
                 if (batHoDTO.getTienduakhach() <= quanLyVon()
-                        && khachHangRepository.findOne(batHoDTO.getHopdong().getKhachHangId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
+                        && khachHangRepository.findOne(batHoDTO.getHopdong().getKhachHangId()).getStatus()
+                                .equals(StatusKhachHang.DUNGHOATDONG)) {
                     HopDongDTO hopdong = batHoDTO.getHopdong();
                     hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                     hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -143,14 +150,14 @@ public class BatHoServiceImpl implements BatHoService {
                     ZonedDateTime ngaytao = hopdong.getNgaytao();
 
                     ZonedDateTime batdau = ngaytao;
-//            Date date = new Date(batdau.)
-//batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                    // Date date = new Date(batdau.)
+                    // batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
                     int soChuKy = tongsongay / chuky;
                     if (tongsongay % chuky != 0) {
                         soChuKy++;
                     }
 
-                    long soTienTrongChuKy = Math.round((tongtien / soChuKy) / 1000) * 1000;//lam tron den 1000d
+                    long soTienTrongChuKy = Math.round((tongtien / soChuKy) / 1000) * 1000;// lam tron den 1000d
                     for (int i = 0; i < soChuKy - 1; i++) {
                         LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                         lichSuDongTienDTO.setHopDongId(hopdong.getId());
@@ -162,7 +169,7 @@ public class BatHoServiceImpl implements BatHoService {
                         lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                         lichSuDongTienService.save(lichSuDongTienDTO);
                     }
-                    //phat cuoi
+                    // phat cuoi
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
@@ -197,78 +204,81 @@ public class BatHoServiceImpl implements BatHoService {
                 }
             } else {
                 throw new BadRequestAlertException("Không được sửa bat họ", null, null);
-//                Long idCuaHang = cuaHangService.findIDByUserLogin();
-//                BatHo findOne = batHoRepository.findOne(batHoDTO.getId());
-//
-//                batHoDTO.getHopdong().setCuaHangId(idCuaHang);//de phong user thay doi idcuahang
-//                HopDongDTO hopdong = hopDongService.save(batHoDTO.getHopdong());
-//                batHoDTO.setHopdong(hopdong);
-//                double tienPhaiDong = 0;
-//                List<LichSuDongTienDTO> LSDT = lichSuDongTienService.findByHopDong(hopdong.getId());
-//                for (LichSuDongTienDTO lichSuDongTienDTO : LSDT) {
-//                    if (lichSuDongTienDTO.getTrangthai().equals(DONGTIEN.CHUADONG)) {
-//                        tienPhaiDong += lichSuDongTienDTO.getSotien();
-//                        lichSuDongTienService.delete(lichSuDongTienDTO.getId());
-//                    }
-//                }
-//                List<GhiNoDTO> GN = ghiNoService.findByHopDong(hopdong.getId());
-//                for (GhiNoDTO ghiNo : GN) {
-//                    if (ghiNo.getTrangthai().equals(NOTRA.NO)) {
-//                        tienPhaiDong += ghiNo.getSotien();
-//                    } else if (ghiNo.getTrangthai().equals(NOTRA.TRA)) {
-//                        tienPhaiDong = tienPhaiDong - ghiNo.getSotien();
-//                    }
-//                    ghiNoService.delete(ghiNo.getId());
-//                }
-//
-//                BatHo batHo = batHoMapper.toEntity(batHoDTO);
-//                batHo = batHoRepository.save(batHo);
-//                LichSuDongTienDTO lichSuDongTienDaoHo = new LichSuDongTienDTO();
-//                lichSuDongTienDaoHo.setHopDongId(hopdong.getId());
-//                lichSuDongTienDaoHo.setNhanVienId(nhanVienService.findByUserLogin().getId());
-//                lichSuDongTienDaoHo.setNgaybatdau(ZonedDateTime.now());
-//                lichSuDongTienDaoHo.setNgayketthuc(ZonedDateTime.now());
-//                lichSuDongTienDaoHo.setSotien(tienPhaiDong * 1d);
-//                lichSuDongTienDaoHo.setTrangthai(DONGTIEN.DADONG);
-//                lichSuDongTienService.save(lichSuDongTienDaoHo);
-//                Integer chuky = batHo.getChuky();
-//                Double tienduakhach = batHo.getTienduakhach();
-//                Integer tongsongay = batHo.getTongsongay();
-//                Double tongtien = batHo.getTongtien();
-//                ZonedDateTime ngaytao = hopdong.getNgaytao();
-//
-//                ZonedDateTime batdau = ngaytao;
-////            Date date = new Date(batdau.)
-////batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
-//
-//                int soChuKy = tongsongay / chuky;
-//                if (tongsongay % chuky != 0) {
-//                    soChuKy++;
-//                }
-//
-//                long soTienTrongChuKy = Math.round((tongtien / soChuKy)*1000)/1000;//lam tron den 1000d
-//                for (int i = 0; i < soChuKy - 1; i++) {
-//                    LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-//                    lichSuDongTienDTO.setHopDongId(hopdong.getId());
-//                    lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-//                    lichSuDongTienDTO.setNgaybatdau(batdau);
-//                    batdau = batdau.plusDays(chuky);
-//                    lichSuDongTienDTO.setNgayketthuc(batdau);
-//                    lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
-//                    lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
-//                    lichSuDongTienService.save(lichSuDongTienDTO);
-//                }
-//                //phat cuoi
-//                LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
-//                lichSuDongTienDTO.setHopDongId(hopdong.getId());
-//                lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
-//                lichSuDongTienDTO.setNgaybatdau(batdau);
-//                batdau = ngaytao.plusDays(tongsongay);
-//                lichSuDongTienDTO.setNgayketthuc(batdau);
-//                lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
-//                lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
-//                lichSuDongTienService.save(lichSuDongTienDTO);
-//                return batHoMapper.toDto(batHo);
+                // Long idCuaHang = cuaHangService.findIDByUserLogin();
+                // BatHo findOne = batHoRepository.findOne(batHoDTO.getId());
+                //
+                // batHoDTO.getHopdong().setCuaHangId(idCuaHang);//de phong user thay doi
+                // idcuahang
+                // HopDongDTO hopdong = hopDongService.save(batHoDTO.getHopdong());
+                // batHoDTO.setHopdong(hopdong);
+                // double tienPhaiDong = 0;
+                // List<LichSuDongTienDTO> LSDT =
+                // lichSuDongTienService.findByHopDong(hopdong.getId());
+                // for (LichSuDongTienDTO lichSuDongTienDTO : LSDT) {
+                // if (lichSuDongTienDTO.getTrangthai().equals(DONGTIEN.CHUADONG)) {
+                // tienPhaiDong += lichSuDongTienDTO.getSotien();
+                // lichSuDongTienService.delete(lichSuDongTienDTO.getId());
+                // }
+                // }
+                // List<GhiNoDTO> GN = ghiNoService.findByHopDong(hopdong.getId());
+                // for (GhiNoDTO ghiNo : GN) {
+                // if (ghiNo.getTrangthai().equals(NOTRA.NO)) {
+                // tienPhaiDong += ghiNo.getSotien();
+                // } else if (ghiNo.getTrangthai().equals(NOTRA.TRA)) {
+                // tienPhaiDong = tienPhaiDong - ghiNo.getSotien();
+                // }
+                // ghiNoService.delete(ghiNo.getId());
+                // }
+                //
+                // BatHo batHo = batHoMapper.toEntity(batHoDTO);
+                // batHo = batHoRepository.save(batHo);
+                // LichSuDongTienDTO lichSuDongTienDaoHo = new LichSuDongTienDTO();
+                // lichSuDongTienDaoHo.setHopDongId(hopdong.getId());
+                // lichSuDongTienDaoHo.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                // lichSuDongTienDaoHo.setNgaybatdau(ZonedDateTime.now());
+                // lichSuDongTienDaoHo.setNgayketthuc(ZonedDateTime.now());
+                // lichSuDongTienDaoHo.setSotien(tienPhaiDong * 1d);
+                // lichSuDongTienDaoHo.setTrangthai(DONGTIEN.DADONG);
+                // lichSuDongTienService.save(lichSuDongTienDaoHo);
+                // Integer chuky = batHo.getChuky();
+                // Double tienduakhach = batHo.getTienduakhach();
+                // Integer tongsongay = batHo.getTongsongay();
+                // Double tongtien = batHo.getTongtien();
+                // ZonedDateTime ngaytao = hopdong.getNgaytao();
+                //
+                // ZonedDateTime batdau = ngaytao;
+                //// Date date = new Date(batdau.)
+                //// batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                //
+                // int soChuKy = tongsongay / chuky;
+                // if (tongsongay % chuky != 0) {
+                // soChuKy++;
+                // }
+                //
+                // long soTienTrongChuKy = Math.round((tongtien / soChuKy)*1000)/1000;//lam tron
+                // den 1000d
+                // for (int i = 0; i < soChuKy - 1; i++) {
+                // LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                // lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                // lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                // lichSuDongTienDTO.setNgaybatdau(batdau);
+                // batdau = batdau.plusDays(chuky);
+                // lichSuDongTienDTO.setNgayketthuc(batdau);
+                // lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                // lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                // lichSuDongTienService.save(lichSuDongTienDTO);
+                // }
+                // //phat cuoi
+                // LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
+                // lichSuDongTienDTO.setHopDongId(hopdong.getId());
+                // lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
+                // lichSuDongTienDTO.setNgaybatdau(batdau);
+                // batdau = ngaytao.plusDays(tongsongay);
+                // lichSuDongTienDTO.setNgayketthuc(batdau);
+                // lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
+                // lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
+                // lichSuDongTienService.save(lichSuDongTienDTO);
+                // return batHoMapper.toDto(batHo);
 
             }
         }
@@ -277,13 +287,13 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public BatHoDTO daoHo(BatHoDTO batHoDTO, Long id, String mahopdong
-    ) {
+    public BatHoDTO daoHo(BatHoDTO batHoDTO, Long id, String mahopdong) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             if (batHoDTO.getTienduakhach() < quanLyVon()
-                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
+                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus()
+                            .equals(StatusKhachHang.DUNGHOATDONG)) {
                 HopDongDTO hopdong = new HopDongDTO();
                 hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                 hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -310,14 +320,14 @@ public class BatHoServiceImpl implements BatHoService {
                 ZonedDateTime ngaytao = hopdong.getNgaytao();
 
                 ZonedDateTime batdau = ngaytao;
-//            Date date = new Date(batdau.)
-//batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                // Date date = new Date(batdau.)
+                // batdau.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
                 int soChuKy = tongsongay / chuky;
                 if (tongsongay % chuky != 0) {
                     soChuKy++;
                 }
 
-                long soTienTrongChuKy = Math.round((tongtien / soChuKy) / 1000) * 1000;//lam tron den 1000d
+                long soTienTrongChuKy = Math.round((tongtien / soChuKy) / 1000) * 1000;// lam tron den 1000d
                 for (int i = 0; i < soChuKy - 1; i++) {
                     LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
@@ -329,7 +339,7 @@ public class BatHoServiceImpl implements BatHoService {
                     lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
                     lichSuDongTienService.save(lichSuDongTienDTO);
                 }
-                //phat cuoi
+                // phat cuoi
                 LichSuDongTienDTO lichSuDongTienDTO = new LichSuDongTienDTO();
                 lichSuDongTienDTO.setHopDongId(hopdong.getId());
                 lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
@@ -379,17 +389,17 @@ public class BatHoServiceImpl implements BatHoService {
     public List<BatHoDTO> findAll(TRANGTHAIHOPDONG trangthai) {
         log.debug("Request to get all BatHos");
 
-        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+        String login = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDongAdmin(trangthai).stream()
-                    .map(batHoMapper::toDto)
-                    .collect(Collectors.toCollection(LinkedList::new));
+                    .map(batHoMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
             return collect;
         } else {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             LinkedList<BatHoDTO> collect = batHoRepository.findByTrangThaiHopDong(trangthai, idCuaHang).stream()
-                    .map(batHoMapper::toDto)
-                    .collect(Collectors.toCollection(LinkedList::new));
+                    .map(batHoMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
         }
@@ -403,13 +413,14 @@ public class BatHoServiceImpl implements BatHoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public BatHoDTO findOne(Long id
-    ) {
+    public BatHoDTO findOne(Long id) {
         log.debug("Request to get BatHo : {}", id);
-        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        String login = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         BatHo batHo = null;
         batHo = batHoRepository.findOne(id);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             return batHoMapper.toDto(batHo);
 
         } else {
@@ -428,10 +439,10 @@ public class BatHoServiceImpl implements BatHoService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id
-    ) {
+    public void delete(Long id) {
         log.debug("Request to delete BatHo : {}", id);
-        if ((SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN))) {
+        if ((SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN))) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             BatHoDTO findOne = findOne(id);
             if (findOne.getHopdong().getCuaHangId() == idCuaHang) {
@@ -445,8 +456,7 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public LichSuDongTienDTO setDongTien(Long id
-    ) {
+    public LichSuDongTienDTO setDongTien(Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             LichSuDongTien lichSuDongTien = null;
@@ -468,21 +478,18 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public List<BatHoDTO> findByNameOrCMND(String key
-    ) {
+    public List<BatHoDTO> findByNameOrCMND(String key) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            return batHoRepository.findByNameOrCMNDAdmin(key).stream()
-                    .map(batHoMapper::toDto)
+            return batHoRepository.findByNameOrCMNDAdmin(key).stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
             Long idcuaHang = cuaHangService.findIDByUserLogin();
-            return batHoRepository.findByNameOrCMND(key, idcuaHang).stream()
-                    .map(batHoMapper::toDto)
+            return batHoRepository.findByNameOrCMND(key, idcuaHang).stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new BadRequestAlertException("không có quyền", null, null);
@@ -495,8 +502,7 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            return batHoRepository.findByNameOrCMND(key, id).stream()
-                    .map(batHoMapper::toDto)
+            return batHoRepository.findByNameOrCMND(key, id).stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new BadRequestAlertException("không có quyền", null, null);
@@ -521,19 +527,18 @@ public class BatHoServiceImpl implements BatHoService {
         }
     }
 
-    //Tùng viết
+    // Tùng viết
     @Override
     @Transactional(readOnly = true)
     public List<BatHoDTO> findByCuaHangId(Long id) {
 
         List<BatHo> findByCuaHangId = batHoRepository.findAllByCuaHang(id);
-        List<BatHoDTO> collect = findByCuaHangId.stream()
-                .map(batHoMapper::toDto)
+        List<BatHoDTO> collect = findByCuaHangId.stream().map(batHoMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
         return collect;
     }
 
-    //Tùng end
+    // Tùng end
     @Override
     public BatHoDTO findByHopDong(Long id) {
         BatHo batHo = batHoRepository.findByHopDong(id);
@@ -558,8 +563,7 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             List<BatHo> baoCao = batHoRepository.baocaoNV(start, end, idCuaHang, idNhanVien);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -572,8 +576,7 @@ public class BatHoServiceImpl implements BatHoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
 
             List<BatHo> baoCao = batHoRepository.baocao(start, end, idcuahang);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -583,10 +586,9 @@ public class BatHoServiceImpl implements BatHoService {
 
     @Override
     public List<BatHoDTO> findByNhanVien(Long idNhanVien) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             List<BatHo> findByNV = batHoRepository.findAllByNhanVien(idNhanVien);
-            List<BatHoDTO> collect = findByNV.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = findByNV.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -601,8 +603,7 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             List<BatHo> baoCao = batHoRepository.baocao(start, end, idCuaHang);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -617,8 +618,7 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             List<BatHo> baoCao = batHoRepository.findByTrangThai(start, end, trangthai, idCuaHang);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -633,8 +633,7 @@ public class BatHoServiceImpl implements BatHoService {
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             List<BatHo> baoCao = batHoRepository.findByTrangThaiHopDong(trangthai, idCuaHang);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -643,14 +642,14 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public List<BatHoDTO> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai, Long id) {
+    public List<BatHoDTO> findByTrangThaiNV(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai,
+            Long id) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
             List<BatHo> baoCao = batHoRepository.findByTrangThaiNV(start, end, trangthai, idCuaHang, id);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 
@@ -665,51 +664,74 @@ public class BatHoServiceImpl implements BatHoService {
             Long idCuaHang = cuaHangService.findIDByUserLogin();
 
             Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
-            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;
-            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);;
-            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);;
-            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang).orElse(0d);;
-            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);;
-            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);;
-            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);;
-            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);;
-            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);;
+            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);
+            ;
+            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);
+            ;
+            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);
+            ;
+            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang)
+                    .orElse(0d);
+            ;
+            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);
+            ;
+            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);
+            ;
+            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);
+            ;
+            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);
+            ;
+            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);
+            ;
 
             Double nguonvon = 0d;
-            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
+            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai)
+                    - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
             return nguonvon;
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
+
 
     @Override
     public Double quanLyVonByKeToan(Long idCuaHang) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
 
             Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
-            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);;
-            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);;
-            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);;
-            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang).orElse(0d);;
-            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);;
-            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);;
-            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);;
-            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);;
-            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);;
+            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);
+            ;
+            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);
+            ;
+            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);
+            ;
+            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang)
+                    .orElse(0d);
+            ;
+            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);
+            ;
+            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);
+            ;
+            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);
+            ;
+            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);
+            ;
+            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);
+            ;
 
             Double nguonvon = 0d;
-            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai) - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
+            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai)
+                    - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
             return nguonvon;
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
-    public List<BatHoDTO> findByTrangThaiKeToan(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai, Long idCuaHang) {
+    public List<BatHoDTO> findByTrangThaiKeToan(ZonedDateTime start, ZonedDateTime end, TRANGTHAIHOPDONG trangthai,
+            Long idCuaHang) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             List<BatHo> baoCao = batHoRepository.findByTrangThai(start, end, trangthai, idCuaHang);
-            List<BatHoDTO> collect = baoCao.stream()
-                    .map(batHoMapper::toDto)
+            List<BatHoDTO> collect = baoCao.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
             return collect;
 

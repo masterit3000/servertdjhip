@@ -157,7 +157,7 @@ public class KhachHangServiceImpl implements KhachHangService {
     public KhachHangDTO findOne(Long id) {
         log.debug("Request to get KhachHang : {}", id);
         KhachHang khachHang = khachHangRepository.findOne(id);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
 
             return khachHangMapper.toDto(khachHang);
         } else {

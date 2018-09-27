@@ -3,7 +3,11 @@
     "servertdjhipApp": {
         "thuChi" : {
             "home": {
-                "title": "Thu Chis",
+                "title": "Thu Chi",
+                "thuHoatDong": "Thu hoạt động",
+                "chiHoatDong": "Chi hoạt động",
+                "gopVon": "Góp vốn",
+                "rutVon": "Rút vốn",
                 "createLabel": "Thêm mới một Thu Chi",
                 "createOrEditLabel": "Thêm mới hoặc cập nhật Thu Chi"
             },

@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: 'bat-ho-admin', component: BatHoAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.batHo.home.title'
     },
   },
@@ -29,76 +29,76 @@ const routes: Routes = [
     path: 'chi-tiet-tien-lai', component: ChiTietTienLaiComponent,
     data: {
       authorities: ['ROLE_KETOAN'],
-      pageTitle: 'servertdjhipApp.baoCao.home.title'
+      pageTitle: 'global.menu.chiTietTienLai'
     },
   },
   {
     path: 'so-quy-tien-mat', component: SoQuyTienMatComponent,
     data: {
       authorities: ['ROLE_KETOAN'],
-      pageTitle: 'servertdjhipApp.baoCao.home.title'
+      pageTitle: 'global.menu.soQuyTienMat'
     },
   },
   {
     path: 'thong-ke-ke-toan', component: ThongKeKeToanComponent,
     data: {
       authorities: ['ROLE_KETOAN'],
-      pageTitle: 'servertdjhipApp.thongKe.home.title'
+      pageTitle: 'global.menu.thongKe'
     },
   },
   {
     path: 'bat-ho-admin/:id', component: BatHoDetailAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.batHo.home.title'
     },
   },
   {
     path: 'vay-lai-admin', component: VayLaiAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.vayLai.home.title'
     },
   },
   {
     path: 'vay-lai-admin/:id', component: VayLaiDetailAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.vayLai.home.title'
     },
   },
   {
     path: 'khach-hang-admin', component: KhachHangAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.khachHang.home.title'
     },
   },
   {
     path: 'khach-hang-admin/:id', component: KhachHangDetailAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.khachHang.home.title'
     },
   },
   {
     path: 'cua-hang-admin', component: CuaHangAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.cuaHang.home.title'
     },
   },
   {
     path: 'cua-hang-admin/:id', component: CuaHangDetailAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.cuaHang.home.title'
     },
   },
   {
     path: 'nhan-vien-admin', component: NhanVienAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.nhanVien.home.title'
     },
   },
@@ -113,7 +113,7 @@ const routes: Routes = [
   {
     path: 'nhan-vien-admin/:id', component: NhanVienDetailAdminComponent,
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.nhanVien.home.title'
     },
   }

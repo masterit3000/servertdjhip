@@ -29,7 +29,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <b>Ngày tạo</b>: {{cuaHang.ngayTao | date:"dd/MM/yyyy"}}
+                        <b>Kế toán</b>: {{cuaHang.keToanId}}
                     </td>
                 </tr>
             </table>
@@ -65,7 +65,7 @@
         <span class="fa fa-arrow-left"></span>&nbsp;
         <span>Quay lại</span>
     </button>
-    <button type="button" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+    <button type="button" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/', { outlets: { popup: 'cua-hang/'+ cuaHang.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
         class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;
         <span>Chỉnh sửa</span>
