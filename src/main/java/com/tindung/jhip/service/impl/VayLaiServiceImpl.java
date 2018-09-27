@@ -472,7 +472,7 @@ public class VayLaiServiceImpl implements VayLaiService {
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         VayLai vayLai = null;
         vayLai = vayLaiRepository.findOne(id);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             return vayLaiMapper.toDto(vayLai);
 
         } else {

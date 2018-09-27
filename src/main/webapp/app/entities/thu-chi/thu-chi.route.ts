@@ -34,7 +34,7 @@ export const thuChiRoute: Routes = [
         component: ThuHoatDongComponent,
         data: {
             authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
-            pageTitle: 'servertdjhipApp.thuChi.home.title'
+            pageTitle: 'servertdjhipApp.thuChi.home.thuHoatDong'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -43,7 +43,7 @@ export const thuChiRoute: Routes = [
         component: ChiHoatDongComponent,
         data: {
             authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
-            pageTitle: 'servertdjhipApp.thuChi.home.title'
+            pageTitle: 'servertdjhipApp.thuChi.home.chiHoatDong'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const thuChiRoute: Routes = [
         component: GopVonComponent,
         data: {
             authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
-            pageTitle: 'servertdjhipApp.thuChi.home.title'
+            pageTitle: 'servertdjhipApp.thuChi.home.gopVon'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -61,7 +61,7 @@ export const thuChiRoute: Routes = [
         component: RutVonComponent,
         data: {
             authorities: ['ROLE_USER', 'ROLE_STORE', 'ROLE_STAFF'],
-            pageTitle: 'servertdjhipApp.thuChi.home.title'
+            pageTitle: 'servertdjhipApp.thuChi.home.rutVon'
         },
         canActivate: [UserRouteAccessService]
     }

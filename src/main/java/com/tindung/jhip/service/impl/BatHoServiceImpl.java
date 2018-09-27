@@ -409,7 +409,7 @@ public class BatHoServiceImpl implements BatHoService {
         String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         BatHo batHo = null;
         batHo = batHoRepository.findOne(id);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             return batHoMapper.toDto(batHo);
 
         } else {

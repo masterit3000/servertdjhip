@@ -6,7 +6,9 @@
             "DUNGHOATDONG": "Dừng hoạt động",
             "CAPDO1": "Cấp độ 1",
             "CAPDO2": "Cấp độ 2",
-            "CAPDO3": "Cấp độ 3"
+            "CAPDO3": "Cấp độ 3",
+            "DUNGHOATDONG": "Không vay",
+            "HOATDONG": "Đang vay"
         }
     }
 }

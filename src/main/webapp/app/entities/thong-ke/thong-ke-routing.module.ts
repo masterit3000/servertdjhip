@@ -8,14 +8,14 @@ const routes: Routes = [
     path: 'thuTienVayLai', component: ThuTienVayLaiComponent,
     data: {
       authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
-      pageTitle: 'Thống kê  vay lãi'
+      pageTitle: 'global.menu.thuTienVayLai'
     },
   },
   {
     path: 'thuTienHo', component: ThuTienHoComponent,
     data: {
       authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF'],
-      pageTitle: 'Thống kê bát họ'
+      pageTitle: 'global.menu.thuTienHo'
     },
   },
 ];
