@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 import { Message } from 'primeng/components/common/api';
@@ -12,6 +12,7 @@ import { LichSuDongTienService } from '../../../lich-su-dong-tien/lich-su-dong-t
 import { LichSuThaoTacHopDongService } from '../../../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
 import { TaiSanService, TaiSan } from '../../../tai-san';
 import { GhiNo, GhiNoService } from '../../../ghi-no';
+import { Observable } from '../../../../../../../../node_modules/rxjs';
 @Component({
     selector: 'bat-ho-detail-admin',
     templateUrl: './bat-ho-detail.component.html'
@@ -22,6 +23,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     lichSuDongTiensChuaDong: LichSuDongTien[];
     lichSuThaoTacHopDongs: LichSuThaoTacHopDong[];
     selected: LichSuDongTien;
+    lichSuThaoTacHopDong: LichSuThaoTacHopDong;
     msgs: Message[] = [];
     tiendadong: number;
     tienchuadong: number;
@@ -34,6 +36,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     ghiNos: GhiNo[];
     tienNo: number;
     tienTra: number;
+    isSaving: boolean;
 
 
     constructor(
@@ -44,16 +47,17 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
         private lichSuDongTienService: LichSuDongTienService,
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
         private route: ActivatedRoute,
+        
 
         // private confirmationService: ConfirmationService
     ) {
-
+        this.lichSuThaoTacHopDong = new LichSuThaoTacHopDong();
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
-            this.lichSuThaoTacHopDong(params['id']);
+           
 
         });
         this.registerChangeInBatHos();
@@ -66,9 +70,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
         this.dongHD = false;
     }
 
-    lichSuThaoTacHopDong(id) {
-
-    }
+ 
     // convertotEnum
     load(id) {
         this.batHoService
@@ -160,11 +162,60 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
         window.history.back();
     }
 
+    onRowUnselect(event) {
+        this.msgs = [
+            {
+                severity: 'info',
+                summary: 'Hủy đóng',
+                detail: 'id: ' + event.data.id
+            }
+        ];
+
+        this.lichSuDongTienService
+            .setDongTien(event.data.id, DONGTIEN.CHUADONG)
+            .subscribe(response => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Hủy đóng Hợp Đồng'
+                });
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+                });
+            });
+        this.setSoTienLichSuThaoTac('Hủy đóng tiền', event.data.sotien, 0);
+    }
+    private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
+        this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;
+        this.lichSuThaoTacHopDong.soTienGhiNo = soTienGhiNo;
+        this.lichSuThaoTacHopDong.soTienGhiCo = soTienGhiCo;
+        this.lichSuThaoTacHopDong.noidung = noidung;
+        this.subscribeToSaveResponseLS(
+            this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
+        );
+    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.eventManager.destroy(this.eventSubscriber);
     }
-
+    private subscribeToSaveResponseLS(
+        result: Observable<HttpResponse<LichSuThaoTacHopDong>>
+    ) {
+        result.subscribe(
+            (res: HttpResponse<LichSuThaoTacHopDong>) =>
+                this.onSaveSuccessLS(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
+    }
+    private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
+        this.eventManager.broadcast({
+            name: 'lichSuThaoTacHopDongListModification',
+            content: 'OK'
+        });
+        this.isSaving = false;
+    }
+    private onSaveError() {
+        this.isSaving = false;
+    }
     registerChangeInBatHos() {
         this.eventSubscriber = this.eventManager.subscribe(
             'batHoListModification',

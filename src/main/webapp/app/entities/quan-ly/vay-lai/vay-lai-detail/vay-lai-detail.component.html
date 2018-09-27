@@ -128,7 +128,8 @@
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table class="text-center" [value]="lichSuDongTiensDaDong" [paginator]="true" [rows]="10" dataKey="id">
+                    <p-table class="text-center" [value]="lichSuDongTiensDaDong" [paginator]="true" [rows]="10" dataKey="id"
+                    (onRowSelect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="7" class="text-white bg-success text-center">Tiền lãi đã đóng</th>
@@ -140,6 +141,9 @@
                                 <th>Tiền lãi</th>
                                 <th>Ngày giao dịch</th>
                                 <th>Tiền khách trả</th>
+                                <th *jhiHasAnyAuthority="'ROLE_KETOAN'">
+                                        Hủy đóng tiền
+                                      </th>
                             </tr>
                         </ng-template>>
                         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -151,6 +155,9 @@
                                 <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                                 <td>{{vayLai.lai |currency : 'VND' : true : '1.0-0'}}</td>
+                                <td *jhiHasAnyAuthority="'ROLE_KETOAN'">
+                                        <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+                                    </td>
                             </tr>
                         </ng-template>
                     </p-table>

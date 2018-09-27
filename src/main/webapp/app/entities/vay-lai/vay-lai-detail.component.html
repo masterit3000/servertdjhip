@@ -125,7 +125,7 @@
                     >
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="7" class="bg-success text-center text-white">Tiền lãi đã đóng</th>
+                                <th colspan="6" class="bg-success text-center text-white">Tiền lãi đã đóng</th>
                             </tr>
                             <tr>
                                 <th colspan="2">Ngày</th>
@@ -133,9 +133,7 @@
                                 <th>Chu kỳ lãi</th>
                                 <th>Tiền khách trả</th>
                                 <th>Ngày giao dịch</th>
-                                <th *jhiHasAnyAuthority="'ROLE_STORE'">
-                                    Hủy đóng tiền
-                                </th>
+                                
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-lichSuDongTien>
@@ -148,9 +146,7 @@
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
-                                <td *jhiHasAnyAuthority="'ROLE_STORE'">
-                                    <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
-                                </td>
+                               
                             </tr>
                         </ng-template>
                     </p-table>
@@ -160,7 +156,7 @@
                         (onRowSelect)="onRowSelect($event)" >
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-secondary text-center text-white">Tiền lãi chưa đóng</th>
+                                <th colspan="5" class="bg-secondary text-center text-white">Tiền lãi chưa đóng</th>
                             </tr>
                             <tr>
                                 <th colspan="2">Ngày</th>

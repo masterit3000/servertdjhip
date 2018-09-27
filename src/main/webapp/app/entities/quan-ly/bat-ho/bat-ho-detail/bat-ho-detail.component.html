@@ -85,23 +85,18 @@
             dataKey="id">
             <ng-template pTemplate="header">
               <tr>
-                <th colspan="6" class="bg-secondary text-white text-center">Tiền họ chưa đóng</th>
+                <th colspan="5" class="bg-secondary text-white text-center">Tiền họ chưa đóng</th>
               </tr>
               <tr>
-                <th>
-                  <span>STT</span>
+
+                <th colspan="2">
+                  <span>Ngày họ</span>
                 </th>
                 <th>
                   <span>Trạng Thái</span>
                 </th>
                 <th>
-                  <span>Ngày họ</span>
-                </th>
-                <th>
                   <span>Tiền họ</span>
-                </th>
-                <th>
-                  <span>Ngày giao dịch</span>
                 </th>
                 <th>
                   <span>Tiền khách trả</span>
@@ -110,13 +105,12 @@
             </ng-template>
             <ng-template pTemplate="body" let-lichSuDongTien>
               <tr [pSelectableRow]="lichSuDongTien">
-                <td>{{lichSuDongTien.id}}</td>
+                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                 <td>
                   <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
                 </td>
-                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
               </tr>
             </ng-template>
@@ -124,42 +118,47 @@
         </div>
         <div class="col-md-6">
           <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
-            dataKey="id">
+            dataKey="id" (onRowSelect)="onRowUnselect($event)">
             <ng-template pTemplate="header">
               <tr>
                 <th colspan="6" class="bg-success text-white text-center">Tiền họ đã đóng</th>
               </tr>
               <tr>
-                <th>
-                  <span>STT</span>
+                <th colspan="2">
+
+                  <span>Ngày họ</span>
                 </th>
                 <th>
                   <span>Trạng Thái</span>
                 </th>
                 <th>
-                  <span>Ngày họ</span>
+                  <span>Tiền họ</span>
                 </th>
                 <th>
-                  <span>Tiền họ</span>
+                  <span>Tiền khách trả</span>
                 </th>
                 <th>
                   <span>Ngày giao dịch</span>
                 </th>
-                <th>
-                  <span>Tiền khách trả</span>
+                <th *jhiHasAnyAuthority="'ROLE_KETOAN'">
+                  Hủy đóng tiền
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-lichSuDongTien>
               <tr [pSelectableRow]="lichSuDongTien">
-                <td>{{lichSuDongTien.id}}</td>
-                <td>
-                  <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                  <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                  <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                  <td>
+                      <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                  </td>
+                  <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                  <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                  <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
+                <td *jhiHasAnyAuthority="'ROLE_KETOAN'">
+                  <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
+
                 </td>
-                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
               </tr>
             </ng-template>
           </p-table>

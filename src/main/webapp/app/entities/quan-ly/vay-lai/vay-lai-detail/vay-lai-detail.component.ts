@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -15,6 +15,9 @@ import { LichSuDongTienService } from '../../../lich-su-dong-tien/lich-su-dong-t
 import { LichSuThaoTacHopDongService } from '../../../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
 import { TaiSan, TaiSanService } from '../../../tai-san';
 import { GhiNo, GhiNoService } from '../../../ghi-no';
+import { Observable } from '../../../../../../../../node_modules/rxjs';
+import { Message } from '../../../../../../../../node_modules/primeng/primeng';
+
 @Component({
     selector: 'vay-lai-detail-admin',
     templateUrl: './vay-lai-detail.component.html'
@@ -36,6 +39,9 @@ export class VayLaiDetailAdminComponent implements OnInit, OnDestroy {
     ghiNos: GhiNo[];
     tienNo: number;
     tienTra: number;
+    isSaving: boolean;
+    lichSuThaoTacHopDong: LichSuThaoTacHopDong;
+    msgs: Message[] = [];
     constructor(
         private eventManager: JhiEventManager,
         private vayLaiService: VayLaiService,
@@ -57,6 +63,38 @@ export class VayLaiDetailAdminComponent implements OnInit, OnDestroy {
     }
     dongDongHD() {
         this.dongHD = false;
+    }
+    onRowUnselect(event) {
+        this.msgs = [
+            {
+                severity: 'info',
+                summary: 'Hủy đóng',
+                detail: 'id: ' + event.data.id
+            }
+        ];
+
+        this.lichSuDongTienService
+            .setDongTien(event.data.id, DONGTIEN.CHUADONG)
+            .subscribe(response => {
+                this.eventManager.broadcast({
+                    name: 'lichSuDongTienListModification',
+                    content: 'Hủy đóng Hợp Đồng'
+                });
+                this.subscription = this.route.params.subscribe(params => {
+                    this.load(params['id']);
+                });
+            });
+        this.setSoTienLichSuThaoTac('Hủy đóng tiền', 0, event.data.sotien);
+    }
+    private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
+        this.lichSuThaoTacHopDong.hopDongId = this.vayLai.hopdongvl.id;
+        this.lichSuThaoTacHopDong.soTienGhiNo = soTienGhiNo;
+        this.lichSuThaoTacHopDong.soTienGhiCo = soTienGhiCo;
+        this.lichSuThaoTacHopDong.noidung = noidung;
+        this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong);
+        this.subscribeToSaveResponseLS(
+            this.lichSuThaoTacHopDongService.create(this.lichSuThaoTacHopDong)
+        );
     }
     load(id) {
         this.vayLaiService
@@ -154,6 +192,25 @@ export class VayLaiDetailAdminComponent implements OnInit, OnDestroy {
         window.history.back();
     }
 
+    private subscribeToSaveResponseLS(
+        result: Observable<HttpResponse<LichSuThaoTacHopDong>>
+    ) {
+        result.subscribe(
+            (res: HttpResponse<LichSuThaoTacHopDong>) =>
+                this.onSaveSuccessLS(res.body),
+            (res: HttpErrorResponse) => this.onSaveError()
+        );
+    }
+    private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
+        this.eventManager.broadcast({
+            name: 'lichSuThaoTacHopDongListModification',
+            content: 'OK'
+        });
+        this.isSaving = false;
+    }
+    private onSaveError() {
+        this.isSaving = false;
+    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.eventManager.destroy(this.eventSubscriber);
