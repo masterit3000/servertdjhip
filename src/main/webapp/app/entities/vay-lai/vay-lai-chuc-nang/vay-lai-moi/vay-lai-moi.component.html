@@ -1,4 +1,4 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<form name="editForm" role="form" novalidate #editForm="ngForm">
     <div class="main-content">
         <div class="container-fluid">
             <div class="row">
@@ -6,7 +6,8 @@
                     <div class="modal-header">
                         <h4>
                             <i class="fa fa-plus" aria-hidden="true"></i>
-                            <span class="modal-title" id="myVayLaiLabel" jhiTranslate="servertdjhipApp.vayLai.home.createOrEditLabel">Create or edit a Vay Lai</span>
+                            <span class="modal-title" id="myVayLaiLabel" jhiTranslate="servertdjhipApp.vayLai.home.createOrEditLabel">Create
+                                or edit a Vay Lai</span>
                         </h4>
                     </div>
                 </div>
@@ -21,18 +22,19 @@
                                         <span class="fa fa-credit-card"></span>
                                         <span jhiTranslate="servertdjhipApp.hopDong.mahopdong">Mahopdong</span>
                                     </label>
-                                    <input [(ngModel)]="vayLai.hopdongvl.mahopdong" type="text" placeholder="VH-x / CD-x" class="form-control" name="mahopdong"
-                                        id="field_mahopdong" pTooltip="Nhập mã hợp đồng
-                                    Có định dạng 'VL-x/CD-x'" tooltipPosition="top" tooltipEvent="focus" required maxlength="20"
-                                    />
+                                    <input [(ngModel)]="vayLai.hopdongvl.mahopdong" type="text" placeholder="VH-x / CD-x"
+                                        class="form-control" name="mahopdong" id="field_mahopdong" pTooltip="Nhập mã hợp đồng
+                                    Có định dạng 'VL-x/CD-x'"
+                                        tooltipPosition="top" tooltipEvent="focus" required maxlength="20" />
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" for="field_tienvay">
                                         <span class="fa fa-money"></span>
                                         <span jhiTranslate="servertdjhipApp.vayLai.tienvay">Tienvay</span>
                                     </label>
-                                    <p-spinner placeholder="0" [min]="0" [step]="500000" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay"
-                                        class="form-control" name="tienvay" id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)"
+                                    <p-spinner placeholder="0" [min]="0" [step]="500000" [inputStyle]="{'width':'100%'}"
+                                        pKeyFilter="pnum" [(ngModel)]="vayLai.tienvay" class="form-control" name="tienvay"
+                                        id="field_tienvay" pTooltip="Nhập số tiền khách vay (Đơn vị: VNĐ)"
                                         tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -40,19 +42,20 @@
                                         <span class="fa fa-calendar-check-o"></span>
                                         <span jhiTranslate="servertdjhipApp.vayLai.thoigianvay">Thoigianvay</span>
                                     </label>
-                                    <input [(ngModel)]="vayLai.thoigianvay" [min]="0" type="number" pKeyFilter="pnum" class="form-control" pTooltip="Thời gian vay tính từ ngày tạo hợp đồng"
+                                    <input [(ngModel)]="vayLai.thoigianvay" [min]="0" type="number" pKeyFilter="pnum"
+                                        class="form-control" pTooltip="Thời gian vay tính từ ngày tạo hợp đồng"
                                         tooltipPosition="top" tooltipEvent="focus" name="thoigianvay" id="field_thoigianvay"
-                                        placeholder="0" required/>
+                                        placeholder="0" required />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="form-control-label" for="field_chukylai">
                                         <span class="fa fa-refresh"></span>
                                         <span jhiTranslate="servertdjhipApp.vayLai.chukylai">Chukylai</span>
                                     </label>
-                                    <input [(ngModel)]="vayLai.chukylai" type="number" pKeyFilter="pnum" placeholder="0" class="form-control" name="chukylai"
-                                        id="field_chukylai" [min]="0" pTooltip="Nhập chu kỳ đóng lãi
-                                        Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3" tooltipPosition="top" tooltipEvent="focus"
-                                        required/>
+                                    <input [(ngModel)]="vayLai.chukylai" type="number" pKeyFilter="pnum" placeholder="0"
+                                        class="form-control" name="chukylai" id="field_chukylai" [min]="0" pTooltip="Nhập chu kỳ đóng lãi
+                                        Ví dụ: 3 ngày đóng tiền 1 lần thì điền số 3"
+                                        tooltipPosition="top" tooltipEvent="focus" required />
                                 </div>
                             </div>
                             <div class="row">
@@ -61,19 +64,22 @@
                                         <span class="fa fa-folder-open-o"></span>
                                         <span jhiTranslate="servertdjhipApp.vayLai.hinhthuclai">Hinhthuclai</span>
                                     </label>
-                                    <select [(ngModel)]="vayLai.hinhthuclai" class="form-control" name="hinhthuclai" id="field_hinhthuclai" required>
+                                    <select [(ngModel)]="vayLai.hinhthuclai" class="form-control" name="hinhthuclai" id="field_hinhthuclai"
+                                        required>
                                         <option value="NGAY">{{'servertdjhipApp.HINHTHUCLAI.NGAY' | translate}}</option>
                                         <option value="THANG">{{'servertdjhipApp.HINHTHUCLAI.THANG' | translate}}</option>
                                         <option value="TUAN">{{'servertdjhipApp.HINHTHUCLAI.TUAN' | translate}}</option>
                                         <option value="NAM">{{'servertdjhipApp.HINHTHUCLAI.NAM' | translate}}</option>
-                                        <option value="THANGCODINH">{{'servertdjhipApp.HINHTHUCLAI.THANGCODINH' | translate}}</option>
+                                        <option value="THANGCODINH">{{'servertdjhipApp.HINHTHUCLAI.THANGCODINH' |
+                                            translate}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="form-control-label" for="field_cachtinhlai">
                                         <span jhiTranslate="servertdjhipApp.vayLai.cachtinhlai">Cachtinhlai</span>
                                     </label>
-                                    <select [(ngModel)]="vayLai.cachtinhlai" class="form-control" name="cachtinhlai" id="field_cachtinhlai" required>
+                                    <select [(ngModel)]="vayLai.cachtinhlai" class="form-control" name="cachtinhlai" id="field_cachtinhlai"
+                                        required>
                                         <option value="MOTTRIEU">{{'servertdjhipApp.TINHLAI.MOTTRIEU' | translate}}</option>
                                         <option value="CHUKY">{{'servertdjhipApp.TINHLAI.CHUKY' | translate}}</option>
                                         <option value="PHANTRAM">{{'servertdjhipApp.TINHLAI.PHANTRAM' | translate}}</option>
@@ -84,9 +90,11 @@
                                         <span class="fa fa-money"></span>
                                         <span jhiTranslate="servertdjhipApp.vayLai.lai">Lai</span>
                                     </label>
-                                    <p-spinner placeholder="0" [min]="0" [step]="5000" [inputStyle]="{'width':'100%'}" [(ngModel)]="vayLai.lai" class="form-control"
-                                        name="lai" id="field_lai" pTooltip="Phụ thuộc vào hình thức và cách tính lãi
-                                        (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
+                                    <p-spinner placeholder="0" [min]="0" [step]="5000" [inputStyle]="{'width':'100%'}"
+                                        [(ngModel)]="vayLai.lai" class="form-control" name="lai" id="field_lai"
+                                        pTooltip="Phụ thuộc vào hình thức và cách tính lãi
+                                        (Đơn vị: VNĐ)"
+                                        tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="form-control-label" for="field_thulaitruoc">
@@ -94,15 +102,17 @@
                                         <span jhiTranslate="servertdjhipApp.vayLai.thulaitruoc">Thulaitruoc</span>
                                     </label>
                                     <br />
-                                    <p-inputSwitch name="thulaitruoc" class="form-control" id="field_thulaitruoc" onLabel="Có" offLabel="Không"></p-inputSwitch>
+                                    <p-inputSwitch name="thulaitruoc" class="form-control" id="field_thulaitruoc"
+                                        onLabel="Có" offLabel="Không"></p-inputSwitch>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng" pTooltip="Nhập tên khách hàng/CMND"
-                                        tooltipPosition="top" tooltipEvent="focus" [(ngModel)]="keyTimKhachHang">
+                                    <input type="text" name="keyTimKhachHang" pInputText placeholder="Tìm kiếm khách hàng"
+                                        pTooltip="Nhập tên khách hàng/CMND" tooltipPosition="top" tooltipEvent="focus"
+                                        [(ngModel)]="keyTimKhachHang">
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary float-left" (click)="timKhachHang()">
@@ -111,7 +121,8 @@
                                     </button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-success float-right jh-create-entity create-khach-hang" [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
+                                    <button class="btn btn-success float-right jh-create-entity create-khach-hang"
+                                        [routerLink]="['/', { outlets: { popup: ['khach-hang-new'] } }]">
                                         <span class="fa fa-plus"></span>
                                         <span jhiTranslate="servertdjhipApp.khachHang.home.createLabel">
                                             Create new Khach Hang
@@ -122,8 +133,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <p-scrollPanel [style]="{width: '100%', height: '200px'}">
-                                        <p-table [value]="khachHangs" [paginator]="true" selectionMode="single" [rows]="5" [(selection)]="selected" dataKey="id"
-                                            (onRowSelect)="onRowSelect($event)">
+                                        <p-table [value]="khachHangs" [paginator]="true" selectionMode="single" [rows]="5"
+                                            [(selection)]="selected" dataKey="id" (onRowSelect)="onRowSelect($event)">
                                             <!-- <table class="table table-striped table-hover text-center"> -->
                                             <ng-template pTemplate="header">
                                                 <tr>
@@ -191,8 +202,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p-scrollPanel [style]="{width: '100%', height: '200px'}">
-                            <p-table [value]="khachHangsInSystem" [paginator]="true" selectionMode="single" [rows]="5" [(selection)]="selected" dataKey="id"
-                                (onRowSelect)="onRowSelect($event)">
+                            <p-table [value]="khachHangsInSystem" [paginator]="true" selectionMode="single" [rows]="5"
+                                dataKey="id" (onRowSelect)="onRowSelect($event)">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>
@@ -230,6 +241,7 @@
                     </div>
                 </div>
             </div>
+            </div>
             <!-- <div class="col-md-6">
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -245,7 +257,6 @@
                     </div>
                 </div>
             </div> -->
-        </div>
         <!-- <div class="row">
                 <div class="col-md-12">
                     <div class="modal-header">
@@ -288,16 +299,16 @@
 
                 </div>
             </div> -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
-                <span class="fa fa-ban"></span>&nbsp;
-                <span jhiTranslate="entity.action.cancel">Cancel</span>
-            </button>
-            <button type="submit" class="btn btn-success">
-                <span class="fa fa-save"></span>&nbsp;
-                <span jhiTranslate="entity.action.save">Save</span>
-            </button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
+                    <span class="fa fa-ban"></span>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-success" (click)="save()">
+                    <span class="fa fa-save"></span>&nbsp;
+                    <span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
         </div>
-    </div>
     </div>
 </form>
