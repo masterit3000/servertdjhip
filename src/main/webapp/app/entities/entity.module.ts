@@ -20,6 +20,7 @@ import { ServertdjhipNhatKyModule } from './nhat-ky/nhat-ky.module';
 import { BaoCaoModule } from './bao-cao/bao-cao.module';
 import { ThongKeModule } from './thong-ke/thong-ke.module';
 import { QuanLyModule } from './quan-ly/quan-ly.module';
+import { ServertdjhipImagesModule } from './images/images.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -43,7 +44,8 @@ import { QuanLyModule } from './quan-ly/quan-ly.module';
         ServertdjhipNhatKyModule,
         BaoCaoModule,
         ThongKeModule,
-        QuanLyModule
+        QuanLyModule,
+        ServertdjhipImagesModule
 
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],

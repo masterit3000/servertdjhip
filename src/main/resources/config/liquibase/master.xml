@@ -55,6 +55,7 @@
     <include file="config/liquibase/changelog/20180625160634_added_entity_AddColumnCuaHang.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_added_entity_ThemStatusKhachHang.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180625160634_ThemStored.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180924070913_added_entity_Images" relativeToChangelogFile="false"/>
 
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
