@@ -100,7 +100,7 @@ public class ThuChiServiceImpl implements ThuChiService {
         log.debug("Request to save ThuChi : {}", thuChiDTO);
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             if (((thuChiDTO.getThuchi().equals(THUCHI.CHI) || thuChiDTO.getThuchi().equals(THUCHI.RUTVON))
-                    && thuChiDTO.getSotien() <= batHoService.quanLyVonKeToan(idcuahang))
+                    && thuChiDTO.getSotien() <= batHoService.quanLyVonByKeToan(idcuahang))
                     || (thuChiDTO.getThuchi().equals(THUCHI.THU) || thuChiDTO.getThuchi().equals(THUCHI.GOPVON))) {
                 if (thuChiDTO.getId() == null) {// them mo
                     thuChiDTO.setThoigian(ZonedDateTime.now());

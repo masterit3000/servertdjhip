@@ -586,7 +586,7 @@ public class BatHoServiceImpl implements BatHoService {
 
     @Override
     public List<BatHoDTO> findByNhanVien(Long idNhanVien) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             List<BatHo> findByNV = batHoRepository.findAllByNhanVien(idNhanVien);
             List<BatHoDTO> collect = findByNV.stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -692,36 +692,6 @@ public class BatHoServiceImpl implements BatHoService {
         throw new BadRequestAlertException("không có quyền", null, null);
     }
 
-    public Double quanLyVonKeToan(Long idCuaHang) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
-            Double tienDuaKhachBatHo = batHoRepository.tienDuaKhach(idCuaHang).orElse(0d);
-            Double tienNo = ghiNoRepository.tienNo(NOTRA.NO, idCuaHang).orElse(0d);
-            ;
-            Double tienTraNo = ghiNoRepository.tienNo(NOTRA.TRA, idCuaHang).orElse(0d);
-            ;
-            Double tienVayDuaKhach = vayLaiRepository.tienVayDuaKhach(idCuaHang).orElse(0d);
-            ;
-            Double lichSuThuTienVayLaiBatHo = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.DADONG, idCuaHang)
-                    .orElse(0d);
-            ;
-            Double tienTraGocVayLai = lichSuDongTienRepository.lichSuDongTien(DONGTIEN.TRAGOC, idCuaHang).orElse(0d);
-            ;
-            Double thu = thuChiRepository.thuchi(THUCHI.THU, idCuaHang).orElse(0d);
-            ;
-            Double chi = thuChiRepository.thuchi(THUCHI.CHI, idCuaHang).orElse(0d);
-            ;
-            Double gopVon = thuChiRepository.thuchi(THUCHI.GOPVON, idCuaHang).orElse(0d);
-            ;
-            Double rutVon = thuChiRepository.thuchi(THUCHI.RUTVON, idCuaHang).orElse(0d);
-            ;
-
-            Double nguonvon = 0d;
-            nguonvon = (gopVon + thu + lichSuThuTienVayLaiBatHo + tienTraNo + tienTraGocVayLai)
-                    - (tienDuaKhachBatHo + tienVayDuaKhach + tienNo + chi + rutVon);
-            return nguonvon;
-        }
-        throw new BadRequestAlertException("không có quyền", null, null);
-    }
 
     @Override
     public Double quanLyVonByKeToan(Long idCuaHang) {

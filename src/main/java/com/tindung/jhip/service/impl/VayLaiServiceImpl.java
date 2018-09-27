@@ -621,7 +621,7 @@ public class VayLaiServiceImpl implements VayLaiService {
     @Override
     public List<VayLaiDTO> findByNhanVien(Long id
     ) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             List<VayLai> listVayLai = vayLaiRepository.findByNhanVien(id);
             return listVayLai.stream()
                     .map(vayLaiMapper::toDto)
