@@ -12,10 +12,10 @@ import { Principal } from '../../shared';
     templateUrl: './nhat-ky.component.html'
 })
 export class NhatKyComponent implements OnInit, OnDestroy {
-nhatKies: NhatKy[];
+    nhatKies: NhatKy[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    keyTimNhatKy:any;
+    keyTimNhatKy: any;
 
     constructor(
         private nhatKyService: NhatKyService,

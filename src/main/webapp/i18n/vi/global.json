@@ -3,6 +3,8 @@
         "title": "Servertdjhip",
         "browsehappy": "Bạn đang sử dụng một trình duyệt <strong>quá cũ</strong>. Vui lòng <a href=\"http://browsehappy.com/?locale=en\">nâng cấp trình duyệt</a> của bạn để có trải nghiệm tốt nhất.",
         "menu": {
+            "DUNGHOATDONG": "Không vay",
+            "HOATDONG": "Đang vay",
             "home": "Trang chủ",
             "baoCaoBatHo": "Sổ quỹ tiền mặt",
             "batHo": "Bát họ",

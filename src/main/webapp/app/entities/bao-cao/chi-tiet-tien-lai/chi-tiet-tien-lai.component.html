@@ -8,30 +8,30 @@
   <div class="widget-header" style="padding-top:15px">
     <div class="row">
       <div class="col-md-3">
-          <div class="row">
-              <label class="col-md-4 control-label">
-                  Nhân Viên
-              </label>
-              <div class="col-md-8 form-group">
-                  <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
-                  <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
-                      <option [ngValue]="default">Tất cả nhân viên</option>
-                      <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
-                  </select>
-              </div>
+        <div class="row">
+          <label class="col-md-4 control-label">
+            Nhân Viên
+          </label>
+          <div class="col-md-8 form-group">
+            <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
+            <select class="form-control" name="nhanVien" [(ngModel)]="selectedNhanVien">
+              <option [ngValue]="default">Tất cả nhân viên</option>
+              <option *ngFor="let nhanVien of nhanViens" [ngValue]="nhanVien">{{nhanVien.ten}}</option>
+            </select>
           </div>
+        </div>
       </div>
       <div class="col-md-4">
-          <label>Từ Ngày</label>
-          <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+        <label>Từ Ngày</label>
+        <p-calendar id="field_thoigian" [(ngModel)]="tungay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
       </div>
       <div class="col-md-5">
-          <label>Đến Ngày</label>
-          <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
-          <button class="btn btn-info pull-right" (click)="timKiem()">
-              <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
+        <label>Đến Ngày</label>
+        <p-calendar id="field_thoigian" [(ngModel)]="denngay" dateFormat="dd.mm.yy" name="thoigian"></p-calendar>
+        <button class="btn btn-info pull-right" (click)="timKiem()">
+          <i class="pi pi-search" aria-hidden="true"></i>Tìm kiếm</button>
       </div>
-  </div>
+    </div>
   </div>
   <div class="table-responsive" style="padding-top: 50px">
     <p-table [value]="batHos" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
@@ -80,17 +80,17 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="footer">
-        <tr class="text-right text-danger">
-          <td style="background-color:#ECECEC" colspan="4">
+        <tr style="background-color:#ECECEC">
+          <td class="text-right text-danger" colspan="4">
             <strong>Tổng</strong>
           </td>
-          <td style="background-color:#ECECEC">
+          <td class="text-danger">
             <span>{{tongTienTienBatHo |currency : 'VND' : true : '1.0-0'}}</span>
           </td>
-          <td style="background-color:#ECECEC">
+          <td class="text-danger">
             <span>{{tongTienBHs |currency : 'VND' : true : '1.0-0'}}</span>
           </td>
-          <td style="background-color:#ECECEC">
+          <td class="text-danger">
             <span>{{tongTienLaiBatHo |currency : 'VND' : true : '1.0-0'}}</span>
           </td>
           <td></td>
@@ -137,14 +137,13 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="footer">
-        <tr class="text-right text-danger">
-          <td style="background-color:#ECECEC" colspan="4">
+        <tr style="background-color:#ECECEC">
+          <td colspan="4" class="text-right text-danger">
             <strong>Tổng</strong>
           </td>
-          <td style="background-color:#ECECEC">
+          <td class="text-danger" colspan="2">
             <span>{{tongTienVL |currency : 'VND' : true : '1.0-0'}}</span>
           </td>
-          <td></td>
         </tr>
       </ng-template>
     </p-table>

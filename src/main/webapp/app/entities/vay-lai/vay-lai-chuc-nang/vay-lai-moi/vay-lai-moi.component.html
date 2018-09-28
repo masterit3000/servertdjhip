@@ -154,18 +154,20 @@
                                                     <th>
                                                         <span jhiTranslate="servertdjhipApp.khachHang.trangthai">Trangthai</span>
                                                     </th>
+                                                    <th>
+                                                        <span>Status</span>
+                                                    </th>
 
                                                 </tr>
                                             </ng-template>
                                             <ng-template pTemplate="body" let-khachHang>
                                                 <tr [pSelectableRow]="khachHang">
-
                                                     <td>{{khachHang.ten}}</td>
                                                     <td>{{khachHang.cmnd}}</td>
                                                     <td>{{khachHang.diachi}}</td>
                                                     <td>{{khachHang.dienthoai}}</td>
                                                     <td>{{khachHang.trangthai}}</td>
-
+                                                    <td jhiTranslate="{{'global.menu.' + khachHang.status}}">{{khachHang.status}}</td>
                                                 </tr>
                                             </ng-template>
                                         </p-table>
@@ -233,7 +235,7 @@
                                         <td>{{khachHang.dienthoai}}</td>
                                         <td>{{khachHang.trangthai}}</td>
                                         <td>{{khachHang.cuaHangId}}</td>
-                                        <td>{{khachHang.status}}</td>
+                                        <td jhiTranslate="{{'global.menu.' + khachHang.status}}">{{khachHang.status}}</td>
                                     </tr>
                                 </ng-template>
                             </p-table>

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand-md jh-navbar fixed-top">
-    
+
     <div class="jh-logo-container float-left">
         <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
@@ -168,6 +168,50 @@
                 </ul>
             </li>
             <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="['ROLE_STORE', 'ROLE_STAFF', 'ROLE_ADMIN']" class="nav-link" routerLink="nhat-ky" routerLinkActive="active"
+                    (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-book" aria-hidden="true"></i>
+                    <span>Nhật ký</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/bat-ho-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>
+                    <span>Bát họ</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/vay-lai-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-money" aria-hidden="true"></i>
+                    <span>Vay lãi</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/khach-hang-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-address-card-o" aria-hidden="true"></i>
+                    <span>Khách hàng</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/nhan-vien-admin" routerLinkActive="active" (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                    <span>Nhân viên</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="user-management" routerLinkActive="active" (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                    <span>Quản lý tài khoản</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_KETOAN']" class="nav-link" routerLink="/cua-hang-admin" routerLinkActive="active"
+                    (click)="collapseNavbar()">
+                    <i class="fa fa-fw fa-bank" aria-hidden="true"></i>
+                    <span>Cửa hàng</span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a *jhiHasAnyAuthority="'ROLE_KETOAN'" class="nav-link" routerLink="/thong-ke-ke-toan" routerLinkActive="active" (click)="collapseNavbar()">
                     <i class="fa fa-line-chart" aria-hidden="true"></i>
                     <span>Thống kê</span>
@@ -198,37 +242,7 @@
                 </ul>
             </li>
             <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/bat-ho-admin" routerLinkActive="active" (click)="collapseNavbar()">
-                    <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>
-                    <span>Bát họ</span>
-                </a>
-            </li>
-            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/vay-lai-admin" routerLinkActive="active" (click)="collapseNavbar()">
-                    <i class="fa fa-fw fa-money" aria-hidden="true"></i>
-                    <span>Vay lãi</span>
-                </a>
-            </li>
-            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/khach-hang-admin" routerLinkActive="active" (click)="collapseNavbar()">
-                    <i class="fa fa-fw fa-address-card-o" aria-hidden="true"></i>
-                    <span>Khách hàng</span>
-                </a>
-            </li>
-            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-link" routerLink="/nhan-vien-admin" routerLinkActive="active" (click)="collapseNavbar()">
-                    <i class="fa fa-fw fa-user" aria-hidden="true"></i>
-                    <span>Nhân viên</span>
-                </a>
-            </li>
-            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_KETOAN']" class="nav-link" routerLink="/cua-hang-admin" routerLinkActive="active" (click)="collapseNavbar()">
-                    <i class="fa fa-fw fa-bank" aria-hidden="true"></i>
-                    <span>Cửa hàng</span>
-                </a>
-            </li>
-            <li *ngSwitchCase="true" class="nav-item" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="nhat-ky" routerLinkActive="active" (click)="collapseNavbar()">
+                <a *jhiHasAnyAuthority="'ROLE_KETOAN'" class="nav-link" routerLink="/nhat-ky-ke-toan" routerLinkActive="active" (click)="collapseNavbar()">
                     <i class="fa fa-fw fa-book" aria-hidden="true"></i>
                     <span>Nhật ký</span>
                 </a>
