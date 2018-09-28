@@ -58,27 +58,7 @@ export class VayLaiMoiComponent implements OnInit {
                 // this.timKhachHang();
             });
     }
-    // save() {
-    //     console.log(this.vayLai);
 
-    //     this.VayLaiService.create(this.vayLai).subscribe(
-    //         (res: HttpResponse<VayLai>) => {
-    //             this.jhiAlertService.info(
-    //                 'them vay lai thanh cong',
-    //                 null,
-    //                 null
-    //             );
-    //         }, // thanh cong thi goi
-    //         (err: HttpErrorResponse) => {
-    //             console.log(err);
-    //             this.jhiAlertService.error(err.message, null, null);
-    //         } // loi thi goi ham nay
-    //     );
-
-    //     // VayLai.hopdong.khachangid = this.khachhangid;
-    //     // VayLai.hopdong.mahopdong = this.mahopdong;
-    //     // this.VayLaiService.cre
-    // }
     clear() {
         this.previousState();
     }
@@ -109,7 +89,7 @@ export class VayLaiMoiComponent implements OnInit {
         });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.jhiAlertService.success('them moi vay lai thanh cong', null, null);
         this.previousState();
     }
 
