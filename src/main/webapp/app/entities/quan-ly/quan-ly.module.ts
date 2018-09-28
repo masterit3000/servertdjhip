@@ -36,6 +36,7 @@ import { BaoCaoKeToanComponent } from './bao-cao-ke-toan/bao-cao-ke-toan.compone
 import { ChiTietTienLaiComponent } from './bao-cao-ke-toan/chi-tiet-tien-lai/chi-tiet-tien-lai.component';
 import { SoQuyTienMatComponent } from './bao-cao-ke-toan/so-quy-tien-mat/so-quy-tien-mat.component';
 import { ThongKeKeToanComponent } from './thong-ke-ke-toan/thong-ke-ke-toan.component';
+import { NhatKyKeToanComponent } from './nhat-ky-ke-toan/nhat-ky-ke-toan.component';
 
 @NgModule({
     imports: [
@@ -77,7 +78,8 @@ import { ThongKeKeToanComponent } from './thong-ke-ke-toan/thong-ke-ke-toan.comp
         BaoCaoKeToanComponent,
         ChiTietTienLaiComponent,
         SoQuyTienMatComponent,
-        ThongKeKeToanComponent
+        ThongKeKeToanComponent,
+        NhatKyKeToanComponent
     ]
 })
 export class QuanLyModule {}
