@@ -37,20 +37,19 @@
             </div>
           </div>
           <div>
-            <table class="table table-striped table-hover table-bordered table-calendar" style="margin-top:30px;">
+            <table class="table table-striped table-hover table-bordered table-calendar text-center" style="margin-top:30px;">
               <thead>
                 <tr style="background:#3f86c3;">
-                  <th colspan="6" style="text-align:left; padding-left:10px;font-size:16px;color:#FFF;text-align:center">Bảng
-                    Tổng Kết Bát Họ </th>
+                  <th colspan="3" style="padding-left:10px;font-size:16px;color:#FFF">Bảng Tổng Kết Bát Họ </th>
                 </tr>
                 <tr>
-                  <th class="align-center">Đóng tiền</th>
-                  <th class="align-center">Nợ</th>
-                  <th class="align-center">Thêm mới</th>
+                  <th>Đóng tiền</th>
+                  <th>Nợ</th>
+                  <th>Thêm mới</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-right text-danger">
+                <tr class="text-danger">
                   <td>
                     <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
@@ -64,9 +63,9 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <td class="text-right text-danger" colspan="6">
-                    <span>Tổng tiền = {{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs |currency : 'VND' : true
-                      : '1.0-0'}}</span>
+                  <td class="text-right text-danger" colspan="3">
+                    <span><b>Tổng tiền = {{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs |currency : 'VND' : true
+                        : '1.0-0'}}</b></span>
                   </td>
                 </tr>
               </tfoot>
@@ -113,14 +112,13 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="footer">
-                <tr class="text-right text-danger">
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr>
+                  <td class="text-right text-danger" colspan="4">
                     <strong>Tổng</strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td colspan="2" class="text-danger">
                     <span>{{tongTienBH |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
@@ -164,33 +162,30 @@
                   <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="footer" class="text-right text-danger">
-                <tr>
-                  <td style="background-color:#ECECEC" colspan="4">
+              <ng-template pTemplate="footer">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-danger text-right">
                     <strong>Tổng nợ </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td colspan="2" class="text-danger">
                     <span>{{tongTienNoBh |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
-                <tr>
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-danger text-right">
                     <strong>Tổng trả </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td class="text-danger" colspan="2">
                     <span>{{tongTienTraBh |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
-                <tr>
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-danger text-right">
                     <strong>Tổng tiền </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td class="text-danger" colspan="2">
                     <span>{{tongTienTraBh-tongTienNoBh |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
@@ -237,11 +232,11 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="footer">
-                <tr class="text-right text-danger">
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-right text-danger">
                     <strong>Tổng tiền </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td class="text-danger">
                     <span>{{tongTienBHs |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
                   <td></td>
@@ -287,18 +282,18 @@
             </div>
           </div>
           <div>
-            <table class="table table-striped table-hover table-bordered table-calendar" style="margin-top:30px;">
+            <table class="table table-striped table-hover table-bordered table-calendar text-center" style="margin-top:30px;">
               <thead>
                 <tr style="background:#3f86c3;">
-                  <th colspan="6" style="text-align:left; padding-left:10px;font-size:16px;color:#FFF;text-align:center">Bảng
+                  <th colspan="6" style="padding-left:10px;font-size:16px;color:#FFF">Bảng
                     Tổng Kết Vay Lãi </th>
                 </tr>
                 <tr>
-                  <th class="align-center">Đóng lãi</th>
-                  <th class="align-center">Nợ</th>
-                  <th class="align-center">Vay thêm / Trả bớt</th>
-                  <th class="align-center">Trả gốc</th>
-                  <th class="align-center">Thêm mới</th>
+                  <th>Đóng lãi</th>
+                  <th>Nợ</th>
+                  <th>Vay thêm / Trả bớt</th>
+                  <th>Trả gốc</th>
+                  <th>Thêm mới</th>
                 </tr>
               </thead>
               <tbody>
@@ -371,14 +366,13 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="footer">
-                <tr class="text-right text-danger">
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td class="text-right text-danger" colspan="4">
                     <strong>Tổng tiền </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td class="text-danger" colspan="2">
                     <span>{{tongTienVL |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
@@ -421,33 +415,30 @@
                   <td jhiTranslate="{{'servertdjhipApp.batHo.detail.' + ghiNo.trangthai}}">{{ghiNo.trangthai}}</td>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="footer" class="text-right text-danger">
-                <tr>
-                  <td style="background-color:#ECECEC" colspan="4">
+              <ng-template pTemplate="footer">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-right text-danger">
                     <strong>Tổng nợ </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td colspan="2" class="text-danger">
                     <span>{{tongTienNoVl |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
-                <tr>
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-right text-danger">
                     <strong>Tổng trả </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td colspan="2" class="text-danger">
                     <span>{{tongTienTraVl |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
-                <tr>
-                  <td style="ackground-cbolor:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-right text-danger">
                     <strong>Tổng tiền </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td colspan="2" class="text-danger">
                     <span>{{tongTienTraVl-tongTienNoVl |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
@@ -491,14 +482,13 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="footer">
-                <tr class="text-right text-danger">
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-right text-danger">
                     <strong>Tổng tiền </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td colspan="2" class="text-danger">
                     <span>{{tongTienVLThemBot |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
@@ -544,14 +534,13 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="footer">
-                <tr class="text-right text-danger">
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td colspan="4" class="text-right text-danger">
                     <strong>Tổng</strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td class="text-danger" colspan="2">
                     <span>{{tongTienTraGoc |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
@@ -595,14 +584,13 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="footer">
-                <tr class="text-right text-danger">
-                  <td style="background-color:#ECECEC" colspan="4">
+                <tr style="background-color:#ECECEC">
+                  <td class="text-right text-danger" colspan="4">
                     <strong>Tổng tiền </strong>
                   </td>
-                  <td style="background-color:#ECECEC">
+                  <td class="text-danger" colspan="2">
                     <span>{{tongTienVLs |currency : 'VND' : true : '1.0-0'}}</span>
                   </td>
-                  <td></td>
                 </tr>
               </ng-template>
             </p-table>
