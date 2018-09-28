@@ -1,0 +1,16 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180924070913",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "images",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
