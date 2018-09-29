@@ -39,4 +39,8 @@ public interface NhatKyService {
     void delete(Long id);
 
     List<NhatKyDTO> findAllByNoiDungorNhanVien(String key);
+    
+    List<NhatKyDTO> findAllByCuaHangId(Long cuaHangId);
+    
+    List<NhatKyDTO> findNhatKyTheoCuaHang(String key,Long cuaHangId);
 }
