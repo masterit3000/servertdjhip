@@ -10,6 +10,17 @@
             "created": "Một Vay Lãi mới được tạo với định danh {{ param }}",
             "updated": "Một Vay Lãi cập nhật với định danh {{ param }}",
             "deleted": "Một Vay Lãi đã xóa với định danh {{ param }}",
+            "ghiNoSuccess": "Ghi nợ thành công.",
+            "traNoSuccess": "Trả nợ thành công.",
+            "chungTuSuccess": "Thêm chứng từ thành công.",
+            "createSuccess": "Tạo mới thành công",
+            "createFail": "Tạo mới thất bại, vui lòng kiểm tra lại các nội dung bạn nhập",
+            "dongHopDongSuccess": "Đóng hợp đồng thành công.",
+            "dongLaiSuccess": "Đóng lãi thành công.",
+            "traGocSuccess": "Trả gốc thành công.",
+            "vayThemSuccess": "Vay thêm thành công.",
+            "giaHanSuccess": "Gia hạn hợp đồng thành công.",
+            "huyDongLaiSuccess": "Hủy đóng lãi thành công.",
             "delete": {
                 "question": "Bạn có chắc là muốn xóa Vay Lãi {{ id }}?"
             },

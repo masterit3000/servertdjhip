@@ -95,14 +95,13 @@ export class BatHoMoiComponent implements OnInit {
     private onSaveSuccess(result: BatHo) {
         this.eventManager.broadcast({ name: 'batHoListModification', content: 'OK'});
         this.isSaving = false;
-        // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.jhiAlertService.success('servertdjhipApp.batHo.createSuccess', null, null);
         this.previousState();
     }
 
     private onSaveError() {
         this.isSaving = false;
-        this.jhiAlertService.success('them moi that bai', null, null);
+        this.jhiAlertService.error('servertdjhipApp.batHo.createFail', null, null);
     }
     previousState() {
         window.history.back();

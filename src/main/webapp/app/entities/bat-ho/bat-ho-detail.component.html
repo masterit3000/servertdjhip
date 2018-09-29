@@ -4,6 +4,7 @@
     </h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
     <div class="row justify-content-center">
         <div class="col-md-4">
             <table class="table table-responsive h4">
@@ -91,8 +92,8 @@
             Bạn chuẩn bị đóng hợp đồng {{batHo.hopdong.mahopdong}}
         </p-header>
         Số tiền còn phải đóng: {{tienchuadong |currency : 'VND' : true : '1.0-0'}}
-        <br/> Số tiền còn nợ: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
-        <br/> Bạn có chắc chắn muốn đóng hợp đồng này?
+        <br /> Số tiền còn nợ: {{tienNo-tienTra |currency : 'VND' : true : '1.0-0'}}
+        <br /> Bạn có chắc chắn muốn đóng hợp đồng này?
         <p-footer>
             <button (click)="dongHopDong()" type="button" class="btn btn-danger">
                 <span class="fa fa-check"></span>&nbsp; Đóng hợp đồng
@@ -107,7 +108,8 @@
         <p-tabPanel header="Lịch đóng tiền">
             <div class="row">
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id" (onRowSelect)="onRowUnselect($event)">
+                    <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected"
+                        dataKey="id" (onRowSelect)="onRowUnselect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="6" class="bg-success text-center text-white">Tiền họ đã đóng</th>
@@ -153,8 +155,8 @@
                     </p-table>
                 </div>
                 <div class="col-md-6">
-                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected" dataKey="id"
-                        (onRowSelect)="onRowSelect($event)">
+                    <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" scrollHeight="200px" [(selection)]="selected"
+                        dataKey="id" (onRowSelect)="onRowSelect($event)">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="6" class="bg-secondary text-center text-white">Tiền họ chưa đóng</th>
@@ -188,7 +190,8 @@
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>
-                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'" *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="lichSuDongTien" [disabled]="lichSuDongTien.trangthai=='DADONG'"
+                                        *jhiHasAnyAuthority="'ROLE_STAFF'"></p-tableCheckbox>
                                     <p-tableCheckbox [value]="lichSuDongTien" *jhiHasAnyAuthority="'ROLE_STORE'"></p-tableCheckbox>
                                 </td>
                             </tr>
@@ -208,13 +211,15 @@
                             <tr>
                                 <td>Số tiền nợ: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="ghiNo.sotien" class="form-control" name="tienno" id="field_tienno" required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0"
+                                        [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="ghiNo.sotien"
+                                        class="form-control" name="tienno" id="field_tienno" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveNo()" [disabled]="ghiNo.sotien == 0 || ghiNo.sotien == null" class="btn btn-danger float-right">
+                                    <button (click)="saveNo()" [disabled]="ghiNo.sotien == 0 || ghiNo.sotien == null"
+                                        class="btn btn-danger float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Ghi nợ</button>
                                 </td>
@@ -229,14 +234,16 @@
                             <tr>
                                 <td>Số tiền trả: </td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra" [inputStyle]="{'width':'100%'}"
-                                        pKeyFilter="pnum" [(ngModel)]="ghiNo.sotien" class="form-control" name="tientra" id="field_tientra"
-                                        [disabled]="tienNo-tienTra == 0" required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [max]="tienNo-tienTra"
+                                        [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="ghiNo.sotien"
+                                        class="form-control" name="tientra" id="field_tientra" [disabled]="tienNo-tienTra == 0"
+                                        required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bolder-table-last">
-                                    <button (click)="saveTraNo()" [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null || ghiNo.sotien == 0" class="btn btn-success float-right">
+                                    <button (click)="saveTraNo()" [disabled]="tienNo-tienTra == 0 || ghiNo.sotien == null || ghiNo.sotien == 0"
+                                        class="btn btn-success float-right">
                                         <span class="fa fa-balance-scale"></span>
                                         Trả nợ</button>
                                 </td>
@@ -246,7 +253,7 @@
                 </div>
                 <div class="col-md-8">
                     <h3>Lịch sử nợ</h3>
-                    <hr/>
+                    <hr />
                     <br />
                     <p-table [value]="ghiNos" [paginator]="true" [rows]="10" dataKey="id">
                         <ng-template pTemplate="header">
@@ -309,40 +316,44 @@
                             <tr>
                                 <td>Bát họ mới:</td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="batHoDao.tongtien" class="form-control" name="tongtien" id="field_tongtien"
-                                        pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover"
-                                        required></p-spinner>
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0"
+                                        [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHoDao.tongtien"
+                                        class="form-control" name="tongtien" id="field_tongtien" pTooltip="Nhập  số tiền khách hàng phải đóng (Đơn vị: VNĐ)"
+                                        tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tiền đưa khách:</td>
                                 <td>
-                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0" [inputStyle]="{'width':'100%'}" pKeyFilter="pnum"
-                                        [(ngModel)]="batHoDao.tienduakhach" class="form-control" name="tienduakhach" id="field_tienduakhach"
-                                        pTooltip="Nhập số tiền khách nhận
+                                    <p-spinner [step]="1000000" thousandSeparator="." placeholder="0" [min]="0"
+                                        [inputStyle]="{'width':'100%'}" pKeyFilter="pnum" [(ngModel)]="batHoDao.tienduakhach"
+                                        class="form-control" name="tienduakhach" id="field_tienduakhach" pTooltip="Nhập số tiền khách nhận
                                         (Tiền lãi - chưa tính bát họ gốc)
-                                        (Đơn vị: VNĐ)" tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
+                                        (Đơn vị: VNĐ)"
+                                        tooltipPosition="top" tooltipEvent="hover" required></p-spinner>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Bốc trong vòng:</td>
                                 <td>
-                                    <input [(ngModel)]="batHoDao.tongsongay" [min]='0' type="number" pKeyFilter="pnum" class="form-control" name="tongsongay"
-                                        id="field_tongsongay" pInputText>
+                                    <input [(ngModel)]="batHoDao.tongsongay" [min]='0' type="number" pKeyFilter="pnum"
+                                        class="form-control" name="tongsongay" id="field_tongsongay" pInputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Số ngày đóng tiền:</td>
                                 <td>
-                                    <input [(ngModel)]="batHoDao.chuky" type="number" [min]='0' pKeyFilter="pnum" class="form-control" name="chuky" id="field_chuky"
-                                        pInputText>
+                                    <input [(ngModel)]="batHoDao.chuky" type="number" [min]='0' pKeyFilter="pnum" class="form-control"
+                                        name="chuky" id="field_chuky" pInputText>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">Số tiền đưa khách thực tế : {{batHoDao.tienduakhach |currency : 'VND' : true
-                                    : '1.0-0'}}-{{tienchuadong |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra |currency
-                                    : 'VND' : true : '1.0-0'}}={{batHoDao.tienduakhach-tienchuadong-(tienNo-tienTra) |currency
+                                <td colspan="2">Số tiền đưa khách thực tế : {{batHoDao.tienduakhach |currency : 'VND' :
+                                    true
+                                    : '1.0-0'}}-{{tienchuadong |currency : 'VND' : true : '1.0-0'}}-{{tienNo-tienTra
+                                    |currency
+                                    : 'VND' : true : '1.0-0'}}={{batHoDao.tienduakhach-tienchuadong-(tienNo-tienTra)
+                                    |currency
                                     : 'VND' : true : '1.0-0'}}</td>
                             </tr>
                             <tr>
@@ -389,23 +400,26 @@
                                         <span class="fa fa-calendar-check-o"></span>
                                         <span>Số hiệu</span>
                                     </label>
-                                    <input [(ngModel)]="taiSan.sohieu" class="form-control" name="tongsongay" id="field_sohieu" placeholder="0" [min]="0" pTooltip="Nhập số hiệu tài sản, chứng từ"
-                                        tooltipPosition="top" tooltipEvent="focus" required/>
+                                    <input [(ngModel)]="taiSan.sohieu" class="form-control" name="tongsongay" id="field_sohieu"
+                                        placeholder="0" [min]="0" pTooltip="Nhập số hiệu tài sản, chứng từ"
+                                        tooltipPosition="top" tooltipEvent="focus" required />
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" for="field_mota">
                                         <span class="fa fa-sticky-note-o"></span>
                                         <span>Mô tả</span>
                                     </label>
-                                    <textarea [(ngModel)]="taiSan.mota" [rows]="5" class="form-control" name="moTa" id="field_moTa" [cols]="30" pTooltip="Mô tả thông tin tài sản, chứng từ"
-                                        tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
+                                    <textarea [(ngModel)]="taiSan.mota" [rows]="5" class="form-control" name="moTa" id="field_moTa"
+                                        [cols]="30" pTooltip="Mô tả thông tin tài sản, chứng từ" tooltipPosition="top"
+                                        tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label class="form-control-label" for="field_noicat">
                                         <span class="fa fa-sticky-note-o"></span>
                                         <span>Nơi cất</span>
                                     </label>
-                                    <textarea [(ngModel)]="taiSan.noicat" [rows]="5" class="form-control" name="noiCat" id="field_noiCat" [cols]="30" pTooltip="Điền nơi cất chứng từ, tài sản"
+                                    <textarea [(ngModel)]="taiSan.noicat" [rows]="5" class="form-control" name="noiCat"
+                                        id="field_noiCat" [cols]="30" pTooltip="Điền nơi cất chứng từ, tài sản"
                                         tooltipPosition="top" tooltipEvent="focus" pInputTextarea autoResize="autoResize"></textarea>
                                 </div>
                             </div>
@@ -422,7 +436,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Danh sách chứng từ tài sản</h4>
-                            <hr/>
+                            <hr />
                             <p-table [value]="taiSans" [paginator]="true" [rows]="10" dataKey="id">
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -458,7 +472,7 @@
             Trả nợ
         </p-header>
         Bạn đã trả nợ thành công cho hợp đồng này
-        <br/>Số tiền ghi nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
+        <br />Số tiền trả nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
         <p-footer>
             <button type="button" (click)="dongTraNo=false" class="btn btn-success">
                 <span class="fa fa-close"></span>&nbsp; Xác nhận
@@ -470,7 +484,7 @@
             Ghi nợ
         </p-header>
         Bạn đã ghi nợ thành công cho hợp đồng này
-        <br/>Số tiền trả nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
+        <br />Số tiền ghi nợ: {{ghiNo.sotien |currency : 'VND' : true : '1.0-0'}}
         <p-footer>
             <button type="button" (click)="dongGhiNo=false" class="btn btn-success">
                 <span class="fa fa-close"></span>&nbsp; Xác nhận

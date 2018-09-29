@@ -84,7 +84,7 @@ export class ThuHoatDongComponent implements OnInit {
         // this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
         this.isSaving = false;
         // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.jhiAlertService.success('servertdjhipApp.thuChi.thuSuccess', null, null);
         this.loadAll();
     }
 

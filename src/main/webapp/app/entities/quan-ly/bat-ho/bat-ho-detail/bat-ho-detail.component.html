@@ -2,7 +2,7 @@
   <h2>
     <span>Bát họ</span> {{batHo.hopdong.mahopdong}}</h2>
   <hr>
-
+  <jhi-alert></jhi-alert>
   <div class="row justify-content-center">
     <div class="col-md-4">
       <table class="table table-responsive h4">
@@ -81,8 +81,8 @@
     <p-tabPanel header="Lịch đóng tiền">
       <div class="row">
         <div class="col-md-6">
-          <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
-            dataKey="id">
+          <p-table [value]="lichSuDongTiensChuaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px"
+            [(selection)]="selected" dataKey="id">
             <ng-template pTemplate="header">
               <tr>
                 <th colspan="5" class="bg-secondary text-white text-center">Tiền họ chưa đóng</th>
@@ -117,8 +117,8 @@
           </p-table>
         </div>
         <div class="col-md-6">
-          <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px" [(selection)]="selected"
-            dataKey="id" (onRowSelect)="onRowUnselect($event)">
+          <p-table [value]="lichSuDongTiensDaDong" [scrollable]="true" [responsive]="true" scrollHeight="200px"
+            [(selection)]="selected" dataKey="id" (onRowSelect)="onRowUnselect($event)">
             <ng-template pTemplate="header">
               <tr>
                 <th colspan="6" class="bg-success text-white text-center">Tiền họ đã đóng</th>
@@ -147,14 +147,14 @@
             </ng-template>
             <ng-template pTemplate="body" let-lichSuDongTien>
               <tr [pSelectableRow]="lichSuDongTien">
-                  <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
-                  <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
-                  <td>
-                      <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
-                  </td>
-                  <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                  <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
-                  <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
+                <td>{{lichSuDongTien.ngaybatdau | date:"dd/MM/yyyy"}}</td>
+                <td>{{lichSuDongTien.ngayketthuc | date:"dd/MM/yyyy"}}</td>
+                <td>
+                  <span jhiTranslate="{{'servertdjhipApp.lichSuDongTien.' + lichSuDongTien.trangthai}}">{{lichSuDongTien.trangthai}}</span>
+                </td>
+                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
+                <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
                 <td *jhiHasAnyAuthority="'ROLE_KETOAN'">
                   <p-tableCheckbox [value]="lichSuDongTien"></p-tableCheckbox>
 
@@ -169,7 +169,7 @@
       <div class="row justify-content-center">
         <div class="col-md-8">
           <h3>Lịch sử nợ</h3>
-          <hr/>
+          <hr />
           <br />
           <p-table [value]="ghiNos" [paginator]="true" [rows]="10" dataKey="id">
             <ng-template pTemplate="header">
@@ -224,7 +224,7 @@
           <div class="row">
             <div class="col-md-12">
               <h4>Danh sách chứng từ tài sản</h4>
-              <hr/>
+              <hr />
               <p-table [value]="taiSans" [paginator]="true" [rows]="10" dataKey="id">
                 <ng-template pTemplate="header">
                   <tr>

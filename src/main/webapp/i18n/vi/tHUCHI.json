@@ -2,6 +2,12 @@
 {
     "servertdjhipApp": {
         "thuChi" : {
+            "thuSuccess": "Thu tiền thành công",
+            "chiSuccess": "Chi tiền thành công",
+            "rutSuccess": "Rút vốn thành công",
+            "chiFail": "Chi tiền thất bại. Vui lòng kiểm tra nguồn vốn cửa hàng.",
+            "rutFail": "Rút vốn thất bại. Vui lòng kiểm tra nguồn vốn cửa hàng.",
+            "gopSuccess": "Góp vốn thành công",
             "home": {
                 "title": "Thu Chi",
                 "thuHoatDong": "Thu hoạt động",

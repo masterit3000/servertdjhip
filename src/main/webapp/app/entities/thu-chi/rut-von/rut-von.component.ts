@@ -81,7 +81,7 @@ export class RutVonComponent implements OnInit {
         });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.jhiAlertService.success('servertdjhipApp.thuChi.rutSuccess', null, null);
         this.loadAll();
     }
 

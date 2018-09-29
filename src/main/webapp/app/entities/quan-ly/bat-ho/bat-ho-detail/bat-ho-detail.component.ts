@@ -1,21 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager } from 'ng-jhipster';
-import { Message } from 'primeng/components/common/api';
-import { BatHo } from '../../../bat-ho/bat-ho.model';
-import { BatHoService } from '../../../bat-ho/bat-ho.service';
-import { LichSuDongTien, DONGTIEN } from '../../../lich-su-dong-tien/lich-su-dong-tien.model';
-import { LichSuThaoTacHopDong } from '../../../lich-su-thao-tac-hop-dong';
-import { LichSuDongTienService } from '../../../lich-su-dong-tien/lich-su-dong-tien.service';
-import { LichSuThaoTacHopDongService } from '../../../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service';
-import { TaiSanService, TaiSan } from '../../../tai-san';
-import { GhiNo, GhiNoService } from '../../../ghi-no';
-import { Observable } from '../../../../../../../../node_modules/rxjs';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from "rxjs/Subscription";
+import { JhiEventManager, JhiAlertService } from "ng-jhipster";
+import { Message } from "primeng/components/common/api";
+import { BatHo } from "../../../bat-ho/bat-ho.model";
+import { BatHoService } from "../../../bat-ho/bat-ho.service";
+import {
+    LichSuDongTien,
+    DONGTIEN
+} from "../../../lich-su-dong-tien/lich-su-dong-tien.model";
+import { LichSuThaoTacHopDong } from "../../../lich-su-thao-tac-hop-dong";
+import { LichSuDongTienService } from "../../../lich-su-dong-tien/lich-su-dong-tien.service";
+import { LichSuThaoTacHopDongService } from "../../../lich-su-thao-tac-hop-dong/lich-su-thao-tac-hop-dong.service";
+import { TaiSanService, TaiSan } from "../../../tai-san";
+import { GhiNo, GhiNoService } from "../../../ghi-no";
+import { Observable } from "../../../../../../../../node_modules/rxjs";
 @Component({
-    selector: 'bat-ho-detail-admin',
-    templateUrl: './bat-ho-detail.component.html'
+    selector: "bat-ho-detail-admin",
+    templateUrl: "./bat-ho-detail.component.html"
 })
 export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     batHo: BatHo;
@@ -38,27 +41,23 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     tienTra: number;
     isSaving: boolean;
 
-
     constructor(
         private eventManager: JhiEventManager,
         private batHoService: BatHoService,
         private taiSanService: TaiSanService,
         private ghiNoService: GhiNoService,
         private lichSuDongTienService: LichSuDongTienService,
+        private jhiAlertService: JhiAlertService,
         private lichSuThaoTacHopDongService: LichSuThaoTacHopDongService,
-        private route: ActivatedRoute,
-        
-
-        // private confirmationService: ConfirmationService
-    ) {
+        private route: ActivatedRoute
+    ) // private confirmationService: ConfirmationService
+    {
         this.lichSuThaoTacHopDong = new LichSuThaoTacHopDong();
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
-            this.load(params['id']);
-           
-
+            this.load(params["id"]);
         });
         this.registerChangeInBatHos();
     }
@@ -70,7 +69,6 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
         this.dongHD = false;
     }
 
- 
     // convertotEnum
     load(id) {
         this.batHoService
@@ -86,7 +84,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                                >
+                            >
                         ) => {
                             this.lichSuDongTiensDaDong =
                                 lichSuDongTienResponse.body;
@@ -111,7 +109,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                                >
+                            >
                         ) => {
                             this.lichSuDongTiensChuaDong =
                                 lichSuDongTienResponse.body;
@@ -127,10 +125,15 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                             }
                         }
                     );
-                this.lichSuThaoTacHopDongService.findThaoTacByHopDong(this.batHo.hopdong.id)
-                    .subscribe((batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>) => {
-                        this.lichSuThaoTacHopDongs = batHoResponse.body;
-                    });
+                this.lichSuThaoTacHopDongService
+                    .findThaoTacByHopDong(this.batHo.hopdong.id)
+                    .subscribe(
+                        (
+                            batHoResponse: HttpResponse<LichSuThaoTacHopDong[]>
+                        ) => {
+                            this.lichSuThaoTacHopDongs = batHoResponse.body;
+                        }
+                    );
                 this.ghiNoService
                     .findByHopDong(this.batHo.hopdong.id)
                     .subscribe((ghiNoResponse: HttpResponse<GhiNo[]>) => {
@@ -140,7 +143,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                         for (let i = 0; i < ghiNoResponse.body.length; i++) {
                             if (
                                 ghiNoResponse.body[i].trangthai.toString() ==
-                                'NO'
+                                "NO"
                             ) {
                                 this.tienNo =
                                     this.tienNo + ghiNoResponse.body[i].sotien;
@@ -154,8 +157,7 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
                     .findByHopDong(this.batHo.hopdong.id)
                     .subscribe((taiSanResponse: HttpResponse<TaiSan[]>) => {
                         this.taiSans = taiSanResponse.body;
-                    }
-                    );
+                    });
             });
     }
     previousState() {
@@ -163,26 +165,19 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     }
 
     onRowUnselect(event) {
-        this.msgs = [
-            {
-                severity: 'info',
-                summary: 'Hủy đóng',
-                detail: 'id: ' + event.data.id
-            }
-        ];
-
         this.lichSuDongTienService
             .setDongTien(event.data.id, DONGTIEN.CHUADONG)
             .subscribe(response => {
                 this.eventManager.broadcast({
-                    name: 'lichSuDongTienListModification',
-                    content: 'Hủy đóng Hợp Đồng'
+                    name: "lichSuDongTienListModification",
+                    content: "Hủy đóng Hợp Đồng"
                 });
                 this.subscription = this.route.params.subscribe(params => {
-                    this.load(params['id']);
+                    this.load(params["id"]);
                 });
             });
-        this.setSoTienLichSuThaoTac('Hủy đóng tiền', event.data.sotien, 0);
+        this.setSoTienLichSuThaoTac("Hủy đóng tiền", event.data.sotien, 0);
+        this.jhiAlertService.success('servertdjhipApp.batHo.huyDongHoSuccess', null, null)
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
         this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;
@@ -208,8 +203,8 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     }
     private onSaveSuccessLS(result: LichSuThaoTacHopDong) {
         this.eventManager.broadcast({
-            name: 'lichSuThaoTacHopDongListModification',
-            content: 'OK'
+            name: "lichSuThaoTacHopDongListModification",
+            content: "OK"
         });
         this.isSaving = false;
     }
@@ -218,10 +213,8 @@ export class BatHoDetailAdminComponent implements OnInit, OnDestroy {
     }
     registerChangeInBatHos() {
         this.eventSubscriber = this.eventManager.subscribe(
-            'batHoListModification',
+            "batHoListModification",
             response => this.load(this.batHo.id)
         );
     }
-
-
 }

@@ -3,6 +3,7 @@
         <span jhiTranslate="servertdjhipApp.vayLai.detail.title">Vay Lai</span> {{vayLai.hopdongvl.mahopdong}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
     <div class="row justify-content-center">
         <div class="col-md-4">
             <table class="table table-responsive h4">
@@ -146,7 +147,6 @@
                                 <td>{{vayLai.chukylai }}</td>
                                 <td>{{lichSuDongTien.sotien |currency : 'VND' : true : '1.0-0'}}</td>
                                 <td>{{lichSuDongTien.ngaygiaodich | date:"dd/MM/yyyy"}}</td>
-                               
                             </tr>
                         </ng-template>
                     </p-table>
