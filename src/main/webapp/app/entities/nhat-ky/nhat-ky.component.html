@@ -1,86 +1,71 @@
 <div>
     <div class="row modal-header">
-      <div class="col-md-12">
-        <h2>
-          <span class="fa fa-book"></span>
-          <span jhiTranslate="servertdjhipApp.nhatKy.home.title">Nhat Kies</span>
-        </h2>
-      </div>
+        <div class="col-md-12">
+            <h2>
+                <span class="fa fa-book"></span>
+                <span jhiTranslate="servertdjhipApp.nhatKy.home.title">Nhat Kies</span>
+            </h2>
+        </div>
     </div>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="row">
-      <label class=" control-label">
-       <h2>Cửa hàng</h2> 
-      </label>
-      <div class="col-md-2 form-group">
-        <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
-        <select class="form-control" name="nhanVien" [(ngModel)]="selectedCuaHang">
-          <option *ngFor="let cuaHang of cuaHangs" [ngValue]="cuaHang">{{cuaHang.ten}}</option>
-        </select>
-      </div>
-      <div class="ui-g-2">
-        <button class="btn btn-primary float-left" (click)="chonCuaHang()">
-          <span class="pi pi-search"></span>
-            Chọn cửa hàng</button>
-      </div>
-  
     <h3>
-      <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhật ký</h3>
+        <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhật ký</h3>
     <div class="ui-g-2">
-      <span class="ui-float-label">
-        <input id="float-input" name="keyTimNhatKy" [(ngModel)]="keyTimNhatKy" pInputText type="text" size="30" pTooltip="Tên nhân viên / Nội dung"
-          tooltipPosition="top" tooltipEvent="focus">
-        <label for="float-input">Thông tin tìm kiếm</label>
-      </span>
+        <pe-step label="Float label">
+            <span class="ui-float-label">
+                <input id="float-input" name="keyTimNhatKy" [(ngModel)]="keyTimNhatKy" pInputText type="text" size="30" pTooltip="Tên nhân viên / Nội dung"
+                    tooltipPosition="top" tooltipEvent="focus">
+                <label for="float-input">Thông tin tìm kiếm</label>
+            </span>
+        </pe-step>
     </div>
     <div class="ui-g-2">
-      <button class="btn btn-primary float-left" (click)="timNhatKy()">
-        <span class="pi pi-search"></span>
-        Tìm kiếm</button>
+        <button class="btn btn-primary float-left" (click)="timNhatKy()">
+            <span class="pi pi-search"></span>
+            Tìm kiếm</button>
     </div>
-  </div>
     <div class="row">
     </div>
     <br/>
     <p-table [value]="nhatKies" [paginator]="true" [rows]="10" dataKey="id">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
-            <span jhiTranslate="global.field.id">ID</span>
-          </th>
-          <th>
-            <span jhiTranslate="servertdjhipApp.nhatKy.thoiGian">Thoi Gian</span>
-          </th>
-          <th>
-            <span jhiTranslate="servertdjhipApp.nhatKy.noiDung">Noi Dung</span>
-          </th>
-          <th>
-            <span jhiTranslate="servertdjhipApp.nhatKy.cuaHang">Cua Hang</span>
-          </th>
-          <th>
-            <span jhiTranslate="servertdjhipApp.nhatKy.nhanVien">Nhan Vien</span>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-nhatKy>
-        <tr>
-          <td>
-            <a [routerLink]="['../nhat-ky', nhatKy.id ]">{{nhatKy.id}}</a>
-          </td>
-          <td>{{nhatKy.thoiGian | date:'medium'}}</td>
-          <td>{{nhatKy.noiDung}}</td>
-          <td>
-            <div *ngIf="nhatKy.cuaHangId">
-              <a [routerLink]="['../cua-hang', nhatKy.cuaHangId  ]">{{nhatKy.cuaHangTen}}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="nhatKy.nhanVienId">
-              <a [routerLink]="['../nhan-vien', nhatKy.nhanVienId  ]">{{nhatKy.nhanVienTen}}</a>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    <span jhiTranslate="global.field.id">ID</span>
+                </th>
+                <th>
+                    <span jhiTranslate="servertdjhipApp.nhatKy.thoiGian">Thoi Gian</span>
+                </th>
+                <th>
+                    <span jhiTranslate="servertdjhipApp.nhatKy.noiDung">Noi Dung</span>
+                </th>
+                <th>
+                    <span jhiTranslate="servertdjhipApp.nhatKy.cuaHang">Cua Hang</span>
+                </th>
+                <th>
+                    <span jhiTranslate="servertdjhipApp.nhatKy.nhanVien">Nhan Vien</span>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-nhatKy>
+            <tr>
+                <td>
+                    <a [routerLink]="['../nhat-ky', nhatKy.id ]">{{nhatKy.id}}</a>
+                </td>
+                <td>{{nhatKy.thoiGian | date:'medium'}}</td>
+                <td>{{nhatKy.noiDung}}</td>
+                <td>
+                    <div *ngIf="nhatKy.cuaHangId">
+                        <a [routerLink]="['../cua-hang', nhatKy.cuaHangId  ]">{{nhatKy.cuaHangTen}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="nhatKy.nhanVienId">
+                        <a [routerLink]="['../nhan-vien', nhatKy.nhanVienId  ]">{{nhatKy.nhanVienTen}}</a>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
     </p-table>
-  </div>
+</div>

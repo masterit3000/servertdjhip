@@ -15,6 +15,7 @@ import { UserRouteAccessService } from '../../shared';
 import { SoQuyTienMatComponent } from './bao-cao-ke-toan/so-quy-tien-mat/so-quy-tien-mat.component';
 import { ChiTietTienLaiComponent } from './bao-cao-ke-toan/chi-tiet-tien-lai/chi-tiet-tien-lai.component';
 import { ThongKeKeToanComponent } from './thong-ke-ke-toan/thong-ke-ke-toan.component';
+import { NhatKyKeToanComponent } from './nhat-ky-ke-toan/nhat-ky-ke-toan.component'
 
 const routes: Routes = [
   {
@@ -22,6 +23,13 @@ const routes: Routes = [
     data: {
       authorities: ['ROLE_ADMIN', 'ROLE_KETOAN'],
       pageTitle: 'servertdjhipApp.batHo.home.title'
+    },
+  },
+  {
+    path: 'nhat-ky-ke-toan', component: NhatKyKeToanComponent,
+    data: {
+      authorities: ['ROLE_KETOAN'],
+      pageTitle: 'servertdjhipApp.nhatKy.home.title'
     },
   },
   {
