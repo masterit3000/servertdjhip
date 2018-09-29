@@ -83,6 +83,19 @@ public class NhatKyServiceImpl implements NhatKyService {
         throw new InternalServerErrorException("Khong co quyen");
 
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<NhatKyDTO> findAllByCuaHangId(Long cuaHangId) {
+        log.debug("Request to get all NhatKies");
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            return nhatKyRepository.findAllByCuaHang(cuaHangId).stream().map(nhatKyMapper::toDto)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
 
     /**
      * Get one nhatKy by id.
@@ -119,9 +132,17 @@ public class NhatKyServiceImpl implements NhatKyService {
             NhanVien nv = nhanVienRepository.findOneByUser(login).get();
             return nhatKyRepository.findAllByNoiDungorNhanVien(key, nv.getCuaHang().getId()).stream()
                     .map(nhatKyMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
-        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            return nhatKyRepository.findAllByNoiDungorNhanVienAdmin(key).stream().map(nhatKyMapper::toDto)
-                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        throw new InternalServerErrorException("Khong co quyen");
+
+    }
+    @Override
+    public List<NhatKyDTO> findNhatKyTheoCuaHang(String key,Long cuaHangId) {
+        key = new StringBuffer("%").append(key).append("%").toString();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+            return nhatKyRepository.findAllByNoiDungorNhanVien(key,cuaHangId).stream()
+                    .map(nhatKyMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
         }
         throw new InternalServerErrorException("Khong co quyen");
 

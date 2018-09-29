@@ -36,10 +36,12 @@ public class NhatKyResource {
     }
 
     /**
-     * POST  /nhat-kies : Create a new nhatKy.
+     * POST /nhat-kies : Create a new nhatKy.
      *
      * @param nhatKyDTO the nhatKyDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new nhatKyDTO, or with status 400 (Bad Request) if the nhatKy has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new nhatKyDTO, or with status 400 (Bad Request) if the nhatKy has already
+     * an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/nhat-kies")
@@ -51,17 +53,18 @@ public class NhatKyResource {
         }
         NhatKyDTO result = nhatKyService.save(nhatKyDTO);
         return ResponseEntity.created(new URI("/api/nhat-kies/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /nhat-kies : Updates an existing nhatKy.
+     * PUT /nhat-kies : Updates an existing nhatKy.
      *
      * @param nhatKyDTO the nhatKyDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated nhatKyDTO,
-     * or with status 400 (Bad Request) if the nhatKyDTO is not valid,
-     * or with status 500 (Internal Server Error) if the nhatKyDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * nhatKyDTO, or with status 400 (Bad Request) if the nhatKyDTO is not
+     * valid, or with status 500 (Internal Server Error) if the nhatKyDTO
+     * couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/nhat-kies")
@@ -73,33 +76,50 @@ public class NhatKyResource {
         }
         NhatKyDTO result = nhatKyService.save(nhatKyDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, nhatKyDTO.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, nhatKyDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /nhat-kies : get all the nhatKies.
+     * GET /nhat-kies : get all the nhatKies.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of nhatKies in body
+     * @return the ResponseEntity with status 200 (OK) and the list of nhatKies
+     * in body
      */
     @GetMapping("/nhat-kies")
     @Timed
     public List<NhatKyDTO> getAllNhatKies() {
         log.debug("REST request to get all NhatKies");
         return nhatKyService.findAll();
-        }
+    }
+
+    @GetMapping("/nhat-kies-by-cua-hang/{id}")
+    @Timed
+    public List<NhatKyDTO> getAllByCuaHang(@PathVariable Long id) {
+        log.debug("REST request to get all NhatKies");
+        return nhatKyService.findAllByCuaHangId(id);
+    }
+
     @GetMapping("/find-nhat-kies/{key}")
     @Timed
     public List<NhatKyDTO> getAllNhatKiesByNoiDungorNhanVien(@PathVariable String key) {
         log.debug("REST request to get all NhatKies");
         return nhatKyService.findAllByNoiDungorNhanVien(key);
-        }
+    }
+
+    @GetMapping("/find-nhat-kies/{key}/{id}")
+    @Timed
+    public List<NhatKyDTO> getAllNhatKiesByCuaHang(@PathVariable(name = "key") String key, @PathVariable(name = "id") Long id) {
+        log.debug("REST request to get all NhatKies");
+        return nhatKyService.findNhatKyTheoCuaHang(key, id);
+    }
 
     /**
-     * GET  /nhat-kies/:id : get the "id" nhatKy.
+     * GET /nhat-kies/:id : get the "id" nhatKy.
      *
      * @param id the id of the nhatKyDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the nhatKyDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * nhatKyDTO, or with status 404 (Not Found)
      */
     @GetMapping("/nhat-kies/{id}")
     @Timed
@@ -110,7 +130,7 @@ public class NhatKyResource {
     }
 
     /**
-     * DELETE  /nhat-kies/:id : delete the "id" nhatKy.
+     * DELETE /nhat-kies/:id : delete the "id" nhatKy.
      *
      * @param id the id of the nhatKyDTO to delete
      * @return the ResponseEntity with status 200 (OK)

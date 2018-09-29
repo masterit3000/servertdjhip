@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<NhatKy>;
 export class NhatKyService {
 
     private resourceUrl = SERVER_API_URL + 'api/nhat-kies';
+    private getAllByCuaHangUrl = SERVER_API_URL + 'api/nhat-kies-by-cua-hang';
     private findNhatKyUrl = SERVER_API_URL + 'api/find-nhat-kies';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
@@ -40,9 +41,17 @@ export class NhatKyService {
         return this.http.get<NhatKy[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<NhatKy[]>) => this.convertArrayResponse(res));
     }
+    getAllByCuaHAng(id: number): Observable<HttpResponse<NhatKy[]>> {
+        return this.http.get<NhatKy[]>(`${this.getAllByCuaHangUrl}/${id}`, {  observe: 'response' })
+            .map((res: HttpResponse<NhatKy[]>) => this.convertArrayResponse(res));
+    }
 
     findNhatKy(key: any): Observable<HttpResponse<NhatKy[]>> {
         return this.http.get<NhatKy[]>(`${this.findNhatKyUrl}/${key}`, { observe: 'response' })
+            .map((res: HttpResponse<NhatKy[]>) => this.convertArrayResponse(res));
+    }
+    findNhatKyByCuaHang(key: any,id:number): Observable<HttpResponse<NhatKy[]>> {
+        return this.http.get<NhatKy[]>(`${this.findNhatKyUrl}/${key}/${id}`, { observe: 'response' })
             .map((res: HttpResponse<NhatKy[]>) => this.convertArrayResponse(res));
     }
 
