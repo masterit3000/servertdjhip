@@ -6,7 +6,7 @@
         <span>Cửa hàng</span>
       </h2>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" *jhiHasAnyAuthority="'ROLE_ADMIN'">
       <button class="btn btn-success pull-left jh-create-entity create-cua-hang" [routerLink]="['/', { outlets: { popup: ['cua-hang-new'] } }]">
         <span class="fa fa-plus"></span>
         <span>

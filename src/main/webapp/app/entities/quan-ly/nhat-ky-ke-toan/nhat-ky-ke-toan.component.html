@@ -8,41 +8,55 @@
     </div>
   </div>
   <jhi-alert></jhi-alert>
-  <br/>
+  <br />
   <div class="row">
-    <label class=" control-label">
-     <h2>Cửa hàng</h2> 
-    </label>
-    <div class="col-md-2 form-group">
-      <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
-      <select class="form-control" name="nhanVien" [(ngModel)]="selectedCuaHang">
-        <option *ngFor="let cuaHang of cuaHangs" [ngValue]="cuaHang">{{cuaHang.ten}}</option>
-      </select>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <label class="control-label">
+            <h2>Cửa hàng</h2>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
+          <select class="form-control" name="nhanVien" [(ngModel)]="selectedCuaHang">
+            <option selected="true" [ngValue]="default">--Chọn cửa hàng--</option>
+            <option *ngFor="let cuaHang of cuaHangs" [ngValue]="cuaHang">{{cuaHang.ten}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary float-left" (click)="chonCuaHang()">
+            <span class="pi pi-search"></span>
+            Tìm kiếm</button>
+        </div>
+      </div>
     </div>
-    <div class="ui-g-2">
-      <button class="btn btn-primary float-left" (click)="chonCuaHang()">
-        <span class="pi pi-search"></span>
-          Chọn cửa hàng</button>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>
+            <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhật ký</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <span class="ui-float-label">
+            <input id="float-input" name="keyTimNhatKy" [(ngModel)]="keyTimNhatKy" pInputText type="text" size="30"
+              pTooltip="Tên nhân viên / Nội dung" tooltipPosition="top" tooltipEvent="focus">
+            <label for="float-input">Thông tin tìm kiếm</label>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary float-left" (click)="timNhatKy()">
+            <span class="pi pi-search"></span>
+            Tìm kiếm</button>
+        </div>
+      </div>
     </div>
-
-  <h3>
-    <i class="pi pi-search" width="20%" aria-hidden="true"></i>Tìm nhật ký</h3>
-  <div class="ui-g-2">
-    <span class="ui-float-label">
-      <input id="float-input" name="keyTimNhatKy" [(ngModel)]="keyTimNhatKy" pInputText type="text" size="30" pTooltip="Tên nhân viên / Nội dung"
-        tooltipPosition="top" tooltipEvent="focus">
-      <label for="float-input">Thông tin tìm kiếm</label>
-    </span>
   </div>
-  <div class="ui-g-2">
-    <button class="btn btn-primary float-left" (click)="timNhatKy()">
-      <span class="pi pi-search"></span>
-      Tìm kiếm</button>
-  </div>
-</div>
-  <div class="row">
-  </div>
-  <br/>
+  <br />
   <p-table [value]="nhatKies" [paginator]="true" [rows]="10" dataKey="id">
     <ng-template pTemplate="header">
       <tr>
