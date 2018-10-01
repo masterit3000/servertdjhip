@@ -291,9 +291,7 @@ public class BatHoServiceImpl implements BatHoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            if (batHoDTO.getTienduakhach() < quanLyVon()
-                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus()
-                            .equals(StatusKhachHang.DUNGHOATDONG)) {
+            if (batHoDTO.getTienduakhach() < quanLyVon() &&hopDongRepository.findOne(id).getTrangthaihopdong()!=TRANGTHAIHOPDONG.DADONG) {
                 HopDongDTO hopdong = new HopDongDTO();
                 hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                 hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
