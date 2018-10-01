@@ -89,12 +89,13 @@ export class VayLaiMoiComponent implements OnInit {
         });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi vay lai thanh cong', null, null);
+        this.jhiAlertService.success('servertdjhipApp.vayLai.createSuccess', null, null);
         this.previousState();
     }
 
     private onSaveError() {
         this.isSaving = false;
+        this.jhiAlertService.error('servertdjhipApp.vayLai.createFail', null, null);
     }
 
     previousState() {

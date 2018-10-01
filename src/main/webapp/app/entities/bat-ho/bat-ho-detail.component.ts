@@ -119,6 +119,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 });
             });
         this.dongDongHD();
+        this.jhiAlertService.success('servertdjhipApp.batHo.dongHopDongSuccess', null, null);
     }
 
     // convertotEnum
@@ -229,14 +230,6 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         );
     }
     onRowSelect(event) {
-        this.msgs = [
-            {
-                severity: 'info',
-                summary: 'Thao tác thành công',
-                detail: 'id: ' + event.data.id
-            }
-        ];
-
         this.lichSuDongTienService
             .setDongTien(event.data.id, DONGTIEN.DADONG)
             .subscribe(response => {
@@ -249,6 +242,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 });
             });
         this.setSoTienLichSuThaoTac('Đóng tiền họ', 0, event.data.sotien);
+        this.jhiAlertService.success('servertdjhipApp.batHo.dongHoSuccess', null, null);
     }
     onRowUnselect(event) {
         this.msgs = [
@@ -271,6 +265,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
                 });
             });
         this.setSoTienLichSuThaoTac('Hủy đóng tiền', event.data.sotien, 0);
+        this.jhiAlertService.success('servertdjhipApp.batHo.huyDongHoSuccess', null, null);
     }
 
     saveNo() {
@@ -286,6 +281,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         }
         this.setSoTienLichSuThaoTac('Ghi nợ', this.ghiNo.sotien, 0);
         this.dongGhiNo = true;
+        this.jhiAlertService.success('servertdjhipApp.batHo.ghiNoSuccess', null, null);
     }
     saveTraNo() {
         this.isSaving = true;
@@ -300,6 +296,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         }
         this.setSoTienLichSuThaoTac('Trả nợ', 0, this.ghiNo.sotien);
         this.dongTraNo = true;
+        this.jhiAlertService.success('servertdjhipApp.batHo.traNoSuccess', null, null);
     }
     saveChungTu(){
         this.isSaving = true;
@@ -313,6 +310,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
             
                 this.taiSanService.create(this.taiSan));
         }
+        this.jhiAlertService.success('servertdjhipApp.batHo.chungTuSuccess', null, null);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<GhiNo>>) {
@@ -335,6 +333,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
 
     private onSaveError() {
         this.isSaving = false;
+        this.jhiAlertService.success('servertdjhipApp.batHo.createFail', null, null);
     }
     save() {
         this.isSaving = true;
@@ -363,7 +362,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         // this.activeModal.dismiss(result);
         this.router.navigate(['/bat-ho', result.id]);
-        this.jhiAlertService.success('Thêm mới thành công', null, null);
+        this.jhiAlertService.success('servertdjhipApp.batHo.createSuccess', null, null);
     }
     daoHo(mahopdong: string) {
         this.dongHopDong();
@@ -376,6 +375,7 @@ export class BatHoDetailComponent implements OnInit, OnDestroy {
         );
         this.setSoTienLichSuThaoTac('Đảo họ', 0, 0);
         this.showDaoHo = true;
+        this.jhiAlertService.success('servertdjhipApp.batHo.daoHoSuccess', null, null);
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
         this.lichSuThaoTacHopDong.hopDongId = this.batHo.hopdong.id;

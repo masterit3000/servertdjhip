@@ -182,11 +182,11 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
 
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.thuChiService.update(this.thuchi)
+                this.thuChiService.update(this.thuchi),this.thuchi.thuchi
             );
         } else {
             this.subscribeToSaveResponse(
-                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id),this.thuchi.thuchi
             );
         }
     }
@@ -214,11 +214,11 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
 
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.thuChiService.update(this.thuchi)
+                this.thuChiService.update(this.thuchi),this.thuchi.thuchi
             );
         } else {
             this.subscribeToSaveResponse(
-                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id),this.thuchi.thuchi
             );
         }
     }
@@ -246,11 +246,11 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
 
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.thuChiService.update(this.thuchi)
+                this.thuChiService.update(this.thuchi),this.thuchi.thuchi
             );
         } else {
             this.subscribeToSaveResponse(
-                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id),this.thuchi.thuchi
             );
         }
     }
@@ -278,11 +278,11 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
 
         if (this.thuchi.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.thuChiService.update(this.thuchi)
+                this.thuChiService.update(this.thuchi),this.thuchi.thuchi
             );
         } else {
             this.subscribeToSaveResponse(
-                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id)
+                this.thuChiService.createByKeToan(this.thuchi,this.cuaHang.id),this.thuchi.thuchi
             );
         }
     }
@@ -303,19 +303,36 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>) {
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ThuChi>>, kieu: THUCHI) {
         result.subscribe(
-            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body),
-            (res: HttpErrorResponse) => this.onSaveError()
+            (res: HttpResponse<ThuChi>) => this.onSaveSuccess(res.body,kieu),
+            (res: HttpErrorResponse) => this.onSaveError(kieu)
         );
     }
-    private onSaveSuccess(result: ThuChi) {
+    private onSaveSuccess(result: ThuChi,kieu: THUCHI ) {
         // this.eventManager.broadcast({ name: 'thuChiListModification', content: 'OK'});
         this.isSaving = false;
         // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        if(kieu==THUCHI.THU){
+            this.jhiAlertService.success('servertdjhipApp.thuChi.thuSuccess', null, null);
+        }
+        if(kieu==THUCHI.CHI){
+            this.jhiAlertService.success('servertdjhipApp.thuChi.chiSuccess', null, null);
+        }
+        if(kieu==THUCHI.GOPVON){
+            this.jhiAlertService.success('servertdjhipApp.thuChi.gopSuccess', null, null);
+        }
+        if(kieu==THUCHI.RUTVON){
+            this.jhiAlertService.success('servertdjhipApp.thuChi.rutSuccess', null, null);
+        }
     }
-    private onSaveError() {
+    private onSaveError(kieu: THUCHI) {
         this.isSaving = false;
+        if(kieu==THUCHI.CHI){
+            this.jhiAlertService.error('servertdjhipApp.thuChi.chiFail', null, null);
+        }
+        if(kieu==THUCHI.RUTVON){
+            this.jhiAlertService.error('servertdjhipApp.thuChi.rutFail', null, null);
+        }
     }
 }

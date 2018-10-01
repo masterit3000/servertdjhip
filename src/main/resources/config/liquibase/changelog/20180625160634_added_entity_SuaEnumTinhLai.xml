@@ -13,7 +13,7 @@
     <changeSet id="20180802200643-1" author="jhipster">
         <modifyDataType 
             columnName="cachtinhlai"
-            newDataType="ENUM('MOTTRIEU','CHUKY','PHANTRAM')"
+            newDataType="ENUM('MOTTRIEU')"
           
             tableName="vay_lai"/>
         

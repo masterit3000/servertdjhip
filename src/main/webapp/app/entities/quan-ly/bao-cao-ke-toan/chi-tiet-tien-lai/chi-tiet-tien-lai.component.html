@@ -23,6 +23,7 @@
           <div class="col-md-8 form-group">
             <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
             <select class="form-control" name="nhanVien" [(ngModel)]="selectedCuaHang">
+              <option selected [ngValue]="default">--Chọn cửa hàng--</option>
               <option *ngFor="let cuaHang of cuaHangs" [ngValue]="cuaHang">{{cuaHang.ten}}</option>
             </select>
           </div>
@@ -106,7 +107,8 @@
     </p-table>
   </div>
   <div class="table-responsive" style="padding-top: 50px">
-    <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected" dataKey="id">
+    <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="5" selectionMode="single" [(selection)]="selected"
+      dataKey="id">
       <ng-template pTemplate="header">
         <tr>
           <th colspan="6" class="bg-primary text-white text-center">Báo cáo thu lãi vay lãi </th>

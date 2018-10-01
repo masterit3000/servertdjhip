@@ -11,7 +11,7 @@ export const nhatKyRoute: Routes = [
         path: 'nhat-ky',
         component: NhatKyComponent,
         data: {
-            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF','ROLE_KETOAN'],
+            authorities: ['ROLE_USER','ROLE_STORE','ROLE_STAFF','ROLE_KETOAN', 'ROLE_ADMIN'],
             pageTitle: 'servertdjhipApp.nhatKy.home.title'
         },
         canActivate: [UserRouteAccessService]

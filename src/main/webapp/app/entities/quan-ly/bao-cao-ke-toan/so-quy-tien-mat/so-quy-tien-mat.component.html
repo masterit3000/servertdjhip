@@ -31,6 +31,7 @@
                     <div class="col-md-8 form-group">
                         <!-- <input [(ngModel)]="nhanVien.id" type="text" class="form-control" name="nhanvien" id="field_nhanvien" required/> -->
                         <select class="form-control" name="nhanVien" [(ngModel)]="selectedCuaHang">
+                            <option selected [ngValue]="default">--Chọn cửa hàng--</option>
                             <option *ngFor="let cuaHang of cuaHangs" [ngValue]="cuaHang">{{cuaHang.ten}}</option>
                         </select>
                     </div>
@@ -67,11 +68,13 @@
             <tbody>
                 <tr class="text-danger">
                     <td>
-                        <span>{{tongTienVL + tongTienTraGoc + tongTienTraVl - tongTienNoVl - tongTienVLs-tongTienVLThemBot
+                        <span>{{tongTienVL + tongTienTraGoc + tongTienTraVl - tongTienNoVl -
+                            tongTienVLs-tongTienVLThemBot
                             |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                     <td>
-                        <span>{{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs |currency : 'VND' : true : '1.0-0'}}</span>
+                        <span>{{tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs |currency : 'VND' : true :
+                            '1.0-0'}}</span>
                     </td>
                     <td>
                         <span>{{tienThu |currency : 'VND' : true : '1.0-0'}}</span>
@@ -90,8 +93,10 @@
             <tfoot>
                 <tr>
                     <td class="text-right text-danger" colspan="6">
-                        <span>Tổng tiền = {{tongTienVL + tongTienTraVl + tongTienTraGoc - tongTienNoVl - tongTienVLs-tongTienVLThemBot
-                            + tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs + tienThu - tienChi + tienGopVon -
+                        <span>Tổng tiền = {{tongTienVL + tongTienTraVl + tongTienTraGoc - tongTienNoVl -
+                            tongTienVLs-tongTienVLThemBot
+                            + tongTienBH + tongTienTraBh - tongTienNoBh - tongTienBHs + tienThu - tienChi + tienGopVon
+                            -
                             tienRutVon |currency : 'VND' : true : '1.0-0'}}</span>
                     </td>
                 </tr>
@@ -102,11 +107,12 @@
         <div class="col-md-12">
             <p-fieldset [collapsed]="true" legend="Báo cáo về bát họ" [toggleable]="true">
                 <p-fieldset [collapsed]="true" legend="Báo cáo lịch sử đóng tiền bát họ" [toggleable]="true">
-                    <p-table [value]="lichSuDongTienBHs" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="lichSuDongTienBHs" [paginator]="true" [rows]="10" [responsive]="true"
+                        selectionMode="single" [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền bát họ</th>
+                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử đóng tiền bát
+                                    họ</th>
                             </tr>
                             <tr>
                                 <th>
@@ -155,8 +161,8 @@
                     </p-table>
                 </p-fieldset>
                 <p-fieldset [collapsed]="true" legend="Báo cáo ghi nợ bát họ" [toggleable]="true">
-                    <p-table [value]="ghiNoBHs" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="ghiNoBHs" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single"
+                        [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="6" class="bg-primary text-white text-center">Báo cáo ghi nợ bát họ</th>
@@ -206,7 +212,7 @@
                                 <td colspan="4" class="text-danger text-right">
                                     <strong>Tổng trả </strong>
                                 </td>
-                                <td  class="text-danger" colspan="2">
+                                <td class="text-danger" colspan="2">
                                     <span>{{tongTienTraBh |currency : 'VND' : true : '1.0-0'}}</span>
                                 </td>
                             </tr>
@@ -214,7 +220,7 @@
                                 <td class="text-danger text-right" colspan="4">
                                     <strong>Tổng tiền </strong>
                                 </td>
-                                <td  class="text-danger" colspan="2">
+                                <td class="text-danger" colspan="2">
                                     <span>{{tongTienTraBh-tongTienNoBh |currency : 'VND' : true : '1.0-0'}}</span>
                                 </td>
                             </tr>
@@ -222,11 +228,12 @@
                     </p-table>
                 </p-fieldset>
                 <p-fieldset [collapsed]="true" legend="Báo cáo hợp đồng bát họ thêm mới" [toggleable]="true">
-                    <p-table [value]="batHos" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="batHos" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single"
+                        [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng bát họ thêm mới</th>
+                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng bát họ thêm
+                                    mới</th>
                             </tr>
                             <tr>
                                 <th>
@@ -281,11 +288,12 @@
         <div class="col-md-12">
             <p-fieldset [collapsed]="true" legend="Báo cáo về vay lãi" [toggleable]="true">
                 <p-fieldset [collapsed]="true" legend="Báo cáo lịch sử đóng lãi vay lãi" [toggleable]="true">
-                    <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="lichSuDongTienVLs" [paginator]="true" [rows]="10" [responsive]="true"
+                        selectionMode="single" [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử đóng lãi vay lãi</th>
+                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử đóng lãi vay
+                                    lãi</th>
                             </tr>
                             <tr>
                                 <th>
@@ -334,8 +342,8 @@
                     </p-table>
                 </p-fieldset>
                 <p-fieldset [collapsed]="true" legend="Báo cáo ghi nợ vay lãi" [toggleable]="true">
-                    <p-table [value]="ghiNoVLs" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="ghiNoVLs" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single"
+                        [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="6" class="bg-primary text-white text-center">Báo cáo ghi nợ vay lãi</th>
@@ -401,11 +409,12 @@
                     </p-table>
                 </p-fieldset>
                 <p-fieldset [collapsed]="true" legend="Báo cáo hợp đồng vay lãi thêm mới" [toggleable]="true">
-                    <p-table [value]="vayLais" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="vayLais" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single"
+                        [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi thêm mới</th>
+                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi thêm
+                                    mới</th>
                             </tr>
                             <tr>
                                 <th>
@@ -452,11 +461,12 @@
                     </p-table>
                 </p-fieldset>
                 <p-fieldset [collapsed]="true" legend="Báo cáo hợp đồng vay lãi vay thêm trả bớt" [toggleable]="true">
-                    <p-table [value]="vayLaiThemBot" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="vayLaiThemBot" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single"
+                        [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi vay thêm/
+                                <th colspan="6" class="bg-primary text-white text-center">Báo cáo hợp đồng vay lãi vay
+                                    thêm/
                                     trả bớt</th>
                             </tr>
                             <tr>
@@ -504,8 +514,8 @@
                     </p-table>
                 </p-fieldset>
                 <p-fieldset [collapsed]="true" legend="Báo cáo lịch sử trả gốc" [toggleable]="true">
-                    <p-table [value]="lichSuDongTienTraGoc" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                        dataKey="id">
+                    <p-table [value]="lichSuDongTienTraGoc" [paginator]="true" [rows]="10" [responsive]="true"
+                        selectionMode="single" [(selection)]="selected" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="6" class="bg-primary text-white text-center">Báo cáo lịch sử trả gốc</th>
@@ -562,8 +572,8 @@
     <div class="row">
         <div class="col-md-12">
             <p-fieldset [collapsed]="true" legend="Báo cáo thu chi" [toggleable]="true">
-                <p-table [value]="thuChis" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single" [(selection)]="selected"
-                    dataKey="id">
+                <p-table [value]="thuChis" [paginator]="true" [rows]="10" [responsive]="true" selectionMode="single"
+                    [(selection)]="selected" dataKey="id">
                     <ng-template pTemplate="header">
                         <tr>
                             <th colspan="6" class="bg-primary text-white text-center">Thu Chi</th>

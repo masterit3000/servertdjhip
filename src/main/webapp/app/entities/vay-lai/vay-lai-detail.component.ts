@@ -23,8 +23,6 @@ import { TaiSan, TaiSanService } from '../tai-san';
     templateUrl: './vay-lai-detail.component.html'
 })
 export class VayLaiDetailComponent implements OnInit, OnDestroy {
-  
- 
     vayLai: VayLai;
     vayLaiMoi: VayLai;
     lichSuDongTiensDaDong: LichSuDongTien[];
@@ -110,7 +108,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                     this.load(params['id']);
                 });
             });
-
+        this.jhiAlertService.success('servertdjhipApp.vayLai.dongHopDongSuccess', null, null);
         this.dongDongHD();
     }
     load(id) {
@@ -127,7 +125,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                                >
+                            >
                         ) => {
                             this.lichSuDongTiensDaDong =
                                 lichSuDongTienResponse.body;
@@ -152,7 +150,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                         (
                             lichSuDongTienResponse: HttpResponse<
                                 LichSuDongTien[]
-                                >
+                            >
                         ) => {
                             this.lichSuDongTiensChuaDong =
                                 lichSuDongTienResponse.body;
@@ -195,15 +193,12 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                                     this.tienTra + ghiNoResponse.body[i].sotien;
                             }
                         }
-                    }
-                );
+                    });
                 this.taiSanService
                     .findByHopDong(this.vayLai.hopdongvl.id)
                     .subscribe((taiSanResponse: HttpResponse<TaiSan[]>) => {
-                       this.taiSans = taiSanResponse.body;
-                    }
-                );
-             
+                        this.taiSans = taiSanResponse.body;
+                    });
             });
     }
     previousState() {
@@ -222,14 +217,6 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         );
     }
     onRowSelect(event) {
-        this.msgs = [
-            {
-                severity: 'info',
-                summary: 'Da dong',
-                detail: 'id: ' + event.data.id
-            }
-        ];
-
         this.lichSuDongTienService
             .setDongTien(event.data.id, DONGTIEN.DADONG)
             .subscribe(response => {
@@ -242,16 +229,9 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                 });
             });
         this.setSoTienLichSuThaoTac('đóng tiền', 0, event.data.sotien);
+        this.jhiAlertService.success('servertdjhipApp.vayLai.dongLaiSuccess', null, null);
     }
     onRowUnselect(event) {
-        this.msgs = [
-            {
-                severity: 'info',
-                summary: 'Hủy đóng',
-                detail: 'id: ' + event.data.id
-            }
-        ];
-
         this.lichSuDongTienService
             .setDongTien(event.data.id, DONGTIEN.CHUADONG)
             .subscribe(response => {
@@ -264,6 +244,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
                 });
             });
         this.setSoTienLichSuThaoTac('Hủy đóng tiền', 0, event.data.sotien);
+        this.jhiAlertService.success('servertdjhipApp.vayLai.huyDongLaiSuccess', null, null);
     }
     saveNo() {
         this.isSaving = true;
@@ -278,6 +259,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(this.ghiNoService.create(this.ghiNo));
             this.setSoTienLichSuThaoTac('ghi nợ', this.ghiNo.sotien, 0);
         }
+        this.jhiAlertService.success('servertdjhipApp.vayLai.ghiNoSuccess', null, null);
     }
     saveTraNo() {
         this.isSaving = true;
@@ -292,18 +274,20 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             this.subscribeToSaveResponse(this.ghiNoService.create(this.ghiNo));
             this.setSoTienLichSuThaoTac('trả nợ', 0, this.ghiNo.sotien);
         }
+        this.jhiAlertService.success('servertdjhipApp.vayLai.traNoSuccess', null, null);
     }
     saveChungTu() {
         this.isSaving = true;
         if (this.taiSan.id !== undefined) {
             this.taiSan.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponseTS(
-                this.taiSanService.update(this.taiSan));
+                this.taiSanService.update(this.taiSan)
+            );
         } else {
             this.taiSan.hopDongId = this.vayLai.hopdongvl.id;
             this.subscribeToSaveResponseTS(
-
-                this.taiSanService.create(this.taiSan));
+                this.taiSanService.create(this.taiSan)
+            );
         }
     }
     private subscribeToSaveResponse(result: Observable<HttpResponse<GhiNo>>) {
@@ -312,7 +296,6 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             (res: HttpErrorResponse) => this.onSaveError()
         );
     }
-   
 
     private onSaveSuccess(result: GhiNo) {
         this.eventManager.broadcast({
@@ -323,10 +306,12 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
+        this.jhiAlertService.success('servertdjhipApp.vayLai.createSuccess', null, null);
     }
 
     private onSaveError() {
         this.isSaving = false;
+        this.jhiAlertService.success('servertdjhipApp.vayLai.createFail', null, null);
     }
 
     save() {
@@ -357,6 +342,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             )
         );
         this.setSoTienLichSuThaoTac('trả bớt gốc', 0, traBotGoc);
+        this.jhiAlertService.success('servertdjhipApp.vayLai.traGocSuccess', null, null);
     }
     vayThem(vayThemGoc: string, mahopdong: string) {
         this.vayLaiMoi.cachtinhlai = this.vayLai.cachtinhlai;
@@ -374,12 +360,14 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             )
         );
         this.setSoTienLichSuThaoTac('vay thêm gốc', vayThemGoc, 0);
+        this.jhiAlertService.success('servertdjhipApp.vayLai.vayThemSuccess', null, null);
     }
     giaHan(ngayGiaHan: string) {
         this.vayLai.thoigianvay =
             this.vayLai.thoigianvay + parseInt(ngayGiaHan);
         this.subscribeToSaveResponseVL(this.vayLaiService.update(this.vayLai));
         this.setSoTienLichSuThaoTac('gia hạn vay lãi', 0, 0);
+        this.jhiAlertService.success('servertdjhipApp.vayLai.giaHanSuccess', null, null);
     }
     private setSoTienLichSuThaoTac(noidung: string, soTienGhiNo, soTienGhiCo) {
         this.lichSuThaoTacHopDong.hopDongId = this.vayLai.hopdongvl.id;
@@ -416,6 +404,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
+        this.jhiAlertService.success('servertdjhipApp.vayLai.chungTuSuccess', null, null);
     }
     private onSaveSuccessVL(result: VayLai) {
         this.eventManager.broadcast({
@@ -424,7 +413,7 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
         });
         this.isSaving = false;
         // this.activeModal.dismiss(result);
-        this.jhiAlertService.success('them moi thanh cong', null, null);
+        this.jhiAlertService.success('servertdjhipApap.vayLai.createSuccess', null, null);
         this.router.navigate(['/vay-lai', result.id]);
     }
 
@@ -444,5 +433,6 @@ export class VayLaiDetailComponent implements OnInit, OnDestroy {
             content: 'OK'
         });
         this.isSaving = false;
+        this.jhiAlertService.success('servertdjhipApp.vayLai.createSuccess', null, null);
     }
 }

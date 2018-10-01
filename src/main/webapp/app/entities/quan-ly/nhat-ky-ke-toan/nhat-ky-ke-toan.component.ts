@@ -42,9 +42,9 @@ export class NhatKyKeToanComponent implements OnInit {
         });
 
     }
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
-    }
+    // ngOnDestroy() {
+    //     this.eventManager.destroy(this.eventSubscriber);
+    // }
 
     trackId(index: number, item: NhatKy) {
         return item.id;

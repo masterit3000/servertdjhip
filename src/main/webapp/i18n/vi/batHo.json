@@ -7,9 +7,18 @@
                 "createLabel": "Thêm mới một Bát Họ",
                 "createOrEditLabel": "Thêm mới hoặc cập nhật Bát Họ"
             },
-            "created": "Một Bát Họ mới được tạo với định danh {{ param }}",
-            "updated": "Một Bát Họ cập nhật với định danh {{ param }}",
-            "deleted": "Một Bát Họ đã xóa với định danh {{ param }}",
+            "created": "Một Bát Họ mới được tạo với ID {{ param }}",
+            "updated": "Một Bát Họ cập nhật với ID {{ param }}",
+            "deleted": "Một Bát Họ đã xóa với ID {{ param }}",
+            "ghiNoSuccess": "Ghi nợ thành công.",
+            "traNoSuccess": "Trả nợ thành công.",
+            "chungTuSuccess": "Thêm chứng từ thành công.",
+            "createSuccess": "Tạo mới thành công",
+            "createFail": "Tạo mới thất bại, vui lòng kiểm tra lại các nội dung bạn nhập",
+            "daoHoSuccess": "Đảo họ thành công. Một hợp đồng mới được tạo ra thay thế hợp đồng cũ.",
+            "dongHopDongSuccess": "Đóng hợp đồng thành công.",
+            "dongHoSuccess": "Đóng họ thành công.",
+            "huyDongHoSuccess": "Hủy đóng họ thành công.",
             "delete": {
                 "question": "Bạn có chắc là muốn xóa Bát Họ {{ id }}?"
             },

@@ -10,7 +10,7 @@
     <!--
         Added the entity NhatKy.
     -->
-    <changeSet id="20180802200642-1" author="jhipster">
+    <changeSet id="20180928200642-1" author="jhipster">
         <modifyDataType 
             columnName="hinhthuclai"
             newDataType="ENUM('NGAY')"
