@@ -70,11 +70,12 @@ public class VayLaiServiceImpl implements VayLaiService {
     private final BatHoService batHoService;
     private final CuaHangService cuaHangService;
     private final LichSuDongTienService lichSuDongTienService;
+    private final LichSuDongTienRepository lichSuDongTienRepository;
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     private final NhatKyService nhatKyService;
     private final HopDongRepository hopDongRepository;
 
-    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, KhachHangRepository khachHangRepository, KhachHangService khachHangService, BatHoService batHoService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, NhatKyService nhatKyService, HopDongRepository hopDongRepository) {
+    public VayLaiServiceImpl(VayLaiRepository vayLaiRepository, VayLaiMapper vayLaiMapper, HopDongService hopDongService, NhanVienService nhanVienService, KhachHangRepository khachHangRepository, KhachHangService khachHangService, BatHoService batHoService, CuaHangService cuaHangService, LichSuDongTienService lichSuDongTienService, LichSuDongTienRepository lichSuDongTienRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, NhatKyService nhatKyService, HopDongRepository hopDongRepository) {
         this.vayLaiRepository = vayLaiRepository;
         this.vayLaiMapper = vayLaiMapper;
         this.hopDongService = hopDongService;
@@ -84,6 +85,7 @@ public class VayLaiServiceImpl implements VayLaiService {
         this.batHoService = batHoService;
         this.cuaHangService = cuaHangService;
         this.lichSuDongTienService = lichSuDongTienService;
+        this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
         this.nhatKyService = nhatKyService;
         this.hopDongRepository = hopDongRepository;
@@ -198,10 +200,9 @@ public class VayLaiServiceImpl implements VayLaiService {
                     NhanVienDTO nhanVien = nhanVienService.findByUserLogin();
 
                     hopdong.setNhanVienId(nhanVien.getId());
-                    if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-                        Long idCuaHang = cuaHangService.findIDByUserLogin();
-                        hopdong.setCuaHangId(idCuaHang);
-                    }
+                    Long idCuaHang = cuaHangService.findIDByUserLogin();
+                    hopdong.setCuaHangId(idCuaHang);
+
                     hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
 //                    hopdong.setNgaytao();
                     hopdong.setTrangthaihopdong(TRANGTHAIHOPDONG.DANGVAY);
@@ -223,6 +224,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     int chuKyDaDong = 0;
                     int soNgayDaDong = 0;
                     List<LichSuDongTienDTO> LSDT = lichSuDongTienService.findByHopDong(hopdong.getId());
+                    List<LichSuDongTien> LSDTDangVay = lichSuDongTienRepository.findByTrangThai(DONGTIEN.CHUADONG, idCuaHang, hopdong.getId());
                     for (LichSuDongTienDTO lichSuDongTienDTO : LSDT) {
                         if (lichSuDongTienDTO.getTrangthai().equals(DONGTIEN.DADONG)) {
                             chuKyDaDong++;
@@ -239,7 +241,8 @@ public class VayLaiServiceImpl implements VayLaiService {
                     }
                     // xu li du lieu nhan ve
                     int day = 0;
-                    ZonedDateTime batdau = LSDT.get(LSDT.size()-1).getNgayketthuc();
+
+                    ZonedDateTime batdau = LSDTDangVay.get(0).getNgaybatdau();
                     int soChuKy = (soNgayVay - chuKyDaDong * kyLai) / kyLai;
                     if ((soNgayVay - chuKyDaDong * kyLai) % kyLai != 0) {
                         soChuKy++;
@@ -263,7 +266,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     lichSuDongTienDTO.setHopDongId(hopdong.getId());
                     lichSuDongTienDTO.setNhanVienId(nhanVienService.findByUserLogin().getId());
                     lichSuDongTienDTO.setNgaybatdau(batdau);
-                    batdau = ngayVay.plusDays(soNgayVay);
+                    batdau = hopdong.getNgaytao().plusDays(soNgayVay);
                     lichSuDongTienDTO.setNgayketthuc(batdau);
                     lichSuDongTienDTO.setSotien(soTienTrongChuKy * 1d);
                     lichSuDongTienDTO.setTrangthai(DONGTIEN.CHUADONG);
@@ -297,8 +300,7 @@ public class VayLaiServiceImpl implements VayLaiService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay()
-                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus().equals(StatusKhachHang.DUNGHOATDONG)) {
+            if (batHoService.quanLyVon() >= vayLaiDTO.getTienvay() && hopDongRepository.findOne(id).getTrangthaihopdong() != TRANGTHAIHOPDONG.DADONG) {
                 if (vayLaiDTO.getId() == null) {// add new vay lai
                     HopDongDTO hopdongcu = hopDongService.findOne(id);
                     hopdongcu.setTrangthaihopdong(TRANGTHAIHOPDONG.DADONG);
@@ -445,7 +447,7 @@ public class VayLaiServiceImpl implements VayLaiService {
     public List<VayLaiDTO> findAllByCuaHang(Long id) {
         log.debug("Request to get all VayLais");
 //        String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             LinkedList<VayLaiDTO> collect = vayLaiRepository.findAllByCuaHang(id).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -507,14 +509,14 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    public List<VayLaiDTO> findByNameOrCMND(String key,TRANGTHAIHOPDONG trangthai
+    public List<VayLaiDTO> findByNameOrCMND(String key, TRANGTHAIHOPDONG trangthai
     ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
             Long cuaHangid = cuaHangService.findIDByUserLogin();
 
-            return vayLaiRepository.findByNameOrCMNDAdmin(key,trangthai).stream()
+            return vayLaiRepository.findByNameOrCMNDAdmin(key, trangthai).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
@@ -523,7 +525,7 @@ public class VayLaiServiceImpl implements VayLaiService {
             key = new StringBuffer("%").append(key).append("%").toString();
             Long cuaHangid = cuaHangService.findIDByUserLogin();
 
-            return vayLaiRepository.findByNameOrCMND(key, cuaHangid,trangthai).stream()
+            return vayLaiRepository.findByNameOrCMND(key, cuaHangid, trangthai).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
@@ -576,8 +578,9 @@ public class VayLaiServiceImpl implements VayLaiService {
         }
         throw new InternalServerErrorException("Khong co quyen");
     }
+
     @Override
-    public List<VayLaiDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc,Long idCuaHang) {
+    public List<VayLaiDTO> baoCaoKeToan(ZonedDateTime start, ZonedDateTime end, Integer vayThemTraGoc, Long idCuaHang) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             List<VayLai> baoCao = null;
             if (vayThemTraGoc == 0) {
@@ -621,7 +624,7 @@ public class VayLaiServiceImpl implements VayLaiService {
     @Override
     public List<VayLaiDTO> findByNhanVien(Long id
     ) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)||SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN) || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
             List<VayLai> listVayLai = vayLaiRepository.findByNhanVien(id);
             return listVayLai.stream()
                     .map(vayLaiMapper::toDto)
