@@ -61,7 +61,7 @@
                             </ng-template>
                             <!-- Code backend lấy dữ liệu body -->
                             <ng-template pTemplate="body" let-hopDong>
-                                <tr (click)="findBatHoByHopDong(hopDong.id)" class="">
+                                <tr (click)="findBatHoByHopDong(hopDong.id)" [ngClass]="hopDong.songaytracham >= 7 ? 'bg-alert' : 'bg-warning'">
                                     <td>{{hopDong.mahopdong}}</td>
                                     <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                     <td>{{hopDong.nhanVienTen}}</td>
@@ -218,7 +218,7 @@
                             </ng-template>
                             <!-- Code backend lấy dữ liệu body -->
                             <ng-template pTemplate="body" let-hopDong>
-                                <tr (click)="findVayLaiByHopDong(hopDong.id)">
+                                <tr (click)="findVayLaiByHopDong(hopDong.id)" [ngClass]="hopDong.songaytracham >= 7 ? 'bg-alert' : 'bg-warning'">
                                     <td>{{hopDong.mahopdong}}</td>
                                     <td>{{hopDong.ngaytao | date:"dd/MM/yyyy"}}</td>
                                     <td>{{hopDong.nhanVienTen}}</td>
