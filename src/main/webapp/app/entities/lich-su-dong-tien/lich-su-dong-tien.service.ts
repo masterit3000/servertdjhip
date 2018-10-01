@@ -17,8 +17,8 @@ export class LichSuDongTienService {
     private baocaoUrl = SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens';
     private baocaoNVUrl =
         SERVER_API_URL + 'api/bao-cao-lich-su-dong-tiens-nhanvien';
-    private lichSuTraChamUrl =
-        SERVER_API_URL + 'api/lich-su-dong-tiens-tracham';
+    private lichSuTraChamUrl =SERVER_API_URL + 'api/lich-su-dong-tiens-tracham';
+    private lichSuTraChamByHDUrl =SERVER_API_URL + 'api/lich-su-dong-tiens-tra-cham-by-hop-dong';
     private lichSuTraHomNayUrl =
         SERVER_API_URL + 'api/lich-su-dong-tiens-homnay';
     private dongtien = 'dongtien';
@@ -237,6 +237,21 @@ export class LichSuDongTienService {
         return this.http
             .get<LichSuDongTien[]>(
                 `${this.lichSuTraHomNayUrl}/${loaidongtien}/${loaihopdong}`,
+                { observe: 'response' }
+            )
+            .map((res: HttpResponse<LichSuDongTien[]>) =>
+                this.convertArrayResponse(res)
+            );
+    }
+
+    lichSuTraChamByHopDong(
+        loaidongtien: DONGTIEN,
+        loaihopdong: LOAIHOPDONG,
+        idhopdong: number
+    ): Observable<HttpResponse<LichSuDongTien[]>> {
+        return this.http
+            .get<LichSuDongTien[]>(
+                `${this.lichSuTraChamByHDUrl}/${loaidongtien}/${loaihopdong}/${idhopdong}`,
                 { observe: 'response' }
             )
             .map((res: HttpResponse<LichSuDongTien[]>) =>

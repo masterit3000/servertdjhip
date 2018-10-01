@@ -312,7 +312,7 @@ public class LichSuDongTienResource {
 
     @GetMapping("/bao-cao-lich-su-dong-tiens/{dongtien}/{loaihopdong}/{start}/{end}/{id}")
     @Timed
-    public List<LichSuDongTienDTO> baoCaoKeToan(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end,@PathVariable (name="id")Long id) {
+    public List<LichSuDongTienDTO> baoCaoKeToan(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong, @PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get baoCao LichSuDongTien: {}");
         LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
         DONGTIEN loaidongtien = DONGTIEN.TRAGOC;
@@ -340,7 +340,37 @@ public class LichSuDongTienResource {
                 break;
 
         }
-        return lichSuDongTienService.baoCaoKeToan(loaidongtien, loai, timeStart, timeEnd,id);
+        return lichSuDongTienService.baoCaoKeToan(loaidongtien, loai, timeStart, timeEnd, id);
+    }
+
+    @GetMapping("/lich-su-dong-tiens-tra-cham-by-hop-dong/{dongtien}/{loaihopdong}/{idhopdong}")
+    @Timed
+    public List<LichSuDongTienDTO> findLSTraChamByHopDong(@PathVariable(name = "dongtien") String dongtien, @PathVariable(name = "loaihopdong") String loaihopdong,@PathVariable (name="idhopdong")Long id) {
+        log.debug("REST request to get LichSuDongTien : {}", id);
+                LOAIHOPDONG loai = LOAIHOPDONG.VAYLAI;
+
+        switch (loaihopdong) {
+            case "0":
+                loai = LOAIHOPDONG.VAYLAI;
+                break;
+            case "1":
+                loai = LOAIHOPDONG.BATHO;
+                break;
+        }
+        DONGTIEN loaidongtien = DONGTIEN.DADONG;
+        switch (dongtien) {
+            case "0":
+                loaidongtien = DONGTIEN.CHUADONG;
+                break;
+            case "1":
+                loaidongtien = DONGTIEN.DADONG;
+                break;
+            case "2":
+                loaidongtien = DONGTIEN.TRAGOC;
+                break;
+
+        }
+        return lichSuDongTienService.findLichSuTraChamByHopDong(loaidongtien, loai, id);
     }
 
 }

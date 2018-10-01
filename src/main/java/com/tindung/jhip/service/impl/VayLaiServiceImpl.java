@@ -239,7 +239,7 @@ public class VayLaiServiceImpl implements VayLaiService {
                     }
                     // xu li du lieu nhan ve
                     int day = 0;
-                    ZonedDateTime batdau = ngayVay;
+                    ZonedDateTime batdau = LSDT.get(LSDT.size()-1).getNgayketthuc();
                     int soChuKy = (soNgayVay - chuKyDaDong * kyLai) / kyLai;
                     if ((soNgayVay - chuKyDaDong * kyLai) % kyLai != 0) {
                         soChuKy++;

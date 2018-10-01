@@ -23,13 +23,13 @@ public class HopDongDTO implements Serializable {
     @Size(max = 3000)
     private String ghichu;
     private int songaytracham;
-    private int sotientracham;
+    private double sotientracham;
 
-    public int getSotientracham() {
+    public double getSotientracham() {
         return sotientracham;
     }
 
-    public void setSotientracham(int sotientracham) {
+    public void setSotientracham(double sotientracham) {
         this.sotientracham = sotientracham;
     }
 

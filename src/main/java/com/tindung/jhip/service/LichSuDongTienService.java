@@ -60,4 +60,5 @@ public interface LichSuDongTienService {
 
     List<LichSuDongTienDTO> baoCaoKeToan(DONGTIEN dongtien, LOAIHOPDONG loaihopdong,
             ZonedDateTime start, ZonedDateTime end, Long cuaHangid);
+    List<LichSuDongTienDTO> findLichSuTraChamByHopDong(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, Long hopdongid);
 }

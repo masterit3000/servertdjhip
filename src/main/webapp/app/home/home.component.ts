@@ -79,13 +79,14 @@ export class HomeComponent implements OnInit {
         this.principal.identity().then((account) => {
             this.account = account;
         });
-        this.registerAuthenticationSuccess();
+
         this.loadLichSuTraBatHoHomNay();
         this.loadLichSuTraVayLaiHomNay();
         this.loadHopDongBH();
         this.loadHopDongVL();
         this.loadHopDongDangNoVL();
         this.loadHopDongDangNoBH();
+        this.registerAuthenticationSuccess();
 
     }
 
@@ -150,7 +151,7 @@ export class HomeComponent implements OnInit {
 
                 
                 this.hopDongBHs.forEach(hopdong => {
-                    this.lichSuDongTienService.findByHopDongVaTrangThai(DONGTIEN.CHUADONG,hopdong.id).subscribe(
+                    this.lichSuDongTienService.lichSuTraChamByHopDong(DONGTIEN.CHUADONG,LOAIHOPDONG.BATHO,hopdong.id).subscribe(
                         (res: HttpResponse<LichSuDongTien[]>) => {
                             this.lichSuDongTienBHs = res.body;
                             this.songaytracham =0;
@@ -187,7 +188,7 @@ export class HomeComponent implements OnInit {
 
                 
                 this.hopDongVLs.forEach(hopdong => {
-                    this.lichSuDongTienService.findByHopDongVaTrangThai(DONGTIEN.CHUADONG,hopdong.id).subscribe(
+                    this.lichSuDongTienService.lichSuTraChamByHopDong(DONGTIEN.CHUADONG,LOAIHOPDONG.VAYLAI,hopdong.id).subscribe(
                         (res: HttpResponse<LichSuDongTien[]>) => {
                             this.lichSuDongTienVLs = res.body;
                             this.songaytracham =0;

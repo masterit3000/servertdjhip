@@ -1,5 +1,6 @@
 package com.tindung.jhip.web.rest;
 
+
 import com.codahale.metrics.annotation.Timed;
 import com.tindung.jhip.domain.enumeration.TRANGTHAIHOPDONG;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
