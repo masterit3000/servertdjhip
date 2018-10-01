@@ -30,6 +30,7 @@ import com.tindung.jhip.service.GhiNoService;
 import com.tindung.jhip.service.HopDongService;
 import com.tindung.jhip.service.KhachHangService;
 import com.tindung.jhip.service.LichSuThaoTacHopDongService;
+import com.tindung.jhip.service.NhatKyService;
 import com.tindung.jhip.service.dto.GhiNoDTO;
 import com.tindung.jhip.service.dto.HopDongDTO;
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tindung.jhip.service.dto.LichSuThaoTacHopDongDTO;
+import com.tindung.jhip.service.dto.NhatKyDTO;
 import java.util.Set;
 
 /**
@@ -55,6 +57,7 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final NhanVienService nhanVienService;
     private final HopDongService hopDongService;
     private final KhachHangService khachHangService;
+    private final NhatKyService nhatKyService;
 
 //    @Autowired
     private final CuaHangService cuaHangService;
@@ -62,13 +65,14 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
     private final LichSuThaoTacHopDongService lichSuThaoTacHopDongService;
     private final VayLaiRepository vayLaiRepository;
 
-    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, KhachHangService khachHangService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
+    public LichSuDongTienServiceImpl(LichSuDongTienRepository lichSuDongTienRepository, LichSuDongTienMapper lichSuDongTienMapper, HopDongRepository hopDongRepository, NhanVienService nhanVienService, HopDongService hopDongService, KhachHangService khachHangService, NhatKyService nhatKyService, CuaHangService cuaHangService, LichSuThaoTacHopDongRepository lichSuThaoTacHopDongRepository, LichSuThaoTacHopDongService lichSuThaoTacHopDongService, VayLaiRepository vayLaiRepository) {
         this.lichSuDongTienRepository = lichSuDongTienRepository;
         this.lichSuDongTienMapper = lichSuDongTienMapper;
         this.hopDongRepository = hopDongRepository;
         this.nhanVienService = nhanVienService;
         this.hopDongService = hopDongService;
         this.khachHangService = khachHangService;
+        this.nhatKyService = nhatKyService;
         this.cuaHangService = cuaHangService;
         this.lichSuThaoTacHopDongRepository = lichSuThaoTacHopDongRepository;
         this.lichSuThaoTacHopDongService = lichSuThaoTacHopDongService;
@@ -136,10 +140,24 @@ public class LichSuDongTienServiceImpl implements LichSuDongTienService {
             lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
             lichSuDongTienRepository.save(lichSuDongTien);
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.KETOAN)) {
+
             LichSuDongTien lichSuDongTien = lichSuDongTienRepository.findOne(id);
             lichSuDongTien.setTrangthai(DONGTIEN.CHUADONG);
             lichSuDongTien.setNgaygiaodich(ZonedDateTime.now());
+
+            NhatKyDTO nhatKy = new NhatKyDTO();
+            if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+                nhatKy.setCuaHangId(lichSuDongTien.getHopDong().getCuaHang().getId());
+            }
+            String login = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+
+            nhatKy.setThoiGian(ZonedDateTime.now());
+            nhatKy.setNoiDung("Hủy đóng tiền bởi kế toán " + login);
+            nhatKyService.save(nhatKy);
+
             lichSuDongTienRepository.save(lichSuDongTien);
+
         }
 
     }
