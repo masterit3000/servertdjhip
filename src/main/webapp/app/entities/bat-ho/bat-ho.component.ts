@@ -78,11 +78,22 @@ export class BatHoComponent implements OnInit, OnDestroy {
     timBatHo() {
         // const query = event.query;
         // console.log(query);
-        this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo).subscribe(
-            (res: HttpResponse<BatHo[]>) => {
-                this.batHos = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if(this.loaihopdong ==1){
+            this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo,TRANGTHAIHOPDONG.DANGVAY).subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }else{
+            this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo,TRANGTHAIHOPDONG.DADONG).subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
+
     }
+    
 }

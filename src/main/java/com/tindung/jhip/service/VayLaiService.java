@@ -42,7 +42,7 @@ public interface VayLaiService {
      */
     void delete(Long id);
 
-    List<VayLaiDTO> findByNameOrCMND(String key);
+    List<VayLaiDTO> findByNameOrCMND(String key,TRANGTHAIHOPDONG trangthai);
 
     VayLaiDTO vay(VayLaiDTO vayLaiDTO, Long id, String mahopdong);
 

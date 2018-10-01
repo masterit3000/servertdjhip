@@ -150,11 +150,23 @@ public class VayLaiResource {
         return vayLaiService.findByNhanVien(id);
     }
 
-    @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}")
+    @GetMapping("/tim-vay-lais-by-ten-cmnd/{key}/{trangthai}")
     @Timed
-    public List<VayLaiDTO> timVayLaisByTenCMND(@PathVariable(name = "key") String key) {
+    public List<VayLaiDTO> timVayLaisByTenCMND(@PathVariable(name = "key") String key, @PathVariable(name = "trangthai") String trangthai) {
         log.debug("REST request to get all KhachHangs");
-        return vayLaiService.findByNameOrCMND(key);
+        TRANGTHAIHOPDONG trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+        switch (trangthai) {
+            case "0":
+                trangthaihopdong = TRANGTHAIHOPDONG.QUAHAN;
+                break;
+            case "1":
+                trangthaihopdong = TRANGTHAIHOPDONG.DANGVAY;
+                break;
+            case "2":
+                trangthaihopdong = TRANGTHAIHOPDONG.DADONG;
+                break;
+        }
+        return vayLaiService.findByNameOrCMND(key, trangthaihopdong);
     }
 
     /**
@@ -229,10 +241,10 @@ public class VayLaiResource {
 
     @GetMapping("/bao-cao-vay-lais-ke-toan/{start}/{end}/{chon}/{id}")
     @Timed
-    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "chon") Integer vayThemTraGoc,@PathVariable(name="id") Long id) {
+    public List<VayLaiDTO> baoCao(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end, @PathVariable(name = "chon") Integer vayThemTraGoc, @PathVariable(name = "id") Long id) {
         log.debug("REST request to get all BatHos");
         ZonedDateTime timeStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime timeEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy MM dd")).atStartOfDay(ZoneId.systemDefault()).plusSeconds(86399);
-        return vayLaiService.baoCaoKeToan(timeStart, timeEnd, vayThemTraGoc,id);
+        return vayLaiService.baoCaoKeToan(timeStart, timeEnd, vayThemTraGoc, id);
     }
 }

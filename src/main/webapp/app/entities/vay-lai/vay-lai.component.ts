@@ -19,8 +19,8 @@ export class VayLaiComponent implements OnInit, OnDestroy {
     text: any;
     selected: VayLai;
     none: any;
-    keyTimVayLai:string;
-    loaihopdong:any;
+    keyTimVayLai: string;
+    loaihopdong: any;
     constructor(
         private vayLaiService: VayLaiService,
         private jhiAlertService: JhiAlertService,
@@ -30,16 +30,16 @@ export class VayLaiComponent implements OnInit, OnDestroy {
         this.loaihopdong = 1;
     }
 
-   
+
     loadAll() {
-        if(this.loaihopdong == 1){
+        if (this.loaihopdong == 1) {
             this.vayLaiService.query(TRANGTHAIHOPDONG.DANGVAY).subscribe(
                 (res: HttpResponse<VayLai[]>) => {
                     this.vayLais = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        }else{
+        } else {
             this.vayLaiService.query(TRANGTHAIHOPDONG.DADONG).subscribe(
                 (res: HttpResponse<VayLai[]>) => {
                     this.vayLais = res.body;
@@ -72,13 +72,27 @@ export class VayLaiComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
     timVayLai() {
-        this.vayLaiService
-            .findVayLaiByTenOrCMND(this.keyTimVayLai)
-            .subscribe(
-                (res: HttpResponse<VayLai[]>) => {
-                    this.vayLais = res.body;
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        if (this.loaihopdong == 1) {
+            this.vayLaiService
+                .findVayLaiByTenOrCMND(this.keyTimVayLai, TRANGTHAIHOPDONG.DANGVAY)
+                .subscribe(
+                    (res: HttpResponse<VayLai[]>) => {
+                        this.vayLais = res.body;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        } else {
+            this.vayLaiService
+                .findVayLaiByTenOrCMND(this.keyTimVayLai, TRANGTHAIHOPDONG.DADONG)
+                .subscribe(
+                    (res: HttpResponse<VayLai[]>) => {
+                        this.vayLais = res.body;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+
+        }
+
     }
+    
 }

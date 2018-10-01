@@ -33,4 +33,6 @@ public interface HopDongRepository extends JpaRepository<HopDong, Long> {
 
     @Query(value = "select m from HopDong m  where exists(select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where m.id = h.id and l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3) and c.id =?4 )")
     List<HopDong> hopDongTraCham(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai, Long cuaHangid);
+    @Query(value = "select m from HopDong m  where exists(select l from LichSuDongTien l inner join l.hopDong h inner join h.cuaHang c where m.id = h.id and l.trangthai =?1 and h.loaihopdong=?2 and (l.ngayketthuc < ?3))")
+    List<HopDong> hopDongTraChamAdmin(DONGTIEN dongtien, LOAIHOPDONG loaihopdong, ZonedDateTime ngayhientai);
 }

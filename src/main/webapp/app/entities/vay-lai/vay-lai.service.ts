@@ -101,10 +101,10 @@ export class VayLaiService {
         const copy: VayLai = Object.assign({}, vayLai);
         return copy;
     }
-    findVayLaiByTenOrCMND(query: any): Observable<HttpResponse<VayLai[]>> {
+    findVayLaiByTenOrCMND(key: any,trangthai:TRANGTHAIHOPDONG): Observable<HttpResponse<VayLai[]>> {
         // const options = createRequestOption(req);
         return this.http
-            .get<VayLai[]>(`${this.resourceUrlTimVayLai}/${query}`, {
+            .get<VayLai[]>(`${this.resourceUrlTimVayLai}/${key}/${trangthai}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<VayLai[]>) =>

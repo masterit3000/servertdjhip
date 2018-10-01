@@ -73,13 +73,21 @@ export class BatHoAdminComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
     timBatHo() {
-        this.batHoService
-            .findBatHoByTenOrCMND(this.keyTimBatHo)
-            .subscribe(
+        if (this.loaihopdong == 1) {
+            this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo, TRANGTHAIHOPDONG.DANGVAY).subscribe(
                 (res: HttpResponse<BatHo[]>) => {
                     this.batHos = res.body;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        } else {
+            this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo, TRANGTHAIHOPDONG.DADONG).subscribe(
+                (res: HttpResponse<BatHo[]>) => {
+                    this.batHos = res.body;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
     }
+
 }
