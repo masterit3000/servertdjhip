@@ -74,11 +74,25 @@ export class VayLaiAdminComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
     timVayLai() {
-        this.vayLaiService.findVayLaiByTenOrCMND(this.keyTimVayLai).subscribe(
-            (res: HttpResponse<VayLai[]>) => {
-                this.vayLais = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if (this.loaihopdong == 1) {
+            this.vayLaiService
+                .findVayLaiByTenOrCMND(this.keyTimVayLai, TRANGTHAIHOPDONG.DANGVAY)
+                .subscribe(
+                    (res: HttpResponse<VayLai[]>) => {
+                        this.vayLais = res.body;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        } else {
+            this.vayLaiService
+                .findVayLaiByTenOrCMND(this.keyTimVayLai, TRANGTHAIHOPDONG.DADONG)
+                .subscribe(
+                    (res: HttpResponse<VayLai[]>) => {
+                        this.vayLais = res.body;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+
+        }
     }
 }

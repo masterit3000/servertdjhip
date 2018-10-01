@@ -50,16 +50,6 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
       
     ) {}
 
-    timBatHo() {
-        // const query = event.query;
-        // console.log(query);
-        this.batHoService.findBatHoByTenOrCMND(this.keyTimBatHo).subscribe(
-            (res: HttpResponse<BatHo[]>) => {
-                this.batHos = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
@@ -115,14 +105,6 @@ export class NhanVienDetailAdminComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe(
             'nhanVienListModification',
             response => this.load(this.nhanVien.id)
-        );
-    }
-    timVayLai() {
-        this.vayLaiService.findVayLaiByTenOrCMND(this.keyTimVayLai).subscribe(
-            (res: HttpResponse<VayLai[]>) => {
-                this.vayLais = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
     

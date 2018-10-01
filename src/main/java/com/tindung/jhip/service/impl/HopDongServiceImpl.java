@@ -140,10 +140,18 @@ public class HopDongServiceImpl implements HopDongService {
 
     public List<HopDongDTO> findHopDongTraCham(LOAIHOPDONG loaihopdong) {
         log.debug("Request to get all HopDongs");
+        List<HopDong> dsHopDongTraCham = null;
         ZonedDateTime ngayhientai = ZonedDateTime.now();
-        Long idcuahang = cuaHangService.findIDByUserLogin();
-        List<HopDong> dsHopDongTraCham = hopDongRepository.hopDongTraCham(DONGTIEN.CHUADONG, loaihopdong, ngayhientai, idcuahang);
-         return dsHopDongTraCham.stream()
+
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
+                || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
+            Long idcuahang = cuaHangService.findIDByUserLogin();
+            dsHopDongTraCham = hopDongRepository.hopDongTraCham(DONGTIEN.CHUADONG, loaihopdong, ngayhientai, idcuahang);
+
+        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            dsHopDongTraCham = hopDongRepository.hopDongTraChamAdmin(DONGTIEN.CHUADONG, loaihopdong, ngayhientai);
+        }
+        return dsHopDongTraCham.stream()
                 .map(hopDongMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
     }

@@ -291,9 +291,7 @@ public class BatHoServiceImpl implements BatHoService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
-            if (batHoDTO.getTienduakhach() < quanLyVon()
-                    && khachHangRepository.findOne(hopDongRepository.findOne(id).getKhachHang().getId()).getStatus()
-                            .equals(StatusKhachHang.DUNGHOATDONG)) {
+            if (batHoDTO.getTienduakhach() < quanLyVon() &&hopDongRepository.findOne(id).getTrangthaihopdong()!=TRANGTHAIHOPDONG.DADONG) {
                 HopDongDTO hopdong = new HopDongDTO();
                 hopdong.setLoaihopdong(LOAIHOPDONG.BATHO);
                 hopdong.setCuaHangId(cuaHangService.findIDByUserLogin());
@@ -478,31 +476,31 @@ public class BatHoServiceImpl implements BatHoService {
     }
 
     @Override
-    public List<BatHoDTO> findByNameOrCMND(String key) {
+    public List<BatHoDTO> findByNameOrCMND(String key,TRANGTHAIHOPDONG trangthai) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            return batHoRepository.findByNameOrCMNDAdmin(key).stream().map(batHoMapper::toDto)
+            return batHoRepository.findByNameOrCMNDAdmin(key,trangthai).stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
             Long idcuaHang = cuaHangService.findIDByUserLogin();
-            return batHoRepository.findByNameOrCMND(key, idcuaHang).stream().map(batHoMapper::toDto)
+            return batHoRepository.findByNameOrCMND(key, idcuaHang,trangthai).stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new BadRequestAlertException("không có quyền", null, null);
     }
 
     @Override
-    public List<BatHoDTO> findByNameOrCMNDAdmin(String key, Long id) {
+    public List<BatHoDTO> findByNameOrCMNDAdmin(String key, Long id,TRANGTHAIHOPDONG trangthai) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
                 || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STAFFADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
-            return batHoRepository.findByNameOrCMND(key, id).stream().map(batHoMapper::toDto)
+            return batHoRepository.findByNameOrCMND(key, id,trangthai).stream().map(batHoMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
         throw new BadRequestAlertException("không có quyền", null, null);

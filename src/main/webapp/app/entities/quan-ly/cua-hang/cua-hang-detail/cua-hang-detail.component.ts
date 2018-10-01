@@ -161,14 +161,6 @@ export class CuaHangDetailAdminComponent implements OnInit, OnDestroy {
         );
     }
 
-    timVayLai() {
-        this.vayLaiService.findVayLaiByTenOrCMND(this.keyTimVayLai).subscribe(
-            (res: HttpResponse<VayLai[]>) => {
-                this.vayLais = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
     filterKhachHangs(event: any) {
         const query = event.query;
         console.log(query);

@@ -49,8 +49,8 @@ public interface BatHoService {
     // List<BatHoDTO> findByNameOrCMND(String key);
 
     BatHoDTO daoHo(BatHoDTO batHoDTO, Long id,String mahopdong);
-    List<BatHoDTO> findByNameOrCMND(String key);
-    List<BatHoDTO> findByNameOrCMNDAdmin(String key,Long id) ;
+    List<BatHoDTO> findByNameOrCMND(String key,TRANGTHAIHOPDONG trangthai);
+    List<BatHoDTO> findByNameOrCMNDAdmin(String key,Long id,TRANGTHAIHOPDONG trangthai) ;
     BatHoDTO findByHopDong(Long id);
     List<BatHoDTO> findByCuaHangId(Long id); //Tùng add
     List<BatHoDTO> baoCao(ZonedDateTime start, ZonedDateTime end, Long idNhanVien);

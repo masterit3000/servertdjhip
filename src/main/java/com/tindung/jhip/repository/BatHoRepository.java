@@ -23,11 +23,11 @@ public interface BatHoRepository extends JpaRepository<BatHo, Long> {
     @Query(value = "select b from BatHo b inner join b.hopdongbh h inner join h.nhanVien n where n.id =:idnhanvien order by h.ngaytao desc")
     public List<BatHo> findAllByNhanVien(@Param(value = "idnhanvien") Long id);
 
-    @Query("select k from BatHo k inner join k.hopdongbh h inner join h.khachHang j inner join h.cuaHang c where c.id =:id and h.mahopdong like :key or  j.ten like :key or j.cmnd like :key order by h.ngaytao desc")
-    public List<BatHo> findByNameOrCMND(@Param("key") String key, @Param("id") Long cuaHangid);
+    @Query("select k from BatHo k inner join k.hopdongbh h inner join h.khachHang j inner join h.cuaHang c where c.id =:id and h.trangthaihopdong =:trangthai and (h.mahopdong like :key or  j.ten like :key or j.cmnd like :key) order by h.ngaytao desc")
+    public List<BatHo> findByNameOrCMND(@Param("key") String key, @Param("id") Long cuaHangid,@Param("trangthai") TRANGTHAIHOPDONG trangthai);
 
-    @Query("select k from BatHo k inner join k.hopdongbh h inner join h.khachHang j  where  h.mahopdong like :key or  j.ten like :key or j.cmnd like :key order by h.ngaytao desc")
-    public List<BatHo> findByNameOrCMNDAdmin(@Param("key") String key);
+    @Query("select k from BatHo k inner join k.hopdongbh h inner join h.khachHang j  where h.trangthaihopdong =:trangthai and (h.mahopdong like :key or  j.ten like :key or j.cmnd like :key) order by h.ngaytao desc")
+    public List<BatHo> findByNameOrCMNDAdmin(@Param("key") String key,@Param("trangthai") TRANGTHAIHOPDONG trangthai);
 //    public Optional<BatHo> findOneByCuaHang(Long id, Long cuaHangId);
     //Tùng viết
 

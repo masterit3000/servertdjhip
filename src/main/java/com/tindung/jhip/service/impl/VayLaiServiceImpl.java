@@ -507,14 +507,14 @@ public class VayLaiServiceImpl implements VayLaiService {
     }
 
     @Override
-    public List<VayLaiDTO> findByNameOrCMND(String key
+    public List<VayLaiDTO> findByNameOrCMND(String key,TRANGTHAIHOPDONG trangthai
     ) {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to get all KhachHangs");
             key = new StringBuffer("%").append(key).append("%").toString();
             Long cuaHangid = cuaHangService.findIDByUserLogin();
 
-            return vayLaiRepository.findByNameOrCMNDAdmin(key).stream()
+            return vayLaiRepository.findByNameOrCMNDAdmin(key,trangthai).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STOREADMIN)
@@ -523,7 +523,7 @@ public class VayLaiServiceImpl implements VayLaiService {
             key = new StringBuffer("%").append(key).append("%").toString();
             Long cuaHangid = cuaHangService.findIDByUserLogin();
 
-            return vayLaiRepository.findByNameOrCMND(key, cuaHangid).stream()
+            return vayLaiRepository.findByNameOrCMND(key, cuaHangid,trangthai).stream()
                     .map(vayLaiMapper::toDto)
                     .collect(Collectors.toCollection(LinkedList::new));
         }

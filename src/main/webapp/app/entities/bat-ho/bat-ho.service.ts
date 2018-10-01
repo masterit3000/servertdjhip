@@ -113,10 +113,10 @@ export class BatHoService {
         return copy;
     }
 
-    findBatHoByTenOrCMND(query: any): Observable<HttpResponse<BatHo[]>> {
+    findBatHoByTenOrCMND(key: any,trangthai: TRANGTHAIHOPDONG): Observable<HttpResponse<BatHo[]>> {
         // const options = createRequestOption(req);
         return this.http
-            .get<BatHo[]>(`${this.resourceUrlTimBatHo}/${query}`, {
+            .get<BatHo[]>(`${this.resourceUrlTimBatHo}/${key}/${trangthai}`, {
                 observe: 'response'
             })
             .map((res: HttpResponse<BatHo[]>) =>
